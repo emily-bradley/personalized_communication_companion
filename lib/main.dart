@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:personalized_communication_companion/services/ai_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Personalized Communication Companion'),
+      home: const MyHomePage(title: 'Tap a Food to Speak'),
     );
   }
 }
@@ -30,45 +31,95 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final FlutterTts flutterTts = FlutterTts();
+  String selectedMessage = '';
 
-  void _incrementCounter() {
+  final List<TileOption> tileOptions = [
+    TileOption(image: 'assets/images/carrot.png', message: 'I want a carrot.'),
+    TileOption(image: 'assets/images/asparagus.png', message: 'I want asparagus.'),
+    TileOption(image: 'assets/images/donut.png', message: 'I want a donut.'),
+    TileOption(image: 'assets/images/chorizo.png', message: 'I want chorizo.'),
+    TileOption(image: 'assets/images/chocolate.png', message: 'I want chocolate.'),
+    TileOption(image: 'assets/images/food.png', message: 'I want food.'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    flutterTts.setLanguage("en-US");
+    flutterTts.setPitch(1.0);
+    flutterTts.setSpeechRate(0.5);
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  void updateMessage(String message) async {
     setState(() {
-      _counter++;
+      selectedMessage = message;
     });
+    await flutterTts.speak(message);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+      body: Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: tileOptions.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              itemBuilder: (context, index) {
+                final option = tileOptions[index];
+                return GestureDetector(
+                  onTap: () => updateMessage(option.message),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Image.asset(option.image),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        option.message,
+                        style: const TextStyle(fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+          if (selectedMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                selectedMessage,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class TileOption {
+  final String image;
+  final String message;
+
+  const TileOption({required this.image, required this.message});
 }
