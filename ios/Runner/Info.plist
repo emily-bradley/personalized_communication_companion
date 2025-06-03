@@ -45,5 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+		<!-- 👇 Add this block before the closing </dict> -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app uses the microphone for voice recognition.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app uses speech recognition to understand your requests.</string>
 </dict>
 </plist>
