@@ -99,6 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startListening() async {
+    await ttsService.stop(); // Prevent audio session conflict
+    await Future.delayed(const Duration(milliseconds: 500)); // Let audio session reset
+
     final success = await sttService.startListening(
       onResult: (transcribed) {
         setState(() {
@@ -106,11 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
           _suggestedCategory = suggestIntentResponse(_lastWords);
         });
       },
-      onStatus: (status) => print("STT status: \$status"),
+      onStatus: (status) => print("STT status: $status"),
       onError: (error) {
-        print("STT error: \$error");
+        print("STT error: $error");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Speech recognition error: \$error")),
+          SnackBar(content: Text("Speech recognition error: $error")),
         );
       },
     );
@@ -179,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: [
-                        Padding(
+            Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: SizedBox(
                 width: double.infinity,

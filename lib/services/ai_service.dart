@@ -1,5 +1,6 @@
 /// AI service for intent recognition from transcribed speech
 /// Used to determine which pictogram category should be shown or highlighted
+library;
 
 String suggestIntentResponse(String prompt) {
   final lowerPrompt = prompt.toLowerCase();
