@@ -13,10 +13,10 @@ Deadline: Friday, October 23, 2026, 6pm Central. Demo-ready at a public link.
 
 ## Tue Oct 20: home
 - [x] Home page faithful to the reference at 1440, 768, 375 (hero orb square at every width, positioning strip, steps, phone figure, pillars, story teaser, family strip, early access)
-- [ ] Reviewer subagent critique of home screenshots, fixes applied
+- [x] Reviewer subagent critique of home screenshots, fixes applied
 
 ## Wed Oct 21: inner pages
-- [ ] How it works
+- [x] How it works
 - [x] Our story
 - [x] For family (FAQ with native `details`)
 
