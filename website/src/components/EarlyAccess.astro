@@ -1,0 +1,97 @@
+---
+// Early-access sign-up. Posts to PUBLIC_WAITLIST_URL when set; otherwise shows the success state and sends nothing.
+const endpoint = import.meta.env.PUBLIC_WAITLIST_URL ?? "";
+---
+
+<section id="access" aria-labelledby="access-heading" class="bg-warm-ground">
+  <div class="container-site pb-28">
+    <div
+      class="flex flex-wrap items-center gap-12 rounded-lg border border-warm-hairline bg-warm-card p-[clamp(32px,5vw,64px)]"
+    >
+      <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-4">
+        <h2 id="access-heading" class="h-section text-warm-ink">Get early access</h2>
+        <p class="t-lead text-warm-muted">
+          Selvo is coming to iPhone first. Join the list and we will email once, when it is ready for you.
+        </p>
+      </div>
+      <div class="min-w-0 flex-[1_1_360px]">
+        <form data-early-access data-endpoint={endpoint} method="post" novalidate class="flex flex-col gap-2">
+          <label for="access-email" class="t-caption text-warm-muted">Email address</label>
+          <div class="flex flex-wrap gap-3">
+            <input
+              id="access-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+              aria-describedby="access-help access-error"
+              class="h-14 min-w-0 flex-[1_1_220px] rounded-pill border border-warm-border bg-warm-card px-5 text-[17px] text-warm-ink placeholder:text-warm-muted"
+            />
+            <button
+              type="submit"
+              class="h-14 shrink-0 cursor-pointer rounded-pill border-0 bg-warm-teal px-7 text-[17px] font-semibold text-warm-on-teal"
+              >Join the list</button
+            >
+          </div>
+          <p id="access-error" data-error class="t-caption text-warm-danger" hidden></p>
+          <p id="access-help" class="t-caption text-warm-muted">One email when it is your turn. Nothing else.</p>
+        </form>
+        <div data-success role="status" class="flex items-center gap-3 text-[19px] leading-7 text-warm-ink" hidden>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-warm-teal"
+            aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg
+          >
+          <span><span class="font-semibold text-warm-teal">Saved.</span> You are on the list.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { isValidEmail } from "../lib/email";
+
+  for (const form of document.querySelectorAll<HTMLFormElement>("form[data-early-access]")) {
+    const input = form.querySelector<HTMLInputElement>("input[name=email]");
+    const error = form.querySelector<HTMLElement>("[data-error]");
+    const success = form.parentElement?.querySelector<HTMLElement>("[data-success]");
+    if (!input || !error || !success) continue;
+
+    const showError = (message: string) => {
+      error.textContent = message;
+      error.hidden = false;
+      input.setAttribute("aria-invalid", "true");
+      input.focus();
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+      if (!isValidEmail(email)) {
+        showError("Error: enter an email address like you@example.com.");
+        return;
+      }
+      const endpoint = form.dataset.endpoint;
+      if (endpoint) {
+        try {
+          const response = await fetch(endpoint, { method: "POST", body: new FormData(form) });
+          if (!response.ok) throw new Error(String(response.status));
+        } catch {
+          showError("Error: that did not go through. Try again in a moment.");
+          return;
+        }
+      }
+      form.hidden = true;
+      success.hidden = false;
+    });
+  }
+</script>

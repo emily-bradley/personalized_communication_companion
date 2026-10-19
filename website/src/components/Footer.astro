@@ -1,0 +1,20 @@
+---
+import { FOOTER_LINKS } from "../lib/site";
+import Wordmark from "./Wordmark.astro";
+---
+
+<footer class="on-footer border-t border-footer-hairline bg-footer-ground">
+  <div class="container-site flex flex-wrap items-center justify-between gap-6 py-10">
+    <Wordmark tone="footer" href="/" class="text-2xl" />
+    <nav aria-label="Footer" class="flex flex-wrap gap-x-6 gap-y-1 text-sm leading-5">
+      {
+        FOOTER_LINKS.map(({ href, label }) => (
+          <a href={href} class="inline-flex min-h-11 items-center py-3 text-footer-muted no-underline hover:text-footer-ink">
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+    <p class="t-caption text-footer-muted">Selvo is a communication companion, not a medical device.</p>
+  </div>
+</footer>

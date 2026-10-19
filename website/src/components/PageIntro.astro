@@ -1,0 +1,16 @@
+---
+// The warm opening band for inner pages: an optional eyebrow, the page h1, and a lead paragraph.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<section class="container-site flex flex-col gap-6 pb-24 pt-16">
+  {eyebrow && <p class="t-caption font-semibold text-warm-teal">{eyebrow}</p>}
+  <h1 class="h-display max-w-[860px] text-warm-ink">{title}</h1>
+  {lead && <p class="m-0 max-w-[720px] text-[clamp(19px,2vw,22px)] leading-[1.55] text-warm-muted">{lead}</p>}
+  <slot />
+</section>

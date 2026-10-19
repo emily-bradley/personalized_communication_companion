@@ -1,0 +1,13 @@
+---
+// The three rounded sound bars from the Selvo mark: short, tall, short.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 54 104" class={className} aria-hidden="true" focusable="false">
+  <rect x="4" y="30" width="10" height="44" rx="5" fill="currentColor"></rect>
+  <rect x="22" y="6" width="10" height="92" rx="5" fill="currentColor"></rect>
+  <rect x="40" y="38" width="10" height="28" rx="5" fill="currentColor"></rect>
+</svg>

@@ -1,0 +1,14 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found" description="This page is not here. Start again from the Selvo home page.">
+  <PageIntro slot="hero" title="This page is not here" lead="The link may be old, or the address may have a typo.">
+    <a
+      href="/"
+      class="inline-flex h-14 items-center self-start rounded-pill bg-warm-teal px-7 text-[17px] font-semibold text-warm-on-teal no-underline"
+      >Go to the home page</a
+    >
+  </PageIntro>
+</BaseLayout>

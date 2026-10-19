@@ -1,0 +1,204 @@
+---
+import CheckIcon from "../components/CheckIcon.astro";
+import EarlyAccess from "../components/EarlyAccess.astro";
+import Orb from "../components/Orb.astro";
+import PhoneFigure from "../components/PhoneFigure.astro";
+import Wordmark from "../components/Wordmark.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    title: "Pick a picture",
+    body: "Your own photos first: people, places, food, the things you talk about. Tiles stay where you put them.",
+  },
+  {
+    title: "Choose your words",
+    body: "Selvo offers three ways to say it, in your style. Another brings three more. Incorrect teaches it.",
+  },
+  { title: "Speak", body: "Out loud in a voice you chose, or turned to the listener in large type with Show." },
+];
+
+const promises = [
+  "You choose every message that leaves the phone.",
+  "Saved phrases and tiles work offline.",
+  "Text size, contrast, theme, and speech rate live inside Selvo.",
+];
+
+const pillars = [
+  { title: "Identity", body: "Personality comes through. Humor, opinion, warmth, and edge are features, not noise." },
+  { title: "Autonomy", body: "Suggestions are offered, never spoken on your behalf. You choose every message." },
+  { title: "Dignity", body: "Real photos, plain words, calm screens. Made for the person holding the phone." },
+  { title: "Expression", body: "Needs, yes, and also jokes, stories, disagreements, and affection." },
+  { title: "Connection", body: "Success is a better conversation, not a correct classification." },
+  {
+    title: "Accessibility",
+    body: "Works across speech, literacy, cognitive, and motor ability, and keeps working when the network does not.",
+  },
+];
+---
+
+<BaseLayout
+  title="Selvo"
+  description="A modern communication app for non-verbal adults. Selvo learns how you like to say things, so conversations with the world around you flow more easily."
+  tone="night"
+>
+  <section slot="hero" class="container-site flex flex-wrap items-center gap-12 pb-28 pt-16">
+    <div class="fade-in flex min-w-0 flex-[1_1_480px] flex-col gap-7">
+      <Wordmark tone="night" class="text-[clamp(64px,9vw,96px)]" />
+      <h1 class="h-display text-night-ink">Your voice. Your way.</h1>
+      <p class="m-0 max-w-[560px] text-[clamp(19px,2vw,22px)] leading-[1.55] text-night-ink opacity-[0.92]">
+        A modern communication app for non-verbal adults. Selvo learns how you like to say things, so conversations with
+        the world around you flow more easily.
+      </p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+        <a
+          href="#access"
+          class="inline-flex h-14 items-center rounded-pill bg-night-ink px-7 text-[17px] font-semibold text-night-surface no-underline"
+          >Get early access</a
+        >
+        <a
+          href="/how-it-works"
+          class="inline-flex min-h-11 items-center text-[17px] font-semibold text-night-teal no-underline hover:underline"
+          >See how it works</a
+        >
+      </div>
+    </div>
+    <div class="flex min-w-0 flex-[1_1_320px] items-center justify-center py-12">
+      <Orb />
+    </div>
+  </section>
+
+  <section class="bg-warm-ground">
+    <div class="container-site flex flex-wrap items-center gap-8 py-24">
+      <p class="m-0 min-w-0 flex-[1_1_520px] text-[clamp(26px,3.2vw,34px)] leading-[1.35] text-warm-ink">
+        Where traditional AAC helps someone say what they need, <span class="text-warm-teal"
+          >Selvo helps them say what they mean.</span
+        >
+      </p>
+      <p class="t-body min-w-0 flex-[0_1_340px] text-warm-muted">
+        Pictures, context, and a few taps become words that sound like you. Selvo suggests. You choose. Nothing is spoken
+        on your behalf.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground" aria-labelledby="how-heading">
+    <div class="container-site flex flex-col gap-12 pb-28">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="flex flex-col gap-3">
+          <h2 id="how-heading" class="h-section text-warm-ink">How Selvo works</h2>
+          <p class="t-lead text-warm-muted">Two taps from anywhere to a spoken message.</p>
+        </div>
+        <a
+          href="/how-it-works"
+          class="inline-flex min-h-11 items-center text-[17px] font-semibold text-warm-teal no-underline hover:underline"
+          >More on how it works</a
+        >
+      </div>
+      <ol class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-6 p-0">
+        {
+          steps.map((step, index) => (
+            <li class="flex flex-col gap-5 rounded-md border border-warm-hairline bg-warm-card p-8">
+              <div
+                aria-hidden="true"
+                class="flex size-12 items-center justify-center rounded-pill bg-warm-tint text-xl font-semibold text-warm-teal"
+              >
+                {index + 1}
+              </div>
+              <h3 class="h-card text-warm-ink">{step.title}</h3>
+              <p class="t-body text-warm-muted">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-y border-warm-hairline bg-warm-band" aria-labelledby="words-heading">
+    <div class="container-site flex flex-wrap items-center gap-16 py-28">
+      <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-6">
+        <h2 id="words-heading" class="h-section text-warm-ink">Words that sound like you</h2>
+        <p class="t-lead text-warm-muted">
+          A person is not a list of needs. Selvo learns how you make the joke, disagree with the plan, and ask how
+          someone's day went, then offers it back fast enough to keep up with a conversation.
+        </p>
+        <ul class="t-body m-0 flex list-none flex-col gap-3.5 p-0 text-warm-ink">
+          {
+            promises.map((line) => (
+              <li class="flex items-start gap-3">
+                <CheckIcon class="text-warm-teal" />
+                <span>{line}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="flex min-w-0 flex-[0_1_400px] justify-center">
+        <PhoneFigure />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground" aria-labelledby="adults-heading">
+    <div class="container-site flex flex-col gap-12 py-28">
+      <div class="flex flex-col gap-3">
+        <h2 id="adults-heading" class="h-section text-warm-ink">Built for adults</h2>
+        <p class="t-lead text-warm-muted">Nothing borrowed from a classroom or a clinic.</p>
+      </div>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-x-8 gap-y-10">
+        {
+          pillars.map((pillar) => (
+            <div class="flex flex-col gap-2.5 border-t-2 border-warm-teal pt-5">
+              <h3 class="h-card text-warm-ink">{pillar.title}</h3>
+              <p class="t-body text-warm-muted">{pillar.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground" aria-labelledby="story-heading">
+    <div class="container-site flex flex-wrap items-center gap-16 pb-28">
+      <div
+        class="t-body box-border flex aspect-[4/3] min-w-0 flex-[1_1_400px] items-center justify-center rounded-lg bg-warm-band p-6 text-center text-warm-muted"
+      >
+        [PHOTO: Lucas, mid-conversation, holding a phone the way anyone does]
+      </div>
+      <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-6">
+        <p class="t-caption font-semibold text-warm-teal">Our story</p>
+        <h2 id="story-heading" class="h-section text-warm-ink">It started with Lucas</h2>
+        <p class="t-lead text-warm-muted">
+          When Lucas was 21, a brain aneurysm took his speech, his reading, and his writing. It did not take him. He is
+          still the funniest person at the table, still particular about food, still the brother who teases you until you
+          laugh. What changed is the distance between what he means and what the world can hear.
+        </p>
+        <a
+          href="/story"
+          class="inline-flex min-h-11 items-center self-start text-[17px] font-semibold text-warm-teal no-underline hover:underline"
+          >Read our story</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground" aria-labelledby="family-heading">
+    <div class="container-site pb-28">
+      <div class="flex flex-wrap items-center justify-between gap-6 border-t border-warm-hairline pt-12">
+        <div class="flex min-w-0 flex-[1_1_520px] flex-col gap-2">
+          <h2 id="family-heading" class="h-card text-warm-ink">Helping someone get started?</h2>
+          <p class="t-body text-warm-muted">
+            Setup takes an afternoon, together. After that, the phone belongs to the person using it.
+          </p>
+        </div>
+        <a
+          href="/family"
+          class="inline-flex h-14 items-center rounded-pill border border-warm-border px-7 text-[17px] font-semibold text-warm-ink no-underline hover:bg-warm-band"
+          >For family and supporters</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <EarlyAccess />
+</BaseLayout>

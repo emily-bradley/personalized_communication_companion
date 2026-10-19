@@ -1,0 +1,49 @@
+---
+import { isCurrent, NAV_LINKS } from "../lib/site";
+import Wordmark from "./Wordmark.astro";
+
+interface Props {
+  tone: "night" | "warm";
+}
+const { tone } = Astro.props;
+const night = tone === "night";
+const pathname = Astro.url.pathname;
+---
+
+<header class:list={["relative z-[2]", night ? "on-night" : ""]}>
+  <div class="container-site flex min-h-[88px] flex-wrap items-center justify-between gap-4">
+    <Wordmark tone={tone} href="/" class="text-[32px]" />
+    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-7 gap-y-2 text-base font-semibold">
+      {
+        NAV_LINKS.map(({ href, label }) => {
+          const current = isCurrent(href, pathname);
+          return (
+            <a
+              href={href}
+              aria-current={current ? "page" : undefined}
+              class:list={[
+                "inline-flex min-h-11 items-center py-3 no-underline decoration-2 underline-offset-8",
+                night
+                  ? current
+                    ? "text-night-ink underline decoration-night-teal"
+                    : "text-night-ink-muted hover:text-night-ink"
+                  : current
+                    ? "text-warm-ink underline decoration-warm-teal"
+                    : "text-warm-muted hover:text-warm-ink",
+              ]}
+            >
+              {label}
+            </a>
+          );
+        })
+      }
+      <a
+        href="#access"
+        class:list={[
+          "inline-flex h-11 items-center rounded-pill px-6 text-base font-semibold no-underline",
+          night ? "bg-night-ink text-night-surface" : "bg-warm-teal text-warm-on-teal",
+        ]}>Get early access</a
+      >
+    </nav>
+  </div>
+</header>

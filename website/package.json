@@ -1,0 +1,36 @@
+{
+  "name": "selvo-website",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "tokens": "node scripts/gen-tokens.mjs",
+    "dev": "pnpm tokens && astro dev",
+    "build": "pnpm tokens && astro build",
+    "preview": "astro preview",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "pnpm tokens && astro check",
+    "test": "vitest run",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/lexend": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "@axe-core/playwright": "^4.14.0",
+    "@biomejs/biome": "^2.5.15",
+    "@playwright/test": "1.56.0",
+    "typescript": "5.9.3",
+    "vitest": "^5.0.5"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12"
+  }
+}

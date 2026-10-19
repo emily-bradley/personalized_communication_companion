@@ -1,0 +1,62 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import tokens from "../design/tokens.json";
+import { SITE_NAME } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  /** night: midnight hero with the indigo wash (home only). warm: the warm band (every other page). */
+  tone?: "night" | "warm";
+}
+const { title, description, tone = "warm" } = Astro.props;
+const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const night = tone === "night";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content={night ? tokens.color["night-surface"] : tokens.color["warm-band"]} />
+  </head>
+  <body class="relative">
+    <a
+      href="#main"
+      class="sr-only z-10 rounded-pill bg-warm-teal px-5 py-3 font-semibold text-warm-on-teal focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
+      >Skip to content</a
+    >
+    <div class:list={["relative overflow-x-clip", night ? "bg-night-surface" : "bg-warm-band"]}>
+      {
+        night && (
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute left-[-220px] top-[-260px] z-[1] h-[640px] w-[820px] rounded-pill bg-night-indigo opacity-90 blur-[140px]"
+          />
+        )
+      }
+      <Header tone={tone} />
+    </div>
+    <main id="main" tabindex="-1">
+      <div class:list={["relative", night ? "on-night bg-night-surface" : "bg-warm-band"]}>
+        <div class="relative z-[2]">
+          <slot name="hero" />
+        </div>
+      </div>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

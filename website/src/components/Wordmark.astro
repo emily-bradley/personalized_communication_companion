@@ -1,0 +1,28 @@
+---
+import SoundBars from "./SoundBars.astro";
+
+// "Se" + sound bars + "vo". tone picks the ink: night (hero), warm (inner pages), footer.
+interface Props {
+  tone: "night" | "warm" | "footer";
+  /** Link home when set; otherwise render as an image of the name. */
+  href?: string;
+  class?: string;
+}
+const { tone, href, class: className } = Astro.props;
+const ink = { night: "text-night-ink", warm: "text-warm-ink", footer: "text-footer-ink" }[tone];
+const vo = tone === "warm" ? "text-warm-teal" : "text-night-teal";
+const Tag = href ? "a" : "div";
+const a11y = href ? { href } : { role: "img" as const, "aria-label": "Selvo" };
+---
+
+<Tag
+  {...a11y}
+  class:list={[
+    "inline-flex items-center gap-[0.06em] font-semibold leading-none tracking-[-0.02em] no-underline",
+    ink,
+    className,
+  ]}
+>
+  {href && <span class="sr-only">Selvo home</span>}
+  <span aria-hidden="true">Se</span><SoundBars class="h-[0.96em] w-[0.5em]" /><span aria-hidden="true" class={vo}>vo</span>
+</Tag>

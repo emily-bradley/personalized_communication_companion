@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "@fontsource/lexend/latin-400.css";
+@import "@fontsource/lexend/latin-600.css";
+
+@layer base {
+  :root {
+    --focus: var(--color-warm-teal);
+  }
+
+  html {
+    background: var(--color-warm-ground);
+    color: var(--color-warm-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .on-night,
+  .on-footer {
+    --focus: var(--color-night-teal);
+  }
+
+  :where(a, button, input, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+      animation: fade-in 400ms ease-out both;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer components {
+  .container-site {
+    max-width: 1248px;
+    width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding-inline: 24px;
+  }
+
+  .h-display {
+    margin: 0;
+    font-size: clamp(36px, 5vw, 48px);
+    line-height: 1.125;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .h-section {
+    margin: 0;
+    font-size: clamp(32px, 4vw, 40px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .h-card {
+    margin: 0;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .t-lead {
+    margin: 0;
+    font-size: 19px;
+    line-height: 30px;
+  }
+
+  .t-body {
+    margin: 0;
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  .t-caption {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

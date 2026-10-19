@@ -1,0 +1,14 @@
+---
+import SoundBars from "./SoundBars.astro";
+
+// The glowing teal orb with the sound bars. The one glowing object on the page. Always square.
+---
+
+<div class="relative flex aspect-square w-[min(360px,72vw)] items-center justify-center">
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 rounded-pill shadow-orb [background:radial-gradient(circle_at_36%_32%,var(--color-orb-glow)_0%,var(--color-orb)_48%,var(--color-orb-deep)_100%)]"
+  >
+  </div>
+  <SoundBars class="relative h-[60%] w-[31%] text-white" />
+</div>

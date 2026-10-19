@@ -1,0 +1,47 @@
+---
+import CheckIcon from "./CheckIcon.astro";
+
+// The Selvo suggestion screen, drawn in Nightlight because it shows the app.
+---
+
+<figure
+  aria-label="The Selvo suggestion screen"
+  class="m-0 box-border flex w-[390px] max-w-full flex-col gap-4 rounded-xl border border-night-hairline bg-night-surface px-4 pb-4 pt-5 shadow-phone"
+>
+  <div class="flex items-center justify-between gap-3 px-1 text-[17px] font-semibold text-night-teal">
+    <span>Back</span>
+    <span class="text-sm font-normal leading-5 text-night-ink-muted">Suggested for Lucas · witty</span>
+  </div>
+  <div class="rounded-lg bg-night-raised p-5 text-[30px] leading-10 text-night-ink">Are we eating soon?</div>
+  <div class="flex flex-col gap-3">
+    <div
+      class="flex items-center justify-between gap-3 rounded-md bg-night-tint p-4 outline-3 outline-offset-2 outline-night-teal outline-solid"
+    >
+      <span class="t-body text-night-ink">I'm getting hungry. Could we find something good to eat?</span>
+      <CheckIcon class="text-night-primary" />
+    </div>
+    <div class="t-body rounded-md border border-night-hairline bg-night-raised p-4 text-night-ink">
+      Is it lunch yet, or do I have to ask twice?
+    </div>
+    <div class="t-body rounded-md border border-night-hairline bg-night-raised p-4 text-night-ink">
+      Let's eat. Somewhere good this time.
+    </div>
+  </div>
+  <div class="flex gap-3">
+    <div
+      class="flex h-11 flex-1 items-center justify-center rounded-pill border border-night-border-strong text-[17px] font-semibold text-night-ink"
+    >
+      Another
+    </div>
+    <div
+      class="flex h-11 flex-1 items-center justify-center rounded-pill border border-night-border-strong text-[17px] font-semibold text-night-ink"
+    >
+      Incorrect
+    </div>
+  </div>
+  <div
+    class="flex h-16 items-center justify-center rounded-pill bg-night-primary text-[17px] font-semibold text-night-surface"
+  >
+    Speak
+  </div>
+</figure>
