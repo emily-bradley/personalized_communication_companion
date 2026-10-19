@@ -13,7 +13,6 @@ struct SpeechRateControl: View {
     static let stepNames = ["Slowest", "Slow", "Medium", "Fast", "Fastest"]
     private static let thumbSide: Double = 28
     private static let trackHeight: Double = 6
-    private static let tickSide: Double = 4
 
     private var lastStep: Int { Self.stepNames.count - 1 }
 
@@ -36,12 +35,6 @@ struct SpeechRateControl: View {
                     .fill(theme.colors.primary)
                     .frame(width: usable * fraction, height: Self.trackHeight)
                     .offset(x: Self.thumbSide / 2)
-                ForEach(0...lastStep, id: \.self) { index in
-                    Circle()
-                        .fill(theme.colors.inkMuted)
-                        .frame(width: Self.tickSide, height: Self.tickSide)
-                        .offset(x: Self.thumbSide / 2 + usable * Double(index) / Double(lastStep) - Self.tickSide / 2)
-                }
                 Circle()
                     .fill(theme.colors.teal)
                     .overlay(Circle().strokeBorder(theme.colors.surface, lineWidth: 3))

@@ -49,7 +49,7 @@ struct ListenView: View {
                 HelpButton { model.open(.help) }
             }
 
-            ScrollsWhenNeeded(inset: Spacing.space1) {
+            ScrollsWhenNeeded(inset: Spacing.space1, alignment: .center) {
                 middle
             }
             .frame(maxHeight: .infinity)
@@ -73,7 +73,11 @@ struct ListenView: View {
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity)
-                    QuietButton(title: "Show replies", fillsWidth: true) { showReplies() }
+                    QuietButton(
+                        title: "Show replies",
+                        fillsWidth: true,
+                        height: ComponentMetrics.largeQuietButtonHeight
+                    ) { showReplies() }
                         .accessibilityHint("Shows three replies you can choose")
                         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 }

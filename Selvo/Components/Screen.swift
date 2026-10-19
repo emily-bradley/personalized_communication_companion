@@ -37,17 +37,27 @@ struct ScrollsWhenNeeded<Content: View>: View {
     @Environment(\.isSnapshotRender) private var isSnapshotRender
     /// Inner padding for the scrolling copy, so focus rings stay inside the scroll clip.
     var inset: Double = 0
+    /// Where the content sits when it fits. The scrolling copy always starts at the top.
+    var alignment: Alignment = .top
     @ViewBuilder var content: () -> Content
 
     var body: some View {
         if isSnapshotRender {
-            content()
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
-                .clipped()
+            // The fitting copy is not clipped, so glows and focus rings draw in full.
+            ViewThatFits(in: .vertical) {
+                content()
+                    .frame(maxHeight: .infinity, alignment: alignment)
+                content()
+                    .padding(inset)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
+                    .clipped()
+                    .padding(.horizontal, -inset)
+            }
         } else {
             ViewThatFits(in: .vertical) {
                 content()
+                    .frame(maxHeight: .infinity, alignment: alignment)
                 ScrollView {
                     content().padding(inset)
                 }

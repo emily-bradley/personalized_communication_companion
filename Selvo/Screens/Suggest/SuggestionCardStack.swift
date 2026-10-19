@@ -3,9 +3,9 @@ import SelvoCore
 
 /// The three suggestion cards, top aligned in the space between the strip and Another.
 ///
-/// SuggestionCard never truncates its text, so at the largest text sizes three cards can be
-/// taller than the space left. Instead of scrolling or clipping, this picks the largest version
-/// that fits: the chosen text size, then capped sizes, then without the captions.
+/// Cards always use the person's text size and keep their captions. When three cards are
+/// taller than the space at the largest text sizes, they scroll between the Show and Undo row
+/// and the pinned Another, Incorrect and Speak.
 struct SuggestionCardStack: View {
     let cards: [Suggestion]
     let selectedIndex: Int?
@@ -13,24 +13,19 @@ struct SuggestionCardStack: View {
     let onSelect: (Int) -> Void
 
     var body: some View {
-        ViewThatFits(in: .vertical) {
-            list(showsCaptions: true)
-            list(showsCaptions: true)
-                .dynamicTypeSize(...DynamicTypeSize.xxLarge)
-            list(showsCaptions: false)
-                .dynamicTypeSize(...DynamicTypeSize.xxLarge)
-            list(showsCaptions: false)
-                .dynamicTypeSize(...DynamicTypeSize.large)
+        // The 8pt inset leaves room for the selection ring, drawn 2pt outside a card.
+        ScrollsWhenNeeded(inset: Spacing.space2) {
+            list
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 
-    private func list(showsCaptions: Bool) -> some View {
+    private var list: some View {
         VStack(spacing: Spacing.space3) {
             ForEach(Array(cards.enumerated()), id: \.element.id) { index, suggestion in
                 SuggestionCard(
                     text: suggestion.text,
-                    caption: showsCaptions ? suggestion.caption(personName: personName) : nil,
+                    caption: suggestion.caption(personName: personName),
                     isSelected: selectedIndex == index
                 ) {
                     onSelect(index)

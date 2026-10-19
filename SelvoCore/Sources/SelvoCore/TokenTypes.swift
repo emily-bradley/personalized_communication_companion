@@ -108,6 +108,8 @@ public enum ReadingFont: String, CaseIterable, Codable, Sendable {
 public enum ComponentMetrics {
     public static let primaryButtonHeight = Spacing.touchPrimary
     public static let quietButtonHeight = Spacing.touchMin
+    /// Quiet buttons that stand alone above Speak, such as Cancel on Help and Show replies.
+    public static let largeQuietButtonHeight: Double = 56
     public static let topBarHeight = Spacing.touchMin
     public static let topBarSlotWidth: Double = 96
     public static let iconButtonSide = Spacing.touchMin

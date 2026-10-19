@@ -11,7 +11,6 @@ struct SettingsView: View {
     @State private var isChoosingVoice = false
 
     static let previewText = "Are we eating soon?"
-    static let sampleText = "This is how I sound."
 
     var body: some View {
         let profile = model.profile
@@ -27,10 +26,11 @@ struct SettingsView: View {
                 EmptyView()
             }
 
-            ScrollsWhenNeeded(inset: Spacing.space1) {
+            // The 8pt inset leaves room for the 3pt selection ring drawn 2pt outside a swatch.
+            ScrollsWhenNeeded(inset: Spacing.space2) {
                 VStack(alignment: .leading, spacing: Spacing.space6) {
                     textSizeSection(textSize)
-                    themeSection(themeID)
+                    themeSection(themeID, personName: profile?.name)
                     speechRateSection(profile?.speechRate ?? 0.5)
                     readingFontSection(themeID: themeID, selected: readingFont)
                 }
@@ -80,7 +80,7 @@ struct SettingsView: View {
         }
     }
 
-    private func themeSection(_ selected: ThemeID) -> some View {
+    private func themeSection(_ selected: ThemeID, personName: String?) -> some View {
         VStack(alignment: .leading, spacing: Spacing.space3) {
             SetupSectionLabel(title: "Theme")
             HStack(spacing: Spacing.space3) {
@@ -90,7 +90,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            caption("Both shown side by side. You can switch any time.")
+            caption("Both shown side by side. \(personName ?? "You") chose \(selected.displayName).")
         }
     }
 
@@ -112,10 +112,6 @@ struct SettingsView: View {
                     .fixedSize()
                     .accessibilityHidden(true)
             }
-            QuietButton(title: "Play a sample") {
-                model.speech.speak(Self.sampleText, profile: model.profile)
-            }
-            .accessibilityHint("Speaks a short sentence at this rate and voice")
         }
     }
 
@@ -144,21 +140,15 @@ struct SettingsView: View {
         Button {
             isChoosingVoice = true
         } label: {
-            HStack(spacing: Spacing.space2) {
-                Image(systemName: "speaker.wave.2")
-                    .font(.system(size: 20, weight: .regular))
-                    .foregroundStyle(theme.colors.teal)
-                    .accessibilityHidden(true)
-                Text("Voice: \(name)")
-                    .textStyle(TypeScale.label)
-                    .foregroundStyle(theme.colors.ink)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-            }
-            .padding(.horizontal, Spacing.space6)
-            .frame(maxWidth: .infinity, minHeight: SetupMetrics.inputHeight)
-            .overlay(Capsule().strokeBorder(theme.colors.borderStrong, lineWidth: 1))
-            .contentShape(Capsule())
+            Text("Voice: \(name)")
+                .textStyle(TypeScale.label)
+                .foregroundStyle(theme.colors.ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .padding(.horizontal, Spacing.space6)
+                .frame(maxWidth: .infinity, minHeight: SetupMetrics.inputHeight)
+                .overlay(Capsule().strokeBorder(theme.colors.borderStrong, lineWidth: 1))
+                .contentShape(Capsule())
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Voice: \(name)")

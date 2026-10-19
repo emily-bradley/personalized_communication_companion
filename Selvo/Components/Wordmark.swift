@@ -29,7 +29,8 @@ struct Wordmark: View {
                 .frame(width: size * 0.5, height: size * 0.96)
             Text("vo").foregroundStyle(theme.colors.teal)
         }
-        .font(.custom(ReadingFont.lexend.postScriptName(semibold: true), size: size, relativeTo: .title2))
+        // Artwork: a fixed size that does not grow with Dynamic Type.
+        .font(.custom(ReadingFont.lexend.postScriptName(semibold: true), fixedSize: size))
         .tracking(-0.02 * size)
         .lineLimit(1)
         .fixedSize()

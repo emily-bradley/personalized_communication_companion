@@ -11,8 +11,13 @@ struct TopBar<Leading: View, Trailing: View>: View {
 
     var body: some View {
         HStack(spacing: Spacing.space2) {
-            leading()
-                .frame(minWidth: ComponentMetrics.topBarSlotWidth, alignment: .leading)
+            // The clear spacer keeps the slot 96pt wide even when it is empty, so the title
+            // stays centered.
+            ZStack(alignment: .leading) {
+                Color.clear.frame(width: ComponentMetrics.topBarSlotWidth, height: 1)
+                leading()
+            }
+            .frame(minWidth: ComponentMetrics.topBarSlotWidth, alignment: .leading)
             Text(title)
                 .textStyle(TypeScale.heading)
                 .foregroundStyle(theme.colors.ink)
@@ -20,8 +25,11 @@ struct TopBar<Leading: View, Trailing: View>: View {
                 .truncationMode(.tail)
                 .frame(maxWidth: .infinity)
                 .accessibilityAddTraits(.isHeader)
-            trailing()
-                .frame(minWidth: ComponentMetrics.topBarSlotWidth, alignment: .trailing)
+            ZStack(alignment: .trailing) {
+                Color.clear.frame(width: ComponentMetrics.topBarSlotWidth, height: 1)
+                trailing()
+            }
+            .frame(minWidth: ComponentMetrics.topBarSlotWidth, alignment: .trailing)
         }
         .frame(minHeight: ComponentMetrics.topBarHeight)
         // Screen chrome stops growing at the largest standard size, like the system bars, so

@@ -55,7 +55,7 @@ struct HelpView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .layoutPriority(1)
 
-            QuietButton(title: "Cancel", fillsWidth: true, action: goBack)
+            QuietButton(title: "Cancel", fillsWidth: true, height: ComponentMetrics.largeQuietButtonHeight, action: goBack)
 
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) {

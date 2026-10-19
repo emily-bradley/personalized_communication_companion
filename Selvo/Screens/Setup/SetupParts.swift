@@ -135,7 +135,8 @@ struct SetupListRow: View {
             }
             Spacer(minLength: 0)
         }
-        .padding(.vertical, Spacing.space2)
+        // 10pt like the artboard rows: the 48pt well plus 10pt above and below.
+        .padding(.vertical, 10)
         .padding(.horizontal, Spacing.space3)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(RoundedRectangle(cornerRadius: Radius.md).fill(theme.colors.surfaceRaised))
@@ -233,11 +234,11 @@ struct SetupThemeSwatch: View {
                     .frame(height: SetupMetrics.swatchBarHeight)
                     .padding(.trailing, Spacing.space12)
                 HStack(spacing: Spacing.space1) {
+                    // Both labels stay the same size and wrap when space is short.
                     Text(themeID.displayName)
                         .textStyle(TypeScale.label)
                         .foregroundStyle(swatch.ink)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.6)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: 0)
                     if isSelected {
                         Image(systemName: "checkmark.circle.fill")

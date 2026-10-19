@@ -11,7 +11,7 @@ struct HomeView: View {
             TopBar(title: "") {
                 Wordmark()
             } trailing: {
-                HStack(spacing: 0) {
+                HStack(spacing: Spacing.space3) {
                     IconButton(systemImage: "gearshape", label: "Settings") { model.open(.settings) }
                     HelpButton { model.open(.help) }
                 }
@@ -23,9 +23,9 @@ struct HomeView: View {
                 Text(Greeting.text(name: name, hour: Calendar.current.component(.hour, from: Date())))
                     .textStyle(TypeScale.caption)
                     .foregroundStyle(theme.colors.inkMuted)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, Spacing.space1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             VStack(spacing: Spacing.space3) {

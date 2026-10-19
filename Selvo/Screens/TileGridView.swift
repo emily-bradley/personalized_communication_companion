@@ -6,7 +6,6 @@ import SelvoCore
 /// slots in pages of nine. Empty slots keep their space so nothing ever reflows.
 struct TileGridView: View {
     @Environment(AppModel.self) private var model
-    @Environment(\.theme) private var theme
     let category: TileCategory
 
     @State private var page = 0
@@ -94,8 +93,7 @@ struct TileGridView: View {
             Tile(
                 label: tile.label,
                 artwork: model.artwork(for: tile),
-                isSelected: model.selectedTile?.id == tile.id,
-                wellColor: theme.colors.well(for: tile.tint)
+                isSelected: model.selectedTile?.id == tile.id
             ) {
                 model.selectedTile = tile
                 model.message = tile.label

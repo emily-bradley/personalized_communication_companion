@@ -11,7 +11,7 @@ struct WelcomeView: View {
         Screen {
             VStack(spacing: Spacing.space4) {
                 // Plain stack when it fits; scrolls only at very large text sizes.
-                ScrollsWhenNeeded {
+                ScrollsWhenNeeded(alignment: .center) {
                     hero
                 }
                 .frame(maxHeight: .infinity)

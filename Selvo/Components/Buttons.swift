@@ -41,6 +41,7 @@ struct QuietButton: View {
     @Environment(\.theme) private var theme
     let title: String
     var fillsWidth: Bool = false
+    var height: Double = ComponentMetrics.quietButtonHeight
     let action: () -> Void
 
     var body: some View {
@@ -50,7 +51,7 @@ struct QuietButton: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .padding(.horizontal, Spacing.space4)
-                .frame(maxWidth: fillsWidth ? .infinity : nil, minHeight: ComponentMetrics.quietButtonHeight)
+                .frame(maxWidth: fillsWidth ? .infinity : nil, minHeight: height)
         }
         .buttonStyle(QuietButtonStyle(theme: theme))
     }

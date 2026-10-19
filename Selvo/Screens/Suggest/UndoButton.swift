@@ -21,9 +21,17 @@ struct UndoButton: View {
             .frame(minHeight: ComponentMetrics.iconButtonSide)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        // Not .plain: that style fades a disabled button to a low contrast grey.
+        .buttonStyle(UndoButtonStyle())
         .disabled(!isEnabled)
         .accessibilityLabel("Undo")
         .accessibilityHint(isEnabled ? "Puts back what was there before your last change" : "Nothing to undo yet")
+    }
+}
+
+/// Draws the label as given, so the disabled look is the full strength ink-muted color.
+private struct UndoButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.opacity(configuration.isPressed ? 0.7 : 1)
     }
 }

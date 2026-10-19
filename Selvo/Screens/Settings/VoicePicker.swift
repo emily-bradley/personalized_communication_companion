@@ -74,6 +74,10 @@ struct VoicePickerSheet: View {
                 }
                 .padding(.vertical, Spacing.space1)
             }
+            QuietButton(title: "Play a sample", fillsWidth: true) {
+                model.speech.speak(Self.sample, profile: model.profile)
+            }
+            .accessibilityHint("Speaks a short sentence at this rate and voice")
         }
     }
 
