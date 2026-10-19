@@ -65,12 +65,13 @@ struct HomeView: View {
         .accessibilityHint("Opens \(category.title)")
     }
 
-    /// Photos and Places use the artboard drawings; their SF Symbols differ in shape.
+    /// The four destinations use the artboard drawings, so they share one size and stroke.
     private func artwork(for category: TileCategory) -> TileArtwork {
         switch category {
         case .photos: return .drawing(AnyShape(PhotoGlyphShape()))
         case .places: return .drawing(AnyShape(PinGlyphShape()))
-        default: return .symbol(category.symbol)
+        case .people: return .drawing(AnyShape(PeopleGlyphShape()))
+        case .phrases: return .drawing(AnyShape(PhrasesGlyphShape()))
         }
     }
 }

@@ -41,3 +41,37 @@ struct PhotoGlyphShape: Shape {
         return path
     }
 }
+
+/// The People pair: a larger person in front on the left, a smaller one behind on the right.
+struct PeopleGlyphShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        let point = unitPoint(rect)
+        let unit = rect.width / 24
+        var path = Path()
+        path.addEllipse(in: CGRect(origin: point(5.5, 4.5), size: CGSize(width: 7 * unit, height: 7 * unit)))
+        path.move(to: point(2.5, 20))
+        path.addArc(center: point(9, 20), radius: 6.5 * unit,
+                    startAngle: .degrees(180), endAngle: .degrees(360), clockwise: false)
+        path.addEllipse(in: CGRect(origin: point(14.5, 6.5), size: CGSize(width: 5 * unit, height: 5 * unit)))
+        // The artboard arc from (16, 15.5) to (21.5, 20) with radius 5.
+        path.move(to: point(16, 15.5))
+        path.addArc(center: point(16.52, 20.47), radius: 5 * unit,
+                    startAngle: .degrees(-95.97), endAngle: .degrees(-5.4), clockwise: false)
+        return path
+    }
+}
+
+/// The Phrases bubble: a square speech bubble with an angled tail and two lines.
+struct PhrasesGlyphShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        let point = unitPoint(rect)
+        var path = Path()
+        path.addLines([point(4, 5), point(20, 5), point(20, 15), point(9, 15), point(5, 19)])
+        path.closeSubpath()
+        path.move(to: point(8, 9))
+        path.addLine(to: point(16, 9))
+        path.move(to: point(8, 12))
+        path.addLine(to: point(13, 12))
+        return path
+    }
+}
