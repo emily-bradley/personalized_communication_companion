@@ -6,6 +6,7 @@ import SelvoCore
 /// the row as one adjustable "Page 1 of 2" element.
 struct PageDots: View {
     @Environment(\.theme) private var theme
+    @Environment(\.accessibilityDifferentiateWithoutColor) private var differentiateWithoutColor
     let count: Int
     @Binding var page: Int
 
@@ -14,8 +15,7 @@ struct PageDots: View {
     var body: some View {
         HStack(spacing: Spacing.space2) {
             ForEach(0..<count, id: \.self) { index in
-                Circle()
-                    .fill(index == page ? theme.colors.teal : theme.colors.borderStrong)
+                dot(isCurrent: index == page)
                     .frame(width: Self.dotSide, height: Self.dotSide)
             }
         }
@@ -32,6 +32,18 @@ struct PageDots: View {
             case .decrement: page = max(page - 1, 0)
             @unknown default: break
             }
+        }
+    }
+
+    /// With Differentiate Without Color on, the other pages are hollow rings, so the current
+    /// page is the only filled dot and does not rely on teal alone.
+    @ViewBuilder private func dot(isCurrent: Bool) -> some View {
+        if isCurrent {
+            Circle().fill(theme.colors.teal)
+        } else if differentiateWithoutColor {
+            Circle().strokeBorder(theme.colors.borderStrong, lineWidth: 1.5)
+        } else {
+            Circle().fill(theme.colors.borderStrong)
         }
     }
 }

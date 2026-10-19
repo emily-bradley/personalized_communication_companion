@@ -26,6 +26,8 @@ struct TopBar<Leading: View, Trailing: View>: View {
                 .truncationMode(.tail)
                 .frame(maxWidth: .infinity)
                 .accessibilityAddTraits(.isHeader)
+                // Home and Setup have no title; VoiceOver should not stop on an empty heading.
+                .accessibilityHidden(title.isEmpty)
             ZStack(alignment: .trailing) {
                 Color.clear.frame(width: ComponentMetrics.topBarSlotWidth, height: 1)
                 trailing()

@@ -62,11 +62,29 @@ struct ScrollsWhenNeeded<Content: View>: View {
                 content()
                     .frame(maxHeight: .infinity, alignment: alignment)
                 ScrollView {
-                    content().padding(inset)
+                    content()
+                        .padding(inset)
+                        // Room for the fade, so the last line can scroll fully clear of it.
+                        .padding(.bottom, drawsOutside ? 0 : Self.fadeHeight)
                 }
                 .scrollClipDisabled(drawsOutside)
+                .mask { if drawsOutside { Rectangle().padding(-Self.glowRoom) } else { bottomFade } }
                 .padding(.horizontal, -inset)
             }
+        }
+    }
+
+    private static var fadeHeight: Double { Spacing.space6 }
+    /// How far an orb's glow may draw past the scroll area.
+    private static var glowRoom: Double { 200 }
+
+    /// Fades the bottom edge so a line about to scroll under a pinned button never looks cut
+    /// through the glyphs, and hints that there is more below.
+    private var bottomFade: some View {
+        VStack(spacing: 0) {
+            Rectangle()
+            LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
+                .frame(height: Self.fadeHeight)
         }
     }
 }

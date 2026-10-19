@@ -17,7 +17,7 @@ struct SettingsView: View {
         let textSize = profile?.textSize ?? .standard
         let themeID = profile?.theme ?? theme.id
         let readingFont = profile?.readingFont ?? theme.readingFont
-        let voiceName = VoiceCatalog.name(for: profile?.voiceIdentifier) ?? "default"
+        let voiceName = VoiceCatalog.name(for: profile?.voiceIdentifier) ?? VoiceCatalog.defaultName ?? "default"
 
         Screen {
             TopBar(title: "Settings") {

@@ -21,6 +21,11 @@ enum VoiceCatalog {
         return voice.name
     }
 
+    /// The voice Selvo speaks with when none is saved: the system voice for the phone's language.
+    static var defaultName: String? {
+        AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())?.name
+    }
+
     /// For example "English (United Kingdom), Enhanced".
     static func detail(for voice: AVSpeechSynthesisVoice) -> String {
         let language = Locale.current.localizedString(forIdentifier: voice.language) ?? voice.language

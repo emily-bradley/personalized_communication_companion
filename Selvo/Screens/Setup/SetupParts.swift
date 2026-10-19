@@ -211,6 +211,8 @@ struct SetupChoicePill: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(accessibilityName)
+        // Voice Control also answers to the word on the pill, such as "Slow" or "Lexend".
+        .accessibilityInputLabels([accessibilityName, title])
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
@@ -264,6 +266,7 @@ struct SetupThemeSwatch: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(themeID.displayName) theme")
+        .accessibilityInputLabels(["\(themeID.displayName) theme", themeID.displayName])
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }

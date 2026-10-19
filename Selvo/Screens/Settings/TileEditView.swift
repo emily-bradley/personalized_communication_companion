@@ -165,6 +165,7 @@ struct TileEditView: View {
         let symbol = tile.isHidden ? "eye" : "eye.slash"
         let id = tile.id
         let hide = !tile.isHidden
+        let spokenName = tile.isHidden ? "Put \(tile.label) back on the grid" : "Hide \(tile.label)"
         return Button {
             model.update { profile in
                 profile.setHidden(hide, tileID: id)
@@ -183,7 +184,9 @@ struct TileEditView: View {
             .frame(minHeight: ComponentMetrics.quietButtonHeight)
         }
         .buttonStyle(QuietButtonStyle(theme: theme))
-        .accessibilityLabel(tile.isHidden ? "Put \(tile.label) back on the grid" : "Hide \(tile.label)")
+        .accessibilityLabel(spokenName)
+        // Voice Control also answers to the word on the pill.
+        .accessibilityInputLabels([spokenName, title])
     }
 
     /// The tile's photo or symbol on a 48pt round surface-sunken well, like the setup lists.

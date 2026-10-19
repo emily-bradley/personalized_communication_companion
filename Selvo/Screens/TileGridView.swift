@@ -100,20 +100,31 @@ struct TileGridView: View {
                 model.open(.suggest)
             }
             .contextMenu {
-                Button("Choose a photo", systemImage: "photo") {
-                    photoTileID = tile.id
-                    showsPhotoPicker = true
-                }
+                Button("Choose a photo", systemImage: "photo") { choosePhoto(for: tile) }
                 if tile.photoFileName != nil {
-                    Button("Remove photo", systemImage: "trash", role: .destructive) {
-                        photoTileID = tile.id
-                        confirmsRemovePhoto = true
-                    }
+                    Button("Remove photo", systemImage: "trash", role: .destructive) { askToRemovePhoto(for: tile) }
+                }
+            }
+            // The same choices for VoiceOver, in the Actions rotor.
+            .accessibilityActions {
+                Button("Choose a photo") { choosePhoto(for: tile) }
+                if tile.photoFileName != nil {
+                    Button("Remove photo") { askToRemovePhoto(for: tile) }
                 }
             }
         } else {
             Color.clear
                 .accessibilityHidden(true)
         }
+    }
+
+    private func choosePhoto(for tile: TileItem) {
+        photoTileID = tile.id
+        showsPhotoPicker = true
+    }
+
+    private func askToRemovePhoto(for tile: TileItem) {
+        photoTileID = tile.id
+        confirmsRemovePhoto = true
     }
 }
