@@ -151,3 +151,34 @@
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: say whether the Undo off state (arrow hidden, word muted) reads right to her.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-19, build run 4 (17:55 to about 18:50 Central)
+
+### Shipped
+- Home: Photos, Places, People and Phrases now use line drawings traced from the App-Home artboard SVGs (24 unit box, 1.8 stroke, 32pt), so all four match each other and the artboard. The old SF Symbols were filled (photo), a different pin shape, and different sizes. New file `Selvo/Components/ArtboardGlyphs.swift`; `TileArtwork` has a `.drawing` case.
+- People icons: the demo profile uses the two-person icon (`person.2`) for Mom, Emily, Blake, Dad and Sam, as in App-Setup and App-Photos. Mom no longer shares the heart with "Thank you". New people added in setup start with it too.
+- The check on a selected choice pill (Text size, Speech rate, Reading font) grows with the text up to xxxLarge, so it still reads beside the large "A" at accessibility XL.
+- Hide and Put back in the tile editor: the eye is small and regular weight, so the word leads.
+
+### Verified, and how
+- CI green on every push this run, all four jobs each time (SelvoCore tests and token check, build with unit, screenshot and UI tests, `scripts/demo.sh`, Xcode 26 build):
+  - 67922bb https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39338554960
+  - 3ae4904 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39339585073
+  - 3f2577a https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39340668072
+- `scripts/demo.sh` passed in CI on the last commit.
+- Screenshots reviewed from `ci-screenshots`: `03-home-*` (all four drawings), `02-setup-*` (two-person icon), `09-settings-*-axl` (check), `10-edit-tiles-night-axl` (eye).
+- A reviewer agent that had not seen the code compared Home, Setup, Photos, Settings and Edit tiles with the artboards: no P1. It confirmed the Photos and Places drawings match. Its People and Phrases size mismatch was fixed in 3f2577a.
+
+### Readings I took
+- The artboards use one two-person glyph for every person; I used the matching SF Symbol for tiles and setup rows, and the traced drawing only on the Home destinations.
+- Left as is from the review: Photos grid symbols that are filled (Dinner, Home, Car, Bed) and the selected tile check badge (an extra cue that does not rely on color); "Voice: Samantha" (real default voice, the artboard's "Daniel, warm" is sample data); check circles on theme cards (same reason as the tile badge).
+
+### Next
+- Friday: final artboard pass on the final build, then the final PROGRESS summary.
+- Optional polish from the review: the Settings section under the pinned Voice button at accessibility XL is cut by the bottom fade (scroll hint, as noted in run 3); the Back chevron looks thin at accessibility XL; the setup list at accessibility XL ends at a hard edge above Continue; a hidden tile's icon could dim with its label.
+
+### Needs Emily
+- On her Mac: Xcode 16 from the App Store (open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- The real logo artwork, if she wants it in place of the drawn wordmark.
