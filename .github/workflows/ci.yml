@@ -99,3 +99,30 @@ jobs:
           name: demo-launch
           path: build/demo-launch.png
           if-no-files-found: warn
+
+  xcode26:
+    name: Build with Xcode 26 (TestFlight SDK)
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 26
+        run: scripts/ci_select_xcode.sh 26
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Build for the Simulator
+        run: |
+          mkdir -p build
+          set +e
+          xcodebuild build \
+            -project Selvo.xcodeproj \
+            -scheme Selvo \
+            -destination "generic/platform=iOS Simulator" \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            > build/xcodebuild.log 2>&1
+          status=$?
+          grep -E "error|\*\* " build/xcodebuild.log | tail -80
+          exit $status
