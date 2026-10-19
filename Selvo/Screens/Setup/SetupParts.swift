@@ -201,8 +201,11 @@ struct SetupChoicePill: View {
                 )
                 .overlay(alignment: .trailing) {
                     if isSelected {
+                        // Grows with the text up to xxxLarge (19pt), so it still reads beside a large label
+                        // and stays inside the 32pt side padding.
                         Image(systemName: "checkmark")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.footnote.weight(.bold))
+                            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                             .foregroundStyle(theme.colors.primary)
                             .padding(.trailing, Spacing.space3)
                             .accessibilityHidden(true)

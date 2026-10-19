@@ -254,7 +254,7 @@ struct SetupView: View {
     }
 
     private func addPerson() {
-        let person = TileItem(category: .people, label: "", symbol: "person", tint: .sunken, position: people.count)
+        let person = TileItem(category: .people, label: "", symbol: "person.2", tint: .sunken, position: people.count)
         addedIDs.insert(person.id)
         people.append(person)
     }

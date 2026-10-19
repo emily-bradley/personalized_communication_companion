@@ -57,12 +57,21 @@ struct HomeView: View {
     }
 
     private func destination(_ category: TileCategory) -> some View {
-        Tile(label: category.title, artwork: .symbol(category.symbol)) {
+        Tile(label: category.title, artwork: artwork(for: category)) {
             model.open(.tiles(category))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .dynamicTypeSize(...DynamicTypeSize.accessibility1)
         .accessibilityHint("Opens \(category.title)")
+    }
+
+    /// Photos and Places use the artboard drawings; their SF Symbols differ in shape.
+    private func artwork(for category: TileCategory) -> TileArtwork {
+        switch category {
+        case .photos: return .drawing(AnyShape(PhotoGlyphShape()))
+        case .places: return .drawing(AnyShape(PinGlyphShape()))
+        default: return .symbol(category.symbol)
+        }
     }
 }
 

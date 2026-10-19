@@ -28,7 +28,7 @@ public enum DemoProfile {
         ("Dinner", "fork.knife", .sunken, nil),
         ("Home", "house", .indigo, nil),
         ("Car", "car", .sunken, nil),
-        ("Mom", "heart", .brand, nil),
+        ("Mom", "person.2", .brand, nil),
         ("Game", "sportscourt", .indigo, nil),
         ("Bed", "bed.double", .sunken, nil),
         ("Rosie", "pawprint", .brand, nil),
@@ -51,12 +51,12 @@ public enum DemoProfile {
     ])
 
     static let people = make(.people, [
-        ("Mom", "heart", .brand, "Every day"),
-        ("Emily", "person", .indigo, "Sister"),
-        ("Blake", "person", .sunken, "Brother-in-law"),
-        ("Dad", "person", .indigo, nil),
+        ("Mom", "person.2", .brand, "Every day"),
+        ("Emily", "person.2", .indigo, "Sister"),
+        ("Blake", "person.2", .sunken, "Brother-in-law"),
+        ("Dad", "person.2", .indigo, nil),
         ("Rosie", "pawprint", .brand, "Dog"),
-        ("Sam", "person", .sunken, "Friend"),
+        ("Sam", "person.2", .sunken, "Friend"),
     ])
 
     static let phrases = make(.phrases, [

@@ -28,6 +28,8 @@ extension View {
 /// What a tile shows above its label: a personal photo or an SF Symbol on a tinted well.
 enum TileArtwork {
     case symbol(String)
+    /// An artboard line drawing, stroked like the artboard icons (1.8 units in 24).
+    case drawing(AnyShape)
     case image(Image)
 }
 
@@ -92,6 +94,12 @@ struct Tile: View {
             Image(systemName: name)
                 .font(.system(size: 32, weight: .regular))
                 .foregroundStyle(theme.colors.teal)
+                .accessibilityHidden(true)
+        case .drawing(let shape):
+            shape
+                .stroke(style: StrokeStyle(lineWidth: 32 * 1.8 / 24, lineCap: .round, lineJoin: .round))
+                .foregroundStyle(theme.colors.teal)
+                .frame(width: 32, height: 32)
                 .accessibilityHidden(true)
         case .image(let image):
             image

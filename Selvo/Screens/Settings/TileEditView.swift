@@ -199,6 +199,14 @@ struct TileEditView: View {
                 .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
                 .background(Circle().fill(theme.colors.surfaceSunken))
                 .accessibilityHidden(true)
+        case .drawing(let shape):
+            shape
+                .stroke(style: StrokeStyle(lineWidth: 22 * 1.8 / 24, lineCap: .round, lineJoin: .round))
+                .foregroundStyle(theme.colors.teal)
+                .frame(width: 22, height: 22)
+                .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
+                .background(Circle().fill(theme.colors.surfaceSunken))
+                .accessibilityHidden(true)
         case .image(let image):
             image
                 .resizable()
