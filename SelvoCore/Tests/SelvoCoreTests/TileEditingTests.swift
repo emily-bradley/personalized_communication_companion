@@ -77,4 +77,25 @@ final class TileEditingTests: XCTestCase {
         XCTAssertEqual(p.tiles.first(where: { $0.id == a.id })?.label, "Coffee")
         XCTAssertEqual(p.tiles.first(where: { $0.id == a.id })?.position, 0)
     }
+
+    func testMoveSwapsOnlyTheTwoNeighbors() {
+        var profile = DemoProfile.lucas
+        let before = profile.tiles(in: .photos)
+        profile.moveTile(before[1].id, by: 1)
+        let after = profile.tiles(in: .photos)
+        XCTAssertEqual(after[1].id, before[2].id)
+        XCTAssertEqual(after[2].id, before[1].id)
+        for index in before.indices where index != 1 && index != 2 {
+            XCTAssertEqual(after[index].id, before[index].id)
+            XCTAssertEqual(after[index].position, before[index].position)
+        }
+    }
+
+    func testMoveDoesNothingAtTheEnds() {
+        var profile = DemoProfile.lucas
+        let before = profile.tiles(in: .phrases)
+        profile.moveTile(before[0].id, by: -1)
+        profile.moveTile(before[before.count - 1].id, by: 1)
+        XCTAssertEqual(profile.tiles(in: .phrases), before)
+    }
 }

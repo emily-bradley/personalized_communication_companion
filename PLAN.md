@@ -48,8 +48,10 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [x] Settings (App-Settings): text size with live preview, theme (Nightlight / Daylight side by side), speech rate, reading font (Lexend / Atkinson), voice
 - [x] Every screen correct in Daylight (App-Home-Day as the reference)
 - [ ] Accessibility pass: VoiceOver labels on every control, Dynamic Type up to accessibility XL without clipping, Reduce Motion, no color-only meaning
-- [ ] Add `performAccessibilityAudit()` UI tests for every screen and fix what they find (added Oct 19)
-- [ ] Supporter tile editing: hide and unhide tiles, add a tile, edit the help phrase (handoff lists these as not designed; build from existing components) (added Oct 19)
+- [x] Add `performAccessibilityAudit()` UI tests for every screen and fix what they find (added Oct 19)
+- [x] Supporter tile editing: hide and unhide tiles, add a tile, edit the help phrase (handoff lists these as not designed; build from existing components) (added Oct 19)
+- [ ] Tile reorder by the supporter (Move earlier and Move later added Oct 19 run 1 in the tile editor context menu and VoiceOver actions; check when verified on a device) (handoff lists it; positions must persist per profile) (added Oct 19)
+- [ ] Trace the Settings accessibility audit note "Potentially inaccessible text" and the audit's Dynamic Type report on Settings with Accessibility Inspector, then remove the exception in `AccessibilityAuditUITests` (added Oct 19)
 
 ## Day 5, Fri Oct 23: polish and demo
 - [ ] Screenshot every screen in both themes at default and XL text; compare each to its artboard and fix differences

@@ -43,10 +43,16 @@
 - Screen chrome (top bar, quiet button rows) stops growing at the largest standard text size so Back, titles and Help stay readable at accessibility sizes.
 - Purpose strings say speech stays on the phone only when the phone can recognize speech by itself, which is accurate.
 
+### Later in the run
+- Supporter editing: Settings has a "For supporters" section with Edit Photos, Places, People, Phrases (hide and show on grid without moving other tiles, rename, add a tile with a symbol) and a Help message editor with a live preview. SelvoCore tests cover hide, unhide, add and rename keeping positions.
+- Accessibility audit UI tests run Apple's `performAccessibilityAudit` on Home, Photos, Choose your words, Show, Help (both screens) and Settings. Pixel contrast and Dynamic Type audit types are left out on purpose (contrast is checked against tokens in TokensTests; chrome caps text growth by design; screenshots cover accessibility XL). One Settings note, "Potentially inaccessible text" with no element attached, is allowed for now and needs a look with Accessibility Inspector. Main went red for about 25 minutes while these audits were tuned; it is green again (see the last run below).
+- Top bar titles shrink a little before truncating ("Help message", "Edit Photos").
+- Known screenshot limitation: multiline text fields (help message editor) draw as placeholders in ImageRenderer screenshots; they work in the app.
+
 ### Next
-- Accessibility audit UI tests (`performAccessibilityAudit`) on every screen and fixes; the rest of the Day 4 accessibility pass.
-- Supporter tile editing and a help phrase editor.
-- Friday polish: second artboard comparison pass, real device check of haptics and voices.
+- Tile reorder for supporters.
+- Trace the Settings audit note on a Mac.
+- Friday polish: second artboard comparison pass on the latest screenshots, real device check of haptics and voices.
 
 ### Needs Emily
 - On her Mac: Xcode 16 from the App Store (open it once and add the iOS platform), Command Line Tools, Homebrew (https://brew.sh). Then `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.

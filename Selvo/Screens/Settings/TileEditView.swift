@@ -57,7 +57,7 @@ struct TileEditView: View {
             // The 8pt inset leaves room for the selection ring on the picture choices.
             ScrollsWhenNeeded(inset: Spacing.space2) {
                 VStack(alignment: .leading, spacing: Spacing.space3) {
-                    Text("Hidden tiles keep their place, so nothing else moves.")
+                    Text("Hidden tiles keep their place, so nothing else moves. Press and hold a name to move it.")
                         .textStyle(TypeScale.caption)
                         .foregroundStyle(theme.colors.inkMuted)
                         .fixedSize(horizontal: false, vertical: true)
@@ -122,6 +122,20 @@ struct TileEditView: View {
             .buttonStyle(.plain)
             .accessibilityLabel(tile.isHidden ? "\(tile.label), hidden" : tile.label)
             .accessibilityHint("Renames this tile")
+            .contextMenu {
+                Button("Move earlier", systemImage: "arrow.up") {
+                    model.update { $0.moveTile(tile.id, by: -1) }
+                }
+                Button("Move later", systemImage: "arrow.down") {
+                    model.update { $0.moveTile(tile.id, by: 1) }
+                }
+            }
+            .accessibilityAction(named: "Move earlier") {
+                model.update { $0.moveTile(tile.id, by: -1) }
+            }
+            .accessibilityAction(named: "Move later") {
+                model.update { $0.moveTile(tile.id, by: 1) }
+            }
 
             hideToggle(tile)
         }

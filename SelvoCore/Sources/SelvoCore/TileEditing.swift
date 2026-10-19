@@ -27,4 +27,21 @@ extension Profile {
         guard !trimmed.isEmpty, let index = tiles.firstIndex(where: { $0.id == id }) else { return }
         tiles[index].label = trimmed
     }
+
+    /// Swaps a tile with its neighbor in the same category: offset -1 moves it one place
+    /// earlier, +1 one place later. Only these two tiles change slots; nothing else moves.
+    /// Does nothing at either end.
+    public mutating func moveTile(_ id: UUID, by offset: Int) {
+        guard let tile = tiles.first(where: { $0.id == id }), offset == -1 || offset == 1 else { return }
+        let ordered = tiles(in: tile.category)
+        guard let here = ordered.firstIndex(where: { $0.id == id }) else { return }
+        let there = here + offset
+        guard ordered.indices.contains(there) else { return }
+        let neighbor = ordered[there]
+        guard let a = tiles.firstIndex(where: { $0.id == id }),
+              let b = tiles.firstIndex(where: { $0.id == neighbor.id }) else { return }
+        let position = tiles[a].position
+        tiles[a].position = tiles[b].position
+        tiles[b].position = position
+    }
 }
