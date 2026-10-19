@@ -12,7 +12,7 @@
 - Emily has a paid Apple Developer account and wants TestFlight the week of Oct 26. Added a TestFlight readiness section to PLAN.md.
 - Needs Emily (next week): her Apple Team ID, confirm the bundle ID `com.emilykenney.selvo`, create the app record and an App Store Connect API key, add the three repository secrets.
 
-## 2026-10-19, build run 1 (11:56 to about 13:30 Central)
+## 2026-10-19, build run 1 (11:56 to 14:00 Central)
 
 ### Shipped
 - Day 1 foundation: XcodeGen `project.yml`, `Selvo` app target, `SelvoCore` package, theme tokens generated from `tokens.json` by `scripts/gen_tokens.py` (CI fails if they drift), Lexend and Atkinson Hyperlegible bundled with their OFL licenses, core components (PrimaryButton, QuietButton, LinkButton, BackButton, HelpButton, IconButton, MessageStrip, Tile, SuggestionCard, TopBar, Wordmark, Orb, Screen).
@@ -47,6 +47,12 @@
 - Supporter editing: Settings has a "For supporters" section with Edit Photos, Places, People, Phrases (hide and show on grid without moving other tiles, rename, add a tile with a symbol) and a Help message editor with a live preview. SelvoCore tests cover hide, unhide, add and rename keeping positions.
 - Accessibility audit UI tests run Apple's `performAccessibilityAudit` on Home, Photos, Choose your words, Show, Help (both screens) and Settings. Pixel contrast and Dynamic Type audit types are left out on purpose (contrast is checked against tokens in TokensTests; chrome caps text growth by design; screenshots cover accessibility XL). One Settings note, "Potentially inaccessible text" with no element attached, is allowed for now and needs a look with Accessibility Inspector. Main went red for about 25 minutes while these audits were tuned; it is green again (see the last run below).
 - Top bar titles shrink a little before truncating ("Help message", "Edit Photos").
+- Supporters can move a tile earlier or later (press and hold a name in the tile editor, or the VoiceOver actions). Only the two swapped tiles change slots.
+- Second review pass by a fresh reviewer agent: every earlier fix held. Fixed after it: Help pill stays on one line at accessibility sizes, Speak shadow sits on the capsule only (not the label), Home tiles never clip their labels and the Home grid scrolls at accessibility sizes, orb glow no longer clipped, Settings caption "Both shown side by side. Lucas chose Nightlight at setup.", Edit tiles wells all surface-sunken and "Put back" instead of "Show on grid" (Show is a reserved product term), dark status bar on the attention screen, and Coffee's Another stack now uses the artboard alternates.
+- The accessibility audit waits for navigation to settle; one run failed with "hit area too small" while tiles were still sliding in.
+- Final state: all five CI jobs green on main at 5313f19, https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39305838251 (SelvoCore tests, app tests with 13 screenshot tests and 7 UI tests including the accessibility audits, scripts/demo.sh, Xcode 26 build).
+- Left as is and why: the Settings Voice row says "Voice: default" until a voice is chosen (the artboard's "Daniel, warm" is sample data); the Undo link is ink-muted until there is something to undo; the Home greeting wraps a little early at default size (cosmetic).
+- For Emily to decide: on Daylight the wordmark's "vo" uses the deep teal from App-Home-Day, while the brand book says it stays the orb teal as a logotype.
 - Known screenshot limitation: multiline text fields (help message editor) draw as placeholders in ImageRenderer screenshots; they work in the app.
 
 ### Next
