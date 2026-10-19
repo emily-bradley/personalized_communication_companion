@@ -25,7 +25,13 @@ final class AppModel {
     /// True while the supporter setup flow is showing.
     var isInSetup = false
 
+    /// When Speak was last tapped.
+    var lastSpokenAt: Date?
+
     let store: ProfileStore
+    let speech = SpeechService()
+    /// Suggestions: an on-device model when available, saved phrases always.
+    let suggestions = SuggestionEngine(primary: OnDeviceModelProvider.makeIfAvailable())
 
     init(store: ProfileStore, profile: Profile?) {
         self.store = store
@@ -82,8 +88,19 @@ final class AppModel {
         path.removeAll()
     }
 
-    /// Speaks the message strip. Filled in on Day 3 with AVSpeechSynthesizer.
-    func speak() {}
+    /// Speaks the message strip and records when it was spoken, so screens can show
+    /// "Spoken" for about one second. Nothing is sent anywhere.
+    func speak() {
+        guard !message.isEmpty else { return }
+        speech.speak(message, profile: profile)
+        lastSpokenAt = Date()
+    }
+
+    /// True for about a second after Speak.
+    func isShowingSpoken(at now: Date = Date()) -> Bool {
+        guard let lastSpokenAt else { return false }
+        return now.timeIntervalSince(lastSpokenAt) < 1.2
+    }
 
     func clearMessage() {
         message = ""

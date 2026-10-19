@@ -24,5 +24,8 @@ struct TopBar<Leading: View, Trailing: View>: View {
                 .frame(minWidth: ComponentMetrics.topBarSlotWidth, alignment: .trailing)
         }
         .frame(minHeight: ComponentMetrics.topBarHeight)
+        // Screen chrome stops growing at the largest standard size, like the system bars, so
+        // Back, the title and Help stay readable at accessibility sizes.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
