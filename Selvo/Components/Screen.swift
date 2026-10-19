@@ -43,7 +43,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
         if isSnapshotRender {
             content()
                 .fixedSize(horizontal: false, vertical: true)
-                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
                 .clipped()
         } else {
             ViewThatFits(in: .vertical) {
