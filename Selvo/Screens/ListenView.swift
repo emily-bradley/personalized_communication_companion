@@ -13,6 +13,7 @@ struct ListenView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.theme) private var theme
     @Environment(\.openURL) private var openURL
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     @State private var listener = SpeechListener()
     /// The three replies, once Show replies is tapped. They do not change on their own.
@@ -101,7 +102,8 @@ struct ListenView: View {
     private var middle: some View {
         VStack(spacing: Spacing.space6) {
             // The one glowing object. It is still: no pulsing, so Reduce Motion has nothing to stop.
-            Orb(diameter: showsReplies ? 96 : 160)
+            // Smaller at accessibility text sizes so the heard text keeps the space.
+            Orb(diameter: showsReplies || typeSize.isAccessibilitySize ? 96 : 160)
             ListeningStatus(status: status) { openSettings() }
             if showsHeardCard {
                 HeardCard(speaker: speaker, text: heard)

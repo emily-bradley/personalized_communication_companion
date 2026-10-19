@@ -44,8 +44,8 @@ struct WelcomeView: View {
     private var hero: some View {
         let compact = typeSize.isAccessibilitySize
         return VStack(spacing: compact ? Spacing.space6 : Spacing.space8) {
-            Orb(diameter: compact ? 120 : 180)
-            Wordmark(size: 56)
+            Orb(diameter: compact ? 96 : 180)
+            Wordmark(size: compact ? 44 : 56)
             Text("Your voice. Your way.")
                 .textStyle(TypeScale.message)
                 .foregroundStyle(theme.colors.ink)
