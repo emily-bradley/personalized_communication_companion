@@ -7,6 +7,28 @@ Live URL: not deployed yet (Cloudflare Pages not connected).
 2. **Create the empty private repo `emily-bradley/selvo-website`** and give the Claude GitHub app access. Until then the site lives in `website/` on the `website-staging` branch. (Optional: the site can stay where it is through Friday.)
 3. Later, before a public launch: custom domain (`selvo.com` if you can get it), `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-10-19, 1:57pm to 2:20pm Central (run 2)
+
+Live URL: not deployed yet (no Cloudflare statuses on any commit).
+
+**Readings taken:** `selvo-website` is still not reachable (no add_repo tool here either), so work stayed on `website-staging`. All build items were already done in run 1, so this run was a fresh review and polish pass, pulling Tuesday's home fidelity check forward.
+
+**Shipped:**
+- Headings use balanced wrapping and paragraphs avoid one-word last lines (site-wide CSS).
+- Home hero paragraph sets in three lines at 1440 like the reference; hero top padding trimmed at 375.
+- Article meta items ("By ...", date, "4 min read") never break mid-item.
+- Removed the home hero fade-in (not in the reference). It doubled Speed Index on home (2.3s to 1.2s) and caused one red CI run where Lighthouse scored home performance 0.86.
+- `docs/DEPLOY.md`: Cloudflare's v3 build image defaults to pnpm 10.11 and does not read `packageManager`; added a `PNPM_VERSION=10.28.0` fallback if the install step fails.
+
+**Verified and how:**
+- Local: lint, typecheck, 102 unit tests, build, 67 e2e tests (axe, screenshots, links, keyboard), Lighthouse 100 in all four categories on all six pages.
+- CI: run for 50fa90c was red (home performance 0.86, read through the GitHub job log); fixed by 93e1a71, green: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39309253737
+- Screenshots: all pages at 1440, 768, 375 rendered next to the references. Two fresh reviewer subagents (one for home, one for inner pages) who had not seen the code reviewed the strips. Inner pages: no must-fix items. Home: three line-break issues, all fixed and re-checked.
+
+**Not done (nice-to-have from review, left for Friday polish if time):** article comparison captions sit at slightly different heights; Story photo placeholder is white rather than beige; phone figure line "Is it lunch yet, or do I have to ask twice?" wraps one word.
+
+**Next:** as soon as a pages.dev link exists, verify every route with WebFetch, record the URL here and in `docs/DEMO.md`, check the link preview, and repeat the screenshot review on the live site.
+
 ## 2026-10-19, 11:57am to 12:30pm Central (run 1)
 
 **Readings taken (Emily was not asked):**
