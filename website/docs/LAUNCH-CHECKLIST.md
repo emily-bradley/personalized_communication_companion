@@ -8,8 +8,10 @@ Everything here needs Emily before a public launch. The demo can go out with the
 - For family, FAQ "Does it need an internet connection?": `[CONFIRM: which features need a connection.]`
 - For family, FAQ "Who can see what they say?": `[CONFIRM: privacy summary, one or two sentences, with a link to the privacy page.]`
 - For family, FAQ "What does it cost?": `[YOUR PRICE, or: free during early access.]`
-
-More are added as each page is built (Story photo, article card photos, article `[DATE]` and read time, family FAQ `[CONFIRM: ...]` and `[YOUR PRICE]`).
+- Articles index, card photos: `[PHOTO: a hand holding a phone, three replies on screen]`, `[PHOTO: two adults talking at a cafe table]`, `[PHOTO: a phone face-down on a kitchen counter]`
+- Articles index: the featured guide ("Setting up Selvo with someone you support") and the cards "What AAC is, and where Selvo fits" and "Your words stay yours" have no article yet, so they show without links. Write them, then link them.
+- Article "Why Selvo offers three replies, not forty": `[DATE]` in the byline, and the read time "4 min read" (from the artboard; confirm it). Both are in `src/content/articles/three-replies.md`.
+- How it works, step 1 tiles: `[PHOTO]` in the Coffee, Mom, and Work tiles
 
 ## Settings
 - `PUBLIC_WAITLIST_URL`: the form backend that receives early-access emails (Buttondown, ConvertKit, or a Cloudflare Worker). Until it is set, sign-ups show "Saved" but are not stored.

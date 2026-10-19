@@ -21,8 +21,8 @@ Deadline: Friday, October 23, 2026, 6pm Central. Demo-ready at a public link.
 - [x] For family (FAQ with native `details`)
 
 ## Thu Oct 22: articles and site plumbing
-- [ ] Articles index
-- [ ] Article page `/articles/three-replies` from Markdown content collection
+- [x] Articles index
+- [x] Article page `/articles/three-replies` from Markdown content collection
 - [x] Privacy and accessibility stubs
 - [x] Friendly 404
 - [ ] SEO title and description per page (final copy)
