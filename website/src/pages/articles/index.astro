@@ -1,8 +1,87 @@
 ---
-import PageIntro from "../../components/PageIntro.astro";
+import { getCollection } from "astro:content";
+import ArticleCard from "../../components/ArticleCard.astro";
+import EarlyAccess from "../../components/EarlyAccess.astro";
+import SoundBars from "../../components/SoundBars.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const articles = await getCollection("articles");
+
+// Cards from the artboard whose articles are not written yet. They show their copy but link nowhere.
+const upcoming = [
+  {
+    photo: "[PHOTO: two adults talking at a cafe table]",
+    category: "Basics",
+    title: "What AAC is, and where Selvo fits",
+    description:
+      "Augmentative and alternative communication, explained in plain words, with the tools people use today.",
+  },
+  {
+    photo: "[PHOTO: a phone face-down on a kitchen counter]",
+    category: "Privacy",
+    title: "Your words stay yours",
+    description: "What Selvo keeps on your phone, what it sends, and how to delete it.",
+  },
+];
 ---
 
-<BaseLayout title="Articles" description="Articles from Selvo. This page is on its way.">
-  <PageIntro slot="hero" title="Articles" lead="This page is on its way this week." />
+<BaseLayout title="Articles" description="Guides for people who use Selvo and the people who support them.">
+  <section slot="hero" class="container-site flex flex-col gap-5 pb-16 pt-16">
+    <h1 class="m-0 text-[clamp(40px,5vw,56px)] font-semibold leading-[1.1] tracking-[-0.01em] text-warm-ink">
+      Articles
+    </h1>
+    <p class="m-0 max-w-[640px] text-[clamp(19px,2vw,22px)] leading-[1.55] text-warm-ink">
+      Guides for people who use Selvo and the people who support them.
+    </p>
+  </section>
+
+  <section aria-label="Featured" class="bg-warm-ground">
+    <div class="container-site pb-20 pt-16">
+      <div
+        class="box-border flex flex-wrap items-center gap-12 rounded-lg border border-warm-hairline bg-warm-card p-6 text-warm-ink"
+      >
+        <div class="flex aspect-[16/10] min-w-0 flex-[1_1_420px] items-center justify-center rounded-md bg-warm-band">
+          <div
+            aria-hidden="true"
+            class="flex aspect-square w-[min(200px,50%)] items-center justify-center rounded-pill bg-warm-teal"
+          >
+            <SoundBars class="h-[60%] w-[31%] text-warm-on-teal" />
+          </div>
+        </div>
+        <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-3.5 p-2">
+          <p class="t-caption font-semibold text-warm-teal">Guide</p>
+          <h2 class="h-section text-warm-ink">Setting up Selvo with someone you support</h2>
+          <p class="t-lead text-warm-muted">
+            An afternoon, together. Who they talk to, the phrases they use, and the settings for their eyes and hands.
+            Then the phone is theirs.
+          </p>
+          <p class="m-0 text-[17px] font-semibold text-warm-teal">Read the guide</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="all-articles" class="bg-warm-ground">
+    <div class="container-site pb-28">
+      <h2 id="all-articles" class="sr-only">All articles</h2>
+      <ul
+        class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-x-8 gap-y-10 p-0"
+      >
+        {
+          articles.map((article) => (
+            <ArticleCard
+              href={`/articles/${article.id}`}
+              photo={article.data.photo}
+              category={article.data.category}
+              title={article.data.title}
+              description={article.data.description}
+            />
+          ))
+        }
+        {upcoming.map((card) => <ArticleCard {...card} />)}
+      </ul>
+    </div>
+  </section>
+
+  <EarlyAccess />
 </BaseLayout>

@@ -1,0 +1,28 @@
+---
+// One card on the articles index: photo placeholder, category, title, summary.
+// Without href it renders as a plain card, for articles that are not written yet.
+interface Props {
+  href?: string;
+  photo: string;
+  category: string;
+  title: string;
+  description: string;
+}
+const { href, photo, category, title, description } = Astro.props;
+const Tag = href ? "a" : "div";
+---
+
+<li class="flex min-w-0">
+  <Tag href={href} class="flex w-full flex-col gap-3.5 text-warm-ink no-underline">
+    <div
+      class="box-border flex aspect-[3/2] items-center justify-center rounded-md bg-warm-band p-6 text-center text-[15px] leading-[22px] text-warm-muted"
+    >
+      {photo}
+    </div>
+    <p class="t-caption font-semibold text-warm-teal">{category}</p>
+    <h3 class:list={["h-card text-warm-ink", href && "decoration-2 underline-offset-4 [a:hover_&]:underline"]}>
+      {title}
+    </h3>
+    <p class="t-body text-warm-muted">{description}</p>
+  </Tag>
+</li>

@@ -1,0 +1,113 @@
+/* Article body typography for Markdown from the articles collection. Warm tokens only. */
+.prose-selvo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--color-warm-ink);
+}
+
+.prose-selvo > p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.prose-selvo > h2 {
+  margin: 24px 0 0;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.prose-selvo > ul {
+  margin: 0;
+  padding-left: 22px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.prose-selvo a {
+  color: var(--color-warm-teal);
+  text-decoration: underline;
+}
+
+/* The three versus forty illustration. */
+.prose-selvo .choices {
+  margin: 16px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  padding: 32px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-warm-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--color-warm-card);
+}
+
+.prose-selvo .choices-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.prose-selvo .choices-three {
+  display: flex;
+  gap: 10px;
+}
+
+.prose-selvo .choices-three span,
+.prose-selvo .choices-forty span {
+  box-sizing: border-box;
+  border: 1px solid var(--color-warm-hairline);
+  background: var(--color-warm-band);
+}
+
+.prose-selvo .choices-three span {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+}
+
+.prose-selvo .choices-three .is-picked {
+  border: 0;
+  background: var(--color-warm-tint);
+  outline: 3px solid var(--color-warm-teal);
+  outline-offset: 2px;
+}
+
+.prose-selvo .choices-forty {
+  display: grid;
+  grid-template-columns: repeat(10, 18px);
+  gap: 6px;
+}
+
+.prose-selvo .choices-forty span {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.prose-selvo .choices-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.prose-selvo .choices-note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-warm-muted);
+}
+
+.prose-selvo .choices figcaption {
+  grid-column: 1 / -1;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-warm-muted);
+}

@@ -1,0 +1,60 @@
+---
+import "../../styles/article.css";
+import { getCollection, render } from "astro:content";
+import EarlyAccess from "../../components/EarlyAccess.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { title, description, category, author, date, readTime, sources } = article.data;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={title} description={description}>
+  <section slot="hero" class="container-site pb-[88px] pt-12">
+    <div class="flex max-w-[872px] flex-col gap-5">
+      <nav aria-label="Breadcrumb" class="t-caption font-semibold">
+        <a href="/articles" class="inline-flex min-h-11 items-center text-warm-teal no-underline hover:underline"
+          >Articles</a
+        ><span class="text-warm-muted"> / {category}</span>
+      </nav>
+      <h1 class="m-0 text-[clamp(40px,5vw,56px)] font-semibold leading-[1.1] tracking-[-0.01em] text-warm-ink">
+        {title}
+      </h1>
+      <p class="m-0 max-w-[640px] text-[clamp(19px,2vw,22px)] leading-[1.55] text-warm-ink">{description}</p>
+      <p class="t-caption text-warm-muted">By {author} · {date} · {readTime}</p>
+    </div>
+  </section>
+
+  <div class="bg-warm-ground">
+    <article class="mx-auto box-border flex w-full max-w-[720px] flex-col gap-6 px-6 pb-24 pt-[72px]">
+      <div class="prose-selvo">
+        <Content />
+      </div>
+      {
+        sources.length > 0 && (
+          <div class="mt-6 flex flex-col border-t border-warm-hairline pt-5 text-[15px] leading-[22px]">
+            <h2 class="m-0 mb-1 text-[17px] font-semibold text-warm-ink">Sources</h2>
+            {sources.map((source) => (
+              <a href={source.url} class="inline-flex min-h-11 items-center self-start text-warm-teal underline">
+                {source.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      <a
+        href="/articles"
+        class="mt-2 inline-flex min-h-11 items-center self-start text-[17px] font-semibold text-warm-teal no-underline hover:underline"
+        >More articles</a
+      >
+    </article>
+    <div class="h-28"></div>
+  </div>
+
+  <EarlyAccess />
+</BaseLayout>
