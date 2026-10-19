@@ -20,7 +20,7 @@ struct HelpPhraseEditView: View {
 
             ScrollsWhenNeeded {
                 VStack(alignment: .leading, spacing: Spacing.space4) {
-                    Text("This shows in large type when you tap Help, then Yes, show it.")
+                    Text("This shows in large type when you tap Help and then \u{201C}Yes, show it\u{201D}.")
                         .textStyle(TypeScale.caption)
                         .foregroundStyle(theme.colors.inkMuted)
                         .fixedSize(horizontal: false, vertical: true)

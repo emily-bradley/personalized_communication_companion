@@ -43,11 +43,14 @@ struct SuggestView: View {
 
             VStack(spacing: Spacing.space2) {
                 MessageStrip(message: stripText, placeholder: "Choose a suggestion below.")
+                    // Show turns the message to full size. Here the strip stops growing at
+                    // accessibility1, so the three suggestions keep room at the largest sizes.
+                    .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                 HStack {
-                    LinkButton(title: "Show", systemImage: "text.alignleft") {
+                    LinkButton(title: "Show", action: {
                         startIfNeeded()
                         model.open(.show)
-                    }
+                    }) { ShowGlyph() }
                     .accessibilityHint("Shows your message large, turned toward the listener")
                     Spacer(minLength: Spacing.space4)
                     UndoButton(isEnabled: started && stack.canUndo) { undo() }

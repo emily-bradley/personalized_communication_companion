@@ -80,8 +80,10 @@ struct ListenView: View {
                         height: ComponentMetrics.largeQuietButtonHeight
                     ) { showReplies() }
                         .accessibilityHint("Shows three replies you can choose")
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 }
+                // The caption and Show replies grow together and stop at accessibility1, so
+                // the heard text keeps the space.
+                .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                 PrimaryButton(title: controlTitle, accessibilityHint: controlHint) {
                     controlAction()
                 }

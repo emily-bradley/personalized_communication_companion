@@ -13,7 +13,7 @@ struct ComponentGallery: View {
             MessageStrip(message: nil)
             MessageStrip(message: "Coffee first. Then I'll be nice.")
             HStack {
-                LinkButton(title: "Show", systemImage: "text.alignleft") {}
+                LinkButton(title: "Show", action: {}) { ShowGlyph() }
                 Spacer()
                 LinkButton(title: "Undo", systemImage: "arrow.uturn.backward") {}
             }

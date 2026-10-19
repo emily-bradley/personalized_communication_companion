@@ -1,8 +1,10 @@
 import SwiftUI
 import SelvoCore
 
-/// Undo under the message strip. Always visible; teal when there is something to undo and
-/// ink-muted when there is not. Drawn like LinkButton, which has no disabled look of its own.
+/// Undo under the message strip. Always visible. With something to undo it shows the arrow in
+/// teal; with nothing to undo the arrow is hidden and the word is ink-muted, so the off state
+/// does not rely on color alone. The arrow keeps its space, so nothing moves.
+/// Drawn like LinkButton, which has no disabled look of its own.
 struct UndoButton: View {
     @Environment(\.theme) private var theme
     let isEnabled: Bool
@@ -14,6 +16,7 @@ struct UndoButton: View {
             HStack(spacing: 6) {
                 Image(systemName: "arrow.uturn.backward")
                     .imageScale(.large)
+                    .opacity(isEnabled ? 1 : 0)
                     .accessibilityHidden(true)
                 Text("Undo").textStyle(TypeScale.label)
             }

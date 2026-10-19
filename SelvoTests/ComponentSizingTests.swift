@@ -30,7 +30,7 @@ final class ComponentSizingTests: XCTestCase {
         let gear = size(IconButton(systemImage: "gearshape", label: "Settings") {})
         XCTAssertGreaterThanOrEqual(gear.width, 44)
         XCTAssertGreaterThanOrEqual(gear.height, 44)
-        XCTAssertGreaterThanOrEqual(size(LinkButton(title: "Show", systemImage: "text.alignleft") {}).height, 44)
+        XCTAssertGreaterThanOrEqual(size(LinkButton(title: "Show", action: {}) { ShowGlyph() }).height, 44)
     }
 
     func testTileIsAtLeastNinetySix() {

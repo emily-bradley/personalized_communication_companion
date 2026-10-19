@@ -69,17 +69,23 @@ struct QuietButtonStyle: ButtonStyle {
     }
 }
 
-/// A text link styled action in teal with an SF Symbol, such as Show and Undo.
-struct LinkButton: View {
+/// A text link styled action in teal with an icon, such as Show and Undo.
+struct LinkButton<Icon: View>: View {
     @Environment(\.theme) private var theme
     let title: String
-    let systemImage: String
+    let icon: Icon
     let action: () -> Void
+
+    init(title: String, action: @escaping () -> Void, @ViewBuilder icon: () -> Icon) {
+        self.title = title
+        self.action = action
+        self.icon = icon()
+    }
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
-                Image(systemName: systemImage)
+                icon
                     .imageScale(.large)
                     .accessibilityHidden(true)
                 Text(title).textStyle(TypeScale.label)
@@ -89,6 +95,43 @@ struct LinkButton: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+    }
+}
+
+extension LinkButton where Icon == Image {
+    init(title: String, systemImage: String, action: @escaping () -> Void) {
+        self.init(title: title, action: action) { Image(systemName: systemImage) }
+    }
+}
+
+/// The Show icon from the artboard: a card frame with three lines of text, drawn in a 24 unit
+/// box with a 2 unit stroke. 22pt at the default text size, growing with the label.
+struct ShowGlyph: View {
+    @ScaledMetric(relativeTo: .body) private var side: Double = 22
+
+    var body: some View {
+        ShowGlyphShape()
+            .stroke(style: StrokeStyle(lineWidth: side / 12, lineCap: .round, lineJoin: .round))
+            .frame(width: side, height: side)
+    }
+}
+
+private struct ShowGlyphShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        let unit = rect.width / 24
+        func point(_ x: Double, _ y: Double) -> CGPoint {
+            CGPoint(x: rect.minX + x * unit, y: rect.minY + y * unit)
+        }
+        var path = Path()
+        path.addRoundedRect(
+            in: CGRect(origin: point(3, 4), size: CGSize(width: 18 * unit, height: 16 * unit)),
+            cornerSize: CGSize(width: 3 * unit, height: 3 * unit)
+        )
+        for (y, length) in [(9.0, 6.0), (12.0, 10.0), (15.0, 8.0)] {
+            path.move(to: point(7, y))
+            path.addLine(to: point(7 + length, y))
+        }
+        return path
     }
 }
 
