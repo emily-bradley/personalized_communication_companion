@@ -119,3 +119,35 @@
   - Add the repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
 - Choose the Undo off-state cue and the Daylight wordmark "vo" color (see Open above).
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+
+## 2026-10-19, build run 3 (15:56 to about 16:40 Central)
+
+### Shipped
+- Undo with nothing to undo no longer relies on color alone: the arrow is hidden and the word stays ink-muted. The arrow keeps its space, so nothing moves. With something to undo, the teal arrow and word show as before.
+- The Show link uses the artboard icon (a card frame with three lines), drawn as a small shape that grows with the text. `LinkButton` now takes any icon; the SF Symbol form still works.
+- Choose your words at accessibility XL: the message strip stops growing at accessibility1, and the "Suggested for Lucas" caption stops at xxxLarge, so the cards keep more room. Show still turns the message to full size.
+- Listen at accessibility XL: the "Replies are on their way" caption and Show replies now grow together and stop at accessibility1, so the heard text keeps the space and Show replies no longer looks smaller than the caption.
+- Help message editor caption reads "...when you tap Help and then “Yes, show it”."
+
+### Verified, and how
+- CI green on 6819d74: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39324256133. All four jobs passed: SelvoCore tests and token check, build with unit, screenshot and UI tests on an iPhone 16 Simulator, `scripts/demo.sh` (passed), and the Xcode 26 build.
+- Screenshots reviewed from the `ci-screenshots` branch for 6819d74: `ui-03-suggest` (new Show icon, Undo off with no arrow), `ui-axl-03-suggest` (strip smaller, the selected card fully visible), `07-listen-night-axl` (more heard text visible).
+- A reviewer agent that had not seen the code compared all 71 screenshots from e235405 with the artboards and brand rules. It found no P1 items: no copy or rule breaks, one glow per screen, Speak, Back, Clear and Help in place, three suggestions everywhere.
+- The final commit of this run (the suggestion caption cap and these notes) is checked by the next CI run; see the next run's entry.
+
+### Readings I took
+- Text size default. The artboard has three sizes (24, 30, 38) with the middle one as default. The app has Standard, Large and Larger, where Standard follows the phone setting and the others raise it. Lucas is on Standard, so the first pill is selected. I kept this, because a size smaller than the phone setting would go against "the phone's own larger setting wins".
+- The Another set pairs styles by meaning ("Coffee. Now. Please." is witty), not by the artboard's placeholder order. Kept.
+- Not changed, judged as SF Symbol drawing differences rather than layout: the filled parts of the photo, house, car and bed symbols, and the Places pin shape. A custom icon set would be needed to match the artboard strokes exactly.
+- Settings at default text size scrolls a little, so the font caption sits under the bottom fade above the Voice row. The fade is the scroll hint; the Supporter section is below it anyway.
+
+### Next
+- Friday: one more artboard pass on the final build and the final PROGRESS summary. Optional polish if time allows: a matching Places icon, the person avatar in Setup, and the selected pill check at accessibility XL.
+
+### Needs Emily
+- On her Mac: Xcode 16 from the App Store (open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: say whether the Undo off state (arrow hidden, word muted) reads right to her.
+- The real logo artwork, if she wants it in place of the drawn wordmark.

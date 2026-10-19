@@ -22,6 +22,9 @@ struct SuggestionCard: View {
                         Text(caption)
                             .textStyle(TypeScale.caption)
                             .foregroundStyle(theme.colors.teal)
+                            // The attribution stops growing at xxxLarge so the message keeps
+                            // the space and more of the three cards fit at the largest sizes.
+                            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                     }
                 }
                 Spacer(minLength: 0)
