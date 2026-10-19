@@ -19,7 +19,7 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - Fonts: Lexend (400, 600) and Atkinson Hyperlegible bundled from Google Fonts (OFL). Commit the license files.
 
 ## Day 1, Mon Oct 19: foundation
-- [ ] Tag the Flutter prototype as `prototype-2025` and move it to `legacy/flutter-prototype/` (done by the setup session; verify only)
+- [ ] Preserve the Flutter prototype on branch `prototype-2025` and move it to `legacy/flutter-prototype/` (done by the setup session; verify only)
 - [ ] `project.yml`, app target, SelvoCore package, empty app that launches to a Nightlight-colored screen
 - [ ] GitHub Actions workflow green: build, unit tests, screenshot artifact
 - [ ] Theme tokens: generate `Theme.swift` (Nightlight and Daylight) from `docs/design/system/tokens.json` with a small script in `scripts/`; type styles (display, lead, message, heading, label, body, caption) mapped to Dynamic Type
