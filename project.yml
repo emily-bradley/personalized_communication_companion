@@ -66,15 +66,30 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: com.emilykenney.selvo.tests
 
+  SelvoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: SelvoUITests
+    dependencies:
+      - target: Selvo
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.emilykenney.selvo.uitests
+        TEST_TARGET_NAME: Selvo
+
 schemes:
   Selvo:
     build:
       targets:
         Selvo: all
         SelvoTests: [test]
+        SelvoUITests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
         - SelvoTests
+        - SelvoUITests

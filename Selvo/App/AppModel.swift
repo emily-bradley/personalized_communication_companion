@@ -41,6 +41,10 @@ final class AppModel {
     /// Loads the saved profile. In the Simulator, or when launched with -SelvoDemoProfile YES,
     /// the demo profile for Lucas is seeded on first launch so the demo opens ready to use.
     static func launch(store: ProfileStore = .standard(), arguments: [String] = ProcessInfo.processInfo.arguments) -> AppModel {
+        // UI tests start from a clean slate so each run sees the same screens.
+        if arguments.contains("-SelvoResetProfile") {
+            try? store.delete()
+        }
         var profile = try? store.load()
         if profile == nil && shouldSeedDemo(arguments: arguments) {
             let lucas = DemoProfile.lucas
