@@ -20,7 +20,7 @@ The site is static (Astro). Cloudflare Pages builds it from GitHub on every push
    - Build command: `pnpm build`
    - Build output directory: `dist`
    - Root directory (advanced): leave empty for `selvo-website`; set to `website` for `personalized_communication_companion`.
-9. Environment variables (optional): none are required. Later, add `PUBLIC_WAITLIST_URL` to send early access sign-ups to your form backend. Cloudflare reads the Node version from `.node-version`.
+9. Environment variables (optional): none are required. Later, add `PUBLIC_WAITLIST_URL` to send early access sign-ups to your form backend. Cloudflare reads the Node version from `.node-version`. If the first build fails at the install step, add the variable `PNPM_VERSION` with value `10.28.0` and retry the deploy.
 10. Click **Save and Deploy**. The first build takes two or three minutes. Your link is `https://selvo-website.pages.dev`.
 
 Every push to the production branch now deploys automatically, and every other branch gets its own preview link.
