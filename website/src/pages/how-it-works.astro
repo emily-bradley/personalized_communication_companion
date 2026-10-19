@@ -1,8 +1,178 @@
 ---
+import CheckIcon from "../components/CheckIcon.astro";
+import EarlyAccess from "../components/EarlyAccess.astro";
 import PageIntro from "../components/PageIntro.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    title: "Pick a picture",
+    body: "Start from a photo, a place, a person, or a saved phrase. Your own photos come first. Tiles stay where you put them.",
+  },
+  {
+    title: "Choose your words",
+    body: "Selvo offers three ways to say it, in your style. Another brings three more. Incorrect removes one and teaches Selvo for next time.",
+  },
+  {
+    title: "Speak",
+    body: "Out loud, in a voice you chose. A single tap, and you see Spoken when it is done.",
+  },
+];
+
+const tiles = ["Coffee", "Mom", "Work"];
+const message = "Can we get coffee before work?";
+const otherSuggestions = ["Coffee first. Then I'll be nice.", "Is there time for coffee?"];
+
+const places = [
+  { title: "Photos", body: "Your own pictures, the fastest way to say what you are looking at." },
+  { title: "Places", body: "Where you are, where you are going, and the places you talk about." },
+  { title: "People", body: "The people you see most, with their faces, so you can talk to them or about them." },
+  { title: "Phrases", body: "Things you say often, saved the way you say them. They work offline." },
+  { title: "Listen", body: "Selvo hears what is said to you, only when you turn it on, and offers replies." },
+];
+
+const promises = [
+  "Tiles never move. Your hand learns where to go.",
+  "Back and Undo are always on screen. Nothing times out.",
+  "Saved phrases and tiles work without a connection.",
+  "Text size, contrast, theme, and speech rate are yours to set.",
+];
 ---
 
-<BaseLayout title="How it works" description="How it works, from Selvo. This page is on its way.">
-  <PageIntro slot="hero" title="How it works" lead="This page is on its way this week." />
+<BaseLayout
+  title="How it works"
+  description="Pick a picture, choose your words, speak. Selvo learns how you like to say things as you go."
+>
+  <PageIntro
+    slot="hero"
+    title="How Selvo works"
+    lead="Pick a picture, choose your words, speak. Selvo learns how you like to say things as you go."
+  />
+
+  <section aria-label="Steps" class="bg-warm-ground">
+    <div class="container-site pb-16">
+      <ol class="m-0 list-none p-0">
+        {
+          steps.map((step, index) => (
+            <li class="flex flex-wrap items-center gap-12 border-t border-warm-hairline py-12 first:border-t-0">
+              <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-5">
+                <div
+                  aria-hidden="true"
+                  class="flex size-12 shrink-0 items-center justify-center rounded-pill bg-warm-tint text-xl font-semibold text-warm-teal"
+                >
+                  {index + 1}
+                </div>
+                <h2 class="h-section text-warm-ink">{step.title}</h2>
+                <p class="t-lead max-w-[520px] text-warm-muted">{step.body}</p>
+              </div>
+              <div class="box-border min-w-0 flex-[1_1_400px] rounded-lg border border-night-hairline bg-night-surface p-8">
+                {index === 0 && (
+                  <div class="grid grid-cols-3 gap-3">
+                    {tiles.map((tile) => (
+                      <div class="flex flex-col overflow-hidden rounded-md border border-night-hairline bg-night-raised">
+                        <div class="t-caption flex aspect-square items-center justify-center bg-night-surface text-night-ink-muted">
+                          [PHOTO]
+                        </div>
+                        <div class="px-3 py-2.5 text-[17px] font-semibold leading-[22px] text-night-ink">{tile}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {index === 1 && (
+                  <div class="flex flex-col gap-3">
+                    <div class="t-body rounded-md bg-night-tint p-4 text-night-ink outline-3 outline-offset-2 outline-night-teal outline-solid">
+                      {message}
+                    </div>
+                    {otherSuggestions.map((line) => (
+                      <div class="t-body rounded-md border border-night-hairline bg-night-raised p-4 text-night-ink">
+                        {line}
+                      </div>
+                    ))}
+                    <div class="flex gap-3 pt-1">
+                      <div class="flex h-11 flex-1 items-center justify-center rounded-pill border border-night-border-strong text-[17px] font-semibold text-night-ink">
+                        Another
+                      </div>
+                      <div class="flex h-11 flex-1 items-center justify-center rounded-pill border border-night-border-strong text-[17px] font-semibold text-night-ink">
+                        Incorrect
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div class="flex flex-col gap-4">
+                    <div class="rounded-lg bg-night-raised p-5 text-[30px] leading-10 text-night-ink">{message}</div>
+                    <div class="flex h-16 items-center justify-center rounded-pill bg-night-primary text-[17px] font-semibold text-night-surface">
+                      Speak
+                    </div>
+                    <div class="flex items-center justify-center gap-2 text-[17px] font-semibold text-night-teal">
+                      <CheckIcon size={20} />
+                      Spoken
+                    </div>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="places-heading" class="bg-warm-ground">
+    <div class="container-site flex flex-col gap-10 pb-28">
+      <h2 id="places-heading" class="h-section text-warm-ink">Five places to start</h2>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-6">
+        {
+          places.map((place) => (
+            <div class="box-border flex flex-col gap-2.5 rounded-md border border-warm-hairline bg-warm-card p-7">
+              <h3 class="h-card text-warm-teal">{place.title}</h3>
+              <p class="t-body text-warm-muted">{place.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="show-heading" class="border-y border-warm-hairline bg-warm-band">
+    <div class="container-site flex flex-wrap items-center gap-16 py-24">
+      <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-5">
+        <h2 id="show-heading" class="h-section text-warm-ink">Show it instead</h2>
+        <p class="t-lead text-warm-muted">
+          Loud room, quiet room, or a listener who reads faster than they hear. Show turns your message to the other
+          person in large type, one tap away.
+        </p>
+      </div>
+      <div
+        class="box-border min-w-0 flex-[1_1_400px] rounded-lg bg-night-raised px-8 py-12 text-center text-[clamp(36px,4.5vw,56px)] leading-[1.2] text-night-ink"
+      >
+        {message}
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="keep-heading" class="bg-warm-ground">
+    <div class="container-site flex flex-wrap gap-12 py-28">
+      <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-5">
+        <h2 id="keep-heading" class="h-section text-warm-ink">Made to keep up</h2>
+        <p class="t-lead text-warm-muted">
+          The screen never goes blank because a model is slow, and the controls are in the same place every time.
+        </p>
+      </div>
+      <ul
+        class="m-0 flex min-w-0 flex-[1_1_400px] list-none flex-col gap-4 p-0 text-[19px] leading-7 text-warm-ink"
+      >
+        {
+          promises.map((line) => (
+            <li class="flex items-start gap-3">
+              <CheckIcon class="text-warm-teal" />
+              <span>{line}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <EarlyAccess />
 </BaseLayout>
