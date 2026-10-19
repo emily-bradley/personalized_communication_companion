@@ -11,6 +11,8 @@ enum Route: Hashable {
     case listen
     case help
     case settings
+    case editTiles(TileCategory)
+    case editHelpPhrase
 }
 
 /// App state: the profile, the message being composed, and navigation.

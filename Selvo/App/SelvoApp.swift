@@ -51,6 +51,8 @@ struct RootView: View {
         case .listen: ListenView()
         case .help: HelpView()
         case .settings: SettingsView()
+        case .editTiles(let category): TileEditView(category: category)
+        case .editHelpPhrase: HelpPhraseEditView()
         }
     }
 }

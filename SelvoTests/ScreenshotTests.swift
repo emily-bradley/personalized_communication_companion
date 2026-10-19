@@ -106,4 +106,17 @@ final class ScreenshotTests: XCTestCase {
     func testSettings() throws {
         try snapshot("09-settings") { SettingsView() }
     }
+
+    func testEditTiles() throws {
+        try snapshot("10-edit-tiles", configure: { model in
+            model.update { p in
+                let id = p.tiles(in: .photos)[1].id
+                p.setHidden(true, tileID: id)
+            }
+        }) { TileEditView(category: .photos) }
+    }
+
+    func testHelpPhrase() throws {
+        try snapshot("11-help-phrase") { HelpPhraseEditView() }
+    }
 }

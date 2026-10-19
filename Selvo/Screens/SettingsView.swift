@@ -1,9 +1,9 @@
 import SwiftUI
 import SelvoCore
 
-/// Settings (App-Settings): text size with a live preview, theme, speech rate, reading font
-/// and voice. Every change saves straight away; theme and font apply live because RootView
-/// reads the model's theme.
+/// Settings (App-Settings): text size with a live preview, theme, speech rate, reading font,
+/// supporter editing and voice. Every change saves straight away; theme and font apply live
+/// because RootView reads the model's theme.
 struct SettingsView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.theme) private var theme
@@ -33,6 +33,7 @@ struct SettingsView: View {
                     themeSection(themeID, personName: profile?.name)
                     speechRateSection(profile?.speechRate ?? 0.5)
                     readingFontSection(themeID: themeID, selected: readingFont)
+                    supporterSection
                 }
                 .padding(.vertical, Spacing.space1)
             }
@@ -133,6 +134,42 @@ struct SettingsView: View {
             }
             caption("Atkinson Hyperlegible was tested with low-vision readers.")
         }
+    }
+
+    /// Editing for supporters: each tile category and the help message.
+    private var supporterSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.space3) {
+            SetupSectionLabel(title: "For supporters")
+            ForEach(TileCategory.allCases, id: \.self) { category in
+                supporterRow("Edit \(category.title)", route: .editTiles(category))
+            }
+            supporterRow("Help message", route: .editHelpPhrase)
+        }
+    }
+
+    /// A 56pt outlined pill with a chevron, like the Voice row.
+    private func supporterRow(_ title: String, route: Route) -> some View {
+        Button {
+            model.open(route)
+        } label: {
+            HStack(spacing: Spacing.space2) {
+                Text(title)
+                    .textStyle(TypeScale.label)
+                    .foregroundStyle(theme.colors.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(theme.colors.inkMuted)
+                    .accessibilityHidden(true)
+            }
+            .padding(.horizontal, Spacing.space6)
+            .frame(maxWidth: .infinity, minHeight: SetupMetrics.inputHeight)
+            .overlay(Capsule().strokeBorder(theme.colors.borderStrong, lineWidth: 1))
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(title)
     }
 
     /// The Voice row at the bottom, a 56pt outlined pill like the artboard.
