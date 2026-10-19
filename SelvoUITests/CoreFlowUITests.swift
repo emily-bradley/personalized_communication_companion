@@ -118,6 +118,7 @@ final class CoreFlowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Speak"].firstMatch.waitForExistence(timeout: 20))
         save("axl-01-home")
         tap("Photos")
+        XCTAssertTrue(app.buttons["Coffee"].waitForExistence(timeout: 10))
         save("axl-02-photos")
         tap("Coffee")
         XCTAssertTrue(app.buttons["Another"].waitForExistence(timeout: 10))
@@ -127,6 +128,7 @@ final class CoreFlowUITests: XCTestCase {
         tap("Back")
         tap("Back")
         tap("Settings")
+        XCTAssertTrue(element("Text size").waitForExistence(timeout: 5))
         save("axl-09-settings")
         app.swipeUp()
         save("axl-09b-settings-scrolled")
@@ -135,6 +137,7 @@ final class CoreFlowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Yes, show it"].waitForExistence(timeout: 5))
         save("axl-07-help-confirm")
         tap("Yes, show it")
+        XCTAssertTrue(element("I need help.").waitForExistence(timeout: 5))
         save("axl-08-help-attention")
     }
 

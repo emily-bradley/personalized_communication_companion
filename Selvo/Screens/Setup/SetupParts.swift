@@ -189,7 +189,8 @@ struct SetupChoicePill: View {
                 .foregroundStyle(theme.colors.ink)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
-                .padding(.horizontal, Spacing.space6)
+                // 32pt keeps the label clear of the check mark at large text sizes.
+                .padding(.horizontal, Spacing.space8)
                 .frame(maxWidth: .infinity, minHeight: SetupMetrics.choiceHeight)
                 .background(Capsule().fill(isSelected ? theme.colors.surfaceBrandTint : Color.clear))
                 .overlay(

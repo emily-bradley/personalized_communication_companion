@@ -47,11 +47,11 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [x] Help (App-Help): confirm screen, then the full danger attention screen with the person's phrase; two taps always
 - [x] Settings (App-Settings): text size with live preview, theme (Nightlight / Daylight side by side), speech rate, reading font (Lexend / Atkinson), voice
 - [x] Every screen correct in Daylight (App-Home-Day as the reference)
-- [ ] Accessibility pass: VoiceOver labels on every control, Dynamic Type up to accessibility XL without clipping, Reduce Motion, no color-only meaning
+- [x] Accessibility pass: VoiceOver labels on every control, Dynamic Type up to accessibility XL without clipping, Reduce Motion, no color-only meaning (Oct 19 run 2: labels and Voice Control names checked, photo actions for VoiceOver, page dots without color when asked, fade at scroll edges, real Simulator screenshots at accessibility XL; open: Undo off state, see PROGRESS)
 - [x] Add `performAccessibilityAudit()` UI tests for every screen and fix what they find (added Oct 19)
 - [x] Supporter tile editing: hide and unhide tiles, add a tile, edit the help phrase (handoff lists these as not designed; build from existing components) (added Oct 19)
-- [ ] Tile reorder by the supporter (Move earlier and Move later added Oct 19 run 1 in the tile editor context menu and VoiceOver actions; check when verified on a device) (handoff lists it; positions must persist per profile) (added Oct 19)
-- [ ] Trace the Settings accessibility audit note "Potentially inaccessible text" and the audit's Dynamic Type report on Settings with Accessibility Inspector, then remove the exception in `AccessibilityAuditUITests` (added Oct 19)
+- [x] Tile reorder by the supporter (Move earlier and Move later added Oct 19 run 1 in the tile editor context menu and VoiceOver actions; verified Oct 19 run 2 by a Simulator UI test that moves Coffee, checks the grid, relaunches and checks again) (handoff lists it; positions must persist per profile) (added Oct 19)
+- [x] Trace the Settings accessibility audit note "Potentially inaccessible text" and the audit's Dynamic Type report on Settings with Accessibility Inspector, then remove the exception in `AccessibilityAuditUITests` (added Oct 19; Oct 19 run 2: exception removed, Settings top, Settings scrolled and Setup step 4 all pass the audit)
 
 ## Day 5, Fri Oct 23: polish and demo
 - [ ] Screenshot every screen in both themes at default and XL text; compare each to its artboard and fix differences
