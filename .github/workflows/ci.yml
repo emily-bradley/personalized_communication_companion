@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
   group: ci-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: false
@@ -53,7 +56,8 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             > build/xcodebuild.log 2>&1
           status=$?
-          grep -E "error:|failed|Test Suite|Executed|\*\* " build/xcodebuild.log | tail -150
+          grep -E "error|failed|Test Suite|Executed|\*\* " build/xcodebuild.log | tail -150
+          if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
           exit $status
       - name: Upload screenshots
         if: always()
@@ -62,6 +66,9 @@ jobs:
           name: screenshots
           path: ${{ runner.temp }}/screenshots
           if-no-files-found: warn
+      - name: Publish screenshots to the ci-screenshots branch
+        if: always() && github.event_name == 'push'
+        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/screenshots" screenshots
       - name: Upload build log
         if: failure()
         uses: actions/upload-artifact@v4
@@ -79,6 +86,12 @@ jobs:
         run: scripts/ci_select_xcode.sh
       - name: Run the demo script
         run: scripts/demo.sh
+      - name: Publish demo screenshot to the ci-screenshots branch
+        if: always() && github.event_name == 'push'
+        run: |
+          mkdir -p "$RUNNER_TEMP/demo"
+          cp build/demo-launch.png "$RUNNER_TEMP/demo/" 2>/dev/null || true
+          scripts/ci_publish_images.sh "$RUNNER_TEMP/demo" demo
       - name: Upload demo screenshot
         if: always()
         uses: actions/upload-artifact@v4
