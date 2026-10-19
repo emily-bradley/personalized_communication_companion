@@ -32,11 +32,11 @@ final class AccessibilityAuditUITests: XCTestCase {
         types.remove(.dynamicType)
         try app.performAccessibilityAudit(for: types) { issue in
             let element = issue.element.map { "\($0.elementType.rawValue) '\($0.label)'" } ?? "no element"
-            print("AUDIT \(screen): \(issue.auditType) \(issue.compactDescription) [\(element)]")
-            // Settings reports one "Potentially inaccessible text" with no element attached, so
-            // it cannot be traced from CI. It is printed above and listed in PROGRESS.md to
-            // check with the Accessibility Inspector on a Mac; every other issue fails.
-            if issue.auditType == .elementDetection && issue.element == nil && screen == "Settings" {
+            print("AUDIT \(screen): \(issue.auditType) \(issue.compactDescription) [\(element)] \(issue.detailedDescription)")
+            // Settings reports one "Potentially inaccessible text" with no element attached.
+            // The Settings and Setup audits below are split by screen area to find where it
+            // comes from; every other issue fails.
+            if issue.auditType == .elementDetection && issue.element == nil && screen.hasPrefix("Settings") {
                 return true
             }
             return false
@@ -77,6 +77,24 @@ final class AccessibilityAuditUITests: XCTestCase {
     func testSettings() throws {
         tap("Settings")
         XCTAssertTrue(app.buttons["Back"].waitForExistence(timeout: 5))
-        try audit("Settings")
+        try audit("Settings top")
+        app.swipeUp()
+        try audit("Settings lower")
+    }
+
+    /// Setup step 4 shows the same text size pills and theme swatches as Settings, so it tells
+    /// whether the Settings note comes from those parts.
+    func testSetupTextSizeStep() throws {
+        app.terminate()
+        app.launchArguments = ["-SelvoResetProfile", "-SelvoDemoProfile", "NO"]
+        app.launch()
+        tap("Set up together")
+        let name = app.textFields["Name"].firstMatch
+        XCTAssertTrue(name.waitForExistence(timeout: 10))
+        name.tap()
+        name.typeText("Lucas")
+        for _ in 1...3 { tap("Continue") }
+        XCTAssertTrue(app.staticTexts["Text size"].waitForExistence(timeout: 5))
+        try audit("Setup text size")
     }
 }

@@ -77,6 +77,38 @@ final class CoreFlowUITests: XCTestCase {
         tap("Done")
     }
 
+    /// A supporter moves Coffee one place later in Edit Photos. The grid shows the new order,
+    /// and it is still there after the app is closed and opened again.
+    func testSupporterMovesTileLater() throws {
+        tap("Settings")
+        app.swipeUp()
+        tap("Edit Photos")
+        let coffee = app.buttons["Coffee"].firstMatch
+        XCTAssertTrue(coffee.waitForExistence(timeout: 5))
+        coffee.press(forDuration: 1.2)
+        tap("Move later")
+        XCTAssertTrue(app.buttons["Dinner"].firstMatch.frame.minY < app.buttons["Coffee"].firstMatch.frame.minY,
+                      "Coffee is listed after Dinner")
+        save("10-edit-photos-moved")
+        tap("Back")
+        tap("Back")
+        assertCoffeeAfterDinnerOnGrid()
+
+        app.terminate()
+        app.launchArguments = ["-SelvoDemoProfile", "YES"]
+        app.launch()
+        assertCoffeeAfterDinnerOnGrid()
+    }
+
+    private func assertCoffeeAfterDinnerOnGrid(file: StaticString = #filePath, line: UInt = #line) {
+        tap("Photos", file: file, line: line)
+        let coffee = app.buttons["Coffee"].firstMatch
+        let dinner = app.buttons["Dinner"].firstMatch
+        XCTAssertTrue(coffee.waitForExistence(timeout: 10), file: file, line: line)
+        XCTAssertEqual(coffee.frame.midY, dinner.frame.midY, accuracy: 2, "same row", file: file, line: line)
+        XCTAssertGreaterThan(coffee.frame.minX, dinner.frame.minX, "Coffee is in the second slot", file: file, line: line)
+    }
+
     func testSettingsOpens() throws {
         tap("Settings")
         XCTAssertTrue(element("Text size").waitForExistence(timeout: 5))
