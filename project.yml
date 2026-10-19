@@ -41,8 +41,8 @@ targets:
           - Lexend-SemiBold.ttf
           - AtkinsonHyperlegible-Regular.ttf
           - AtkinsonHyperlegible-Bold.ttf
-        NSMicrophoneUsageDescription: Selvo uses the microphone in Listen so the people talking with you can be shown as text. Nothing you hear leaves your phone.
-        NSSpeechRecognitionUsageDescription: Selvo turns what people say to you into text in Listen, on your phone when it can.
+        NSMicrophoneUsageDescription: Selvo uses the microphone in Listen to show what people say to you as text.
+        NSSpeechRecognitionUsageDescription: Selvo turns what people say to you into text in Listen. When your phone can do this by itself, nothing is sent to Apple.
         NSPhotoLibraryUsageDescription: Selvo lets you choose your own photos for your tiles.
         ITSAppUsesNonExemptEncryption: false
     settings:

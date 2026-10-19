@@ -92,11 +92,15 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testListen() throws {
-        try snapshot("07-listen") { ListenView() }
+        try snapshot("07-listen") { ListenView(previewHeard: "Do you want to come to the game on Saturday, or stay in?", previewSpeaker: "Mom") }
     }
 
     func testHelp() throws {
         try snapshot("08-help") { HelpView() }
+    }
+
+    func testHelpAttention() throws {
+        try snapshot("08b-help-attention", background: { $0.colors.danger }) { HelpView(startsOnAttention: true) }
     }
 
     func testSettings() throws {
