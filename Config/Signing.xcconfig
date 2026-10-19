@@ -1,0 +1,8 @@
+// Signing for Release builds (archives for TestFlight). Debug builds for the Simulator do not
+// use this file, and scripts/demo.sh builds with CODE_SIGNING_ALLOWED=NO, so no signing is
+// needed to run the demo.
+//
+// Replace [EMILY_TEAM_ID] with the 10 character Team ID from developer.apple.com, Membership.
+// The TestFlight workflow can also pass DEVELOPMENT_TEAM on the command line.
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = [EMILY_TEAM_ID]

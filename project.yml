@@ -45,6 +45,8 @@ targets:
         NSSpeechRecognitionUsageDescription: Selvo turns what people say to you into text in Listen. When your phone can do this by itself, nothing is sent to Apple.
         NSPhotoLibraryUsageDescription: Selvo lets you choose your own photos for your tiles.
         ITSAppUsesNonExemptEncryption: false
+    configFiles:
+      Release: Config/Signing.xcconfig
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.emilykenney.selvo
