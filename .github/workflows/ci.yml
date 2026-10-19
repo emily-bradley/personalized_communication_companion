@@ -56,7 +56,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             > build/xcodebuild.log 2>&1
           status=$?
-          grep -E "error|failed|Test Suite|Executed|\*\* " build/xcodebuild.log | tail -150
+          grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
           exit $status
       - name: Upload screenshots

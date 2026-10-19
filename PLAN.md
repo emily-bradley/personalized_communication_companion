@@ -19,53 +19,55 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - Fonts: Lexend (400, 600) and Atkinson Hyperlegible bundled from Google Fonts (OFL). Commit the license files.
 
 ## Day 1, Mon Oct 19: foundation
-- [ ] Preserve the Flutter prototype on branch `prototype-2025` and move it to `legacy/flutter-prototype/` (done by the setup session; verify only)
-- [ ] `project.yml`, app target, SelvoCore package, empty app that launches to a Nightlight-colored screen
-- [ ] GitHub Actions workflow green: build, unit tests, screenshot artifact
-- [ ] Theme tokens: generate `Theme.swift` (Nightlight and Daylight) from `docs/design/system/tokens.json` with a small script in `scripts/`; type styles (display, lead, message, heading, label, body, caption) mapped to Dynamic Type
-- [ ] Core components: PrimaryButton (Speak, 64pt), QuietButton (44pt outline), MessageStrip, Tile, SuggestionCard, TopBar (Back, title, right slot), HelpButton
-- [ ] Unit tests for token generation and component sizing rules (touch targets 44pt min)
+- [x] Preserve the Flutter prototype on branch `prototype-2025` and move it to `legacy/flutter-prototype/` (done by the setup session; verify only)
+- [x] `project.yml`, app target, SelvoCore package, empty app that launches to a Nightlight-colored screen
+- [x] GitHub Actions workflow green: build, unit tests, screenshot artifact
+- [x] Theme tokens: generate `Theme.swift` (Nightlight and Daylight) from `docs/design/system/tokens.json` with a small script in `scripts/`; type styles (display, lead, message, heading, label, body, caption) mapped to Dynamic Type
+- [x] Core components: PrimaryButton (Speak, 64pt), QuietButton (44pt outline), MessageStrip, Tile, SuggestionCard, TopBar (Back, title, right slot), HelpButton
+- [x] Unit tests for token generation and component sizing rules (touch targets 44pt min)
 
 ## Day 2, Tue Oct 20: onboarding and home
-- [ ] Welcome screen (App-Welcome)
-- [ ] Supporter setup flow, 5 steps on one template (App-Setup): people, places, phrases, text size and theme side by side, voice
-- [ ] Profile model and Store with a seeded demo profile ("Lucas") using SF Symbols on tinted tiles, never real photos
-- [ ] Home (App-Home) with the five destinations; Speak pinned and disabled when the strip is empty
-- [ ] Tile grid (App-Photos) reused for Photos, Places, People, Phrases; positions persist and never reflow; paging
-- [ ] PhotosPicker to add a personal photo to a tile
+- [x] Welcome screen (App-Welcome)
+- [x] Supporter setup flow, 5 steps on one template (App-Setup): people, places, phrases, text size and theme side by side, voice
+- [x] Profile model and Store with a seeded demo profile ("Lucas") using SF Symbols on tinted tiles, never real photos
+- [x] Home (App-Home) with the five destinations; Speak pinned and disabled when the strip is empty
+- [x] Tile grid (App-Photos) reused for Photos, Places, People, Phrases; positions persist and never reflow; paging
+- [x] PhotosPicker to add a personal photo to a tile
 
 ## Day 3, Wed Oct 21: the core loop
-- [ ] Choose your words (App-Suggest): exactly three suggestions, Another replaces the stack, Incorrect removes one and records feedback, Undo, Clear (far from Speak), Show link
-- [ ] SavedPhraseProvider with style tags (plain, witty, short) and tests
-- [ ] FoundationModelsProvider behind availability; the UI never blocks on it
-- [ ] Speak: AVSpeechSynthesizer with the profile voice and rate, one haptic, "Spoken" state for about 1 second
-- [ ] Show mode (App-Show): message rotated 180 degrees for the listener, Done
-- [ ] Unit tests for suggestion stack rules (three at a time, Another, Incorrect)
+- [x] Choose your words (App-Suggest): exactly three suggestions, Another replaces the stack, Incorrect removes one and records feedback, Undo, Clear (far from Speak), Show link
+- [x] SavedPhraseProvider with style tags (plain, witty, short) and tests
+- [x] FoundationModelsProvider behind availability; the UI never blocks on it
+- [x] Speak: AVSpeechSynthesizer with the profile voice and rate, one haptic, "Spoken" state for about 1 second
+- [x] Show mode (App-Show): message rotated 180 degrees for the listener, Done
+- [x] Unit tests for suggestion stack rules (three at a time, Another, Incorrect)
 
 ## Day 4, Thu Oct 22: listen, help, settings, both themes
-- [ ] Listen (App-Listen): mic and speech permissions with clear purpose strings, a constant visible Listening indicator, heard text card, Show replies, Stop listening
-- [ ] Help (App-Help): confirm screen, then the full danger attention screen with the person's phrase; two taps always
-- [ ] Settings (App-Settings): text size with live preview, theme (Nightlight / Daylight side by side), speech rate, reading font (Lexend / Atkinson), voice
-- [ ] Every screen correct in Daylight (App-Home-Day as the reference)
+- [x] Listen (App-Listen): mic and speech permissions with clear purpose strings, a constant visible Listening indicator, heard text card, Show replies, Stop listening
+- [x] Help (App-Help): confirm screen, then the full danger attention screen with the person's phrase; two taps always
+- [x] Settings (App-Settings): text size with live preview, theme (Nightlight / Daylight side by side), speech rate, reading font (Lexend / Atkinson), voice
+- [x] Every screen correct in Daylight (App-Home-Day as the reference)
 - [ ] Accessibility pass: VoiceOver labels on every control, Dynamic Type up to accessibility XL without clipping, Reduce Motion, no color-only meaning
+- [ ] Add `performAccessibilityAudit()` UI tests for every screen and fix what they find (added Oct 19)
+- [ ] Supporter tile editing: hide and unhide tiles, add a tile, edit the help phrase (handoff lists these as not designed; build from existing components) (added Oct 19)
 
 ## Day 5, Fri Oct 23: polish and demo
 - [ ] Screenshot every screen in both themes at default and XL text; compare each to its artboard and fix differences
-- [ ] Offline check: airplane-mode path from Home to Spoken works with saved phrases
-- [ ] App icon (orb with three sound bars) and launch screen
-- [ ] `scripts/demo.sh`: one command for Emily's Mac that installs XcodeGen if missing (Homebrew), generates the project, builds for an iPhone 16 Simulator, boots it, installs and launches Selvo with the demo profile. CI runs this same script on `macos-15` so it is proven before Friday
-- [ ] `docs/DEMO.md`: a 5-minute demo script that walks Welcome to Spoken, Show, Listen, Help, and Settings in the Simulator; prerequisites (Xcode 16, Command Line Tools, Homebrew); what to do if the Simulator is slow on first boot
-- [ ] `docs/APP-STORE-READINESS.md`: privacy policy needs, Accessibility Nutrition Label answers, mic consent, no medical claims, open items
+- [x] Offline check: airplane-mode path from Home to Spoken works with saved phrases
+- [x] App icon (orb with three sound bars) and launch screen
+- [x] `scripts/demo.sh`: one command for Emily's Mac that installs XcodeGen if missing (Homebrew), generates the project, builds for an iPhone 16 Simulator, boots it, installs and launches Selvo with the demo profile. CI runs this same script on `macos-15` so it is proven before Friday
+- [x] `docs/DEMO.md`: a 5-minute demo script that walks Welcome to Spoken, Show, Listen, Help, and Settings in the Simulator; prerequisites (Xcode 16, Command Line Tools, Homebrew); what to do if the Simulator is slow on first boot
+- [x] `docs/APP-STORE-READINESS.md`: privacy policy needs, Accessibility Nutrition Label answers, mic consent, no medical claims, open items
 - [ ] Final PROGRESS.md summary for Emily
 
 ## TestFlight readiness (build in as you go; finish first thing the week of Oct 26)
-- [ ] Bundle ID `com.emilykenney.selvo` (placeholder until Emily confirms), version 0.1.0, build number from the CI run number
-- [ ] Signing settings in `Config/Signing.xcconfig` with `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]` and automatic signing; the Simulator build must not need signing
-- [ ] Info.plist purpose strings for microphone, speech recognition, and photos, in plain language; `ITSAppUsesNonExemptEncryption` set to NO
-- [ ] `PrivacyInfo.xcprivacy` privacy manifest declaring no tracking and the required-reason APIs actually used
-- [ ] App icon at 1024x1024 in the asset catalog (orb with three sound bars), no transparency
-- [ ] `.github/workflows/testflight.yml`, manual trigger only: archives and uploads to App Store Connect using an App Store Connect API key stored as repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`. It stays unrun until Emily adds the secrets; document the steps in `docs/TESTFLIGHT.md`
-- [ ] `docs/TESTFLIGHT.md`: what Emily does once (create the app record in App Store Connect, create the API key, add the three secrets, add internal testers) and how to run the upload
+- [x] Bundle ID `com.emilykenney.selvo` (placeholder until Emily confirms), version 0.1.0, build number from the CI run number
+- [x] Signing settings in `Config/Signing.xcconfig` with `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]` and automatic signing; the Simulator build must not need signing
+- [x] Info.plist purpose strings for microphone, speech recognition, and photos, in plain language; `ITSAppUsesNonExemptEncryption` set to NO
+- [x] `PrivacyInfo.xcprivacy` privacy manifest declaring no tracking and the required-reason APIs actually used
+- [x] App icon at 1024x1024 in the asset catalog (orb with three sound bars), no transparency
+- [x] `.github/workflows/testflight.yml`, manual trigger only: archives and uploads to App Store Connect using an App Store Connect API key stored as repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`. It stays unrun until Emily adds the secrets; document the steps in `docs/TESTFLIGHT.md`
+- [x] `docs/TESTFLIGHT.md`: what Emily does once (create the app record in App Store Connect, create the API key, add the three secrets, add internal testers) and how to run the upload
 
 ## Out of scope for the demo
 Android, accounts and sync, App Store submission, real photos of Lucas, server-side AI.
