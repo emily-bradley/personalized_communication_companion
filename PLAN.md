@@ -1,6 +1,6 @@
 # Selvo iPhone app: 5-day build plan
 
-Goal: a native SwiftUI iPhone app Emily can demo to her partner after **Friday, October 23, 2026, 6pm Central**. It must build and pass tests in CI, run in the iOS Simulator, and install on her iPhone from Xcode.
+Goal: a native SwiftUI iPhone app Emily can demo to her partner after **Friday, October 23, 2026, 6pm Central**. **The demo runs in the iOS Simulator on Emily's Mac**, so the top priority is that one command on a Mac with Xcode builds the app and opens it in the Simulator with the demo profile loaded. Emily has a paid Apple Developer account and wants the app in **TestFlight the week of October 26**, so keep the project TestFlight-ready as you go.
 
 Source of truth for design: `docs/design/app/*.dc.html` (each file is a 390x844 screen with exact colors, sizes, and copy), `docs/design/system/` (brand book and tokens), and `docs/HANDOFF.md` (the iPhone section). Where they disagree, the brand book wins, then the artboards, then the handoff.
 
@@ -53,9 +53,19 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [ ] Screenshot every screen in both themes at default and XL text; compare each to its artboard and fix differences
 - [ ] Offline check: airplane-mode path from Home to Spoken works with saved phrases
 - [ ] App icon (orb with three sound bars) and launch screen
-- [ ] `docs/DEMO.md`: a 5-minute demo script, how to run on Simulator and on an iPhone with a free Apple ID
+- [ ] `scripts/demo.sh`: one command for Emily's Mac that installs XcodeGen if missing (Homebrew), generates the project, builds for an iPhone 16 Simulator, boots it, installs and launches Selvo with the demo profile. CI runs this same script on `macos-15` so it is proven before Friday
+- [ ] `docs/DEMO.md`: a 5-minute demo script that walks Welcome to Spoken, Show, Listen, Help, and Settings in the Simulator; prerequisites (Xcode 16, Command Line Tools, Homebrew); what to do if the Simulator is slow on first boot
 - [ ] `docs/APP-STORE-READINESS.md`: privacy policy needs, Accessibility Nutrition Label answers, mic consent, no medical claims, open items
 - [ ] Final PROGRESS.md summary for Emily
 
+## TestFlight readiness (build in as you go; finish first thing the week of Oct 26)
+- [ ] Bundle ID `com.emilykenney.selvo` (placeholder until Emily confirms), version 0.1.0, build number from the CI run number
+- [ ] Signing settings in `Config/Signing.xcconfig` with `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]` and automatic signing; the Simulator build must not need signing
+- [ ] Info.plist purpose strings for microphone, speech recognition, and photos, in plain language; `ITSAppUsesNonExemptEncryption` set to NO
+- [ ] `PrivacyInfo.xcprivacy` privacy manifest declaring no tracking and the required-reason APIs actually used
+- [ ] App icon at 1024x1024 in the asset catalog (orb with three sound bars), no transparency
+- [ ] `.github/workflows/testflight.yml`, manual trigger only: archives and uploads to App Store Connect using an App Store Connect API key stored as repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`. It stays unrun until Emily adds the secrets; document the steps in `docs/TESTFLIGHT.md`
+- [ ] `docs/TESTFLIGHT.md`: what Emily does once (create the app record in App Store Connect, create the API key, add the three secrets, add internal testers) and how to run the upload
+
 ## Out of scope for the demo
-Android, accounts and sync, TestFlight (needs a paid Apple Developer account), real photos of Lucas, server-side AI.
+Android, accounts and sync, App Store submission, real photos of Lucas, server-side AI.
