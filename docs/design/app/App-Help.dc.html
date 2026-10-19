@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Selvo, Help</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap">
+<style>
+body{margin:0;font-family:Lexend,sans-serif;background:#0f1530;color:#f4f5f8}
+a{color:#7fd6c6}a:hover{color:#7fd6c6}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #7fd6c6;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0f1530; color: #f4f5f8; font-family: Lexend, sans-serif; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 56px 16px 24px; gap: 16px">
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><div style="flex: 1; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; height: 44px; gap: 8px"><div style="width: 96px; display: flex; justify-content: flex-start"><a href="App-Home.dc.html" style="display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding-right: 8px; text-decoration: none; font-size: 17px; font-weight: 600; color: #7fd6c6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7fd6c6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>Back</a></div><div style="flex: 1; text-align: center; font-size: 22px; line-height: 28px; font-weight: 600; color: #f4f5f8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Help</div><div style="width: 96px; display: flex; justify-content: flex-end"></div></div><div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px"><div style="font-size: 30px; line-height: 40px; color: #f4f5f8">Show the help screen?</div><div style="font-size: 17px; line-height: 26px; color: #b4b9cf">It fills the screen with your phrase in large type so people around you can read it. Nothing is sent anywhere.</div></div><a href="App-Home.dc.html" style="height: 56px; border-radius: 999px; border: 1px solid #8089b0; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 17px; font-weight: 600; color: #f4f5f8">Cancel</a><button type="button" onClick="{{ confirm }}" style="height: 64px; border: 0; border-radius: 999px; background: #ff8f7e; color: #0f1530; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600; cursor: pointer">Yes, show it</button></div></sc-if><sc-if value="{{ showing }}" hint-placeholder-val="{{ false }}"><div style="position: absolute; inset: 0; background: #ff8f7e; color: #0f1530; display: flex; flex-direction: column; padding: 56px 24px 24px; box-sizing: border-box; gap: 24px"><div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 24px"><div style="font-size: 44px; line-height: 1.2; font-weight: 600">I need help.</div><div style="font-size: 30px; line-height: 40px">Please call my sister Emily. Her number is on the back of this phone.</div></div><button type="button" onClick="{{ done }}" style="height: 64px; border: 2px solid #0f1530; border-radius: 999px; background: transparent; color: #0f1530; font-family: Lexend, sans-serif; font-size: 20px; font-weight: 600; cursor: pointer">Done</button></div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const showing = !!(this.state && this.state.showing);
+    return { showing, asking: !showing, confirm: () => this.setState({ showing: true }), done: () => this.setState({ showing: false }) };
+  }
+}
+</script>
+</body>
+</html>
