@@ -11,9 +11,9 @@ const pathname = Astro.url.pathname;
 ---
 
 <header class:list={["relative z-[2]", night ? "on-night" : ""]}>
-  <div class="container-site flex min-h-[88px] flex-wrap items-center justify-between gap-4">
+  <div class="container-site flex min-h-[88px] flex-wrap items-center justify-between gap-4 py-4 lg:py-0">
     <Wordmark tone={tone} href="/" class="text-[32px]" />
-    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-7 gap-y-2 text-base font-semibold">
+    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-5 gap-y-2 text-base font-semibold lg:gap-x-7">
       {
         NAV_LINKS.map(({ href, label }) => {
           const current = isCurrent(href, pathname);

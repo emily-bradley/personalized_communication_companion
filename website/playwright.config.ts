@@ -8,7 +8,7 @@ export default defineConfig({
   webServer: {
     command: "pnpm exec astro preview --port 4321 --ignore-lock",
     url: "http://localhost:4321",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 60_000,
   },
 });
