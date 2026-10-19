@@ -9,7 +9,8 @@
       "!src/styles/tokens.css",
       "!test-results",
       "!playwright-report",
-      "!screenshots"
+      "!screenshots",
+      "!public"
     ]
   },
   "formatter": {
