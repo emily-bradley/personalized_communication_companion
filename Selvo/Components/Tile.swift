@@ -44,8 +44,9 @@ struct Tile: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 0) {
+                // The well gives up height first when space is short, but never below 44pt.
                 artworkView
-                    .frame(maxWidth: .infinity, minHeight: ComponentMetrics.tileImageMinHeight, maxHeight: .infinity)
+                    .frame(maxWidth: .infinity, minHeight: Spacing.touchMin, maxHeight: .infinity)
                     .background(wellColor ?? theme.colors.surfaceSunken)
                     .clipped()
                 Text(label)
@@ -54,6 +55,8 @@ struct Tile: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .minimumScaleFactor(0.85)
+                    // The label always gets its full height, so text is never cut.
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.vertical, Spacing.space2)
                     .padding(.horizontal, 10)
                     .frame(maxWidth: .infinity)

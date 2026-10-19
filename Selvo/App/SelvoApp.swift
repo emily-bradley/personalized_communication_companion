@@ -39,7 +39,9 @@ struct RootView: View {
         }
         .environment(\.theme, theme)
         .environment(\.dynamicTypeSize, max(systemTypeSize, minimum))
-        .preferredColorScheme(theme.colorScheme)
+        // The window's color scheme sets the status bar. The Help attention screen needs dark
+        // status bar text on its coral ground, so it switches to light while it shows.
+        .preferredColorScheme(model.isShowingHelpAttention ? .light : theme.colorScheme)
         .tint(theme.colors.teal)
     }
 

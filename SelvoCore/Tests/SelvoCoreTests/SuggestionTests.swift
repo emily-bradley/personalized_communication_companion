@@ -155,6 +155,17 @@ final class SavedPhraseProviderTests: XCTestCase {
         }
     }
 
+    func testCoffeeAnotherGivesTheArtboardAlternates() {
+        let first = provider.phrases(for: coffeeContext(), count: 3, excluding: [])
+        let second = provider.phrases(for: coffeeContext(), count: 3, excluding: Set(first.map { $0.text }))
+        XCTAssertEqual(second.map { $0.text }, [
+            "Do we have time to stop for coffee?",
+            "Coffee. Now. Please.",
+            "I could use a coffee before we go.",
+        ])
+        XCTAssertEqual(second.map { $0.style }, [.plain, .witty, .short])
+    }
+
     func testLabelsMatchIgnoringCase() {
         let context = SuggestionContext(personName: "Lucas", tileLabel: "  cOFFEE ")
         XCTAssertEqual(provider.phrases(for: context, count: 3, excluding: []).map { $0.text }, artboardCoffee)

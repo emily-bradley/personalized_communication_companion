@@ -91,7 +91,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            caption("Both shown side by side. \(personName ?? "You") chose \(selected.displayName).")
+            caption("Both shown side by side. \(personName ?? "You") chose \(selected.displayName) at setup.")
         }
     }
 

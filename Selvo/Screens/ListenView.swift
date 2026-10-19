@@ -49,7 +49,7 @@ struct ListenView: View {
                 HelpButton { model.open(.help) }
             }
 
-            ScrollsWhenNeeded(inset: Spacing.space1, alignment: .center) {
+            ScrollsWhenNeeded(inset: Spacing.space1, alignment: .center, drawsOutside: true) {
                 middle
             }
             .frame(maxHeight: .infinity)

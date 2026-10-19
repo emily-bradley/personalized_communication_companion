@@ -39,11 +39,14 @@ struct ScrollsWhenNeeded<Content: View>: View {
     var inset: Double = 0
     /// Where the content sits when it fits. The scrolling copy always starts at the top.
     var alignment: Alignment = .top
+    /// True for screens with the orb, so its glow is not cut by the edge of the scroll area.
+    var drawsOutside: Bool = false
     @ViewBuilder var content: () -> Content
 
     var body: some View {
         if isSnapshotRender {
-            // The fitting copy is not clipped, so glows and focus rings draw in full.
+            // The fitting copy is not clipped, so glows and focus rings draw in full. The
+            // overflowing copy is cut at the bottom only, so a glow at the top still shows.
             ViewThatFits(in: .vertical) {
                 content()
                     .frame(maxHeight: .infinity, alignment: alignment)
@@ -51,7 +54,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
                     .padding(inset)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
-                    .clipped()
+                    .mask(Rectangle().padding(.top, -120))
                     .padding(.horizontal, -inset)
             }
         } else {
@@ -61,6 +64,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
                 ScrollView {
                     content().padding(inset)
                 }
+                .scrollClipDisabled(drawsOutside)
                 .padding(.horizontal, -inset)
             }
         }

@@ -24,6 +24,9 @@ final class AccessibilityAuditUITests: XCTestCase {
     }
 
     private func audit(_ screen: String) throws {
+        // Let the navigation push settle first: auditing mid transition reports tiles that are
+        // still sliding in as having tiny hit areas.
+        Thread.sleep(forTimeInterval: 1.5)
         var types = XCUIAccessibilityAuditType.all
         types.remove(.contrast)
         types.remove(.dynamicType)
@@ -52,6 +55,7 @@ final class AccessibilityAuditUITests: XCTestCase {
 
     func testPhotosAndSuggest() throws {
         tap("Photos")
+        XCTAssertTrue(app.buttons["Coffee"].waitForExistence(timeout: 10))
         try audit("Photos")
         tap("Coffee")
         XCTAssertTrue(app.buttons["Another"].waitForExistence(timeout: 10))

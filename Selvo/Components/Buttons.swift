@@ -30,9 +30,9 @@ struct PrimaryButtonStyle: ButtonStyle {
         let fill = !isEnabled ? c.surfaceSunken : (configuration.isPressed ? c.primaryPressed : c.primary)
         return configuration.label
             .foregroundStyle(isEnabled ? c.onPrimary : c.inkMuted)
-            .background(Capsule().fill(fill))
+            // The shadow belongs to the capsule only, so the label text stays crisp.
+            .background(Capsule().fill(fill).tokenShadow(theme.sheetShadow))
             .contentShape(Capsule())
-            .tokenShadow(theme.sheetShadow)
     }
 }
 
@@ -124,6 +124,8 @@ struct HelpButton: View {
         Button(action: action) {
             Text("Help")
                 .textStyle(TypeScale.label)
+                .lineLimit(1)
+                .fixedSize()
                 .foregroundStyle(theme.colors.danger)
                 .padding(.horizontal, Spacing.space3)
                 .frame(minWidth: ComponentMetrics.iconButtonSide, minHeight: ComponentMetrics.iconButtonSide)
@@ -131,6 +133,8 @@ struct HelpButton: View {
                 .contentShape(Capsule())
         }
         .buttonStyle(.plain)
+        // The pill stops growing at the first accessibility size so it stays one line.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
         .accessibilityHint("Shows your help message")
     }
 }

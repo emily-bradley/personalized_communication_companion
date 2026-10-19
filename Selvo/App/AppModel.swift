@@ -26,6 +26,9 @@ final class AppModel {
     var path: [Route] = []
     /// True while the supporter setup flow is showing.
     var isInSetup = false
+    /// True while the Help attention screen shows. RootView then asks for the light color
+    /// scheme so the status bar is dark on the coral ground, in either theme.
+    var isShowingHelpAttention = false
 
     /// When Speak was last tapped.
     var lastSpokenAt: Date?

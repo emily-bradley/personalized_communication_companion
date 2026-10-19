@@ -11,10 +11,12 @@ struct HomeView: View {
             TopBar(title: "") {
                 Wordmark()
             } trailing: {
+                // Settings and Help keep their full width; the empty title gives way.
                 HStack(spacing: Spacing.space3) {
                     IconButton(systemImage: "gearshape", label: "Settings") { model.open(.settings) }
                     HelpButton { model.open(.help) }
                 }
+                .fixedSize()
             }
 
             MessageStrip(message: model.message, placeholder: "Tap a picture to start.")
@@ -28,16 +30,22 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            VStack(spacing: Spacing.space3) {
-                HStack(spacing: Spacing.space3) {
-                    destination(.photos)
-                    destination(.places)
+            // At very large text sizes the destinations scroll instead of squashing; Speak stays
+            // pinned below.
+            ScrollsWhenNeeded {
+                VStack(spacing: Spacing.space3) {
+                    HStack(spacing: Spacing.space3) {
+                        destination(.photos)
+                        destination(.places)
+                    }
+                    .frame(minHeight: ComponentMetrics.tileMinSide)
+                    HStack(spacing: Spacing.space3) {
+                        destination(.people)
+                        destination(.phrases)
+                    }
+                    .frame(minHeight: ComponentMetrics.tileMinSide)
+                    ListenRow { model.open(.listen) }
                 }
-                HStack(spacing: Spacing.space3) {
-                    destination(.people)
-                    destination(.phrases)
-                }
-                ListenRow { model.open(.listen) }
             }
             .frame(maxHeight: .infinity)
 

@@ -113,10 +113,11 @@ public struct SavedPhraseProvider: SuggestionProvider {
     /// Keyed by lowercased tile label. Covers every tile in the demo profile.
     static let table: [String: Templates] = [
         // Photos
+        // The first two of each style are the artboard's first stack and its stack after Another.
         "coffee": Templates(
-            plain: ["Can we get coffee before work?", "Do we have time to stop for coffee?", "I could use a coffee before we go."],
+            plain: ["Can we get coffee before work?", "Do we have time to stop for coffee?"],
             witty: ["Coffee first. Then I'll be nice.", "Coffee. Now. Please."],
-            short: ["Is there time for coffee?", "Coffee, please."]
+            short: ["Is there time for coffee?", "I could use a coffee before we go.", "Coffee, please."]
         ),
         "dinner": Templates(
             plain: ["What are we having for dinner?", "Can we eat dinner together tonight?"],

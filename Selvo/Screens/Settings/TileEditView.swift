@@ -100,8 +100,8 @@ struct TileEditView: View {
                 startRenaming(tile)
             } label: {
                 HStack(spacing: Spacing.space3) {
+                    // Full strength even when hidden; the "Hidden" caption carries the meaning.
                     thumbnail(tile)
-                        .opacity(tile.isHidden ? 0.5 : 1)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(tile.label)
                             .textStyle(TypeScale.label)
@@ -159,9 +159,9 @@ struct TileEditView: View {
         .modifier(EditRowCard())
     }
 
-    /// "Hide" or "Show on grid": a 44pt outlined pill with an eye symbol.
+    /// "Hide" or "Put back": a 44pt outlined pill with an eye symbol.
     private func hideToggle(_ tile: TileItem) -> some View {
-        let title = tile.isHidden ? "Show on grid" : "Hide"
+        let title = tile.isHidden ? "Put back" : "Hide"
         let symbol = tile.isHidden ? "eye" : "eye.slash"
         let id = tile.id
         let hide = !tile.isHidden
@@ -183,10 +183,10 @@ struct TileEditView: View {
             .frame(minHeight: ComponentMetrics.quietButtonHeight)
         }
         .buttonStyle(QuietButtonStyle(theme: theme))
-        .accessibilityLabel(tile.isHidden ? "Show \(tile.label) on grid" : "Hide \(tile.label)")
+        .accessibilityLabel(tile.isHidden ? "Put \(tile.label) back on the grid" : "Hide \(tile.label)")
     }
 
-    /// The tile's photo or symbol on a 48pt round well, like the setup lists.
+    /// The tile's photo or symbol on a 48pt round surface-sunken well, like the setup lists.
     @ViewBuilder private func thumbnail(_ tile: TileItem) -> some View {
         switch model.artwork(for: tile) {
         case .symbol(let name):
@@ -194,7 +194,7 @@ struct TileEditView: View {
                 .font(.system(size: 22, weight: .regular))
                 .foregroundStyle(theme.colors.teal)
                 .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
-                .background(Circle().fill(theme.colors.well(for: tile.tint)))
+                .background(Circle().fill(theme.colors.surfaceSunken))
                 .accessibilityHidden(true)
         case .image(let image):
             image

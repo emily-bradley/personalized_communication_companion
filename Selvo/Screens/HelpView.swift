@@ -23,6 +23,8 @@ struct HelpView: View {
                     done: goBack
                 )
                 .transition(.opacity)
+                .onAppear { model.isShowingHelpAttention = true }
+                .onDisappear { model.isShowingHelpAttention = false }
             } else {
                 confirm
                     .transition(.opacity)
