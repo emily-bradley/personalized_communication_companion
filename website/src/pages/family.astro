@@ -1,8 +1,146 @@
 ---
+import EarlyAccess from "../components/EarlyAccess.astro";
 import PageIntro from "../components/PageIntro.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const setupCards = [
+  {
+    icon: "person",
+    title: "Who they talk to",
+    body: "The people they see most, the places they go, and the phrases they use. Real photos, not symbols.",
+  },
+  {
+    icon: "lines",
+    title: "What works for their eyes and hands",
+    body: "Text size, contrast, theme, tile size, and speech rate, set inside Selvo. They can change any of it later.",
+  },
+  {
+    icon: "check",
+    title: "Selvo offers. They choose.",
+    body: "Nothing is spoken that they did not pick. You help when they ask, not by default.",
+  },
+];
+
+const steps = [
+  "Add the people and places they talk about, with photos.",
+  "Save the phrases they already use, in their words.",
+  "Set text size, contrast, theme, and speech rate. Show both themes side by side and let them pick.",
+  "Choose a voice together.",
+  "Hand over the phone.",
+];
+
+const faqs = [
+  {
+    question: "Does Selvo speak for them?",
+    answer: "No. Selvo suggests. The person chooses every message before it is spoken.",
+  },
+  {
+    question: "Does it need an internet connection?",
+    answer: "Saved phrases and tiles work offline. [CONFIRM: which features need a connection.]",
+  },
+  {
+    question: "Who can see what they say?",
+    answer: "[CONFIRM: privacy summary, one or two sentences, with a link to the privacy page.]",
+  },
+  { question: "What does it cost?", answer: "[YOUR PRICE, or: free during early access.]" },
+  { question: "Is Selvo a medical device?", answer: "No. Selvo is a communication companion." },
+];
 ---
 
-<BaseLayout title="For family" description="For family, from Selvo. This page is on its way.">
-  <PageIntro slot="hero" title="For family" lead="This page is on its way this week." />
+<BaseLayout
+  title="For family and supporters"
+  description="Setup takes an afternoon, together. After that, the phone belongs to the person using it."
+>
+  <PageIntro
+    slot="hero"
+    title="For family and supporters"
+    lead="Setup takes an afternoon, together. After that, the phone belongs to the person using it."
+  />
+
+  <section class="bg-warm-ground" aria-label="What you set up">
+    <div class="container-site grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-6 pb-28 pt-16">
+      {
+        setupCards.map((card) => (
+          <div class="box-border flex flex-col gap-4 rounded-md border border-warm-hairline bg-warm-card p-8">
+            <div aria-hidden="true" class="flex size-12 items-center justify-center rounded-pill bg-warm-tint">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-warm-teal"
+                aria-hidden="true"
+              >
+                {card.icon === "person" && (
+                  <>
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21a8 8 0 0 1 16 0" />
+                  </>
+                )}
+                {card.icon === "lines" && <path d="M4 7h16M4 12h10M4 17h7" />}
+                {card.icon === "check" && <path d="M5 12l5 5L20 7" />}
+              </svg>
+            </div>
+            <h2 class="h-card text-warm-ink">{card.title}</h2>
+            <p class="t-body text-warm-muted">{card.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-y border-warm-hairline bg-warm-band" aria-labelledby="setup-heading">
+    <div class="container-site flex flex-wrap gap-12 py-24">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col gap-5">
+        <h2 id="setup-heading" class="h-section text-warm-ink">The afternoon, step by step</h2>
+        <p class="t-lead text-warm-muted">
+          Do it side by side, with the person holding the phone. Ask before you add anything.
+        </p>
+        <a
+          href="/articles"
+          class="inline-flex min-h-11 items-center self-start text-[17px] font-semibold text-warm-teal no-underline hover:underline"
+          >Read the setup guide</a
+        >
+      </div>
+      <ol class="m-0 min-w-0 flex-[1_1_520px] list-none border-b border-warm-hairline p-0">
+        {
+          steps.map((step, index) => (
+            <li class="flex items-center gap-5 border-t border-warm-hairline py-5">
+              <div
+                aria-hidden="true"
+                class="flex size-12 shrink-0 items-center justify-center rounded-pill bg-warm-tint text-xl font-semibold text-warm-teal"
+              >
+                {index + 1}
+              </div>
+              <span class="text-[19px] leading-7 text-warm-ink">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground" aria-labelledby="faq-heading">
+    <div class="container-site flex flex-col gap-6 pb-28 pt-24">
+      <h2 id="faq-heading" class="h-section text-warm-ink">Questions families ask</h2>
+      <div class="border-b border-warm-hairline">
+        {
+          faqs.map((faq) => (
+            <details class="border-t border-warm-hairline py-1">
+              <summary class="box-content min-h-11 cursor-pointer py-4 text-[19px] font-semibold leading-7 text-warm-ink">
+                {faq.question}
+              </summary>
+              <p class="t-body max-w-[720px] pb-5 text-warm-muted">{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <EarlyAccess lead="Join for yourself or for someone you support. We will email once, when Selvo is ready on iPhone." />
 </BaseLayout>

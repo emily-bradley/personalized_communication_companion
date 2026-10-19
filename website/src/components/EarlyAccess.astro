@@ -1,5 +1,11 @@
 ---
 // Early-access sign-up. Posts to PUBLIC_WAITLIST_URL when set; otherwise shows the success state and sends nothing.
+interface Props {
+  /** The paragraph under the heading; some pages word it for families. */
+  lead?: string;
+}
+const { lead = "Selvo is coming to iPhone first. Join the list and we will email once, when it is ready for you." } =
+  Astro.props;
 const endpoint = import.meta.env.PUBLIC_WAITLIST_URL ?? "";
 ---
 
@@ -10,9 +16,7 @@ const endpoint = import.meta.env.PUBLIC_WAITLIST_URL ?? "";
     >
       <div class="flex min-w-0 flex-[1_1_400px] flex-col gap-4">
         <h2 id="access-heading" class="h-section text-warm-ink">Get early access</h2>
-        <p class="t-lead text-warm-muted">
-          Selvo is coming to iPhone first. Join the list and we will email once, when it is ready for you.
-        </p>
+        <p class="t-lead text-warm-muted">{lead}</p>
       </div>
       <div class="min-w-0 flex-[1_1_360px]">
         <form data-early-access data-endpoint={endpoint} method="post" novalidate class="flex flex-col gap-2">

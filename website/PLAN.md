@@ -18,7 +18,7 @@ Deadline: Friday, October 23, 2026, 6pm Central. Demo-ready at a public link.
 ## Wed Oct 21: inner pages
 - [ ] How it works
 - [x] Our story
-- [ ] For family (FAQ with native `details`)
+- [x] For family (FAQ with native `details`)
 
 ## Thu Oct 22: articles and site plumbing
 - [ ] Articles index

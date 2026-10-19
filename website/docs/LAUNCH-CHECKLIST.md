@@ -5,6 +5,9 @@ Everything here needs Emily before a public launch. The demo can go out with the
 ## Placeholders on the site
 - Home, "It started with Lucas": `[PHOTO: Lucas, mid-conversation, holding a phone the way anyone does]`
 - Our story, hero: `[PHOTO: Lucas and Emily at the kitchen table. He is mid-laugh. A phone face-up between the plates. Daylight from a window. Nobody looks at the camera.]`
+- For family, FAQ "Does it need an internet connection?": `[CONFIRM: which features need a connection.]`
+- For family, FAQ "Who can see what they say?": `[CONFIRM: privacy summary, one or two sentences, with a link to the privacy page.]`
+- For family, FAQ "What does it cost?": `[YOUR PRICE, or: free during early access.]`
 
 More are added as each page is built (Story photo, article card photos, article `[DATE]` and read time, family FAQ `[CONFIRM: ...]` and `[YOUR PRICE]`).
 
