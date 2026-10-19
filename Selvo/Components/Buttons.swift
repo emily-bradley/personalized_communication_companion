@@ -102,7 +102,7 @@ struct BackButton: View {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 20, weight: .semibold))
                     .accessibilityHidden(true)
-                Text("Back").textStyle(TypeScale.label)
+                Text("Back").textStyle(TypeScale.label).lineLimit(1).fixedSize()
             }
             .foregroundStyle(theme.colors.teal)
             .padding(.trailing, Spacing.space2)

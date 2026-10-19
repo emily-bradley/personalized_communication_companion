@@ -18,3 +18,41 @@ struct Screen<Content: View>: View {
         .foregroundStyle(theme.colors.ink)
     }
 }
+
+private struct SnapshotRenderKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    /// True inside screenshot tests. ImageRenderer cannot draw ScrollView content, so views
+    /// that scroll show their top part instead.
+    var isSnapshotRender: Bool {
+        get { self[SnapshotRenderKey.self] }
+        set { self[SnapshotRenderKey.self] = newValue }
+    }
+}
+
+/// A plain stack when the content fits; scrolls only when it is taller than the space.
+struct ScrollsWhenNeeded<Content: View>: View {
+    @Environment(\.isSnapshotRender) private var isSnapshotRender
+    /// Inner padding for the scrolling copy, so focus rings stay inside the scroll clip.
+    var inset: Double = 0
+    @ViewBuilder var content: () -> Content
+
+    var body: some View {
+        if isSnapshotRender {
+            content()
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .clipped()
+        } else {
+            ViewThatFits(in: .vertical) {
+                content()
+                ScrollView {
+                    content().padding(inset)
+                }
+                .padding(.horizontal, -inset)
+            }
+        }
+    }
+}

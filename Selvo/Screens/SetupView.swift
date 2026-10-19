@@ -46,14 +46,8 @@ struct SetupView: View {
             SetupProgressBar(step: step, total: SetupView.stepCount)
 
             // Plain stack when it fits; scrolls only when the content is taller than the screen.
-            ViewThatFits(in: .vertical) {
+            ScrollsWhenNeeded(inset: Spacing.space1) {
                 stepContent
-                ScrollView {
-                    stepContent
-                        .padding(Spacing.space1)
-                }
-                // The inner padding keeps focus rings inside the scroll view's clip.
-                .padding(.horizontal, -Spacing.space1)
             }
             .frame(maxHeight: .infinity, alignment: .top)
 

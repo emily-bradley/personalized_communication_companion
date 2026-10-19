@@ -42,6 +42,7 @@ final class ScreenshotTests: XCTestCase {
                     .environment(model)
                     .environment(\.theme, theme)
                     .environment(\.dynamicTypeSize, size)
+                    .environment(\.isSnapshotRender, true)
                     .environment(\.colorScheme, theme.colorScheme)
                 let renderer = ImageRenderer(content: content)
                 renderer.scale = 2

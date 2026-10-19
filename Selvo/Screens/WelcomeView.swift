@@ -11,11 +11,8 @@ struct WelcomeView: View {
         Screen {
             VStack(spacing: Spacing.space4) {
                 // Plain stack when it fits; scrolls only at very large text sizes.
-                ViewThatFits(in: .vertical) {
+                ScrollsWhenNeeded {
                     hero
-                    ScrollView {
-                        hero.padding(.vertical, Spacing.space6)
-                    }
                 }
                 .frame(maxHeight: .infinity)
 

@@ -31,6 +31,8 @@ struct Wordmark: View {
         }
         .font(.custom(ReadingFont.lexend.postScriptName(semibold: true), size: size, relativeTo: .title2))
         .tracking(-0.02 * size)
+        .lineLimit(1)
+        .fixedSize()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Selvo")
         .accessibilityAddTraits(.isImage)
