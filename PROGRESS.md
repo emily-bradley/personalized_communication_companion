@@ -64,3 +64,58 @@
 - On her Mac: Xcode 16 from the App Store (open it once and add the iOS platform), Command Line Tools, Homebrew (https://brew.sh). Then `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
 - Next week for TestFlight: her Apple Team ID, confirm the bundle ID `com.emilykenney.selvo`, register it, create the App Store Connect app record and an API key, and add four repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
 - The real logo artwork (the orb and wordmark files) if she wants it in the app instead of the drawn version.
+
+## 2026-10-19, build run 2 (13:55 to about 15:00 Central)
+
+### Shipped
+- Accessibility pass (Day 4), checked off. A separate agent read every view:
+  - VoiceOver actions "Choose a photo" and "Remove photo" on tiles. These match the long press menu.
+  - Voice Control answers to the word on screen for choice pills, theme swatches and Hide / Put back.
+  - With Differentiate Without Color on, page dots no longer rely on teal alone.
+  - On Home and Setup, VoiceOver no longer stops on an empty top bar heading.
+  - Reduce Motion needed no change: the only animations are fades, which is the brand book's reduced form.
+- Scrolling areas fade at the bottom edge. A line about to pass under a pinned button is no longer cut through its letters, and the fade hints that more is below. Screens with the orb are left unfaded so the glow is not clipped.
+- Settings shows the real default voice name ("Voice: Samantha" in the Simulator) instead of "Voice: default".
+- The orb is smaller at accessibility text sizes on Listen (96pt) and Welcome (96pt, wordmark 44pt), so the text keeps the space.
+- Choice pills have 32pt side padding, so a label stays clear of the check mark at large text sizes.
+- New UI tests:
+  - Supporter tile reorder: moves Coffee later in Edit Photos, checks the list and the grid, relaunches, and checks the grid again.
+  - Real Simulator screenshots at accessibility XL (`ui-axl-*.png`) of Home, Photos, Choose your words (top and scrolled), Settings (top and scrolled), Help confirm and the attention screen.
+- The Settings accessibility audit exception is removed. Settings at the top, Settings scrolled and Setup step 4 all pass the full audit, except contrast and Dynamic Type, which were left out on purpose last run. The earlier note no longer appears; most likely last run's Slow and Fast fix cleared it.
+
+### Verified, and how
+- CI green on every push this run. The last run was https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39313343548 (commit b731751). All four jobs passed:
+  - SelvoCore tests and the token check.
+  - Build with 20 unit and screenshot tests and 10 UI tests on an iPhone 16 Simulator.
+  - `scripts/demo.sh` (passed).
+  - The Xcode 26 build.
+- Screenshots reviewed from the `ci-screenshots` branch (`ui-09-settings`, `ui-10-edit-photos-moved`, all `ui-axl-*`). A reviewer agent that had not seen the code compared the earlier set with the artboards. Fixed from its list:
+  - The Settings caption cut under the Voice row.
+  - The clipped heard text at accessibility XL.
+  - "Voice: default".
+  - The clipped scrolling content at accessibility XL. Most of these were ImageRenderer limits; the real `ui-axl-*` shots show the content scrolls correctly with the fade.
+
+### Readings I took
+- The tile reorder item said "check when verified on a device". I took a Simulator UI test that drives the real context menu and survives a relaunch as enough for the demo. Haptics and voices still need a device check.
+- The Text size pills keep growing "A" sizes (the artboard has all three at 17px with the middle one selected). Growing sizes show what each choice does, so I kept them.
+
+### Open, for a later run or for Emily
+- Undo when there is nothing to undo is shown by color only (teal vs ink-muted); VoiceOver says "dimmed". This needs a design call, for example hiding the arrow when it is off.
+- Reviewer P3 polish not done:
+  - Hide / Put back eye icons look heavy at accessibility XL.
+  - The heart glyph for Mom vs the person glyph for others.
+  - The Daylight wordmark "vo" color: the brand book says orb teal, App-Home-Day uses deep teal. Needs Emily to choose.
+  - The Help message preview uses a full danger fill.
+
+### Next
+- Every item through Thursday and the TestFlight readiness section is done. Friday: a final artboard comparison pass on the latest screenshots, and the final PROGRESS summary.
+
+### Needs Emily
+- On her Mac: Xcode 16 from the App Store (open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week:
+  - Her Apple Team ID.
+  - Confirm the bundle ID `com.emilykenney.selvo` and register it.
+  - Create the App Store Connect app record and an API key.
+  - Add the repository secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Undo off-state cue and the Daylight wordmark "vo" color (see Open above).
+- The real logo artwork, if she wants it in place of the drawn wordmark.
