@@ -35,3 +35,28 @@ test("current page is marked in the nav", async ({ page }) => {
   await page.goto("/story");
   await expect(page.locator("nav[aria-label=Primary] a[aria-current=page]")).toHaveText("Our story");
 });
+
+for (const route of ROUTES) {
+  test(`header early access link has a target on ${route.name}`, async ({ page }) => {
+    await page.goto(route.path);
+    await expect(page.locator("#access")).toHaveCount(1);
+  });
+}
+
+test("keyboard: skip link first, every focus stop shows a 3px ring", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  await expect(page.locator(":focus")).toHaveText("Skip to content");
+  for (let i = 0; i < 25; i++) {
+    await page.keyboard.press("Tab");
+    const outline = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement | null;
+      if (!el || el === document.body) return null;
+      const style = getComputedStyle(el);
+      return { width: style.outlineWidth, style: style.outlineStyle, label: el.textContent?.trim().slice(0, 30) };
+    });
+    if (!outline) break;
+    expect(outline.style, `${outline.label} outline`).toBe("solid");
+    expect(outline.width, `${outline.label} outline width`).toBe("3px");
+  }
+});

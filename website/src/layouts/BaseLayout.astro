@@ -41,7 +41,7 @@ const night = tone === "night";
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content={night ? tokens.color["night-surface"] : tokens.color["warm-band"]} />
   </head>
-  <body class="relative">
+  <body class="relative flex min-h-screen flex-col">
     <a
       href="#main"
       class="sr-only z-10 rounded-pill bg-warm-teal px-5 py-3 font-semibold text-warm-on-teal focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
@@ -58,7 +58,7 @@ const night = tone === "night";
       }
       <Header tone={tone} />
     </div>
-    <main id="main" tabindex="-1">
+    <main id="main" tabindex="-1" class="flex-1">
       <div class:list={["relative", night ? "on-night bg-night-surface" : "bg-warm-band"]}>
         <div class="relative z-[2]">
           <slot name="hero" />

@@ -10,7 +10,9 @@
       "!test-results",
       "!playwright-report",
       "!screenshots",
-      "!public"
+      "!public",
+      "!.lighthouseci",
+      "!lighthouse"
     ]
   },
   "formatter": {
