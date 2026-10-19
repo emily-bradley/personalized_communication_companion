@@ -103,7 +103,6 @@ struct SettingsView: View {
                     .textStyle(TypeScale.caption)
                     .foregroundStyle(theme.colors.inkMuted)
                     .fixedSize()
-                    .accessibilityHidden(true)
                 SpeechRateControl(rate: rate) { newRate in
                     model.update { $0.speechRate = newRate }
                 }
@@ -111,7 +110,6 @@ struct SettingsView: View {
                     .textStyle(TypeScale.caption)
                     .foregroundStyle(theme.colors.inkMuted)
                     .fixedSize()
-                    .accessibilityHidden(true)
             }
         }
     }
