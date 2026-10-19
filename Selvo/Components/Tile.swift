@@ -37,6 +37,8 @@ struct Tile: View {
     let label: String
     let artwork: TileArtwork
     var isSelected: Bool = false
+    /// Fill behind a symbol; defaults to surface-sunken like the artboards.
+    var wellColor: Color? = nil
     let action: () -> Void
 
     var body: some View {
@@ -44,7 +46,7 @@ struct Tile: View {
             VStack(spacing: 0) {
                 artworkView
                     .frame(maxWidth: .infinity, minHeight: ComponentMetrics.tileImageMinHeight, maxHeight: .infinity)
-                    .background(theme.colors.surfaceSunken)
+                    .background(wellColor ?? theme.colors.surfaceSunken)
                     .clipped()
                 Text(label)
                     .textStyle(TypeScale.label)

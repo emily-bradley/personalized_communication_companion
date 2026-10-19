@@ -11,6 +11,8 @@ struct MessageStrip: View {
         let isEmpty = (message ?? "").isEmpty
         Text(isEmpty ? placeholder : message!)
             .textStyle(TypeScale.message)
+            .lineLimit(3)
+            .minimumScaleFactor(0.6)
             .foregroundStyle(isEmpty ? theme.colors.inkMuted : theme.colors.ink)
             .frame(maxWidth: .infinity, minHeight: ComponentMetrics.messageStripMinHeight - 32, alignment: .leading)
             .padding(.vertical, Spacing.space4)
