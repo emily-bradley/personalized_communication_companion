@@ -109,6 +109,35 @@ final class CoreFlowUITests: XCTestCase {
         XCTAssertGreaterThan(coffee.frame.minX, dinner.frame.minX, "Coffee is in the second slot", file: file, line: line)
     }
 
+    /// Real screenshots at accessibility XL text, where content scrolls as it does in the app
+    /// (the ImageRenderer screenshots can only show the top of scrolling content).
+    func testAccessibilityXLScreens() throws {
+        app.terminate()
+        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXL"]
+        app.launch()
+        XCTAssertTrue(app.buttons["Speak"].firstMatch.waitForExistence(timeout: 20))
+        save("axl-01-home")
+        tap("Photos")
+        save("axl-02-photos")
+        tap("Coffee")
+        XCTAssertTrue(app.buttons["Another"].waitForExistence(timeout: 10))
+        save("axl-03-suggest")
+        app.swipeUp()
+        save("axl-03b-suggest-scrolled")
+        tap("Back")
+        tap("Back")
+        tap("Settings")
+        save("axl-09-settings")
+        app.swipeUp()
+        save("axl-09b-settings-scrolled")
+        tap("Back")
+        tap("Help")
+        XCTAssertTrue(app.buttons["Yes, show it"].waitForExistence(timeout: 5))
+        save("axl-07-help-confirm")
+        tap("Yes, show it")
+        save("axl-08-help-attention")
+    }
+
     func testSettingsOpens() throws {
         tap("Settings")
         XCTAssertTrue(element("Text size").waitForExistence(timeout: 5))
