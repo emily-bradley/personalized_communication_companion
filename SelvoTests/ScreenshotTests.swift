@@ -24,6 +24,7 @@ final class ScreenshotTests: XCTestCase {
         _ name: String,
         profile: Profile? = DemoProfile.lucas,
         configure: (AppModel) -> Void = { _ in },
+        background: ((Theme) -> Color)? = nil,
         @ViewBuilder _ view: @escaping () -> V
     ) throws {
         for themeID in ThemeID.allCases {
@@ -37,7 +38,7 @@ final class ScreenshotTests: XCTestCase {
                     .padding(.top, 48)
                     .padding(.bottom, 16)
                     .frame(width: 390, height: 844)
-                    .background(theme.colors.surface)
+                    .background(background?(theme) ?? theme.colors.surface)
                     .environment(model)
                     .environment(\.theme, theme)
                     .environment(\.dynamicTypeSize, size)
@@ -78,11 +79,15 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testSuggest() throws {
-        try snapshot("05-suggest") { SuggestView() }
+        try snapshot("05-suggest", configure: { model in
+            let coffee = model.profile!.tiles(in: .photos)[0]
+            model.selectedTile = coffee
+            model.message = coffee.label
+        }) { SuggestView() }
     }
 
     func testShow() throws {
-        try snapshot("06-show", configure: { $0.message = "Can we get coffee before work?" }) { ShowView() }
+        try snapshot("06-show", configure: { $0.message = "Can we get coffee before work?" }, background: { $0.colors.surfaceSunken }) { ShowView() }
     }
 
     func testListen() throws {
