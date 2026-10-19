@@ -18,7 +18,9 @@ fail() { printf '\nSelvo demo stopped: %s\n' "$1" >&2; exit 1; }
 
 say "Checking Xcode"
 command -v xcodebuild >/dev/null 2>&1 || fail "Xcode is not installed. Install Xcode 16 from the App Store, open it once, then run this again."
-xcodebuild -version | head -1 || fail "Xcode is installed but not selected. Run: sudo xcode-select -s /Applications/Xcode.app"
+# Capture first, then print: piping into head can break the pipe and abort xcodebuild.
+XCODE_VERSION="$(xcodebuild -version 2>/dev/null)" || fail "Xcode is installed but not selected. Run: sudo xcode-select -s /Applications/Xcode.app"
+echo "${XCODE_VERSION%%$'\n'*}"
 command -v python3 >/dev/null 2>&1 || fail "python3 is missing. Run: xcode-select --install"
 
 if ! command -v xcodegen >/dev/null 2>&1; then
