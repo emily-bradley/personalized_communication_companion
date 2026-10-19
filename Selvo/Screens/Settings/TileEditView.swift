@@ -172,8 +172,10 @@ struct TileEditView: View {
             }
         } label: {
             HStack(spacing: 6) {
+                // Small and regular weight so the eye supports the word instead of outweighing it.
                 Image(systemName: symbol)
-                    .imageScale(.medium)
+                    .imageScale(.small)
+                    .fontWeight(.regular)
                     .accessibilityHidden(true)
                 Text(title)
                     .textStyle(TypeScale.label)
