@@ -65,7 +65,11 @@ xcrun simctl launch "$UDID" "$BUNDLE_ID" -SelvoDemoProfile YES
 
 # Give the app a moment, then make sure it is still running and keep a picture of the screen.
 sleep 5
-xcrun simctl spawn "$UDID" launchctl list | grep -q "$BUNDLE_ID" || fail "Selvo launched but is not running. Open it in Xcode to see the crash."
+RUNNING="$(xcrun simctl spawn "$UDID" launchctl list 2>/dev/null || true)"
+case "$RUNNING" in
+  *"$BUNDLE_ID"*) ;;
+  *) fail "Selvo launched but is not running. Open it in Xcode to see the crash." ;;
+esac
 mkdir -p build
 xcrun simctl io "$UDID" screenshot build/demo-launch.png >/dev/null 2>&1 || true
 

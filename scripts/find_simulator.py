@@ -21,7 +21,23 @@ def runtime_version(identifier):
     return tuple(int(p) for p in tail.split("-") if p.isdigit())
 
 
+def sdk_major():
+    try:
+        out = subprocess.run(["xcrun", "--sdk", "iphonesimulator", "--show-sdk-version"],
+                             check=True, capture_output=True, text=True).stdout.strip()
+        return int(out.split(".")[0])
+    except Exception:
+        return None
+
+
 def main():
+    # Prefer runtimes no newer than the selected Xcode's iOS SDK, so the Simulator matches it.
+    sdk = sdk_major()
+
+    def rank(version):
+        fits = sdk is None or (version and version[0] <= sdk)
+        return (1 if fits else 0, version)
+
     devices = json.loads(simctl("list", "devices", "available", "-j"))["devices"]
     candidates = []
     for runtime, items in devices.items():
@@ -31,7 +47,7 @@ def main():
             if d.get("name") == DEVICE_NAME and d.get("isAvailable", True):
                 candidates.append((runtime_version(runtime), d["udid"]))
     if candidates:
-        candidates.sort()
+        candidates.sort(key=lambda c: rank(c[0]))
         print(candidates[-1][1])
         return
 
@@ -39,7 +55,7 @@ def main():
     ios = [r for r in runtimes if r.get("platform") == "iOS" or ".iOS-" in r.get("identifier", "")]
     if not ios:
         sys.exit("No iOS Simulator runtime is installed. Open Xcode, then Settings, Platforms, and add iOS.")
-    ios.sort(key=lambda r: runtime_version(r["identifier"]))
+    ios.sort(key=lambda r: rank(runtime_version(r["identifier"])))
     newest = ios[-1]["identifier"]
     device_types = json.loads(simctl("list", "devicetypes", "-j"))["devicetypes"]
     match = [t for t in device_types if t["name"] == DEVICE_NAME]
