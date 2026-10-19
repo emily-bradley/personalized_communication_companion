@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  core:
+    name: SelvoCore tests and token check
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 16
+        run: scripts/ci_select_xcode.sh
+      - name: Generated tokens are up to date
+        run: python3 scripts/gen_tokens.py --check
+      - name: swift test
+        run: swift test --package-path SelvoCore
+
+  app:
+    name: Build, test, screenshots
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 16
+        run: scripts/ci_select_xcode.sh
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Find simulator
+        run: echo "UDID=$(python3 scripts/find_simulator.py 'iPhone 16')" >> "$GITHUB_ENV"
+      - name: Build and test
+        env:
+          TEST_RUNNER_SCREENSHOT_DIR: ${{ runner.temp }}/screenshots
+        run: |
+          mkdir -p "$TEST_RUNNER_SCREENSHOT_DIR" build
+          set +e
+          xcodebuild test \
+            -project Selvo.xcodeproj \
+            -scheme Selvo \
+            -destination "id=$UDID" \
+            -derivedDataPath build/DerivedData \
+            -resultBundlePath build/Selvo.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            > build/xcodebuild.log 2>&1
+          status=$?
+          grep -E "error:|failed|Test Suite|Executed|\*\* " build/xcodebuild.log | tail -150
+          exit $status
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ${{ runner.temp }}/screenshots
+          if-no-files-found: warn
+      - name: Upload build log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: build/xcodebuild.log
+
+  demo:
+    name: scripts/demo.sh
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 16
+        run: scripts/ci_select_xcode.sh
+      - name: Run the demo script
+        run: scripts/demo.sh
+      - name: Upload demo screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-launch
+          path: build/demo-launch.png
+          if-no-files-found: warn
