@@ -10,8 +10,7 @@ import XCTest
 /// - dynamicType: screen chrome (top bar, button rows, tile labels) intentionally stops
 ///   growing at the largest standard size so Back, titles and Help stay readable, which the
 ///   audit reports as partial support. The screenshot tests render every screen at
-///   accessibility XL instead. Settings is reported as unsupported; recorded in PROGRESS.md
-///   to check on a device.
+///   accessibility XL instead.
 final class AccessibilityAuditUITests: XCTestCase {
     private var app: XCUIApplication!
 
@@ -33,12 +32,6 @@ final class AccessibilityAuditUITests: XCTestCase {
         try app.performAccessibilityAudit(for: types) { issue in
             let element = issue.element.map { "\($0.elementType.rawValue) '\($0.label)'" } ?? "no element"
             print("AUDIT \(screen): \(issue.auditType) \(issue.compactDescription) [\(element)] \(issue.detailedDescription)")
-            // Settings reports one "Potentially inaccessible text" with no element attached.
-            // The Settings and Setup audits below are split by screen area to find where it
-            // comes from; every other issue fails.
-            if issue.auditType == .elementDetection && issue.element == nil && screen.hasPrefix("Settings") {
-                return true
-            }
             return false
         }
     }
