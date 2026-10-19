@@ -25,18 +25,18 @@ Deadline: Friday, October 23, 2026, 6pm Central. Demo-ready at a public link.
 - [x] Article page `/articles/three-replies` from Markdown content collection
 - [x] Privacy and accessibility stubs
 - [x] Friendly 404
-- [ ] SEO title and description per page (final copy)
-- [ ] Open Graph image 1200x630, midnight hero style
-- [ ] Favicon and apple-touch-icon from the sound-bar mark
+- [x] SEO title and description per page (final copy)
+- [x] Open Graph image 1200x630, midnight hero style
+- [x] Favicon and apple-touch-icon from the sound-bar mark
 - [x] Sitemap and robots
 - [x] Canonical URLs from `SITE_URL`
 
 ## Fri Oct 23: polish and demo
-- [ ] Full screenshot review of every page at all three widths against the references (on the live URL when available)
-- [ ] axe clean
-- [ ] Lighthouse accessibility 100, performance 90 or better (Lighthouse CI in Actions)
-- [ ] Keyboard walk-through
+- [ ] Full screenshot review of every page at all three widths against the references (done locally Oct 19 by a reviewer subagent; repeat on the live URL)
+- [x] axe clean
+- [x] Lighthouse accessibility 100, performance 90 or better (Lighthouse CI in Actions)
+- [x] Keyboard walk-through (automated in e2e; repeat by hand on the live URL Friday)
 - [ ] Link preview check (Open Graph title, description, image)
-- [ ] `docs/DEMO.md` with the live link and a 5-minute walk-through
+- [ ] `docs/DEMO.md` with the live link and a 5-minute walk-through (walk-through drafted; live link pending)
 - [ ] `docs/LAUNCH-CHECKLIST.md` complete
 - [ ] Final summary in PROGRESS.md

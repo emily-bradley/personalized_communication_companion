@@ -17,3 +17,8 @@ Everything here needs Emily before a public launch. The demo can go out with the
 - `PUBLIC_WAITLIST_URL`: the form backend that receives early-access emails (Buttondown, ConvertKit, or a Cloudflare Worker). Until it is set, sign-ups show "Saved" but are not stored.
 - Custom domain (`selvo.com` if available), then update `SITE_URL` in `src/lib/site.ts`.
 - Privacy and Accessibility pages: real statements.
+- Link preview: once live, paste the link into a message to yourself and check the title, description, and image (`public/og.png`).
+
+## Technical, before a public launch
+- Add a Content Security Policy to `public/_headers` once the form backend is chosen.
+- Update the Selvo design system tokens with the warm set (see `docs/DECISIONS.md`).
