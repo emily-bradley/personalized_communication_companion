@@ -34,6 +34,14 @@ jobs:
         run: pnpm e2e
         env:
           CI: "true"
+      - name: Lighthouse (accessibility 100, performance 90 or better)
+        run: pnpm exec lhci autorun
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse
+          path: website/lighthouse
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: always()
         with:
