@@ -62,7 +62,7 @@ final class ScreenshotTests: XCTestCase {
     }
 
     func testSetup() throws {
-        try snapshot("02-setup", profile: nil) { SetupView() }
+        try snapshot("02-setup", profile: nil) { SetupView(startStep: 2, name: "Lucas") }
     }
 
     func testHome() throws {
