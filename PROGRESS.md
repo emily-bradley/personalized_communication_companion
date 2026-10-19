@@ -134,7 +134,7 @@
 - CI green on 6819d74: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39324256133. All four jobs passed: SelvoCore tests and token check, build with unit, screenshot and UI tests on an iPhone 16 Simulator, `scripts/demo.sh` (passed), and the Xcode 26 build.
 - Screenshots reviewed from the `ci-screenshots` branch for 6819d74: `ui-03-suggest` (new Show icon, Undo off with no arrow), `ui-axl-03-suggest` (strip smaller, the selected card fully visible), `07-listen-night-axl` (more heard text visible).
 - A reviewer agent that had not seen the code compared all 71 screenshots from e235405 with the artboards and brand rules. It found no P1 items: no copy or rule breaks, one glow per screen, Speak, Back, Clear and Help in place, three suggestions everywhere.
-- The final commit of this run (the suggestion caption cap and these notes) is checked by the next CI run; see the next run's entry.
+- The suggestion caption cap (e28cb6c) is green too: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39326214151, all four jobs including `scripts/demo.sh`. In `ui-axl-03-suggest` the second card now shows below the selected one.
 
 ### Readings I took
 - Text size default. The artboard has three sizes (24, 30, 38) with the middle one as default. The app has Standard, Large and Larger, where Standard follows the phone setting and the others raise it. Lucas is on Standard, so the first pill is selected. I kept this, because a size smaller than the phone setting would go against "the phone's own larger setting wins".
