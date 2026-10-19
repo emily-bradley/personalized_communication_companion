@@ -7,6 +7,24 @@ Live URL: not deployed yet (Cloudflare Pages not connected).
 2. **Create the empty private repo `emily-bradley/selvo-website`** and give the Claude GitHub app access. Until then the site lives in `website/` on the `website-staging` branch. (Optional: the site can stay where it is through Friday.)
 3. Later, before a public launch: custom domain (`selvo.com` if you can get it), `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-10-19, 3:57pm to 4:15pm Central (run 3)
+
+Live URL: not deployed yet (no Cloudflare statuses on any commit; only the GitHub Actions check).
+
+**Readings taken:** `selvo-website` still not reachable (403, no add_repo tool), so work stayed on `website-staging`. Every build item is done and the open Friday items all need the live link, so this run fixed the three nice-to-have items left by run 2's review.
+
+**Shipped:**
+- Article "Three choices" and "Forty choices" pictures now share one height, so their titles and notes line up.
+- Our story photo placeholder sits on the warm ground instead of white.
+- Phone figure replies wrap without a lone last word ("ask twice?" now wraps together at 375).
+
+**Verified and how:**
+- Local: lint, typecheck, 102 unit tests, build, 67 e2e tests (axe, screenshots, links, keyboard) all pass.
+- Close-up screenshots of the three changed areas at 1440 and 375 reviewed by eye; full-page screenshots regenerated.
+- CI green for 72aa046: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39323984461
+
+**Next:** unchanged. As soon as a pages.dev link exists, verify every route with WebFetch, record the URL here and in `docs/DEMO.md`, check the link preview, repeat the screenshot review on the live site. If Cloudflare is not connected by Thursday, runs keep to polish only.
+
 ## 2026-10-19, 1:57pm to 2:20pm Central (run 2)
 
 Live URL: not deployed yet (no Cloudflare statuses on any commit).
