@@ -7,6 +7,19 @@ Live URL: not deployed yet (Cloudflare Pages not connected).
 2. **Create the empty private repo `emily-bradley/selvo-website`** and give the Claude GitHub app access. Until then the site lives in `website/` on the `website-staging` branch. (Optional: the site can stay where it is through Friday.)
 3. Later, before a public launch: custom domain (`selvo.com` if you can get it), `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-10-19, 5:57pm to 6:10pm Central (run 4)
+
+Live URL: not deployed yet (no Cloudflare statuses or deployments on aa42dda; only the GitHub Actions check).
+
+**Readings taken:** `selvo-website` still not reachable (403; attaching it was not permitted in this session), so work stayed on `website-staging`. Every build item is done and the open Friday items need the live link, so this run only re-verified and did the parts of the link preview check that can be done before deploy. No code changes, to avoid churn.
+
+**Verified and how:**
+- CI green on aa42dda: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39324575322
+- Local: lint, typecheck, 102 unit tests, build (9 pages) all pass.
+- Link preview, pre-deploy part: all 9 built pages have a title, `og:description`, `og:image` as an absolute URL, and `twitter:card` `summary_large_image`; `og.png` is 1200x630. The URLs assume the Cloudflare project is named `selvo-website` (step 6 of `docs/DEPLOY.md`); any other name means `SITE_URL` in `src/lib/site.ts` must change or link previews will point at the wrong host.
+
+**Next:** unchanged. Once a pages.dev link exists: WebFetch every route, record the URL here and in `docs/DEMO.md`, check the link preview on the live link, repeat the screenshot review on the live site.
+
 ## 2026-10-19, 3:57pm to 4:15pm Central (run 3)
 
 Live URL: not deployed yet (no Cloudflare statuses on any commit; only the GitHub Actions check).
