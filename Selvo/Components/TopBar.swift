@@ -22,6 +22,7 @@ struct TopBar<Leading: View, Trailing: View>: View {
                 .textStyle(TypeScale.heading)
                 .foregroundStyle(theme.colors.ink)
                 .lineLimit(1)
+                .minimumScaleFactor(0.75)
                 .truncationMode(.tail)
                 .frame(maxWidth: .infinity)
                 .accessibilityAddTraits(.isHeader)
