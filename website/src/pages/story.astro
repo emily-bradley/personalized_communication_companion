@@ -1,8 +1,80 @@
 ---
-import PageIntro from "../components/PageIntro.astro";
+import EarlyAccess from "../components/EarlyAccess.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const storyParagraphs = [
+  "When Lucas was 21, a brain aneurysm took his speech, his reading, and his writing. It did not take him. He is still the funniest person at the table, still particular about food, still loyal, still the brother who teases you until you laugh. What changed is the distance between what he means and what the world can hear.",
+  "Lucas built his own way across that distance. He points at photos. He opens a map and taps the place. He types a number into a calculator and turns the screen around. It works, mostly, and it is exhausting, and it only works with people who already know him.",
+  "Communication technology for people like Lucas has mostly been built to carry needs: hungry, tired, bathroom, help. Those matter. But a person is not a list of needs. Lucas wants to make the joke, disagree with the plan, tell you the restaurant was bad, and ask how your day went.",
+  "Selvo exists to close that gap. It learns how a person expresses themselves and offers them words that sound like their own, fast enough to keep up with a conversation, through pictures, context, and choices they control.",
+];
+
+const isAndIsNot = [
+  {
+    id: "is-heading",
+    title: "What Selvo is",
+    titleClass: "text-warm-teal",
+    items: ["A companion.", "A translator between intention and expression.", "A tool the person holds and controls."],
+  },
+  {
+    id: "is-not-heading",
+    title: "What Selvo is not",
+    titleClass: "text-warm-muted",
+    items: ["A medical device.", "A caregiver's remote control.", "A chatbot that guesses."],
+  },
+];
 ---
 
-<BaseLayout title="Our story" description="Our story, from Selvo. This page is on its way.">
-  <PageIntro slot="hero" title="Our story" lead="This page is on its way this week." />
+<BaseLayout
+  title="Our story"
+  description="Selvo started with Lucas. A person can lose language without losing who they are."
+>
+  <section slot="hero" class="container-site flex flex-wrap items-start gap-16 pb-28 pt-16">
+    <div
+      class="box-border flex aspect-[4/5] min-w-0 flex-[1_1_420px] items-center justify-center rounded-lg border border-warm-hairline bg-warm-ground p-6 text-center text-[15px] leading-[22px] text-warm-muted"
+    >
+      [PHOTO: Lucas and Emily at the kitchen table. He is mid-laugh. A phone face-up between the plates. Daylight from
+      a window. Nobody looks at the camera.]
+    </div>
+    <div class="flex min-w-0 max-w-[640px] flex-[1_1_520px] flex-col gap-6">
+      <h1 class="h-display text-warm-ink">Our story</h1>
+      {storyParagraphs.map((paragraph) => <p class="t-lead text-warm-muted">{paragraph}</p>)}
+      <p class="t-body font-semibold text-warm-ink">Emily Kenney, co-founder, and Lucas's sister</p>
+    </div>
+  </section>
+
+  <section class="border-y border-warm-hairline bg-warm-tint" aria-labelledby="mission-heading">
+    <div class="container-site flex flex-col gap-6 py-24">
+      <h2 id="mission-heading" class="h-section max-w-[900px] text-warm-ink">
+        A person can lose language without losing who they are.
+      </h2>
+      <p class="t-lead max-w-[720px] text-warm-muted">
+        Selvo exists so that losing speech does not mean losing your voice. We help non-speaking adults communicate more
+        easily, independently, and as themselves.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-warm-ground">
+    <div class="container-site grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-6 py-28">
+      {
+        isAndIsNot.map((card) => (
+          <div
+            class="box-border flex flex-col gap-4 rounded-md border border-warm-hairline bg-warm-card p-8"
+          >
+            <h2 id={card.id} class:list={["h-card", card.titleClass]}>
+              {card.title}
+            </h2>
+            <ul class="m-0 flex list-disc flex-col gap-2.5 pl-[22px]">
+              {card.items.map((item) => (
+                <li class="text-[19px] leading-7 text-warm-ink">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <EarlyAccess />
 </BaseLayout>
