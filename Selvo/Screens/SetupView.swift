@@ -185,7 +185,7 @@ struct SetupView: View {
                         .font(.system(size: 22, weight: .regular))
                         .foregroundStyle(theme.colors.teal)
                         .accessibilityHidden(true)
-                    Text("Voice: default")
+                    Text("Voice: \(VoiceCatalog.defaultName ?? "default")")
                         .textStyle(TypeScale.label)
                         .foregroundStyle(theme.colors.ink)
                     Spacer(minLength: 0)
