@@ -13,6 +13,8 @@ enum SetupMetrics {
     static let swatchBarHeight: Double = 10
     /// Progress bar segments.
     static let progressHeight: Double = 4
+    /// Gap between progress segments: 6pt on App-Setup.
+    static let progressGap: Double = 6
 }
 
 /// Five segments under the top bar. Filled segments use primary, the rest hairline.
@@ -23,7 +25,7 @@ struct SetupProgressBar: View {
     let total: Int
 
     var body: some View {
-        HStack(spacing: Spacing.space2) {
+        HStack(spacing: SetupMetrics.progressGap) {
             ForEach(1...total, id: \.self) { index in
                 Capsule()
                     .fill(index <= step ? theme.colors.primary : theme.colors.hairline)
