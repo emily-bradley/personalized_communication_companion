@@ -38,7 +38,7 @@ struct FoundationModelsProvider: SuggestionProvider {
                 let prompt = "Topic: \(topic). Style: \(style.rawValue). Do not repeat: \(avoid). Reply with the sentence only."
                 let response = try await session.respond(to: prompt)
                 let text = response.content.trimmingCharacters(in: .whitespacesAndNewlines.union(CharacterSet(charactersIn: "\"")))
-                if !text.isEmpty, !excluding.contains(text) {
+                if !text.isEmpty, !excluding.contains(text), Self.fitsCopyRules(text) {
                     results.append(Suggestion(text: text, style: style, source: .model))
                 }
             }
@@ -46,6 +46,12 @@ struct FoundationModelsProvider: SuggestionProvider {
             return results
         }
         return results
+    }
+
+    /// One plain sentence: no exclamation marks, no long dashes, no line breaks. Anything else
+    /// is dropped and saved phrases fill the slot.
+    static func fitsCopyRules(_ text: String) -> Bool {
+        !text.contains(where: { "!\u{2014}\u{2013}\n".contains($0) })
     }
 }
 #endif

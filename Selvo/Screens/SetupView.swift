@@ -28,7 +28,8 @@ struct SetupView: View {
         _step = State(initialValue: min(max(startStep, 1), SetupView.stepCount))
         _name = State(initialValue: name)
         _people = State(initialValue: Array(demo.tiles(in: .people).prefix(3)))
-        _places = State(initialValue: demo.tiles(in: .places))
+        // Three to start, like people, so "Add a place" shows without scrolling.
+        _places = State(initialValue: Array(demo.tiles(in: .places).prefix(3)))
     }
 
     var body: some View {

@@ -28,7 +28,9 @@ struct TileGridView: View {
 
         Screen {
             TopBar(title: category.title) {
-                BackButton { model.path.removeLast() }
+                BackButton {
+                    if !model.path.isEmpty { model.path.removeLast() }
+                }
             } trailing: {
                 HelpButton { model.open(.help) }
             }
