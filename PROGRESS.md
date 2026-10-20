@@ -213,3 +213,36 @@
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 6 (09:56 to about 11:00 Central)
+
+Main was green at the start (8b0e8cd). Every item through Thursday and the TestFlight section was already done, so this run did an early version of Friday's artboard pass on the current build and fixed what it found.
+
+### Shipped
+- Incorrect now puts the new suggestion in the removed card's slot, and it takes the selection. Before, the cards below moved up a slot and the new one landed at the bottom. This follows "positions never move". If nothing is left to offer, the open slot closes and the remaining cards stay in order. `SuggestionStack` keeps fixed slots; unit tests updated; the demo walk UI test checks the last card never moves up. `docs/DEMO.md` says the new one arrives in the same spot.
+- Settings: the theme caption names the theme chosen at setup ("Lucas chose Nightlight at setup.") and no longer follows the current selection. New `Profile.setupTheme`, set when the profile is made; profiles saved before it was added still load and show only "Both shown side by side."
+- Screens with the orb (Welcome, Listen) now end in the same bottom fade as other screens when the text is too tall to fit. Before, at accessibility sizes the heard text was cut flat at the bottom edge, and in the live app it could scroll over the buttons below.
+- Primary buttons have 16pt inner side padding and center wrapped labels, so "Set up together" no longer touches the pill ends at accessibility sizes. The Welcome body text uses the full width at accessibility sizes.
+- CI writes `build-summary.txt` (errors, failed assertions, test counts) next to the screenshots on the `ci-screenshots` branch. Job logs and artifacts cannot be downloaded from the agent sandbox, so this is how later runs read a failure.
+
+### Verified, and how
+- 9262952 and 70098e4: the build-and-test job went red. Logs could not be downloaded, so I added the summary file in 9e8cc5a. That run showed two causes: (1) the new UI assertion was too strict, because the new card can be taller and push the last card down; (2) wider padding I tried on choice pills at accessibility sizes made the audit report "Text clipped" on Settings. I relaxed the assertion to "never moves up" and took out the pill padding change.
+- 19c25bb green, all five jobs (SelvoCore tests and token check, build with unit, screenshot and UI tests, `scripts/demo.sh` with Xcode 16, `scripts/demo.sh` with Xcode 26, the Xcode 26 build): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39449274890
+- `scripts/demo.sh` passed in CI with both Xcodes on every push this run.
+- Screenshots reviewed from `ci-screenshots` for 19c25bb: `ui-demo-04-incorrect` (new card in the middle slot, "Is there time for coffee?" still last), `ui-demo-09-settings-daylight` (caption says Nightlight after switching to Daylight), `07-listen-night-axl` (heard text fades), `01-welcome-night-axl` (body fades, button label wraps inside the pill).
+- A reviewer agent that had not seen the code compared all 81 shots from 8b0e8cd with the artboards and brand book. It found no rule breaks. The items above came from its list.
+
+### Readings I took
+- From the review, left as is: the Lexend check sits close to the word at accessibility XL (wider padding fails the clipping audit; the ring and tint also mark the choice); setup step 3 (places) has no "Add a place" row (the artboard shows only the people step; places can be added later in the tile editor); Undo off state without its arrow (decided in run 3); supporter tile reorder (in the handoff); Help attention title weight (uses the heading style).
+- The reviewer thought the name from setup ("Maya") did not reach Suggest. That was test order: each UI test launches on its own, and the Incorrect test uses the Lucas profile. Not a bug.
+
+### Next
+- Friday: the final artboard pass on the final build (check off the Friday item then) and the final PROGRESS summary.
+- Optional: an "Add a place" row in setup step 3, matching "Add a person" in step 2.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
