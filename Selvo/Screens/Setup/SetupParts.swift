@@ -105,8 +105,11 @@ struct SetupListRow: View {
     var body: some View {
         let children: AccessibilityChildBehavior = isEditable ? .contain : .combine
         HStack(spacing: Spacing.space3) {
+            // The artboard draws a 22pt glyph; wide symbols such as two people fit inside it.
             Image(systemName: symbol)
-                .font(.system(size: 22, weight: .regular))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 22, height: 22)
                 .foregroundStyle(theme.colors.teal)
                 .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
                 .background(Circle().fill(theme.colors.surfaceSunken))
