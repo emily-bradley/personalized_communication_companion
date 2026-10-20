@@ -19,6 +19,8 @@ struct ListenView: View {
     /// The three replies, once Show replies is tapped. They do not change on their own.
     @State private var replies: [Suggestion] = []
     @State private var selectedReply: Int?
+    /// Set when listening should start once Selvo finishes speaking.
+    @State private var listensAfterSpeech = false
 
     private let previewHeard: String?
     private let previewSpeaker: String?
@@ -90,10 +92,17 @@ struct ListenView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        .task {
-            if !isPreview { listener.start() }
+        .task { startListening() }
+        .onDisappear {
+            listensAfterSpeech = false
+            listener.stop()
         }
-        .onDisappear { listener.stop() }
+        .onChange(of: model.speech.isSpeaking) { _, speaking in
+            if !speaking && listensAfterSpeech {
+                listensAfterSpeech = false
+                listener.start()
+            }
+        }
         .onChange(of: listener.state) { _, newState in
             announce(newState)
         }
@@ -151,7 +160,7 @@ struct ListenView: View {
     private func controlAction() {
         switch status {
         case .idle:
-            if !isPreview { listener.start() }
+            startListening()
         default:
             leave()
         }
@@ -182,8 +191,20 @@ struct ListenView: View {
         model.message = replies[index].text
     }
 
+    /// Starts listening, or waits until Selvo finishes speaking so the voice is not cut off
+    /// and the microphone does not hear it.
+    private func startListening() {
+        guard !isPreview else { return }
+        if model.speech.isSpeaking {
+            listensAfterSpeech = true
+        } else {
+            listener.start()
+        }
+    }
+
     /// Stops listening first so the phone does not hear its own voice, then speaks.
     private func speak() {
+        listensAfterSpeech = false
         listener.stop()
         model.speak()
     }
@@ -191,6 +212,7 @@ struct ListenView: View {
     // MARK: Navigation and system
 
     private func leave() {
+        listensAfterSpeech = false
         listener.stop()
         if !model.path.isEmpty {
             model.path.removeLast()

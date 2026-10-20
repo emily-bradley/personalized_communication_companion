@@ -12,6 +12,8 @@ final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
     private(set) var isSpeaking = false
     /// Increments each time a message finishes, so views can show the Spoken state.
     private(set) var spokenCount = 0
+    /// The message playing now, so a cancelled earlier one does not clear isSpeaking.
+    @ObservationIgnored private var current: AVSpeechUtterance?
 
     override init() {
         super.init()
@@ -44,6 +46,7 @@ final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
             utterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
         }
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        current = utterance
         isSpeaking = true
         synthesizer.speak(utterance)
     }
@@ -54,12 +57,15 @@ final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         DispatchQueue.main.async {
-            self.isSpeaking = false
+            // After a quick second Speak, a newer message is already playing.
+            if utterance === self.current { self.isSpeaking = false }
             self.spokenCount += 1
         }
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        DispatchQueue.main.async { self.isSpeaking = false }
+        DispatchQueue.main.async {
+            if utterance === self.current { self.isSpeaking = false }
+        }
     }
 }
