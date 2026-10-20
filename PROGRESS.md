@@ -246,3 +246,40 @@ Main was green at the start (8b0e8cd). Every item through Thursday and the TestF
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 7 (11:55 to about 13:20 Central)
+
+Main was green at the start (ff3fd07). Every item through Thursday and the TestFlight section was already done, so this run had two fresh reviewers look for demo risks: one compared all screenshots with the artboards, one read the code and DEMO.md for bugs a live demo could hit. Fixes below.
+
+### Shipped
+- Always three suggestions. A reviewer traced a real break: on a tile with six phrases (Dinner), Incorrect then Another left two cards, and repeated Incorrect could shrink the stack too. New `SavedPhraseProvider.next(for:count:after:)` and `startingOver(...)` in SelvoCore: when a tile's phrases run out it starts over skipping the cards on screen and those marked Incorrect, then adds the general phrases, and only as a last resort lets an Incorrect phrase come back. A new unit test plays 26 Another and Incorrect moves on every demo tile and checks three different cards after each.
+- After Incorrect, the new card keeps the removed card's style when it can (witty stays witty), so the set keeps plain, witty and short as on the artboard.
+- Setup step 3 starts with three places, like step 2 with three people, so "Add a place" shows without scrolling.
+- On-device model suggestions that contain an exclamation mark, a long dash or a line break are dropped; saved phrases fill the slot.
+- Back on a tile grid no longer calls `removeLast` on an empty path (possible crash on a double tap).
+- Speech rate track has a 1pt border-strong edge, so the empty part is visible in Daylight (it was about 1.1:1).
+- `scripts/demo.sh`: when `xcodebuild -version` fails it prints what xcodebuild said and suggests accepting the license, selecting Xcode, and `xcodebuild -runFirstLaunch` (before it always said "not selected").
+- `docs/DEMO.md`: Listen step matches the app (tap Show replies, after Speak the button becomes Listen again, then Back); Show explains the message is upside down on purpose; Play a sample is in the Voice screen.
+- UI test: real screenshot of the help message editor (`ui-demo-11-help-phrase`), because ImageRenderer draws text fields as a placeholder in `11-help-phrase-*`. The Incorrect UI test now checks card order and the kept style.
+
+### Verified, and how
+- 83d613d green, all five jobs: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39463083818
+- 15fcce1 and 64353e2 went red in the UI test only: my Incorrect assertions assumed fixed heights, but the message strip grows with the message (as on the artboard: min-height 72, grows), so the cards shift a little when the new message is shorter. Read via `build-summary.txt` on `ci-screenshots`. Fixed the test to check order.
+- 29c317c green, all five jobs (SelvoCore tests and token check; build with unit, screenshot and UI tests; `scripts/demo.sh` with Xcode 16; `scripts/demo.sh` with Xcode 26; Xcode 26 build): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39468183711
+- f781dd7 (speech rate edge) green, all five jobs: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39470470611. `ui-demo-09-settings-daylight` shows the empty track edge.
+- `scripts/demo.sh` passed in CI with both Xcodes on every push this run.
+- Screenshots reviewed from `ci-screenshots` for 29c317c: `ui-demo-04-incorrect` ("Coffee. Now. Please." in the middle slot, witty, selected), `ui-demo-11-help-phrase` (fields drawn, border-strong edge, radius 16), `ui-demo-setup-3` (three places and Add a place).
+
+### Readings I took
+- From the design review, left as is: the Settings theme caption names the theme chosen at setup (decided in run 6); Listen offers Show replies before anything is heard (saved phrases, decided in run 5); the name field pill shape in setup 1; the Text size check beside the A; the Help attention Done already uses the primary label style; at accessibility XL Suggest shows one card fully and the next under the fade (it scrolls).
+- From the code review, left for later: if Emily's Mac has Apple Intelligence, the iOS 26 Simulator may use the on-device model, so the first cards could differ from DEMO.md. The saved phrases still show first and the UI never waits. "I already have a profile" always loads Lucas (intended for the demo).
+
+### Next
+- Friday: the final artboard pass on the final build (check off that item then) and the final PROGRESS summary.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
