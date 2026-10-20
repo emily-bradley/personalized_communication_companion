@@ -159,10 +159,11 @@ final class SavedPhraseProviderTests: XCTestCase {
                 if move == "A" {
                     stack.replaceAll(with: provider.next(for: context, count: SuggestionStack.size, after: stack))
                 } else {
+                    let style = stack.selected?.style
                     stack.markIncorrect(at: stack.selectedIndex ?? 0)
                     if stack.needsFill {
-                        let missing = SuggestionStack.size - stack.cards.count
-                        stack.fill(with: provider.next(for: context, count: missing, after: stack))
+                        let options = provider.next(for: context, count: SuggestionStack.size, after: stack)
+                        stack.fill(with: options.preferring(style))
                     }
                 }
                 let texts = stack.cards.map { $0.text }
@@ -170,6 +171,19 @@ final class SavedPhraseProviderTests: XCTestCase {
                 XCTAssertEqual(Set(texts).count, 3, "\(tile.label) after move \(step) (\(move))")
             }
         }
+    }
+
+    func testIncorrectKeepsTheRemovedCardsStyle() {
+        let context = coffeeContext()
+        var stack = SuggestionStack()
+        stack.fill(with: provider.phrases(for: context, count: 3, excluding: []))
+        stack.select(1)
+        XCTAssertEqual(stack.selected?.style, .witty)
+        stack.markIncorrect(at: 1)
+        stack.fill(with: provider.next(for: context, count: 3, after: stack).preferring(.witty))
+        XCTAssertEqual(stack.cards.map { $0.style }, [.plain, .witty, .short])
+        XCTAssertEqual(stack.cards[0].text, artboardCoffee[0])
+        XCTAssertEqual(stack.cards[2].text, artboardCoffee[2])
     }
 
     func testStartingOverSkipsIncorrectWhileGeneralPhrasesRemain() {

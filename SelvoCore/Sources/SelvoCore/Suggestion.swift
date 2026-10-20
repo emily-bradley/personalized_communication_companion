@@ -65,3 +65,12 @@ public protocol SuggestionProvider: Sendable {
     /// Returns up to `count` suggestions whose text is not in `excluding`.
     func suggestions(for context: SuggestionContext, count: Int, excluding: Set<String>) async -> [Suggestion]
 }
+
+public extension Array where Element == Suggestion {
+    /// The same suggestions with those in `style` first, each group in its own order. After
+    /// Incorrect, the new card keeps the style of the one it replaces when it can.
+    func preferring(_ style: SuggestionStyle?) -> [Suggestion] {
+        guard let style else { return self }
+        return filter { $0.style == style } + filter { $0.style != style }
+    }
+}

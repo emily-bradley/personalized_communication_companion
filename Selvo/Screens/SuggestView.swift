@@ -206,9 +206,11 @@ struct SuggestView: View {
         touched = true
         startIfNeeded()
         guard let index = stack.selectedIndex else { return }
+        let removedStyle = stack.selected?.style
         stack.markIncorrect(at: index)
         if stack.needsFill {
-            stack.fill(with: nextSuggestions(count: SuggestionStack.size - stack.cards.count))
+            // Ask for a full set so the new card can keep the removed card's style.
+            stack.fill(with: nextSuggestions(count: SuggestionStack.size).preferring(removedStyle))
         }
         syncMessage()
     }
