@@ -276,13 +276,14 @@ struct SetupThemeSwatch: View {
 }
 
 /// A sample message drawn with whatever theme and text size the environment carries.
+/// Shows the message size, the same as the Settings preview, so one choice looks the same in both.
 struct SetupPreviewCard: View {
     @Environment(\.theme) private var theme
     let text: String
 
     var body: some View {
         Text(text)
-            .textStyle(TypeScale.lead)
+            .textStyle(TypeScale.message)
             .foregroundStyle(theme.colors.ink)
             .fixedSize(horizontal: false, vertical: true)
             .padding(Spacing.space4)

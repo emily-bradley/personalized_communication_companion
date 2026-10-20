@@ -100,7 +100,7 @@ struct SetupView: View {
         case 2: return "Add a photo of each person. \(displayName) can change this later."
         case 3: return "Add the places \(displayName) goes most. \(displayName) can change this later."
         case 4: return "Choose a text size and a theme. \(displayName) can change these later."
-        default: return "Choose how fast Selvo speaks. \(displayName) can change this later."
+        default: return "Choose how fast the words are spoken. \(displayName) can change this later."
         }
     }
 

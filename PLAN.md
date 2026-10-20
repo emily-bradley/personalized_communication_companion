@@ -61,9 +61,9 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [x] `docs/DEMO.md`: a 5-minute demo script that walks Welcome to Spoken, Show, Listen, Help, and Settings in the Simulator; prerequisites (Xcode 16, Command Line Tools, Homebrew); what to do if the Simulator is slow on first boot
 - [x] `docs/APP-STORE-READINESS.md`: privacy policy needs, Accessibility Nutrition Label answers, mic consent, no medical claims, open items
 - [ ] Final PROGRESS.md summary for Emily
-- [ ] `scripts/demo.sh` proven in CI with Xcode 26 as well as Xcode 16, because the Mac App Store now offers Xcode 26; `docs/DEMO.md` says either works (added Oct 20)
-- [ ] UI test for the rest of the demo script: Welcome to Home, Set up together through Finish, Incorrect and Undo, Listen opens and stops, Settings theme and font (added Oct 20)
-- [ ] Review polish from Oct 19 run 4: Back chevron scales with its label, screenshot fade on non-orb screens, hidden tile icon dims with its label (added Oct 20)
+- [x] `scripts/demo.sh` proven in CI with Xcode 26 as well as Xcode 16, because the Mac App Store now offers Xcode 26; `docs/DEMO.md` says either works (added Oct 20)
+- [x] UI test for the rest of the demo script: Welcome to Home, Set up together through Finish, Incorrect and Undo, Listen opens and stops, Settings theme and font (added Oct 20)
+- [x] Review polish from Oct 19 run 4: Back chevron scales with its label, screenshot fade on non-orb screens, hidden tile icon dims with its label (added Oct 20)
 
 ## TestFlight readiness (build in as you go; finish first thing the week of Oct 26)
 - [x] Bundle ID `com.emilykenney.selvo` (placeholder until Emily confirms), version 0.1.0, build number from the CI run number
