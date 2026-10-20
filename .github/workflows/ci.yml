@@ -57,6 +57,9 @@ jobs:
             > build/xcodebuild.log 2>&1
           status=$?
           grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
+          # Agents cannot download logs, so the summary travels with the screenshots.
+          mkdir -p "$RUNNER_TEMP/screenshots"
+          grep -E "error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$RUNNER_TEMP/screenshots/build-summary.txt" || true
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
           exit $status
       - name: Upload screenshots
