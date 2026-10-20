@@ -125,14 +125,21 @@ final class DemoWalkUITests: XCTestCase {
         XCTAssertEqual(cards.count, 3, "three suggestions")
         witty.tap()
         XCTAssertTrue(wait(witty, until: "isSelected == true"), "the witty suggestion is selected")
+        let plain = buttonContaining("Can we get coffee before work?")
         let short = buttonContaining("Is there time for coffee?")
-        let shortTop = short.frame.minY
+        let plainTop = plain.frame.minY
 
         tap("Incorrect")
         XCTAssertTrue(wait(witty, until: "exists == false"), "Incorrect removes the selected suggestion")
         XCTAssertEqual(cards.count, 3, "a new suggestion takes its place")
-        // The new card may be taller, so the last card can sit lower, but it never moves up a slot.
-        XCTAssertGreaterThan(short.frame.minY, shortTop - 2, "the other cards keep their places")
+        // The new card takes the middle slot and the removed card's style. Its height follows its
+        // words, so the last card may sit a little higher or lower, but it stays below the new one.
+        let replacement = cards.matching(NSPredicate(format: "isSelected == true")).firstMatch
+        XCTAssertTrue(replacement.exists, "the new suggestion is selected")
+        XCTAssertTrue(replacement.label.contains("witty"), "the new suggestion keeps the witty style")
+        XCTAssertEqual(plain.frame.minY, plainTop, accuracy: 2, "the first card does not move")
+        XCTAssertGreaterThan(replacement.frame.minY, plain.frame.maxY - 2, "the new card is below the first")
+        XCTAssertGreaterThan(short.frame.minY, replacement.frame.maxY - 2, "the last card stays last")
         save("demo-04-incorrect")
 
         let undo = app.buttons["Undo"].firstMatch
@@ -220,5 +227,17 @@ final class DemoWalkUITests: XCTestCase {
 
         tapScrolling("Nightlight theme")
         XCTAssertTrue(wait(app.buttons["Nightlight theme"].firstMatch, until: "isSelected == true"), "Nightlight is selected again")
+
+        // The help message editor has text fields, which ImageRenderer cannot draw, so its
+        // real picture comes from here.
+        tapScrolling("Help message")
+        // A vertical TextField can show up as a text view, so look for either.
+        let field = app.descendants(matching: .any).matching(NSPredicate(
+            format: "elementType == %d OR elementType == %d",
+            XCUIElement.ElementType.textField.rawValue,
+            XCUIElement.ElementType.textView.rawValue
+        )).firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15), "the help message editor shows its fields")
+        save("demo-11-help-phrase")
     }
 }
