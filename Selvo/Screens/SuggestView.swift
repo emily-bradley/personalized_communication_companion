@@ -167,20 +167,15 @@ struct SuggestView: View {
     }
 
     /// The next `count` suggestions: prefetched model ones when there are enough, otherwise
-    /// saved phrases. When every saved phrase has been shown, they start over, skipping only
-    /// the cards on screen and those marked Incorrect.
+    /// saved phrases. When every saved phrase has been shown, they start over, so the stack
+    /// always holds three (see `SavedPhraseProvider.next`).
     private func nextSuggestions(count: Int) -> [Suggestion] {
         let skip = stack.excluded
         let fromModel = prefetched.filter { !skip.contains($0.text) }
         if fromModel.count >= count {
             return Array(fromModel.prefix(count))
         }
-        let next = saved.phrases(for: context, count: count, excluding: skip)
-        if next.count >= count { return next }
-        var keep = Set(stack.cards.map { $0.text })
-        keep.formUnion(stack.incorrect.map { $0.text })
-        keep.formUnion(next.map { $0.text })
-        return next + saved.phrases(for: context, count: count - next.count, excluding: keep)
+        return saved.next(for: context, count: count, after: stack)
     }
 
     private func syncMessage() {

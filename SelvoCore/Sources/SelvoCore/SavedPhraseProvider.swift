@@ -36,8 +36,50 @@ public struct SavedPhraseProvider: SuggestionProvider {
     /// of each. When a style runs out the next style fills the slot. When every phrase is shown
     /// or excluded, it returns what remains, which may be fewer than `count`.
     public func phrases(for context: SuggestionContext, count: Int, excluding: Set<String>) -> [Suggestion] {
-        let styles = context.styles.isEmpty ? SuggestionStyle.allCases : context.styles
-        let templateSet = templates(for: context)
+        pick(from: templates(for: context), styles: context.styles, count: count, excluding: excluding)
+    }
+
+    /// The next `count` cards for a stack: phrases not shown yet, then `startingOver` when
+    /// they run out. Used by Another and by the refill after Incorrect.
+    public func next(for context: SuggestionContext, count: Int, after stack: SuggestionStack) -> [Suggestion] {
+        let fresh = phrases(for: context, count: count, excluding: stack.excluded)
+        if fresh.count >= count { return fresh }
+        return fresh + startingOver(
+            for: context,
+            count: count - fresh.count,
+            onScreen: Set(stack.cards.map { $0.text }).union(fresh.map { $0.text }),
+            incorrect: Set(stack.incorrect.map { $0.text })
+        )
+    }
+
+    /// For when every phrase for this context has been shown: starts over so the stack can
+    /// always hold `count` cards. It skips the cards on screen and, while it can, the phrases
+    /// marked Incorrect. Then it adds the general phrases. Only if that is still not enough
+    /// does a phrase marked Incorrect come back, because fewer than three cards breaks the rule.
+    public func startingOver(
+        for context: SuggestionContext,
+        count: Int,
+        onScreen: Set<String>,
+        incorrect: Set<String>
+    ) -> [Suggestion] {
+        var result: [Suggestion] = []
+        func add(_ templates: Templates, skipping skip: Set<String>) {
+            guard result.count < count else { return }
+            let taken = Set(result.map { $0.text })
+            result += pick(from: templates, styles: context.styles, count: count - result.count,
+                           excluding: skip.union(taken))
+        }
+        let own = templates(for: context)
+        add(own, skipping: onScreen.union(incorrect))
+        add(Self.general, skipping: onScreen.union(incorrect))
+        add(own, skipping: onScreen)
+        return result
+    }
+
+    private func pick(from templateSet: Templates, styles requested: [SuggestionStyle], count: Int,
+                      excluding: Set<String>) -> [Suggestion] {
+        let styles = requested.isEmpty ? SuggestionStyle.allCases : requested
+        guard count > 0 else { return [] }
 
         var queues: [[String]] = styles.map { style in
             templateSet.phrases(style).filter { !excluding.contains($0) }

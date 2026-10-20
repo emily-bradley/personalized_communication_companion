@@ -145,6 +145,43 @@ final class SuggestionStackTests: XCTestCase {
 final class SavedPhraseProviderTests: XCTestCase {
     private let provider = SavedPhraseProvider()
 
+    /// Plays Another and Incorrect the way Choose your words does and checks the screen
+    /// always holds three different cards. Dinner has six phrases, so Incorrect then Another
+    /// used to leave two.
+    func testAnotherAndIncorrectAlwaysLeaveThreeOnEveryDemoTile() {
+        let profile = DemoProfile.lucas
+        let moves = Array("IAIIAIIIAAIIIIAIAIIIIIIAAA")
+        for tile in profile.tiles {
+            let context = SuggestionContext(profile: profile, tile: tile)
+            var stack = SuggestionStack()
+            stack.fill(with: provider.phrases(for: context, count: SuggestionStack.size, excluding: []))
+            for (step, move) in moves.enumerated() {
+                if move == "A" {
+                    stack.replaceAll(with: provider.next(for: context, count: SuggestionStack.size, after: stack))
+                } else {
+                    stack.markIncorrect(at: stack.selectedIndex ?? 0)
+                    if stack.needsFill {
+                        let missing = SuggestionStack.size - stack.cards.count
+                        stack.fill(with: provider.next(for: context, count: missing, after: stack))
+                    }
+                }
+                let texts = stack.cards.map { $0.text }
+                XCTAssertEqual(texts.count, 3, "\(tile.label) after move \(step) (\(move))")
+                XCTAssertEqual(Set(texts).count, 3, "\(tile.label) after move \(step) (\(move))")
+            }
+        }
+    }
+
+    func testStartingOverSkipsIncorrectWhileGeneralPhrasesRemain() {
+        let context = coffeeContext()
+        let own = provider.phrases(for: context, count: 20, excluding: []).map { $0.text }
+        let result = provider.startingOver(
+            for: context, count: 3, onScreen: Set(own.prefix(2)), incorrect: Set(own.dropFirst(2))
+        ).map { $0.text }
+        XCTAssertEqual(result.count, 3)
+        XCTAssertTrue(Set(result).isDisjoint(with: Set(own)))
+    }
+
     func testCoversEveryDemoTileLabel() {
         let profile = DemoProfile.lucas
         for tile in profile.tiles {
