@@ -182,3 +182,34 @@
 - For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 5 (07:56 to about 09:10 Central)
+
+### Shipped
+- `scripts/demo.sh` now runs in CI with Xcode 26 as well as Xcode 16 (a matrix on the demo job). The Mac App Store now offers Xcode 26, so that is most likely what Emily installs. `docs/DEMO.md` says either works, gives the macOS needed for each, and where to get Xcode 16 on an older Mac. The Xcode 26 launch picture is on `ci-screenshots` under `demo-xcode26/`.
+- New UI test `SelvoUITests/DemoWalkUITests.swift` walks the rest of the demo script: Welcome then "I already have a profile" to Home; "Set up together" through all 5 steps to Finish and Home greeting the new name; Incorrect removes the chosen card and keeps three, Undo brings it back; Listen opens, shows its status and Stop listening, and stops; Settings switches to Daylight, Atkinson, Lexend and back to Nightlight. Screenshots `ui-demo-*`.
+- Polish from the run 4 review: the Back chevron grows with its label (it looked thin at accessibility XL); a hidden tile's icon dims with its label in the tile editor; screenshot renders of non-orb screens end in the same bottom fade as the app.
+- From this run's review: the setup voice step says "Choose how fast the words are spoken." (the brand book says not to describe Selvo as speaking for someone); the setup text size preview uses the message size, the same as Settings; setup shows the real default voice name ("Voice: Samantha") as Settings does.
+
+### Verified, and how
+- CI green on every push this run, all five jobs (SelvoCore tests and token check, build with unit, screenshot and UI tests, `scripts/demo.sh` with Xcode 16, `scripts/demo.sh` with Xcode 26, the Xcode 26 build):
+  - 34826e3 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39426893350
+  - 3d1fa1f https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39429662469
+  - 8cfa85c https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39431735928
+- `scripts/demo.sh` passed in CI with both Xcodes. The Xcode 26 launch picture shows Home with the Lucas profile on iOS 26.
+- Screenshots reviewed from `ci-screenshots`: `demo-xcode26/demo-launch`, `ui-demo-07-listen`, `ui-axl-02-photos` (Back chevron), `10-edit-tiles-night-default` (dimmed hidden icon, fade), `ui-demo-setup-4` and `ui-demo-setup-5` (after the fixes).
+- A reviewer agent that had not seen the code compared the new shots with the artboards and brand book. Placement, sizes, one glow, three suggestions and copy rules all passed.
+
+### Readings I took
+- Kept from the review, as earlier runs decided: the Settings caption under the bottom fade at rest (scroll hint), Show replies before anything is heard (it offers saved phrases, as the caption says), supporter tile reorder (the handoff lists it), the selected ring drawn outside the card (as on the artboards), and Slow and Fast pills in setup (a quick choice; the slider is in Settings).
+- Step 1 of setup speaks to the person ("What should Selvo call you?") and later steps name them. Left as is; see Needs Emily.
+
+### Next
+- Friday: final artboard pass on the final build and the final PROGRESS summary. Every item through Thursday and the TestFlight section is done.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
