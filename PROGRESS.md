@@ -341,3 +341,28 @@ Main was green at the start (22c7e6c). Every item through Thursday and the TestF
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 10 (17:55 to about 18:30 Central)
+
+Main was green at the start (c061121). Every item through Thursday and the TestFlight section was already done; the two open items belong to Friday's final build. This run closed two small leftovers from earlier reviews.
+
+### Shipped
+- Setup progress segments sit 6pt apart, as on App-Setup (they were 8pt).
+- A saved profile that cannot be read is moved aside to `profile-unreadable-<time>.json` beside it, so a later save never writes over it (run 9 noted this for TestFlight). New SelvoCore tests: an unreadable file is kept and survives the next save; a readable one loads in place.
+
+### Verified, and how
+- 0bf829f green, all five jobs, including `scripts/demo.sh` plain, `--welcome` and `--fresh` with Xcode 16 and Xcode 26: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39511813960
+- Screenshots reviewed from `ci-screenshots` for 0bf829f: `02-setup-night-default` beside a render of App-Setup (gaps match).
+
+### Readings I took
+- The "Suggest cards about 5pt lower" note from run 8: measured against a render of App-Suggest, the gap from the Show row to the first card matches (about 34pt against 35pt). The difference comes from the real message wrapping to two lines in the strip, so nothing to change.
+
+### Next
+- Friday: the final artboard pass on the final build (check off that item then) and the final PROGRESS summary.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
