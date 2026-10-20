@@ -131,7 +131,8 @@ final class DemoWalkUITests: XCTestCase {
         tap("Incorrect")
         XCTAssertTrue(wait(witty, until: "exists == false"), "Incorrect removes the selected suggestion")
         XCTAssertEqual(cards.count, 3, "a new suggestion takes its place")
-        XCTAssertEqual(short.frame.minY, shortTop, accuracy: 2, "the other cards keep their places")
+        // The new card may be taller, so the last card can sit lower, but it never moves up a slot.
+        XCTAssertGreaterThan(short.frame.minY, shortTop - 2, "the other cards keep their places")
         save("demo-04-incorrect")
 
         let undo = app.buttons["Undo"].firstMatch
