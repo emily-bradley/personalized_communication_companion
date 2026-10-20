@@ -176,6 +176,7 @@ struct SetupAddRow: View {
 /// A pill in a row of choices. Selected: brand tint, 3pt focus ring and a check.
 struct SetupChoicePill: View {
     @Environment(\.theme) private var theme
+    @Environment(\.dynamicTypeSize) private var typeSize
     let title: String
     var style: TypeStyle = TypeScale.label
     let accessibilityName: String
@@ -189,8 +190,9 @@ struct SetupChoicePill: View {
                 .foregroundStyle(theme.colors.ink)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
-                // 32pt keeps the label clear of the check mark at large text sizes.
-                .padding(.horizontal, Spacing.space8)
+                // 32pt keeps the label clear of the check mark at large text sizes. At accessibility
+                // sizes the label fills the pill, so 8pt more leaves a gap before the check.
+                .padding(.horizontal, Spacing.space8 + (typeSize.isAccessibilitySize ? Spacing.space2 : 0))
                 .frame(maxWidth: .infinity, minHeight: SetupMetrics.choiceHeight)
                 .background(Capsule().fill(isSelected ? theme.colors.surfaceBrandTint : Color.clear))
                 .overlay(

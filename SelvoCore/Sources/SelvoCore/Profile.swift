@@ -90,6 +90,9 @@ public struct TileItem: Codable, Identifiable, Equatable, Sendable {
 public struct Profile: Codable, Equatable, Sendable {
     public var name: String
     public var theme: ThemeID
+    /// The theme chosen at setup. Settings names it; changing the theme later leaves it alone.
+    /// Nil for profiles saved before it was recorded.
+    public var setupTheme: ThemeID?
     public var textSize: TextSize
     /// 0 is slowest, 1 is fastest. The app maps this to the speech synthesizer's range.
     public var speechRate: Double
@@ -106,6 +109,7 @@ public struct Profile: Codable, Equatable, Sendable {
     public init(
         name: String,
         theme: ThemeID = .night,
+        setupTheme: ThemeID? = nil,
         textSize: TextSize = .standard,
         speechRate: Double = 0.5,
         voiceIdentifier: String? = nil,
@@ -118,6 +122,7 @@ public struct Profile: Codable, Equatable, Sendable {
     ) {
         self.name = name
         self.theme = theme
+        self.setupTheme = setupTheme ?? theme
         self.textSize = textSize
         self.speechRate = speechRate
         self.voiceIdentifier = voiceIdentifier

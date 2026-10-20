@@ -30,7 +30,7 @@ struct SettingsView: View {
             ScrollsWhenNeeded(inset: Spacing.space2) {
                 VStack(alignment: .leading, spacing: Spacing.space6) {
                     textSizeSection(textSize)
-                    themeSection(themeID, personName: profile?.name)
+                    themeSection(themeID, personName: profile?.name, setupTheme: profile?.setupTheme)
                     speechRateSection(profile?.speechRate ?? 0.5)
                     readingFontSection(themeID: themeID, selected: readingFont)
                     supporterSection
@@ -81,7 +81,7 @@ struct SettingsView: View {
         }
     }
 
-    private func themeSection(_ selected: ThemeID, personName: String?) -> some View {
+    private func themeSection(_ selected: ThemeID, personName: String?, setupTheme: ThemeID?) -> some View {
         VStack(alignment: .leading, spacing: Spacing.space3) {
             SetupSectionLabel(title: "Theme")
             HStack(spacing: Spacing.space3) {
@@ -91,8 +91,14 @@ struct SettingsView: View {
                     }
                 }
             }
-            caption("Both shown side by side. \(personName ?? "You") chose \(selected.displayName) at setup.")
+            caption(Self.themeCaption(personName: personName, setupTheme: setupTheme))
         }
+    }
+
+    /// Names the theme chosen at setup, which stays the same when the theme changes here.
+    static func themeCaption(personName: String?, setupTheme: ThemeID?) -> String {
+        guard let setupTheme else { return "Both shown side by side." }
+        return "Both shown side by side. \(personName ?? "You") chose \(setupTheme.displayName) at setup."
     }
 
     private func speechRateSection(_ rate: Double) -> some View {

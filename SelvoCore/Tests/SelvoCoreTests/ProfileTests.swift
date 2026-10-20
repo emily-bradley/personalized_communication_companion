@@ -108,4 +108,18 @@ final class DemoProfileTests: XCTestCase {
         XCTAssertTrue(Greeting.text(name: "Lucas", hour: 8).hasPrefix("Good morning"))
         XCTAssertTrue(Greeting.text(name: "Lucas", hour: 13).hasPrefix("Good afternoon"))
     }
+
+    func testSetupThemeStaysWhenTheThemeChanges() throws {
+        var profile = Profile(name: "Maya", theme: .night)
+        XCTAssertEqual(profile.setupTheme, .night)
+        profile.theme = .day
+        XCTAssertEqual(profile.setupTheme, .night)
+
+        // Profiles saved before the setup theme was recorded still load.
+        var json = try JSONSerialization.jsonObject(with: JSONEncoder().encode(profile)) as! [String: Any]
+        json.removeValue(forKey: "setupTheme")
+        let old = try JSONDecoder().decode(Profile.self, from: JSONSerialization.data(withJSONObject: json))
+        XCTAssertNil(old.setupTheme)
+        XCTAssertEqual(old.theme, .day)
+    }
 }

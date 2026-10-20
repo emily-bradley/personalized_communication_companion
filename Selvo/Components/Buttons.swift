@@ -13,6 +13,9 @@ struct PrimaryButton: View {
         Button(action: action) {
             Text(title)
                 .textStyle(TypeScale.primaryAction)
+                .multilineTextAlignment(.center)
+                // Keeps long labels clear of the pill's ends at the largest text sizes.
+                .padding(.horizontal, Spacing.space4)
                 .frame(maxWidth: .infinity, minHeight: ComponentMetrics.primaryButtonHeight)
         }
         .buttonStyle(PrimaryButtonStyle(theme: theme, isEnabled: isEnabled))

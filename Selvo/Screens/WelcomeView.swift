@@ -54,7 +54,7 @@ struct WelcomeView: View {
                 .textStyle(TypeScale.body)
                 .foregroundStyle(theme.colors.inkMuted)
                 .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: 300)
+                .frame(maxWidth: compact ? .infinity : 300)
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)

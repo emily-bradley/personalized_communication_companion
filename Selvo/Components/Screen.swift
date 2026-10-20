@@ -46,8 +46,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
     var body: some View {
         if isSnapshotRender {
             // The fitting copy is not clipped, so glows and focus rings draw in full. The
-            // overflowing copy is cut at the bottom only, so a glow at the top still shows.
-            // Without an orb it gets the same bottom fade as the live scroll view.
+            // overflowing copy ends in the same bottom fade as the live scroll view.
             ViewThatFits(in: .vertical) {
                 content()
                     .frame(maxHeight: .infinity, alignment: alignment)
@@ -55,7 +54,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
                     .padding(inset)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
-                    .mask { if drawsOutside { Rectangle().padding(.top, -120) } else { bottomFade } }
+                    .mask { edgeMask }
                     .padding(.horizontal, -inset)
             }
         } else {
@@ -66,10 +65,10 @@ struct ScrollsWhenNeeded<Content: View>: View {
                     content()
                         .padding(inset)
                         // Room for the fade, so the last line can scroll fully clear of it.
-                        .padding(.bottom, drawsOutside ? 0 : Self.fadeHeight)
+                        .padding(.bottom, Self.fadeHeight)
                 }
                 .scrollClipDisabled(drawsOutside)
-                .mask { if drawsOutside { Rectangle().padding(-Self.glowRoom) } else { bottomFade } }
+                .mask { edgeMask }
                 .padding(.horizontal, -inset)
             }
         }
@@ -78,6 +77,14 @@ struct ScrollsWhenNeeded<Content: View>: View {
     private static var fadeHeight: Double { Spacing.space6 }
     /// How far an orb's glow may draw past the scroll area.
     private static var glowRoom: Double { 200 }
+
+    /// The bottom fade. With an orb, the top and sides open up so its glow is not cut, while
+    /// the bottom still fades and keeps scrolled text off the pinned buttons below.
+    private var edgeMask: some View {
+        bottomFade
+            .padding(.top, drawsOutside ? -Self.glowRoom : 0)
+            .padding(.horizontal, drawsOutside ? -Self.glowRoom : 0)
+    }
 
     /// Fades the bottom edge so a line about to scroll under a pinned button never looks cut
     /// through the glyphs, and hints that there is more below.
