@@ -64,6 +64,7 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [x] `scripts/demo.sh` proven in CI with Xcode 26 as well as Xcode 16, because the Mac App Store now offers Xcode 26; `docs/DEMO.md` says either works (added Oct 20)
 - [x] UI test for the rest of the demo script: Welcome to Home, Set up together through Finish, Incorrect and Undo, Listen opens and stops, Settings theme and font (added Oct 20)
 - [x] Review polish from Oct 19 run 4: Back chevron scales with its label, screenshot fade on non-orb screens, hidden tile icon dims with its label (added Oct 20)
+- [x] `scripts/demo.sh --fresh` (fresh Lucas, undoes rehearsal changes) and `--welcome` (opens on Welcome); CI runs all three forms; `docs/DEMO.md` matches the app after a dry rehearsal review (added Oct 20 run 8)
 - [x] Review fixes from Oct 20 run 6: Incorrect fills the removed card's slot so the others never move; Settings names the theme chosen at setup; orb screens fade at the bottom when they scroll; primary button labels wrap clear of the pill ends; CI publishes a build and test summary beside the screenshots (added Oct 20)
 
 ## TestFlight readiness (build in as you go; finish first thing the week of Oct 26)

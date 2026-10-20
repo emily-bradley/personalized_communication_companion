@@ -283,3 +283,31 @@ Main was green at the start (ff3fd07). Every item through Thursday and the TestF
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 8 (13:56 to about 14:30 Central)
+
+Main was green at the start (7db5d3b). Every item through Thursday and the TestFlight section was already done, so this run had two fresh reviewers look again: one did a dry rehearsal of `docs/DEMO.md` against the code and real Simulator screenshots, one compared all screenshots with the artboards (no P1).
+
+### Shipped
+- `scripts/demo.sh --fresh` starts over with a fresh profile for Lucas, and `scripts/demo.sh --welcome` starts over on Welcome. Both use the existing `-SelvoResetProfile` launch argument. The rehearsal review found that a plain rerun keeps everything changed in rehearsal (Daylight, text size, font, speech rate, voice, moved tiles, help phrase, or a new person from Set up together), and the old recovery path was three `simctl` commands on `booted`. CI now runs plain, `--welcome` and `--fresh` with both Xcode 16 and Xcode 26 and publishes a picture of each.
+- New unit tests `SelvoTests/LaunchTests.swift`: a plain launch keeps the saved profile; `--fresh` arguments give Lucas; `--welcome` arguments give no profile.
+- `docs/DEMO.md` fixes from the rehearsal: a table for the three forms of the command; run `--fresh` after every rehearsal; on Suggest the first card is already in the strip when the screen opens; Listen's Stop listening button (not the bottom button) becomes Listen again; Settings bullets in the app's order (Text size, Theme, Speech rate, Reading font, Voice pinned at the bottom), the pill says Atkinson, and the larger A grows the whole screen; Photos has a second page and the pictures are drawn symbols; on a Mac with Apple Intelligence, Another may bring on-device model suggestions that differ run to run.
+- Setup person and place glyphs fit the 22pt box from the artboard (the two-person symbol was about 31pt wide).
+
+### Verified, and how
+- 8202694 green, all five jobs (SelvoCore tests and token check; build with unit, screenshot and UI tests including LaunchTests; `scripts/demo.sh` plain, `--welcome` and `--fresh` with Xcode 16; the same with Xcode 26; Xcode 26 build): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39479904568
+- Screenshots reviewed from `ci-screenshots` for 8202694: `demo/demo-launch-welcome.png` (Welcome after a reset), `demo/demo-launch-fresh.png` (Home for Lucas after a reset), `ui-demo-setup-2` (smaller glyphs in the 48pt wells).
+
+### Readings I took
+- From the design review, left as is: Settings text size chips draw the three A at growing sizes (the artboard draws all at 17pt); growing sizes say what each does without relying on the ring. Setup step 5 offers Slow and Fast pills (decided in run 5). After Another the plain and witty labels sit on different sentences than the artboard's sample (the app's labels fit the words). Incorrect replaces the removed card in place (decided in run 6, follows "Incorrect removes one"). Suggest cards sit about 5pt lower than the artboard (minor; left for Friday's pass).
+- The on-device model stays on when available, since suggestions are the product. DEMO.md says the words may differ.
+
+### Next
+- Friday: the final artboard pass on the final build (check off that item then) and the final PROGRESS summary.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
