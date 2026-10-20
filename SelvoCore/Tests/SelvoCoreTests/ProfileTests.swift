@@ -73,6 +73,25 @@ final class ProfileStoreTests: XCTestCase {
         XCTAssertEqual(try store.load(), profile)
     }
 
+    func testUnreadableProfileIsKeptAside() throws {
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        try Data("not a profile".utf8).write(to: store.fileURL)
+        XCTAssertNil(store.loadKeepingUnreadable())
+        XCTAssertFalse(FileManager.default.fileExists(atPath: store.fileURL.path))
+        let kept = try FileManager.default.contentsOfDirectory(atPath: dir.path)
+            .filter { $0.hasPrefix("profile-unreadable-") }
+        XCTAssertEqual(kept.count, 1)
+        try store.save(DemoProfile.lucas)
+        let keptData = try Data(contentsOf: dir.appendingPathComponent(kept[0]))
+        XCTAssertEqual(String(decoding: keptData, as: UTF8.self), "not a profile")
+    }
+
+    func testReadableProfileLoadsWithoutMoving() throws {
+        try store.save(DemoProfile.lucas)
+        XCTAssertEqual(store.loadKeepingUnreadable(), DemoProfile.lucas)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: store.fileURL.path))
+    }
+
     func testSavePhotoWritesAFile() throws {
         let name = try store.savePhoto(Data([1, 2, 3]))
         XCTAssertEqual(try Data(contentsOf: store.photoURL(named: name)), Data([1, 2, 3]))

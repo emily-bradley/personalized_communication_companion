@@ -50,7 +50,7 @@ final class AppModel {
         if arguments.contains("-SelvoResetProfile") {
             try? store.delete()
         }
-        var profile = try? store.load()
+        var profile = store.loadKeepingUnreadable()
         if profile == nil && shouldSeedDemo(arguments: arguments) {
             let lucas = DemoProfile.lucas
             try? store.save(lucas)

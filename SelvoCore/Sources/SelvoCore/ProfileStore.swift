@@ -26,6 +26,24 @@ public struct ProfileStore: Sendable {
         return try JSONDecoder().decode(Profile.self, from: data)
     }
 
+    /// Loads the saved profile. A file that cannot be read is moved aside, not lost,
+    /// so the next save never writes over it. Returns nil in that case.
+    public func loadKeepingUnreadable() -> Profile? {
+        do {
+            return try load()
+        } catch {
+            try? FileManager.default.moveItem(at: fileURL, to: unreadableURL)
+            return nil
+        }
+    }
+
+    /// Where an unreadable profile is kept: profile-unreadable-<time>.json beside it.
+    var unreadableURL: URL {
+        let stamp = Int(Date().timeIntervalSince1970)
+        return fileURL.deletingLastPathComponent()
+            .appendingPathComponent("profile-unreadable-\(stamp).json")
+    }
+
     public func save(_ profile: Profile) throws {
         try FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         let encoder = JSONEncoder()
