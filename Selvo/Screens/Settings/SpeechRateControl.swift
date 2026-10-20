@@ -27,8 +27,11 @@ struct SpeechRateControl: View {
             let usable = max(proxy.size.width - Self.thumbSide, 1)
             let fraction = min(max(rate, 0), 1)
             ZStack(alignment: .leading) {
+                // The border-strong edge keeps the empty track visible (3:1) in Daylight, where
+                // sunken on the page is too faint.
                 Capsule()
                     .fill(theme.colors.surfaceSunken)
+                    .overlay(Capsule().strokeBorder(theme.colors.borderStrong, lineWidth: 1))
                     .frame(width: usable, height: Self.trackHeight)
                     .offset(x: Self.thumbSide / 2)
                 Capsule()
