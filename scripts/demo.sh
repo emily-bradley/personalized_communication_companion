@@ -14,12 +14,14 @@ DERIVED="build/DerivedData"
 APP="$DERIVED/Build/Products/Debug-iphonesimulator/Selvo.app"
 
 say() { printf '\n==> %s\n' "$1"; }
-fail() { printf '\nSelvo demo stopped: %s\n' "$1" >&2; exit 1; }
+fail() { printf '\nSelvo demo stopped: %b\n' "$1" >&2; exit 1; }
 
 say "Checking Xcode"
 command -v xcodebuild >/dev/null 2>&1 || fail "Xcode is not installed. Install Xcode from the App Store, open it once, then run this again."
 # Capture first, then print: piping into head can break the pipe and abort xcodebuild.
-XCODE_VERSION="$(xcodebuild -version 2>/dev/null)" || fail "Xcode is installed but not selected. Run: sudo xcode-select -s /Applications/Xcode.app"
+if ! XCODE_VERSION="$(xcodebuild -version 2>/dev/null)"; then
+  fail "xcodebuild could not run. It said:\n$(xcodebuild -version 2>&1 | tail -n 3)\nIf it mentions the license, run: sudo xcodebuild -license accept\nIf Xcode is not selected, run: sudo xcode-select -s /Applications/Xcode.app\nThen run: xcodebuild -runFirstLaunch"
+fi
 echo "${XCODE_VERSION%%$'\n'*}"
 command -v python3 >/dev/null 2>&1 || fail "python3 is missing. Run: xcode-select --install"
 

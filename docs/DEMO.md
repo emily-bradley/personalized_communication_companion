@@ -84,10 +84,10 @@ Tap **Photos**. Lucas's pictures appear in a fixed grid: Coffee, Dinner, Home, C
 Tap **Speak**. The Mac speaks the message, and **Spoken** shows for about a second where Another and Incorrect were.
 
 **6. Show (20 seconds)**
-Tap **Show** under the message. The message fills the screen in large type, for a noisy room or a listener who reads better than they hear. Tap **Done** to go back to your words.
+Tap **Show** under the message. The message fills the screen in large type, for a noisy room or a listener who reads better than they hear. It is turned upside down on purpose: the phone lies on the table facing the person across from Lucas, so on the Mac it reads upside down. Tap **Done** to go back to your words.
 
 **7. Listen (60 seconds)**
-Tap **Clear** (top right) to empty the message and go back to Home, then tap **Listen**. The first time, the Simulator asks for the microphone and speech recognition: allow both. macOS may also ask whether Simulator can use the microphone: allow it. Say a short sentence near the Mac, such as "Do you want to go to the park later?" What you said appears as text. If replies are still on their way, tap **Show replies**. Tap one of the 3 replies Lucas could choose, then **Speak**. Tap **Stop listening** when done.
+Tap **Clear** (top right) to empty the message and go back to Home, then tap **Listen**. The first time, the Simulator asks for the microphone and speech recognition: allow both. macOS may also ask whether Simulator can use the microphone: allow it. Say a short sentence near the Mac, such as "Do you want to go to the park later?" What you said appears as text. Tap **Show replies**, tap one of the 3 replies Lucas could choose, then **Speak**. Speak stops listening first so the phone does not hear its own voice, and the bottom button becomes **Listen again**. Tap **Back** to go home.
 
 **8. Help (20 seconds)**
 On Home, tap **Help** (top right). Selvo asks "Show the help screen?" so it never opens by accident. Tap **Yes, show it**. The screen fills with "I need help." and Lucas's phrase in large type. It stays until someone taps **Done**.
@@ -97,8 +97,8 @@ On Home, tap **Settings** (the gear, top right).
 - **Text size**: tap the larger A and watch the preview grow.
 - **Theme**: switch between Nightlight and Daylight.
 - **Reading font**: switch between Lexend and Atkinson Hyperlegible, which was tested with low-vision readers.
-- **Speech rate**: move from Slow toward Fast, then tap **Play a sample**.
-- **Voice**: open the list and tap a voice to hear it.
+- **Speech rate**: move from Slow toward Fast.
+- **Voice**: open it and tap a voice to hear it, or tap **Play a sample** to hear the new rate.
 
 Put the theme and text size back the way you want them before the next demo. Settings are saved.
 
