@@ -129,6 +129,8 @@ final class DemoWalkUITests: XCTestCase {
         tap("Incorrect")
         XCTAssertTrue(wait(witty, until: "exists == false"), "Incorrect removes the selected suggestion")
         XCTAssertEqual(cards.count, 3, "a new suggestion takes its place")
+        XCTAssertTrue(cards.element(boundBy: 2).label.contains("Is there time for coffee?"),
+                      "the other cards keep their places")
         save("demo-04-incorrect")
 
         let undo = app.buttons["Undo"].firstMatch

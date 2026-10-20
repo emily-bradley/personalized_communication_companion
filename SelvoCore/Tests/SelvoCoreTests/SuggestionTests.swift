@@ -49,7 +49,7 @@ final class SuggestionStackTests: XCTestCase {
         XCTAssertEqual(stack.selectedIndex, 0)
     }
 
-    func testIncorrectRemovesOneLogsItAndRefillKeepsTheOthers() {
+    func testIncorrectRemovesOneLogsItAndRefillKeepsTheOthersInPlace() {
         var stack = abc()
         stack.markIncorrect(at: 1)
         XCTAssertEqual(stack.cards.map { $0.text }, ["A", "C"])
@@ -58,7 +58,7 @@ final class SuggestionStackTests: XCTestCase {
         XCTAssertTrue(stack.needsFill)
 
         stack.fill(with: [card("A"), card("D"), card("E")])
-        XCTAssertEqual(stack.cards.map { $0.text }, ["A", "C", "D"])
+        XCTAssertEqual(stack.cards.map { $0.text }, ["A", "D", "C"])
         XCTAssertEqual(stack.incorrect.count, 1)
         XCTAssertTrue(stack.shown.contains("D"))
         XCTAssertFalse(stack.shown.contains("E"))
@@ -77,7 +77,8 @@ final class SuggestionStackTests: XCTestCase {
         stack.select(2)
         stack.markIncorrect(at: 0)
         stack.fill(with: [card("D")])
-        XCTAssertEqual(stack.cards.map { $0.text }, ["B", "C", "D"])
+        XCTAssertEqual(stack.cards.map { $0.text }, ["D", "B", "C"])
+        XCTAssertEqual(stack.selected?.text, "C")
 
         stack.undo()
         XCTAssertEqual(stack.cards.map { $0.text }, ["A", "B", "C"])
@@ -100,21 +101,37 @@ final class SuggestionStackTests: XCTestCase {
         stack.select(7)
         XCTAssertEqual(stack.selectedIndex, 2)
 
-        // Removing the selected last card selects the new last card.
+        // The new card takes the removed card's slot and its selection.
         stack.markIncorrect(at: 2)
-        XCTAssertEqual(stack.selected?.text, "B")
+        XCTAssertNil(stack.selected)
+        stack.fill(with: [card("D")])
+        XCTAssertEqual(stack.cards.map { $0.text }, ["A", "B", "D"])
+        XCTAssertEqual(stack.selected?.text, "D")
+        XCTAssertEqual(stack.selectedIndex, 2)
 
-        // Removing a card before the selection keeps the same card selected.
+        // Removing a card that is not selected keeps the same card selected.
         stack.markIncorrect(at: 0)
+        XCTAssertEqual(stack.selected?.text, "D")
+        XCTAssertEqual(stack.selectedIndex, 1)
+
+        // With nothing left to offer, the open slot closes and the others stay in order.
+        stack.fill(with: [])
+        XCTAssertEqual(stack.cards.map { $0.text }, ["B", "D"])
+        XCTAssertEqual(stack.selected?.text, "D")
+
+        // Removing the selected card with nothing to replace it selects the first card.
+        stack.markIncorrect(at: 1)
+        stack.fill(with: [])
         XCTAssertEqual(stack.selected?.text, "B")
         XCTAssertEqual(stack.selectedIndex, 0)
 
         stack.markIncorrect(at: 0)
+        stack.fill(with: [])
         XCTAssertNil(stack.selected)
         XCTAssertNil(stack.selectedIndex)
 
-        stack.fill(with: [card("D")])
-        XCTAssertEqual(stack.selected?.text, "D")
+        stack.fill(with: [card("E")])
+        XCTAssertEqual(stack.selected?.text, "E")
     }
 
     func testSelectingIsUndoable() {

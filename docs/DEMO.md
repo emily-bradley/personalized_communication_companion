@@ -76,7 +76,7 @@ Tap **Photos**. Lucas's pictures appear in a fixed grid: Coffee, Dinner, Home, C
 **4. Choose your words (90 seconds)**
 - Selvo offers 3 suggestions about coffee, in Lucas's styles (plain, witty, short). Tap one. It goes into the message strip.
 - Tap **Another**: 3 different suggestions arrive.
-- Tap **Incorrect**: the selected suggestion is removed and a new one takes its place.
+- Tap **Incorrect**: the selected suggestion is removed and a new one takes its place, in the same spot. The other two do not move.
 - Tap **Undo**: what was there before comes back.
 - Point out that nothing times out or disappears on its own. **Clear** (top right) empties the message and goes back to Home; you do not need to tap it now.
 
