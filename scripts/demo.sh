@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One command to see Selvo in the iOS Simulator on a Mac with Xcode 16.
+# One command to see Selvo in the iOS Simulator on a Mac with Xcode 16 or 26.
 #
 #   ./scripts/demo.sh
 #
@@ -17,7 +17,7 @@ say() { printf '\n==> %s\n' "$1"; }
 fail() { printf '\nSelvo demo stopped: %s\n' "$1" >&2; exit 1; }
 
 say "Checking Xcode"
-command -v xcodebuild >/dev/null 2>&1 || fail "Xcode is not installed. Install Xcode 16 from the App Store, open it once, then run this again."
+command -v xcodebuild >/dev/null 2>&1 || fail "Xcode is not installed. Install Xcode from the App Store, open it once, then run this again."
 # Capture first, then print: piping into head can break the pipe and abort xcodebuild.
 XCODE_VERSION="$(xcodebuild -version 2>/dev/null)" || fail "Xcode is installed but not selected. Run: sudo xcode-select -s /Applications/Xcode.app"
 echo "${XCODE_VERSION%%$'\n'*}"

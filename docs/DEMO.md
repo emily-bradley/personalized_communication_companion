@@ -4,8 +4,8 @@ This runs Selvo on your Mac in the iOS Simulator, with the demo profile for Luca
 
 ## Before the demo (once, allow about 1 hour, mostly downloads)
 
-1. **A Mac that runs Xcode 16.** Xcode 16 needs macOS Sonoma 14.5 or later. Check in Apple menu, **About This Mac**.
-2. **Xcode 16** from the Mac App Store. Open it once, accept the license, and when it asks which platforms to install, include **iOS**. If you skipped that, open Xcode, **Settings**, **Components**, and download the iOS Simulator platform.
+1. **A Mac that runs Xcode 16 or Xcode 26.** The Mac App Store now offers Xcode 26, which needs macOS Sequoia 15.6 or later. On an older Mac, Xcode 16 needs macOS Sonoma 14.5 or later and can be downloaded from [developer.apple.com/download/all](https://developer.apple.com/download/all/) with your Apple account. Check your macOS version in Apple menu, **About This Mac**. The demo script is tested with both Xcode 16 and Xcode 26 on every change.
+2. **Xcode** from the Mac App Store. Open it once, accept the license, and when it asks which platforms to install, include **iOS**. If you skipped that, open Xcode, **Settings**, **Components**, and download the iOS Simulator platform.
 3. **Command Line Tools.** Open Terminal and run:
    ```
    xcode-select --install

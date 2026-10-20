@@ -76,14 +76,23 @@ jobs:
           name: xcodebuild-log
           path: build/xcodebuild.log
 
+  # The Mac App Store now offers Xcode 26, so the demo script is proven with both 16 and 26.
   demo:
-    name: scripts/demo.sh
+    name: scripts/demo.sh (Xcode ${{ matrix.xcode }})
     runs-on: macos-15
     timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: "16"
+            folder: demo
+          - xcode: "26"
+            folder: demo-xcode26
     steps:
       - uses: actions/checkout@v4
-      - name: Select Xcode 16
-        run: scripts/ci_select_xcode.sh
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: scripts/ci_select_xcode.sh ${{ matrix.xcode }}
       - name: Run the demo script
         run: scripts/demo.sh
       - name: Publish demo screenshot to the ci-screenshots branch
@@ -91,12 +100,12 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/demo"
           cp build/demo-launch.png "$RUNNER_TEMP/demo/" 2>/dev/null || true
-          scripts/ci_publish_images.sh "$RUNNER_TEMP/demo" demo
+          scripts/ci_publish_images.sh "$RUNNER_TEMP/demo" ${{ matrix.folder }}
       - name: Upload demo screenshot
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: demo-launch
+          name: ${{ matrix.folder }}-launch
           path: build/demo-launch.png
           if-no-files-found: warn
 
