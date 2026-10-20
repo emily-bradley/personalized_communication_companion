@@ -311,3 +311,33 @@ Main was green at the start (7db5d3b). Every item through Thursday and the TestF
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-20, build run 9 (15:56 to about 16:50 Central)
+
+Main was green at the start (22c7e6c). Every item through Thursday and the TestFlight section was already done, and the two open items belong to Friday's final build. So this run had two fresh reviewers look from new angles: one read the code for tap sequences that could go wrong in a live demo (fast or repeated taps, Listen and Speak sharing the audio session, persistence, PhotosPicker), one compared every Daylight and accessibility XL screenshot with the artboards (no P1).
+
+### Shipped
+- A double tap on a tile, Show, Help, Settings or Listen no longer opens the screen twice (before, Done on Show or Back on Suggest seemed to do nothing, and two Listen screens each started a listener). `AppModel.open` skips a route that is already on top. New unit tests `SelvoTests/NavigationTests.swift`.
+- Listen waits for Selvo to finish speaking. Before, tapping Listen again (or opening Listen from Home) while a reply was still being spoken switched the audio session to record, so the rest of the sentence went silent and the mic could hear the tail of it. Now listening starts when the speech ends.
+- `SpeechService.isSpeaking` follows the message playing now, so a quick second Speak is not marked finished by the first message's cancel callback.
+- The check on a selected choice pill (Lexend, Slow, Fast) keeps a gap from a long label at accessibility sizes (it touched the "d" of Lexend).
+
+### Verified, and how
+- 8cf102a green, all five jobs (SelvoCore tests and token check; build with unit tests including NavigationTests, screenshot and UI tests including the accessibility audits and demo walk; `scripts/demo.sh` plain, `--welcome` and `--fresh` with Xcode 16; the same with Xcode 26; Xcode 26 build): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39497046316
+- `scripts/demo.sh` passed in CI with both Xcodes.
+- Screenshots reviewed from `ci-screenshots` for 8cf102a: `ui-axl-09b-settings-scrolled` (gap between Lexend and its check). Copy scan: no en or em dashes in Swift, docs, scripts or workflows; no exclamation marks or the words user, voiceless or patient in UI copy.
+
+### Readings I took
+- Left as is from the design review: the Settings font caption sits under the bottom fade until the screen scrolls (Settings has more than the artboard, the For supporters section, so it scrolls by design and the fade says there is more); Undo with nothing to undo shows no arrow (decided in run 3); the Listen and Show captions stop growing at accessibility sizes so the heard text and message keep the space (decided earlier); the Listen heard text at accessibility XL scrolls; setup progress gap 8pt against 6pt on the artboard (minor, left for Friday's pass).
+- Left as is from the code review: a saved profile that fails to decode is replaced by Lucas in the Simulator. No field changes are planned before Friday, so there is no path to it now; note for TestFlight.
+- `docs/DEMO.md` now says to connect or disconnect Bluetooth headphones before the demo, not during Listen, since changing the Mac's microphone while listening is the one audio risk left.
+
+### Next
+- Friday: the final artboard pass on the final build (check off that item then) and the final PROGRESS summary.
+
+### Needs Emily
+- On her Mac: Xcode from the Mac App Store (Xcode 26 needs macOS Sequoia 15.6 or later; open it once and add the iOS platform), Command Line Tools, and Homebrew (https://brew.sh). Then run `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.

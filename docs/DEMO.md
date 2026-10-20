@@ -111,6 +111,7 @@ Settings are saved. Before the real demo, run `./scripts/demo.sh --fresh` to und
 - Check that the microphone was allowed. In the Simulator, open the **Settings** app, scroll to **Selvo**, and turn on **Microphone** and **Speech Recognition**.
 - Check that the Mac allows the Simulator to use the microphone: Apple menu, **System Settings**, **Privacy & Security**, **Microphone**, and turn on **Simulator**.
 - In the Simulator menu bar, **I/O**, **Audio Input**, choose the Mac microphone.
+- Connect or disconnect Bluetooth headphones before the demo, not during Listen: changing the Mac's microphone while Selvo is listening can stop it.
 - Speech recognition in the Simulator can be slow or unavailable on some Macs. If Listen does not work, skip it and say it is shown best on an iPhone.
 
 **Selvo crashed or looks stuck.** Run `./scripts/demo.sh` again. It closes and relaunches Selvo. If it still looks wrong, run `./scripts/demo.sh --fresh`, which also clears the saved profile.
