@@ -127,17 +127,16 @@ final class DemoWalkUITests: XCTestCase {
         XCTAssertTrue(wait(witty, until: "isSelected == true"), "the witty suggestion is selected")
         let plain = buttonContaining("Can we get coffee before work?")
         let short = buttonContaining("Is there time for coffee?")
-        let plainTop = plain.frame.minY
 
         tap("Incorrect")
         XCTAssertTrue(wait(witty, until: "exists == false"), "Incorrect removes the selected suggestion")
         XCTAssertEqual(cards.count, 3, "a new suggestion takes its place")
-        // The new card takes the middle slot and the removed card's style. Its height follows its
-        // words, so the last card may sit a little higher or lower, but it stays below the new one.
+        // The new card takes the middle slot and the removed card's style. The message strip and
+        // the card grow with their words (as on the artboard), so the cards can shift a little up
+        // or down, but their order never changes.
         let replacement = cards.matching(NSPredicate(format: "isSelected == true")).firstMatch
         XCTAssertTrue(replacement.exists, "the new suggestion is selected")
         XCTAssertTrue(replacement.label.contains("witty"), "the new suggestion keeps the witty style")
-        XCTAssertEqual(plain.frame.minY, plainTop, accuracy: 2, "the first card does not move")
         XCTAssertGreaterThan(replacement.frame.minY, plain.frame.maxY - 2, "the new card is below the first")
         XCTAssertGreaterThan(short.frame.minY, replacement.frame.maxY - 2, "the last card stays last")
         save("demo-04-incorrect")
