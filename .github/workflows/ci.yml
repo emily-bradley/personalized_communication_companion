@@ -98,18 +98,22 @@ jobs:
         run: scripts/ci_select_xcode.sh ${{ matrix.xcode }}
       - name: Run the demo script
         run: scripts/demo.sh
+      - name: Run it again with --welcome, then --fresh (the reset paths in DEMO.md)
+        run: |
+          scripts/demo.sh --welcome
+          scripts/demo.sh --fresh
       - name: Publish demo screenshot to the ci-screenshots branch
         if: always() && github.event_name == 'push'
         run: |
           mkdir -p "$RUNNER_TEMP/demo"
-          cp build/demo-launch.png "$RUNNER_TEMP/demo/" 2>/dev/null || true
+          cp build/demo-launch*.png "$RUNNER_TEMP/demo/" 2>/dev/null || true
           scripts/ci_publish_images.sh "$RUNNER_TEMP/demo" ${{ matrix.folder }}
       - name: Upload demo screenshot
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.folder }}-launch
-          path: build/demo-launch.png
+          path: build/demo-launch*.png
           if-no-files-found: warn
 
   xcode26:

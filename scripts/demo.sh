@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # One command to see Selvo in the iOS Simulator on a Mac with Xcode 16 or 26.
 #
-#   ./scripts/demo.sh
+#   ./scripts/demo.sh            open Selvo, keeping what is saved (first run: Lucas)
+#   ./scripts/demo.sh --fresh    start over with a fresh Lucas (clears rehearsal changes)
+#   ./scripts/demo.sh --welcome  start over on the Welcome screen
 #
 # It installs XcodeGen with Homebrew if needed, generates the Xcode project, builds Selvo for an
 # iPhone 16 Simulator (no signing needed), boots the Simulator, then installs and launches Selvo
@@ -12,6 +14,17 @@ cd "$(dirname "$0")/.."
 BUNDLE_ID="com.emilykenney.selvo"
 DERIVED="build/DerivedData"
 APP="$DERIVED/Build/Products/Debug-iphonesimulator/Selvo.app"
+
+# Launch arguments for Selvo. Reset deletes the saved profile and every setting in it.
+MODE=""
+LAUNCH_ARGS=(-SelvoDemoProfile YES)
+case "${1:-}" in
+  "") ;;
+  --fresh) MODE="fresh"; LAUNCH_ARGS=(-SelvoDemoProfile YES -SelvoResetProfile) ;;
+  --welcome) MODE="welcome"; LAUNCH_ARGS=(-SelvoDemoProfile NO -SelvoResetProfile) ;;
+  *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome]\n' >&2; exit 2 ;;
+esac
+SHOT="build/demo-launch${MODE:+-$MODE}.png"
 
 say() { printf '\n==> %s\n' "$1"; }
 fail() { printf '\nSelvo demo stopped: %b\n' "$1" >&2; exit 1; }
@@ -65,7 +78,7 @@ xcodebuild build \
 say "Installing and launching Selvo"
 xcrun simctl terminate "$UDID" "$BUNDLE_ID" >/dev/null 2>&1 || true
 xcrun simctl install "$UDID" "$APP"
-xcrun simctl launch "$UDID" "$BUNDLE_ID" -SelvoDemoProfile YES
+xcrun simctl launch "$UDID" "$BUNDLE_ID" "${LAUNCH_ARGS[@]}"
 
 # Give the app a moment, then make sure it is still running and keep a picture of the screen.
 sleep 5
@@ -75,6 +88,10 @@ case "$RUNNING" in
   *) fail "Selvo launched but is not running. Open it in Xcode to see the crash." ;;
 esac
 mkdir -p build
-xcrun simctl io "$UDID" screenshot build/demo-launch.png >/dev/null 2>&1 || true
+xcrun simctl io "$UDID" screenshot "$SHOT" >/dev/null 2>&1 || true
 
-say "Selvo is running in the Simulator"
+case "$MODE" in
+  fresh) say "Selvo is running in the Simulator with a fresh profile for Lucas" ;;
+  welcome) say "Selvo is running in the Simulator on the Welcome screen" ;;
+  *) say "Selvo is running in the Simulator" ;;
+esac
