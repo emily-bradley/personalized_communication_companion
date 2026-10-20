@@ -89,7 +89,9 @@ final class AppModel {
         try? store.save(p)
     }
 
+    /// Opens a screen. A second tap during the push animation does not open it twice.
     func open(_ route: Route) {
+        guard path.last != route else { return }
         path.append(route)
     }
 
