@@ -100,7 +100,6 @@ struct TileEditView: View {
                 startRenaming(tile)
             } label: {
                 HStack(spacing: Spacing.space3) {
-                    // Full strength even when hidden; the "Hidden" caption carries the meaning.
                     thumbnail(tile)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(tile.label)
@@ -192,19 +191,21 @@ struct TileEditView: View {
     }
 
     /// The tile's photo or symbol on a 48pt round surface-sunken well, like the setup lists.
+    /// A hidden tile's symbol dims to the same muted ink as its label.
     @ViewBuilder private func thumbnail(_ tile: TileItem) -> some View {
+        let symbolColor = tile.isHidden ? theme.colors.inkMuted : theme.colors.teal
         switch model.artwork(for: tile) {
         case .symbol(let name):
             Image(systemName: name)
                 .font(.system(size: 22, weight: .regular))
-                .foregroundStyle(theme.colors.teal)
+                .foregroundStyle(symbolColor)
                 .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
                 .background(Circle().fill(theme.colors.surfaceSunken))
                 .accessibilityHidden(true)
         case .drawing(let shape):
             shape
                 .stroke(style: StrokeStyle(lineWidth: 22 * 1.8 / 24, lineCap: .round, lineJoin: .round))
-                .foregroundStyle(theme.colors.teal)
+                .foregroundStyle(symbolColor)
                 .frame(width: 22, height: 22)
                 .frame(width: SetupMetrics.wellSide, height: SetupMetrics.wellSide)
                 .background(Circle().fill(theme.colors.surfaceSunken))

@@ -138,13 +138,16 @@ private struct ShowGlyphShape: Shape {
 /// Back, always top left.
 struct BackButton: View {
     @Environment(\.theme) private var theme
+    /// 20pt at the default text size, growing with the label so it does not look thin beside
+    /// it at larger sizes. The top bar caps both at xxxLarge.
+    @ScaledMetric(relativeTo: .body) private var chevronSize: Double = 20
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 2) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: chevronSize, weight: .semibold))
                     .accessibilityHidden(true)
                 Text("Back").textStyle(TypeScale.label).lineLimit(1).fixedSize()
             }

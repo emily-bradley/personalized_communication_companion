@@ -47,6 +47,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
         if isSnapshotRender {
             // The fitting copy is not clipped, so glows and focus rings draw in full. The
             // overflowing copy is cut at the bottom only, so a glow at the top still shows.
+            // Without an orb it gets the same bottom fade as the live scroll view.
             ViewThatFits(in: .vertical) {
                 content()
                     .frame(maxHeight: .infinity, alignment: alignment)
@@ -54,7 +55,7 @@ struct ScrollsWhenNeeded<Content: View>: View {
                     .padding(inset)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
-                    .mask(Rectangle().padding(.top, -120))
+                    .mask { if drawsOutside { Rectangle().padding(.top, -120) } else { bottomFade } }
                     .padding(.horizontal, -inset)
             }
         } else {
