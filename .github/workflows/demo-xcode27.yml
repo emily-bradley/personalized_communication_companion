@@ -77,11 +77,17 @@ jobs:
           UDID=$(python3 scripts/find_simulator.py 'iPhone 16' 26.2)
           xcrun simctl list devices | grep "$UDID" > "$OUT/listen-ios26.txt" || true
           set +e
-          xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
-            -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
-            -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
-            > build/listen-ios26.log 2>&1
-          echo "test exit $?" >> "$OUT/listen-ios26.txt"
+          # Once more only if the test runner died before any test ran (it did once, Oct 21).
+          for attempt in 1 2; do
+            xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
+              -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
+              -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
+              > build/listen-ios26.log 2>&1
+            status=$?
+            grep -q "while preparing to run tests" build/listen-ios26.log || break
+            echo "attempt $attempt: the test runner crashed while preparing, before any test ran" >> "$OUT/listen-ios26.txt"
+          done
+          echo "test exit $status" >> "$OUT/listen-ios26.txt"
           grep -E "error|failed|Executed|\*\* " build/listen-ios26.log | tail -40 >> "$OUT/listen-ios26.txt"
           xcrun simctl boot "$UDID" 2>/dev/null
           xcrun simctl bootstatus "$UDID" >/dev/null 2>&1
