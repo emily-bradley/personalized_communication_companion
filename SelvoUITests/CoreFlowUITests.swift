@@ -58,6 +58,9 @@ final class CoreFlowUITests: XCTestCase {
         XCTAssertTrue(element("Spoken").waitForExistence(timeout: 3), "Spoken shows after Speak")
         save("04-spoken")
 
+        // Another comes back once the voice has finished and Spoken has shown for about a
+        // second; the Simulator voice can take a while to start in CI.
+        XCTAssertTrue(app.buttons["Another"].firstMatch.waitForExistence(timeout: 40), "Another is back after Spoken")
         tap("Another")
         XCTAssertFalse(app.buttons.containing(NSPredicate(format: "label CONTAINS %@", "Can we get coffee before work?")).firstMatch.exists,
                        "Another replaces the whole stack")
