@@ -1,6 +1,7 @@
 import AVFoundation
 import Foundation
 import Observation
+import os
 import Speech
 
 /// Turns what people nearby say into text for the Listen screen.
@@ -31,6 +32,9 @@ final class SpeechListener {
 
     static let speechDeniedMessage = "Selvo needs speech recognition to show what people say to you. You can turn it on in Settings."
     static let microphoneDeniedMessage = "Selvo needs the microphone to show what people say to you. You can turn it on in Settings."
+
+    /// Says why listening could not run, for the Mac's Console and CI. Never what was heard.
+    @ObservationIgnored private let log = Logger(subsystem: "com.emilykenney.selvo", category: "listen")
 
     @ObservationIgnored private var engine: AVAudioEngine?
     @ObservationIgnored private var request: SFSpeechAudioBufferRecognitionRequest?
@@ -97,7 +101,7 @@ final class SpeechListener {
 
     private func beginRecognition() {
         guard let recognizer = SFSpeechRecognizer(), recognizer.isAvailable else {
-            becomeUnavailable()
+            becomeUnavailable("no speech recognizer for this language, or it is not available now")
             return
         }
 
@@ -107,7 +111,7 @@ final class SpeechListener {
             try session.setActive(true, options: .notifyOthersOnDeactivation)
             changedSession = true
         } catch {
-            becomeUnavailable()
+            becomeUnavailable("the audio session could not switch to recording")
             return
         }
 
@@ -117,7 +121,7 @@ final class SpeechListener {
         // No input hardware (for example a Simulator without a microphone) reports a zero
         // sample rate; installing a tap with that format would crash.
         guard format.sampleRate > 0, format.channelCount > 0 else {
-            becomeUnavailable()
+            becomeUnavailable("no microphone input")
             return
         }
 
@@ -126,6 +130,7 @@ final class SpeechListener {
         request.addsPunctuation = true
         // Keeps everything on the phone whenever the phone can recognize speech by itself.
         request.requiresOnDeviceRecognition = recognizer.supportsOnDeviceRecognition
+        log.notice("Starting recognition, on device: \(recognizer.supportsOnDeviceRecognition, privacy: .public), sample rate \(format.sampleRate, privacy: .public)")
 
         input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
             request.append(buffer)
@@ -138,7 +143,7 @@ final class SpeechListener {
         do {
             try engine.start()
         } catch {
-            becomeUnavailable()
+            becomeUnavailable("the audio engine did not start")
             return
         }
 
@@ -148,6 +153,9 @@ final class SpeechListener {
             let text = result?.bestTranscription.formattedString
             let isFinal = result?.isFinal ?? false
             let failed = error != nil
+            if let error = error as NSError? {
+                self?.log.notice("Recognition session ended: \(error.domain, privacy: .public) \(error.code, privacy: .public)")
+            }
             DispatchQueue.main.async {
                 guard let self, self.generation == current else { return }
                 if let text, !text.isEmpty {
@@ -169,7 +177,7 @@ final class SpeechListener {
             quickFailures += 1
         }
         if quickFailures >= 3 {
-            becomeUnavailable()
+            becomeUnavailable("recognition sessions failed three times in a row as they started")
             return
         }
         generation += 1
@@ -181,7 +189,8 @@ final class SpeechListener {
         }
     }
 
-    private func becomeUnavailable() {
+    private func becomeUnavailable(_ reason: String) {
+        log.error("Listening is not available: \(reason, privacy: .public)")
         generation += 1
         stopAudio()
         restorePlayback()

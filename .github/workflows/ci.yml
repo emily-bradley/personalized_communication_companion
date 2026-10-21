@@ -62,6 +62,13 @@ jobs:
           grep -E "error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$RUNNER_TEMP/screenshots/build-summary.txt" || true
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
           exit $status
+      - name: Save why Listen could or could not run (Selvo's own log lines, never what was heard)
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/screenshots"
+          xcrun simctl spawn "$UDID" log show --last 2h --style compact \
+            --predicate 'subsystem == "com.emilykenney.selvo"' > "$RUNNER_TEMP/screenshots/selvo-log.txt" 2>&1 || true
+          tail -40 "$RUNNER_TEMP/screenshots/selvo-log.txt"
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
