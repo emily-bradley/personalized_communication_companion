@@ -41,6 +41,8 @@ final class CoreFlowUITests: XCTestCase {
         save("01-home")
 
         tap("Photos")
+        // Waits for the grid, so the picture shows Photos and not Home mid transition.
+        XCTAssertTrue(app.buttons["Coffee"].waitForExistence(timeout: 10), "Photos opens")
         save("02-photos")
         tap("Coffee")
 
