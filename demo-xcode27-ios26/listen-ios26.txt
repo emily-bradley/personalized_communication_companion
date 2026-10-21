@@ -1,17 +1,5 @@
-    iPhone 16 (5A305919-ACEB-46FE-B1B9-A6B0B966B423) (Booted) 
-test exit 0
-2026-10-21 20:19:08.893 xcodebuild[22276:66154] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 130.184 (130.199) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 130.184 (130.226) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 130.184 (130.229) seconds
-** TEST SUCCEEDED **
-2026-10-21 20:20:30.540 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:20:31.601 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:20:32.068 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:20:33.134 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:20:33.570 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:20:33.575 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:20:33.916 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:20:33.921 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:20:33.921 Df Selvo[33074:1694c] [com.emilykenney.selvo:listen] The older recognizer cannot run (recognition sessions failed three times in a row as they started), so using DictationTranscriber on device
-2026-10-21 20:20:34.193 E  Selvo[33074:1694c] [com.emilykenney.selvo:listen] Listening is not available: DictationTranscriber could not start: Selvo.DictationError 1
+    iPhone 16 (7E6C6BCF-D3FE-4906-A317-CB91C70605B4) (Booted) 
+test exit 65
+Testing failed:
+	SelvoUITests-Runner (43794) encountered an error (Test crashed with signal abrt while preparing to run tests.)
+** TEST FAILED **
