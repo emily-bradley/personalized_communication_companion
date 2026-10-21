@@ -155,3 +155,27 @@ jobs:
           status=$?
           grep -E "error|\*\* " build/xcodebuild.log | tail -80
           exit $status
+      - name: Does Listen run on the iOS 26 Simulator? (report only; Selvo's own log lines, never what was heard)
+        if: always() && github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          OUT="$RUNNER_TEMP/listen"
+          mkdir -p "$OUT"
+          xcrun simctl list runtimes > "$OUT/runtimes.txt" 2>&1 || true
+          UDID=$(python3 scripts/find_simulator.py 'iPhone 16')
+          xcrun simctl list devices | grep "$UDID" > "$OUT/device.txt" || true
+          xcodebuild test \
+            -project Selvo.xcodeproj \
+            -scheme Selvo \
+            -destination "id=$UDID" \
+            -derivedDataPath build/DerivedData \
+            -only-testing:SelvoTests/SpeechProbeTests \
+            -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
+            CODE_SIGNING_ALLOWED=NO > build/listen.log 2>&1 || true
+          grep -E "SPEECHPROBE|error|failed|Executed|\*\* " build/listen.log | tail -60 > "$OUT/build-summary.txt" || true
+          xcrun simctl boot "$UDID" 2>/dev/null || true
+          xcrun simctl bootstatus "$UDID" >/dev/null 2>&1 || true
+          xcrun simctl spawn "$UDID" log show --last 1h --style compact \
+            --predicate 'subsystem == "com.emilykenney.selvo"' > "$OUT/selvo-log.txt" 2>&1 || true
+          cat "$OUT/device.txt" "$OUT/build-summary.txt"; tail -20 "$OUT/selvo-log.txt"
+          scripts/ci_publish_images.sh "$OUT" listen-xcode26

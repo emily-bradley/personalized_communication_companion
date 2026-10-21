@@ -10,6 +10,9 @@ final class SpeechProbeTests: XCTestCase {
         #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             print("SPEECHPROBE transcriber available: \(SpeechTranscriber.isAvailable)")
+            let dictation = await DictationTranscriber.supportedLocale(equivalentTo: Locale(identifier: "en-US"))
+            print("SPEECHPROBE dictation transcriber locale: \(dictation?.identifier ?? "none")")
+            print("SPEECHPROBE older recognizer on device: \(SFSpeechRecognizer()?.supportsOnDeviceRecognition ?? false)")
             guard let locale = await SpeechTranscriber.supportedLocale(equivalentTo: Locale(identifier: "en-US")) else {
                 print("SPEECHPROBE no supported locale for en-US")
                 return
