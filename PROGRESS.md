@@ -439,3 +439,25 @@ Main was green at the start (2ef38c9). This run overlapped with run 1 (session 0
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-21, build run 4 (15:55 to about 16:55 Central)
+
+Main CI was green at the start for 9abde7c (run 39672687598). Run 3 (session 01NZqs) was still active and pushing the Listen work (32983ee, e99ebc0 during this run), and the Listen item is the only open item before Friday. So I took the reading that two runs must not edit the same Listen code and CI files at once: I made no code changes, and did a pre-Friday artboard review instead.
+
+### Verified, and how
+- CI for 9abde7c green, all jobs: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39672687598 (includes `scripts/demo.sh` with Xcode 16 and 26).
+- The Xcode 27 "Build and test" failure on dd4c2a1 (run 39668632384) was `AccessibilityAuditUITests.testHelp` timing out while Xcode launched the app on the runner ("Timed out while launching application via Xcode"); every unit test passed. Not a code failure; the newer runs on main decide it.
+- A reviewer agent that had not seen the code compared all 84 screenshots for 9abde7c (`ci-screenshots/screenshots/`) with renders of every artboard. No P1.
+
+### Findings for Friday's artboard pass (not changed)
+- P2: Home at accessibility XL: the greeting takes 3 lines and the category tiles shrink to about 94pt (token `touch-tile` is 96). I looked at `ui-axl-01-home.png`: icons and labels are clear and nothing clips, so I left it. Option for Friday: cap the greeting's growth on Home.
+- P2: the rendered `11-help-phrase-*` shots draw the text fields as yellow bars (the ImageRenderer cannot draw text fields). The Simulator shot `ui-demo-11-help-phrase.png` is correct. Use that one when reviewing.
+- P2 noted, left as is: Settings in Daylight still says "Lucas chose Nightlight at setup." under the theme pair. That is true (it names the setup choice, decided Oct 20).
+- P3: Suggest cards about 4 to 8pt shorter than App-Suggest; Help pill about 6pt narrower; Home greeting wraps one word earlier; Daylight Speak shadow lighter; speech rate thumb about 22pt against 28 on the artboard (check its hit area); Photos uses SF Symbols, not the artboard's line icons (brand book allows SF Symbols); voice name depends on the Mac's voices.
+
+### Next
+- Run 3's Listen item: check off once the `demo-ios26` job in `demo-xcode27.yml` is green.
+- Friday: the final artboard pass on the final build (the P2 and P3 list above is the starting point) and the final PROGRESS summary.
+
+### Needs Emily
+- Unchanged from run 2: which Xcode is on her Mac (with Xcode 27, add the iOS 26.2 Simulator, DEMO.md step 5); Xcode and Homebrew on her Mac; for TestFlight her Team ID, the bundle ID, the App Store Connect app record, API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if wanted.
