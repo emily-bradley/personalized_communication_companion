@@ -1,0 +1,61 @@
+Xcode 26.6
+ProductName:		macOS ProductVersion:		26.6.2 BuildVersion:		25G83 
+== Runtimes ==
+iOS 26.2 (26.2 - 23C54) - com.apple.CoreSimulator.SimRuntime.iOS-26-2
+iOS 26.4 (26.4.1 - 23E254a) - com.apple.CoreSimulator.SimRuntime.iOS-26-4
+iOS 26.5 (26.5 - 23F77) - com.apple.CoreSimulator.SimRuntime.iOS-26-5
+tvOS 26.2 (26.2 - 23K51) - com.apple.CoreSimulator.SimRuntime.tvOS-26-2
+tvOS 26.4 (26.4 - 23L243a) - com.apple.CoreSimulator.SimRuntime.tvOS-26-4
+tvOS 26.5 (26.5 - 23L470) - com.apple.CoreSimulator.SimRuntime.tvOS-26-5
+watchOS 26.2 (26.2 - 23S303) - com.apple.CoreSimulator.SimRuntime.watchOS-26-2
+watchOS 26.4 (26.4 - 23T240b) - com.apple.CoreSimulator.SimRuntime.watchOS-26-4
+watchOS 26.5 (26.5 - 23T570) - com.apple.CoreSimulator.SimRuntime.watchOS-26-5
+visionOS 26.2 (26.2 - 23N301) - com.apple.CoreSimulator.SimRuntime.xrOS-26-2
+visionOS 26.4 (26.4.1 - 23O249a) - com.apple.CoreSimulator.SimRuntime.xrOS-26-4
+visionOS 26.5 (26.5 - 23O470) - com.apple.CoreSimulator.SimRuntime.xrOS-26-5
+
+== iOS 26.2
+test exit 0
+file probe exit 0
+SPEECHPROBE dictation asset status after: installed
+SPEECHPROBE dictation asset status before: installed
+SPEECHPROBE dictation assets installed
+SPEECHPROBE dictation heard the test sentence: I would like a coffee, please
+SPEECHPROBE dictation reserve en_US: true
+SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE older recognizer on device heard the test sentence: I would like a coffee please
+SPEECHPROBE older recognizer on device: true
+SPEECHPROBE speech authorization: 3 (3 is authorized)
+2026-10-21 19:08:19.991 Df Selvo[6974:69ef] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:08:27.443 Df Selvo[6974:69ef] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+
+== iOS 26.4.1
+test exit 0
+file probe exit 0
+SPEECHPROBE dictation asset status after: installed
+SPEECHPROBE dictation asset status before: installed
+SPEECHPROBE dictation assets installed
+SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
+SPEECHPROBE dictation reserve en_US: true
+SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE older recognizer on device failed: kLSRErrorDomain 300 Failed to initialize recognizer
+SPEECHPROBE older recognizer on device: true
+SPEECHPROBE speech authorization: 3 (3 is authorized)
+2026-10-21 19:17:48.804 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:17:48.903 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:17:49.255 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:17:49.293 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+
+== iOS 26.5
+test exit 0
+file probe exit 0
+SPEECHPROBE dictation asset status after: installed
+SPEECHPROBE dictation asset status before: installed
+SPEECHPROBE dictation assets installed
+SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
+SPEECHPROBE dictation reserve en_US: true
+SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE older recognizer on device failed: kLSRErrorDomain 300 Failed to initialize recognizer
+SPEECHPROBE older recognizer on device: true
+SPEECHPROBE speech authorization: 3 (3 is authorized)
+2026-10-21 19:27:26.728 E  Selvo[25683:16fd6] [com.emilykenney.selvo:listen] Listening is not available: no speech recognizer for this language, or it is not available now
