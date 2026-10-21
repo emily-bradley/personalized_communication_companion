@@ -1,7 +1,8 @@
-name: Demo with Xcode 27
+name: Xcode 27 demo and tests
 
-# The Mac App Store offers Xcode 27 now, so scripts/demo.sh is proven with it too. It is its own
-# workflow because Xcode 27 runs on the xcode-27 runner image, not macos-15.
+# The Mac App Store offers Xcode 27 now, so scripts/demo.sh and every test (unit, UI, the
+# demo walk and the accessibility audits) are proven on it and the iOS 27 Simulator too. It is
+# its own workflow because Xcode 27 runs on the xcode-27 runner image, not macos-15.
 on:
   push:
     branches: [main]
@@ -39,4 +40,47 @@ jobs:
         with:
           name: demo-xcode27-launch
           path: build/demo-launch*.png
+          if-no-files-found: warn
+
+  tests:
+    name: Build and test (Xcode 27, iOS 27 Simulator)
+    runs-on: xcode-27
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 27
+        run: scripts/ci_select_xcode.sh 27
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Find simulator
+        run: echo "UDID=$(python3 scripts/find_simulator.py 'iPhone 16')" >> "$GITHUB_ENV"
+      - name: Build and test
+        env:
+          TEST_RUNNER_SCREENSHOT_DIR: ${{ runner.temp }}/screenshots
+        run: |
+          mkdir -p "$TEST_RUNNER_SCREENSHOT_DIR" build
+          set +e
+          xcodebuild test \
+            -project Selvo.xcodeproj \
+            -scheme Selvo \
+            -destination "id=$UDID" \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            > build/xcodebuild.log 2>&1
+          status=$?
+          grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
+          grep -E "error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$TEST_RUNNER_SCREENSHOT_DIR/build-summary.txt" || true
+          if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
+          exit $status
+      - name: Publish screenshots to the ci-screenshots branch
+        if: always() && github.event_name == 'push'
+        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/screenshots" screenshots-xcode27
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-xcode27
+          path: ${{ runner.temp }}/screenshots
           if-no-files-found: warn
