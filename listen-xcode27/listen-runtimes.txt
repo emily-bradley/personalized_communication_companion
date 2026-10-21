@@ -1,4 +1,5 @@
 Xcode 27.2
+ProductName:		macOS ProductVersion:		27.0.1 BuildVersion:		26A434 
 == Runtimes ==
 iOS 27.0 (27.0 - 24A434) - com.apple.CoreSimulator.SimRuntime.iOS-27-0
 tvOS 27.0 (27.0 - 24J360) - com.apple.CoreSimulator.SimRuntime.tvOS-27-0
@@ -7,10 +8,13 @@ visionOS 27.0 (27.0 - 24M362) - com.apple.CoreSimulator.SimRuntime.xrOS-27-0
 
 == iOS 27.0
 test exit 0
-2026-10-21 15:21:18.917 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 15:21:19.357 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 15:21:19.951 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 15:21:19.996 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 15:21:20.323 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 15:21:20.339 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 15:21:20.339 E  Selvo[11810:99ea] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
+file probe exit 0
+SPEECHPROBE file frames: 0, sample rate 0.0
+SPEECHPROBE writing the file ended: SelvoTests.(unknown context at $10602fc78).ProbeTimedOut 1 The operation couldn’t be completed. (SelvoTests.(unknown context at $10602fc78).ProbeTimedOut error 1.)
+2026-10-21 19:37:20.760 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:37:20.862 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:37:21.415 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:37:21.429 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:37:21.749 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:37:21.761 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:37:21.761 E  Selvo[19866:dea5] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
