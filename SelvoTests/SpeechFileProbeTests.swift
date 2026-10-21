@@ -1,26 +1,35 @@
 import AVFoundation
 import Speech
 import XCTest
+@testable import Selvo
 
 /// Not a pass or fail test: it reports, in the test log, whether this Simulator can turn a
 /// spoken sentence into text on the phone itself. It speaks a fixed test sentence into a file
 /// with the system voice (never a person), then gives that file to the older on-device
 /// recognizer and, on iOS 26 and later, to the newer DictationTranscriber. Lines start with
-/// SPEECHPROBE. This tells us whether Listen fails in the iOS 27 Simulator because of the
+/// SPEECHPROBE. In CI the sentence comes from the Mac's `say` instead. This tells us whether Listen fails in the iOS 27 Simulator because of the
 /// recognizer itself or because of the live microphone path.
 final class SpeechFileProbeTests: XCTestCase {
     private let sentence = "I would like a coffee please"
 
     func testReportRecognitionOfASpokenFile() async throws {
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("speech-probe.caf")
-        let writer = SpokenFileWriter(url: url)
-        do {
-            try await withDeadline(45) { try await writer.write(self.sentence) }
-        } catch {
-            print("SPEECHPROBE writing the file ended: \(Self.describe(error))")
+        // CI makes the file on the Mac with `say` (the Simulator voice can hang when writing to
+        // a file); otherwise the Simulator voice writes it.
+        var url = FileManager.default.temporaryDirectory.appendingPathComponent("speech-probe.caf")
+        if let path = ProcessInfo.processInfo.environment["SPEECH_PROBE_FILE"],
+           let file = try? AVAudioFile(forReading: URL(fileURLWithPath: path)) {
+            url = URL(fileURLWithPath: path)
+            print("SPEECHPROBE file from the Mac: frames \(file.length), sample rate \(file.processingFormat.sampleRate)")
+        } else {
+            let writer = SpokenFileWriter(url: url)
+            do {
+                try await withDeadline(45) { try await writer.write(self.sentence) }
+            } catch {
+                print("SPEECHPROBE writing the file ended: \(Self.describe(error))")
+            }
+            print("SPEECHPROBE file frames: \(writer.frames), sample rate \(writer.sampleRate)")
+            guard writer.frames > 0 else { return }
         }
-        print("SPEECHPROBE file frames: \(writer.frames), sample rate \(writer.sampleRate)")
-        guard writer.frames > 0 else { return }
 
         let status = SFSpeechRecognizer.authorizationStatus()
         print("SPEECHPROBE speech authorization: \(status.rawValue) (3 is authorized)")
@@ -39,6 +48,7 @@ final class SpeechFileProbeTests: XCTestCase {
         #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             await probeDictationTranscriber(url)
+            await probeSelvoDictationSession(url)
         }
         #endif
     }
@@ -92,6 +102,30 @@ final class SpeechFileProbeTests: XCTestCase {
             print("SPEECHPROBE dictation heard the test sentence: \(text)")
         } catch {
             print("SPEECHPROBE dictation failed: \(Self.describe(error))")
+        }
+    }
+    /// The same file through Selvo's own DictationSession, in microphone-sized pieces, as Listen
+    /// does when the older recognizer cannot start.
+    @available(iOS 26.0, *)
+    private func probeSelvoDictationSession(_ url: URL) async {
+        let heard = HeardText()
+        do {
+            let text = try await withDeadline(120) { () -> String in
+                let session = try await DictationSession.start(onText: { heard.set($0) }, onEnd: { _ in })
+                let file = try AVAudioFile(forReading: url)
+                let format = file.processingFormat
+                while file.framePosition < file.length {
+                    guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1024) else { break }
+                    try file.read(into: buffer, frameCount: 1024)
+                    if buffer.frameLength == 0 { break }
+                    session.append(buffer)
+                }
+                await session.finish()
+                return heard.value
+            }
+            print("SPEECHPROBE Selvo DictationSession heard the test sentence: \(text)")
+        } catch {
+            print("SPEECHPROBE Selvo DictationSession failed: \(Self.describe(error)); heard so far: \(heard.value)")
         }
     }
     #endif
@@ -155,6 +189,24 @@ private final class SpokenFileWriter {
             }
         }
         file = nil
+    }
+}
+
+/// The latest text a session reported, from any thread.
+private final class HeardText {
+    private let lock = NSLock()
+    private var text = ""
+
+    var value: String {
+        lock.lock()
+        defer { lock.unlock() }
+        return text
+    }
+
+    func set(_ new: String) {
+        lock.lock()
+        text = new
+        lock.unlock()
     }
 }
 
