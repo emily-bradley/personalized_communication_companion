@@ -4,6 +4,7 @@
 #   ./scripts/demo.sh            open Selvo, keeping what is saved (first run: Lucas)
 #   ./scripts/demo.sh --fresh    start over with a fresh Lucas (clears rehearsal changes)
 #   ./scripts/demo.sh --welcome  start over on the Welcome screen
+#   ./scripts/demo.sh --ios 18   use the iOS 18 Simulator (can be combined with the others)
 #
 # It installs XcodeGen with Homebrew if needed, generates the Xcode project, builds Selvo for an
 # iPhone 16 Simulator (no signing needed), boots the Simulator, then installs and launches Selvo
@@ -17,12 +18,20 @@ APP="$DERIVED/Build/Products/Debug-iphonesimulator/Selvo.app"
 
 # Launch arguments for Selvo. Reset deletes the saved profile and every setting in it.
 MODE=""
+IOS=""
 LAUNCH_ARGS=(-SelvoDemoProfile YES)
-case "${1:-}" in
-  "") ;;
-  --fresh) MODE="fresh"; LAUNCH_ARGS=(-SelvoDemoProfile YES -SelvoResetProfile) ;;
-  --welcome) MODE="welcome"; LAUNCH_ARGS=(-SelvoDemoProfile NO -SelvoResetProfile) ;;
-  *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome]\n' >&2; exit 2 ;;
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --fresh) MODE="fresh"; LAUNCH_ARGS=(-SelvoDemoProfile YES -SelvoResetProfile) ;;
+    --welcome) MODE="welcome"; LAUNCH_ARGS=(-SelvoDemoProfile NO -SelvoResetProfile) ;;
+    --ios) [ $# -ge 2 ] || { printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2; }; IOS="$2"; shift ;;
+    *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2 ;;
+  esac
+  shift
+done
+case "$IOS" in
+  ""|[0-9]|[0-9][0-9]) ;;
+  *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2 ;;
 esac
 SHOT="build/demo-launch${MODE:+-$MODE}.png"
 
@@ -66,8 +75,8 @@ fi
 say "Generating the Xcode project"
 xcodegen generate --quiet
 
-say "Finding an iPhone 16 Simulator"
-UDID="$(python3 scripts/find_simulator.py "iPhone 16")"
+say "Finding an iPhone 16 Simulator${IOS:+ with iOS $IOS}"
+UDID="$(python3 scripts/find_simulator.py "iPhone 16" "$IOS")"
 echo "Simulator $UDID"
 
 say "Booting the Simulator (the very first boot can take about 5 minutes)"
