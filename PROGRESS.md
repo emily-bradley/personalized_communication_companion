@@ -410,3 +410,32 @@ Note for the next run: this run overlapped with the 09:55 run (session 01Xg6), w
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-21, build run 2 (09:56 to about 11:25 Central)
+
+Main was green at the start (2ef38c9). This run overlapped with run 1 (session 01AFa6), which was still probing Listen in the iOS 27 Simulator. Once I saw its `listen-probe.yml`, I took back my duplicate CI step (ed95e59) so both did not publish to the same folder, then picked up its open Listen item after it wrote its progress.
+
+### Shipped
+- **Listen with Xcode 27.** The Listen probe (`listen-xcode26/` and `listen-xcode27/` on `ci-screenshots`) showed: iOS 27.0 fails at once (kLSRErrorDomain 300, three times); with Xcode 26, iOS 26.0.1 runs on device (session ends with "no speech" after about 5 seconds, as expected in CI); iOS 18.5 reports no on-device recognizer and would use Apple's server recognition; 18.6, 26.1 and 26.2 logged lines the log tool could not decode, two per runtime about 6 seconds apart, so they probably ran too. So `scripts/demo.sh`, with Xcode 27 or later and no `--ios`, now uses the iOS 26 Simulator when it is installed and says so, or prints a tip to add it. `--ios 27` still picks iOS 27 by hand. Checked here with a mocked `xcrun`: Xcode 27 with iOS 26 installed picks 26; without it prints the tip; Xcode 26 changes nothing.
+- `docs/DEMO.md`: new step 5 (Xcode 27 only: add the iOS 26 Simulator in Settings, Components, or `xcodebuild -downloadPlatform iOS -buildVersion 26.2`), a line under the command table, and a Listen troubleshooting line.
+- New CI job `demo-ios26` in `demo-xcode27.yml`: downloads the iOS 26 Simulator onto the Xcode 27 runner, runs `/bin/bash scripts/demo.sh` and checks it chose iOS 26, then runs the Listen UI test there and fails unless Selvo logged "on device: true" and never "Listening is not available". Publishes to `ci-screenshots` under `demo-xcode27-ios26/`.
+- SpeechProbeTests also reports whether the iOS 26 DictationTranscriber has an English locale and whether the older recognizer claims on-device support.
+- The `02-photos` UI screenshot waits for the Photos grid (on iOS 18 it caught Home mid transition; found by the reviewer).
+- CI concurrency: one run per branch per workflow; a newer push replaces a waiting run (a running one always finishes). Two overlapping agent runs had queued about a dozen runs and the macOS runners took hours to reach the latest.
+
+### Verified, and how
+- Started from 2ef38c9, green in CI and Xcode 27 (runs 39618970688 and 39618970543).
+- A reviewer agent that had not seen the code compared all 84 iOS 27 screenshots with the iOS 18 set and the artboards, with a pixel diff: no app UI restyled or broken by iOS 27. Differences are system UI only (status bar, keyboard in setup step 1, the microphone prompt over `ui-demo-07-listen`, which DEMO.md already covers by practicing the day before). Rule check passed (Speak, Back, Clear, Help placement; one glow; copy).
+- **Not yet verified in CI:** 78410ed, 97aaa2c, 90b643f, f12a657 and this commit were still queued behind the overlapping runs when I stopped (the runner queue, not a failure). The newest push supersedes the waiting ones.
+
+### Next
+- First: check the newest CI and Xcode 27 runs on main. If `demo-ios26` is green, read `demo-xcode27-ios26/listen-ios26.txt`, then check off the Listen item in PLAN.md. If `xcodebuild -downloadPlatform` failed on the runner, read why in the job log summary and fix the version list.
+- Friday: final artboard pass on the final build and the final PROGRESS summary.
+
+### Needs Emily
+- **Which Xcode is on your Mac?** If it is Xcode 27 (the App Store default now), add the iOS 26 Simulator once (DEMO.md step 5) so Listen can hear; `./scripts/demo.sh` then uses it by itself. This keeps listening on the Mac, so the server recognition question from run 1 should not be needed.
+- On her Mac: Xcode, then Homebrew (https://brew.sh). Then `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
