@@ -4,7 +4,7 @@
 #   ./scripts/demo.sh            open Selvo, keeping what is saved (first run: Lucas)
 #   ./scripts/demo.sh --fresh    start over with a fresh Lucas (clears rehearsal changes)
 #   ./scripts/demo.sh --welcome  start over on the Welcome screen
-#   ./scripts/demo.sh --ios 18   use the iOS 18 Simulator (can be combined with the others)
+#   ./scripts/demo.sh --ios 26   use the iOS 26 Simulator (can be combined with the others)
 #
 # It installs XcodeGen with Homebrew if needed, generates the Xcode project, builds Selvo for an
 # iPhone 16 Simulator (no signing needed), boots the Simulator, then installs and launches Selvo
@@ -24,14 +24,14 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --fresh) MODE="fresh"; LAUNCH_ARGS=(-SelvoDemoProfile YES -SelvoResetProfile) ;;
     --welcome) MODE="welcome"; LAUNCH_ARGS=(-SelvoDemoProfile NO -SelvoResetProfile) ;;
-    --ios) [ $# -ge 2 ] || { printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2; }; IOS="$2"; shift ;;
-    *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2 ;;
+    --ios) [ $# -ge 2 ] || { printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 26]\n' >&2; exit 2; }; IOS="$2"; shift ;;
+    *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 26]\n' >&2; exit 2 ;;
   esac
   shift
 done
 case "$IOS" in
   ""|[0-9]|[0-9][0-9]) ;;
-  *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 18]\n' >&2; exit 2 ;;
+  *) printf 'Usage: ./scripts/demo.sh [--fresh | --welcome] [--ios 26]\n' >&2; exit 2 ;;
 esac
 SHOT="build/demo-launch${MODE:+-$MODE}.png"
 
@@ -76,14 +76,14 @@ say "Generating the Xcode project"
 xcodegen generate --quiet
 
 # Listen cannot hear in the iOS 27 Simulator (its on-device recognizer does not start there), but
-# it works in the iOS 18 Simulator. So with Xcode 27 or later, use iOS 18 when it is installed.
+# it works on device in the iOS 26 Simulator. So with Xcode 27 or later, use iOS 26 when installed.
 SDK_MAJOR="$(xcrun --sdk iphonesimulator --show-sdk-version 2>/dev/null | cut -d. -f1 || true)"
 if [ -z "$IOS" ] && [ "${SDK_MAJOR:-0}" -ge 27 ] 2>/dev/null; then
-  if xcrun simctl list runtimes available 2>/dev/null | grep -q '^iOS 18'; then
-    IOS=18
-    echo "Using the iOS 18 Simulator, where Listen works. To use iOS $SDK_MAJOR instead: ./scripts/demo.sh --ios $SDK_MAJOR"
+  if xcrun simctl list runtimes available 2>/dev/null | grep -q '^iOS 26'; then
+    IOS=26
+    echo "Using the iOS 26 Simulator, where Listen works. To use iOS $SDK_MAJOR instead: ./scripts/demo.sh --ios $SDK_MAJOR"
   else
-    echo "Tip: Listen cannot hear in the iOS $SDK_MAJOR Simulator. To show Listen, add the iOS 18 Simulator (see docs/DEMO.md, Listen)."
+    echo "Tip: Listen cannot hear in the iOS $SDK_MAJOR Simulator. To show Listen, add the iOS 26 Simulator (see docs/DEMO.md)."
   fi
 fi
 

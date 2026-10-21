@@ -42,52 +42,52 @@ jobs:
           path: build/demo-launch*.png
           if-no-files-found: warn
 
-  demo-ios18:
-    # Listen cannot hear in the iOS 27 Simulator, so DEMO.md tells Emily to add the iOS 18
+  demo-ios26:
+    # Listen cannot hear in the iOS 27 Simulator, so DEMO.md tells Emily to add the iOS 26
     # Simulator to Xcode 27, and demo.sh then picks it by itself. This proves that path.
-    name: scripts/demo.sh and Listen (Xcode 27, iOS 18 Simulator added)
+    name: scripts/demo.sh and Listen (Xcode 27, iOS 26 Simulator added)
     runs-on: xcode-27
     timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode 27
         run: scripts/ci_select_xcode.sh 27
-      - name: Add the iOS 18 Simulator, as in Xcode Settings, Components
+      - name: Add the iOS 26 Simulator, as in Xcode Settings, Components
         run: |
-          for v in 18.6 18.5 18.4 18.3.1 18.2 18.1 18.0; do
+          for v in 26.4 26.3 26.2 26.1 26.0; do
             echo "Trying iOS $v"
             if xcodebuild -downloadPlatform iOS -buildVersion "$v"; then break; fi
           done
           xcrun simctl list runtimes
-      - name: Run the demo script (it should pick iOS 18 by itself)
+      - name: Run the demo script (it should pick iOS 26 by itself)
         run: |
           mkdir -p build
-          /bin/bash scripts/demo.sh | tee build/demo-ios18.txt
-          grep -q "Using the iOS 18 Simulator" build/demo-ios18.txt
-      - name: Listen on the iOS 18 Simulator (Selvo's own log lines, never what was heard)
+          /bin/bash scripts/demo.sh | tee build/demo-ios26.txt
+          grep -q "Using the iOS 26 Simulator" build/demo-ios26.txt
+      - name: Listen on the iOS 26 Simulator (Selvo's own log lines, never what was heard)
         if: always()
         run: |
-          OUT="$RUNNER_TEMP/ios18"
+          OUT="$RUNNER_TEMP/ios26"
           mkdir -p "$OUT"
           cp build/demo-launch*.png "$OUT/" 2>/dev/null || true
-          UDID=$(python3 scripts/find_simulator.py 'iPhone 16' 18)
-          xcrun simctl list devices | grep "$UDID" > "$OUT/listen-ios18.txt" || true
+          UDID=$(python3 scripts/find_simulator.py 'iPhone 16' 26)
+          xcrun simctl list devices | grep "$UDID" > "$OUT/listen-ios26.txt" || true
           set +e
           xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
-            -derivedDataPath build/DerivedData-ios18 CODE_SIGNING_ALLOWED=NO \
+            -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
             -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
-            > build/listen-ios18.log 2>&1
-          echo "test exit $?" >> "$OUT/listen-ios18.txt"
-          grep -E "error|failed|Executed|\*\* " build/listen-ios18.log | tail -40 >> "$OUT/listen-ios18.txt"
+            > build/listen-ios26.log 2>&1
+          echo "test exit $?" >> "$OUT/listen-ios26.txt"
+          grep -E "error|failed|Executed|\*\* " build/listen-ios26.log | tail -40 >> "$OUT/listen-ios26.txt"
           xcrun simctl boot "$UDID" 2>/dev/null
           xcrun simctl bootstatus "$UDID" >/dev/null 2>&1
           xcrun simctl spawn "$UDID" log show --last 2h --style compact \
-            --predicate 'subsystem == "com.emilykenney.selvo"' 2>&1 | grep "listen" >> "$OUT/listen-ios18.txt"
-          cat "$OUT/listen-ios18.txt"
-          grep -q "Starting recognition" "$OUT/listen-ios18.txt" && ! grep -q "Listening is not available" "$OUT/listen-ios18.txt"
+            --predicate 'subsystem == "com.emilykenney.selvo"' 2>&1 | grep "listen" >> "$OUT/listen-ios26.txt"
+          cat "$OUT/listen-ios26.txt"
+          grep -q "on device: true" "$OUT/listen-ios26.txt" && ! grep -q "Listening is not available" "$OUT/listen-ios26.txt"
       - name: Publish to the ci-screenshots branch
         if: always() && github.event_name == 'push'
-        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/ios18" demo-xcode27-ios18
+        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/ios26" demo-xcode27-ios26
 
   tests:
     name: Build and test (Xcode 27, iOS 27 Simulator)
