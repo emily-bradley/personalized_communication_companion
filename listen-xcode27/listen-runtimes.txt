@@ -7,14 +7,13 @@ watchOS 27.0 (27.0 - 24R362) - com.apple.CoreSimulator.SimRuntime.watchOS-27-0
 visionOS 27.0 (27.0 - 24M362) - com.apple.CoreSimulator.SimRuntime.xrOS-27-0
 
 == iOS 27.0
-test exit 0
+test exit 65
 file probe exit 0
-SPEECHPROBE file frames: 0, sample rate 0.0
-SPEECHPROBE writing the file ended: SelvoTests.(unknown context at $10602fc78).ProbeTimedOut 1 The operation couldn’t be completed. (SelvoTests.(unknown context at $10602fc78).ProbeTimedOut error 1.)
-2026-10-21 19:37:20.760 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:37:20.862 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 19:37:21.415 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:37:21.429 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 19:37:21.749 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:37:21.761 Df Selvo[19866:dea5] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 19:37:21.761 E  Selvo[19866:dea5] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
+SPEECHPROBE dictation asset status after: installed
+SPEECHPROBE dictation asset status before: installed
+SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
+SPEECHPROBE dictation no install needed
+SPEECHPROBE dictation reserve en_US: true
+SPEECHPROBE file from the Mac: frames 37035, sample rate 22050.0
+SPEECHPROBE Selvo DictationSession failed: Selvo.DictationError 1 The operation couldn’t be completed. (Selvo.DictationError error 1.); heard so far: 
+SPEECHPROBE speech authorization: 0 (3 is authorized)
