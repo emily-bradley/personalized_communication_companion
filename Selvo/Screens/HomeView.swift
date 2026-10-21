@@ -25,6 +25,9 @@ struct HomeView: View {
                 Text(Greeting.text(name: name, hour: Calendar.current.component(.hour, from: Date())))
                     .textStyle(TypeScale.caption)
                     .foregroundStyle(theme.colors.inkMuted)
+                    // Grows with the tiles and stops with them, so at the largest sizes the
+                    // tiles keep their 96pt height.
+                    .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, Spacing.space1)
                     .frame(maxWidth: .infinity, alignment: .leading)

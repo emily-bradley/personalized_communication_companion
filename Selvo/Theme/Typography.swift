@@ -13,6 +13,10 @@ extension TypeStyle {
         default: return .body
         }
     }
+
+    /// Half of the leading that `lineSpacing` cannot add above the first line and below the
+    /// last. Lexend's natural line height is about 1.25 times its size.
+    var halfLeading: Double { max(0, lineHeight - size * 1.25) / 2 }
 }
 
 private struct TypeStyleModifier: ViewModifier {
@@ -26,7 +30,7 @@ private struct TypeStyleModifier: ViewModifier {
             relativeTo: style.dynamicTypeStyle
         )
         // Lexend's natural line height is about 1.25 times its size; add the rest as spacing.
-        let extra = max(0, style.lineHeight - style.size * 1.25)
+        let extra = style.halfLeading * 2
         return content
             .font(font)
             .tracking(style.tracking * style.size)

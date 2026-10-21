@@ -35,7 +35,10 @@ struct SuggestionCard: View {
                         .accessibilityHidden(true)
                 }
             }
-            .padding(Spacing.space4)
+            .padding(.horizontal, Spacing.space4)
+            // The artboard's 26pt message line and 20pt caption line include leading above the
+            // first line and below the last, which lineSpacing leaves out.
+            .padding(.vertical, Spacing.space4 + TypeScale.body.halfLeading + (caption == nil ? 0 : TypeScale.caption.halfLeading))
             .frame(maxWidth: .infinity, minHeight: Spacing.touchMin, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: Radius.md)
