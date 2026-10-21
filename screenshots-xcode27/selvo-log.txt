@@ -1,10 +1,10 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-10-21 20:24:35.136 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:24:35.319 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:24:36.061 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:24:36.067 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:24:36.404 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 20:24:36.408 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 20:24:36.408 Df Selvo[18089:dfdd] [com.emilykenney.selvo:listen] The older recognizer cannot run (recognition sessions failed three times in a row as they started), so using DictationTranscriber on device
-2026-10-21 20:24:36.537 E  Selvo[18089:dfdd] [com.emilykenney.selvo:listen] Listening is not available: DictationTranscriber could not start: Selvo.DictationError 1
+2026-10-21 20:50:06.010 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:50:06.147 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:50:06.491 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:50:06.494 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:50:06.822 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:50:06.824 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:50:06.824 Df Selvo[19288:ed2e] [com.emilykenney.selvo:listen] The older recognizer cannot run (recognition sessions failed three times in a row as they started), so using DictationTranscriber on device
+2026-10-21 20:50:06.899 E  Selvo[19288:ed2e] [com.emilykenney.selvo:listen] Listening is not available: DictationTranscriber could not start: Selvo.DictationError 1
