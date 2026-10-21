@@ -1,0 +1,41 @@
+name: Listen probe
+
+# Which iOS Simulator runtimes can run Listen fully on device, with Xcode 26 and Xcode 27.
+# Runs when the probe changes, or by hand. It reports; it does not gate anything.
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/ci_listen_runtimes.sh
+      - .github/workflows/listen-probe.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    name: Listen on each iOS Simulator (Xcode ${{ matrix.xcode }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: "27"
+            runner: xcode-27
+          - xcode: "26"
+            runner: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: scripts/ci_select_xcode.sh ${{ matrix.xcode }}
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Run the Listen test on every installed iOS runtime
+        run: scripts/ci_listen_runtimes.sh "$RUNNER_TEMP/listen/listen-runtimes.txt"
+      - name: Publish the report to the ci-screenshots branch
+        if: always() && github.event_name == 'push'
+        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/listen" listen-xcode${{ matrix.xcode }}
