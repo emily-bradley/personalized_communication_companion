@@ -7,9 +7,8 @@ import Speech
 /// Turns what people nearby say into text for the Listen screen.
 ///
 /// Uses the Speech framework with on-device recognition whenever the phone supports it, so
-/// nothing heard leaves the phone. In a Simulator where that recognizer cannot start (iOS 26.4
-/// and later), it uses the on-device DictationTranscriber instead. It makes no network calls of
-/// its own and never logs what it hears. Safe in the Simulator and in tests: if permission is denied or there is no
+/// nothing heard leaves the phone. It makes no network calls of its own and never logs what it
+/// hears. Safe in the Simulator and in tests: if permission is denied or there is no
 /// microphone input, it reports that instead of crashing.
 ///
 /// Recognition sessions end by themselves after a pause. While listening, a new one starts
@@ -48,10 +47,6 @@ final class SpeechListener {
     @ObservationIgnored private var taskStartedAt = Date()
     /// Recognition sessions in a row that failed almost at once. Stops a restart loop.
     @ObservationIgnored private var quickFailures = 0
-    /// True once the older recognizer could not start here, so DictationTranscriber is used.
-    @ObservationIgnored private var useDictation = false
-    /// Stops the running DictationTranscriber session, if any.
-    @ObservationIgnored private var cancelDictation: (() -> Void)?
 
     init() {}
 
@@ -67,8 +62,6 @@ final class SpeechListener {
             guard let self, self.generation == current else { return }
             if let denial {
                 self.state = .denied(denial)
-            } else if self.useDictation {
-                self.beginDictation()
             } else {
                 self.beginRecognition()
             }
@@ -108,9 +101,27 @@ final class SpeechListener {
 
     private func beginRecognition() {
         guard let recognizer = SFSpeechRecognizer(), recognizer.isAvailable else {
-            let reason = "no speech recognizer for this language, or it is not available now"
-            if switchToDictation(reason) { return }
-            becomeUnavailable(reason)
+            becomeUnavailable("no speech recognizer for this language, or it is not available now")
+            return
+        }
+
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.record, mode: .measurement, options: [.duckOthers])
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            changedSession = true
+        } catch {
+            becomeUnavailable("the audio session could not switch to recording")
+            return
+        }
+
+        let engine = AVAudioEngine()
+        let input = engine.inputNode
+        let format = input.outputFormat(forBus: 0)
+        // No input hardware (for example a Simulator without a microphone) reports a zero
+        // sample rate; installing a tap with that format would crash.
+        guard format.sampleRate > 0, format.channelCount > 0 else {
+            becomeUnavailable("no microphone input")
             return
         }
 
@@ -119,9 +130,22 @@ final class SpeechListener {
         request.addsPunctuation = true
         // Keeps everything on the phone whenever the phone can recognize speech by itself.
         request.requiresOnDeviceRecognition = recognizer.supportsOnDeviceRecognition
-        guard let sampleRate = startMicrophone({ buffer in request.append(buffer) }) else { return }
-        log.notice("Starting recognition, on device: \(recognizer.supportsOnDeviceRecognition, privacy: .public), sample rate \(sampleRate, privacy: .public)")
+        log.notice("Starting recognition, on device: \(recognizer.supportsOnDeviceRecognition, privacy: .public), sample rate \(format.sampleRate, privacy: .public)")
+
+        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
+            request.append(buffer)
+        }
+        self.engine = engine
         self.request = request
+        tapInstalled = true
+
+        engine.prepare()
+        do {
+            try engine.start()
+        } catch {
+            becomeUnavailable("the audio engine did not start")
+            return
+        }
 
         let current = generation
         taskStartedAt = Date()
@@ -146,44 +170,6 @@ final class SpeechListener {
         state = .listening
     }
 
-    /// Switches the audio session to recording and starts the microphone, sending its audio to
-    /// `onBuffer`. Returns the sample rate, or nil (after reporting why) when it cannot.
-    private func startMicrophone(_ onBuffer: @escaping (AVAudioPCMBuffer) -> Void) -> Double? {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(.record, mode: .measurement, options: [.duckOthers])
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
-            changedSession = true
-        } catch {
-            becomeUnavailable("the audio session could not switch to recording")
-            return nil
-        }
-
-        let engine = AVAudioEngine()
-        let input = engine.inputNode
-        let format = input.outputFormat(forBus: 0)
-        // No input hardware (for example a Simulator without a microphone) reports a zero
-        // sample rate; installing a tap with that format would crash.
-        guard format.sampleRate > 0, format.channelCount > 0 else {
-            becomeUnavailable("no microphone input")
-            return nil
-        }
-        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
-            onBuffer(buffer)
-        }
-        self.engine = engine
-        tapInstalled = true
-
-        engine.prepare()
-        do {
-            try engine.start()
-        } catch {
-            becomeUnavailable("the audio engine did not start")
-            return nil
-        }
-        return format.sampleRate
-    }
-
     /// A recognition session ended by itself. Starts a new one so listening never times out,
     /// unless sessions keep failing the moment they start.
     private func sessionEnded(failed: Bool) {
@@ -191,9 +177,7 @@ final class SpeechListener {
             quickFailures += 1
         }
         if quickFailures >= 3 {
-            let reason = "recognition sessions failed three times in a row as they started"
-            if switchToDictation(reason) { return }
-            becomeUnavailable(reason)
+            becomeUnavailable("recognition sessions failed three times in a row as they started")
             return
         }
         generation += 1
@@ -203,101 +187,6 @@ final class SpeechListener {
             guard let self, self.generation == current else { return }
             self.beginRecognition()
         }
-    }
-
-    /// In the Simulator, when the older recognizer cannot start, uses DictationTranscriber from
-    /// now on, if this iOS has it. Returns false when it does not. A real iPhone keeps the older
-    /// recognizer, which works there.
-    private func switchToDictation(_ reason: String) -> Bool {
-        #if compiler(>=6.2) && targetEnvironment(simulator)
-        if #available(iOS 26.0, *), !useDictation {
-            log.notice("The older recognizer cannot run (\(reason, privacy: .public)), so using DictationTranscriber on device")
-            useDictation = true
-            quickFailures = 0
-            generation += 1
-            stopAudio()
-            beginDictation()
-            return true
-        }
-        #endif
-        return false
-    }
-
-    private func beginDictation() {
-        #if compiler(>=6.2)
-        if #available(iOS 26.0, *) {
-            startDictationSession()
-            return
-        }
-        #endif
-        becomeUnavailable("DictationTranscriber needs iOS 26")
-    }
-
-    #if compiler(>=6.2)
-    @available(iOS 26.0, *)
-    private func startDictationSession() {
-        state = .starting
-        taskStartedAt = Date()
-        let current = generation
-        Task { @MainActor [weak self] in
-            let session: DictationSession
-            do {
-                session = try await DictationSession.start(
-                    onText: { [weak self] text in
-                        DispatchQueue.main.async {
-                            guard let self, self.generation == current, !text.isEmpty else { return }
-                            self.heardText = text
-                            self.quickFailures = 0
-                        }
-                    },
-                    onEnd: { [weak self] error in
-                        DispatchQueue.main.async {
-                            guard let self, self.generation == current else { return }
-                            self.dictationEnded(error)
-                        }
-                    }
-                )
-            } catch {
-                guard let self, self.generation == current else { return }
-                self.becomeUnavailable("DictationTranscriber could not start: \(Self.describe(error))")
-                return
-            }
-            guard let self, self.generation == current else {
-                session.cancel()
-                return
-            }
-            self.cancelDictation = { session.cancel() }
-            guard let sampleRate = self.startMicrophone({ buffer in session.append(buffer) }) else { return }
-            self.log.notice("DictationTranscriber listening on device, sample rate \(sampleRate, privacy: .public)")
-            self.taskStartedAt = Date()
-            self.state = .listening
-        }
-    }
-    #endif
-
-    /// DictationTranscriber stopped by itself. Starts again, unless it keeps stopping the
-    /// moment it starts.
-    private func dictationEnded(_ error: Error?) {
-        log.notice("DictationTranscriber session ended: \(error.map(Self.describe) ?? "no error", privacy: .public)")
-        if Date().timeIntervalSince(taskStartedAt) < 2 {
-            quickFailures += 1
-        }
-        if quickFailures >= 3 {
-            becomeUnavailable("DictationTranscriber stopped three times in a row as it started")
-            return
-        }
-        generation += 1
-        let current = generation
-        stopAudio()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            guard let self, self.generation == current else { return }
-            self.beginDictation()
-        }
-    }
-
-    private static func describe(_ error: Error) -> String {
-        let ns = error as NSError
-        return "\(ns.domain) \(ns.code)"
     }
 
     private func becomeUnavailable(_ reason: String) {
@@ -319,8 +208,6 @@ final class SpeechListener {
         }
         tapInstalled = false
         request?.endAudio()
-        cancelDictation?()
-        cancelDictation = nil
         task?.cancel()
         task = nil
         request = nil
