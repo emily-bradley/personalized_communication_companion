@@ -1,14 +1,16 @@
-    iPhone 16 (CE7ECC17-EFA9-4CA3-AFC0-8955A8D72EB7) (Booted) 
+    iPhone 16 (13FB01C2-B36E-4FD5-811F-4EF50E5D044C) (Booted) 
 test exit 0
-2026-10-21 18:27:12.125 xcodebuild[50232:130901] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 93.628 (93.633) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 93.628 (93.635) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 93.628 (93.668) seconds
+2026-10-21 19:29:33.134 xcodebuild[33296:92138] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 125.358 (125.367) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 125.358 (125.371) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 125.358 (125.377) seconds
 ** TEST SUCCEEDED **
-2026-10-21 18:28:19.286 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 18:28:20.138 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 18:28:20.570 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 18:28:20.644 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 18:28:21.025 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 18:28:21.057 Df Selvo[58268:24b22] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 18:28:21.057 E  Selvo[58268:24b22] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
+2026-10-21 19:30:49.262 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:30:51.395 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:30:51.977 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:30:52.063 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:30:52.509 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:30:52.575 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:30:52.898 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 19:30:52.923 Df Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 19:30:52.924 E  Selvo[43842:1d07b] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
