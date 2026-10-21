@@ -1,5 +1,10 @@
-    iPhone 16 (8F2E8884-28D3-4D63-A1E6-30F05D850960) (Booted) 
-test exit 65
-Testing failed:
-	SelvoUITests-Runner (47074) encountered an error (Test crashed with signal abrt while preparing to run tests.)
-** TEST FAILED **
+    iPhone 16 (C8C93AFA-16C2-4B54-B8A3-E4C7AC30069A) (Booted) 
+attempt 1: the test runner crashed while preparing, before any test ran
+test exit 0
+2026-10-21 22:22:36.884 xcodebuild[95759:230164] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 44.778 (44.800) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 44.778 (44.805) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 44.778 (44.810) seconds
+** TEST SUCCEEDED **
+2026-10-21 22:23:06.123 Df Selvo[97074:392a0] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 22:23:12.875 Df Selvo[97074:392a0] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
