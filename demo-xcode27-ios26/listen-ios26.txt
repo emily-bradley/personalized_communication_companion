@@ -1,5 +1,5 @@
-    iPhone 16 (7E6C6BCF-D3FE-4906-A317-CB91C70605B4) (Booted) 
+    iPhone 16 (8F2E8884-28D3-4D63-A1E6-30F05D850960) (Booted) 
 test exit 65
 Testing failed:
-	SelvoUITests-Runner (43794) encountered an error (Test crashed with signal abrt while preparing to run tests.)
+	SelvoUITests-Runner (47074) encountered an error (Test crashed with signal abrt while preparing to run tests.)
 ** TEST FAILED **
