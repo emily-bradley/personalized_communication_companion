@@ -11,6 +11,10 @@ xcodebuild -version | head -1 > "$REPORT"
 sw_vers | tr '\n' ' ' >> "$REPORT"; echo "" >> "$REPORT"
 xcrun simctl list runtimes >> "$REPORT"
 DEVTYPE="com.apple.CoreSimulator.SimDeviceType.iPhone-16"
+# A fixed test sentence in the Mac's voice, for the file probe (the Simulator voice can hang).
+SENTENCE="$PWD/build/speech-probe.aiff"
+say -o "$SENTENCE" "I would like a coffee please" || echo "say could not write the test sentence" >> "$REPORT"
+export TEST_RUNNER_SPEECH_PROBE_FILE="$SENTENCE"
 xcrun simctl list runtimes -j | python3 -c 'import json, sys
 for r in json.load(sys.stdin)["runtimes"]:
     if r.get("isAvailable") and r.get("platform") == "iOS":

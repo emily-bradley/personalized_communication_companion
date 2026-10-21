@@ -119,6 +119,9 @@ jobs:
           TEST_RUNNER_SCREENSHOT_DIR: ${{ runner.temp }}/screenshots
         run: |
           mkdir -p "$TEST_RUNNER_SCREENSHOT_DIR" build
+          # A test sentence in the Mac's voice for SpeechFileProbeTests.
+          say -o "$PWD/build/speech-probe.aiff" "I would like a coffee please" || true
+          export TEST_RUNNER_SPEECH_PROBE_FILE="$PWD/build/speech-probe.aiff"
           set +e
           xcodebuild test \
             -project Selvo.xcodeproj \
