@@ -1,4 +1,9 @@
-An error was encountered processing the command (domain=com.apple.CoreSimulator.SimError, code=405):
-Process spawn via launchd failed because device is not booted.
-Underlying error (domain=com.apple.SimLaunchHostService.RequestError, code=3):
-	Bad or unknown session: com.apple.CoreSimulator.SimDevice.E144A4E7-3FA2-484B-9104-644AEBCA0CD1
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-10-21 14:24:18.359 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 14:24:18.609 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 14:24:19.165 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 14:24:19.267 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 14:24:19.606 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 14:24:19.636 Df Selvo[34271:17357] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 14:24:19.636 E  Selvo[34271:17357] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
