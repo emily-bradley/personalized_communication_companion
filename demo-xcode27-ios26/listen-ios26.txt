@@ -1,0 +1,14 @@
+    iPhone 16 (149AD8CC-1C3A-4B3D-9D2F-A0F247F01791) (Booted) 
+test exit 0
+2026-10-21 17:31:46.323 xcodebuild[31331:89382] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 319.727 (319.733) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 319.727 (319.737) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 319.727 (319.754) seconds
+** TEST SUCCEEDED **
+2026-10-21 17:35:25.490 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 17:35:25.875 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 17:35:26.364 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 17:35:27.219 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 17:35:27.708 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 17:35:27.728 Df Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 17:35:27.728 E  Selvo[42468:1cafc] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
