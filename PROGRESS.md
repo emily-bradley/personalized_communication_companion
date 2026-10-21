@@ -461,3 +461,34 @@ Main CI was green at the start for 9abde7c (run 39672687598). Run 3 (session 01N
 
 ### Needs Emily
 - Unchanged from run 2: which Xcode is on her Mac (with Xcode 27, add the iOS 26.2 Simulator, DEMO.md step 5); Xcode and Homebrew on her Mac; for TestFlight her Team ID, the bundle ID, the App Store Connect app record, API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if wanted.
+
+## 2026-10-21, build run 3 (13:56 to about 17:35 Central)
+
+Main CI was green at the start (7f6d1b1), but the Xcode 27 workflow was red: the new `demo-ios26` job showed Listen failing on the iOS 26.4 Simulator too (kLSRErrorDomain 300). Fixing that was this run's work. Run 4 (session 019zQg) overlapped from 15:55 and stayed out of the Listen code; its notes are above.
+
+### Found: the iOS Simulator version decides whether Listen can hear
+- New probes (`listen-probe.yml`, now also on `macos-26` runners) and a new file probe (`SelvoTests/SpeechFileProbeTests.swift`: a fixed test sentence made with the Mac's `say`, given to the older on-device recognizer and to the iOS 26 DictationTranscriber). Reports are on `ci-screenshots` under `listen-*`.
+- iOS 26.0.1 and 26.2: Listen starts on device and runs until "no speech" (kAFAssistantErrorDomain 1110, expected with no voice in CI); both recognizers turn the test sentence into text.
+- iOS 26.4, 26.5 and 27.0: the older recognizer fails at once ("Failed to initialize recognizer", 300), on macOS 26.6 hosts and on macOS 27 alike, with Xcode 26.6 and 27.2. DictationTranscriber has no audio format it accepts there.
+- So the earlier reading (the Mac or Xcode 27 was the cause) was wrong; it is the runtime.
+
+### Shipped
+- `scripts/find_simulator.py` picks a Simulator where Listen can hear first (iOS 18, or 26.0 to 26.2), with any Xcode, and prints "Using the iOS 26.2 Simulator, where Listen works" or a tip to add it. `scripts/demo.sh --ios` takes a version like `26.2`. Checked here with a mocked `xcrun` in 8 cases (Xcode 27 alone, with 26.2, with 26.4 and 26.2, Xcode 26.6 with 26.5, Xcode 16 with 18.x, explicit versions).
+- `docs/DEMO.md` step 5: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once. Troubleshooting line updated.
+- `demo-xcode27.yml` `demo-ios26` job downloads exactly iOS 26.2, checks demo.sh chose it, and fails unless Listen starts on device. It runs the Listen test once more only when the test runner crashes before any test runs (it did, twice, on the first try after demo.sh).
+- `CoreFlowUITests` waits up to 40 seconds for Another to come back after Spoken (it missed once in CI on 700d57c while the voice was slow).
+- Tried and taken out in this run: a DictationTranscriber fallback in `SpeechListener` (it ran, but cannot hear in the same Simulators). `SpeechListener.swift` is back exactly as it was; nothing moved to `legacy/` because the code was written and removed in this run.
+
+### Verified, and how
+- f534811 (contains all of the above) green on every job. CI: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39680125656 (including `scripts/demo.sh` with Xcode 16 and 26). Xcode 27: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39680125575 (`scripts/demo.sh` with Xcode 27; demo.sh with the iOS 26.2 Simulator added, which chose 26.2 itself, and Listen on device: "Starting recognition, on device: true", then "no speech" after about 7 seconds; every unit and UI test on iOS 27).
+- Screenshot reviewed: `demo-xcode27-ios26/demo-launch.png` (Home for Lucas on iOS 26.2 under Xcode 27, same as the other demo shots). Run 4 did the full artboard review this afternoon, so I did not repeat it.
+
+### Next
+- Friday: the final artboard pass on the final build (start from run 4's P2 and P3 list) and the final PROGRESS summary.
+
+### Needs Emily
+- **If your Mac has Xcode 27, or Xcode 26.4 or later**, run once in Terminal: `xcodebuild -downloadPlatform iOS -buildVersion 26.2` (about 8 GB), so Listen can hear in the demo. `./scripts/demo.sh` then uses it by itself and says "Using the iOS 26.2 Simulator". No change is needed for Xcode 16 or Xcode 26.3 and earlier.
+- On her Mac: Xcode, then Homebrew (https://brew.sh). Then `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- The real logo artwork, if she wants it in place of the drawn wordmark.
