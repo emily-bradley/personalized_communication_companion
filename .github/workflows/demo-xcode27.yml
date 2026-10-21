@@ -11,6 +11,11 @@ on:
 permissions:
   contents: write
 
+# Same as CI: a run already going finishes; a newer push replaces one still waiting.
+concurrency:
+  group: xcode27-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   demo:
     name: scripts/demo.sh (Xcode 27)

@@ -9,8 +9,10 @@ on:
 permissions:
   contents: write
 
+# One run at a time per branch. A run already going always finishes; a newer push replaces one
+# still waiting, so the latest commit is tested without a long queue of older ones.
 concurrency:
-  group: ci-${{ github.ref }}-${{ github.sha }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
