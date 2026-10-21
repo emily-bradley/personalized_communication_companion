@@ -1,0 +1,4 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-10-21 16:10:40.920 Df C704F3D4-C97C-33D0-B174-8BECBCAF2B55[5818:5bf1] [com.emilykenney.selvo:listen] <compose failure [UUID]>
+2026-10-21 16:10:46.907 Df C704F3D4-C97C-33D0-B174-8BECBCAF2B55[5818:5bf1] [com.emilykenney.selvo:listen] <compose failure [UUID]>
