@@ -22,12 +22,13 @@ SPEECHPROBE dictation asset status before: installed
 SPEECHPROBE dictation assets installed
 SPEECHPROBE dictation heard the test sentence: I would like a coffee, please
 SPEECHPROBE dictation reserve en_US: true
-SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE file from the Mac: frames 28753, sample rate 22050.0
 SPEECHPROBE older recognizer on device heard the test sentence: I would like a coffee please
 SPEECHPROBE older recognizer on device: true
+SPEECHPROBE Selvo DictationSession heard the test sentence: I would like a coffee, please
 SPEECHPROBE speech authorization: 3 (3 is authorized)
-2026-10-21 19:08:19.991 Df Selvo[6974:69ef] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:08:27.443 Df Selvo[6974:69ef] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-21 20:28:59.359 Df Selvo[3911:45bd] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:29:06.072 Df Selvo[3911:45bd] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
 
 == iOS 26.4.1
 test exit 0
@@ -36,15 +37,20 @@ SPEECHPROBE dictation asset status after: installed
 SPEECHPROBE dictation asset status before: installed
 SPEECHPROBE dictation assets installed
 SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
-SPEECHPROBE dictation reserve en_US: true
-SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE dictation reserve en_US: false
+SPEECHPROBE file from the Mac: frames 28753, sample rate 22050.0
 SPEECHPROBE older recognizer on device failed: kLSRErrorDomain 300 Failed to initialize recognizer
 SPEECHPROBE older recognizer on device: true
+SPEECHPROBE Selvo DictationSession failed: Selvo.DictationError 1 The operation couldn’t be completed. (Selvo.DictationError error 1.); heard so far: 
 SPEECHPROBE speech authorization: 3 (3 is authorized)
-2026-10-21 19:17:48.804 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:17:48.903 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-21 19:17:49.255 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:17:49.293 Df Selvo[16125:ec8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:37:27.726 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:37:27.846 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:37:28.270 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:37:28.275 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:37:28.616 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:37:28.621 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:37:28.621 Df Selvo[12209:c16e] [com.emilykenney.selvo:listen] The older recognizer cannot run (recognition sessions failed three times in a row as they started), so using DictationTranscriber on device
+2026-10-21 20:37:28.697 E  Selvo[12209:c16e] [com.emilykenney.selvo:listen] Listening is not available: DictationTranscriber could not start: Selvo.DictationError 1
 
 == iOS 26.5
 test exit 0
@@ -53,9 +59,17 @@ SPEECHPROBE dictation asset status after: installed
 SPEECHPROBE dictation asset status before: installed
 SPEECHPROBE dictation assets installed
 SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
-SPEECHPROBE dictation reserve en_US: true
-SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE dictation reserve en_US: false
+SPEECHPROBE file from the Mac: frames 28753, sample rate 22050.0
 SPEECHPROBE older recognizer on device failed: kLSRErrorDomain 300 Failed to initialize recognizer
 SPEECHPROBE older recognizer on device: true
+SPEECHPROBE Selvo DictationSession failed: Selvo.DictationError 1 The operation couldn’t be completed. (Selvo.DictationError error 1.); heard so far: 
 SPEECHPROBE speech authorization: 3 (3 is authorized)
-2026-10-21 19:27:26.728 E  Selvo[25683:16fd6] [com.emilykenney.selvo:listen] Listening is not available: no speech recognizer for this language, or it is not available now
+2026-10-21 20:44:26.611 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:44:26.842 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:44:27.807 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:44:27.812 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:44:28.179 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:44:28.184 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 20:44:28.184 Df Selvo[19647:12cb9] [com.emilykenney.selvo:listen] The older recognizer cannot run (recognition sessions failed three times in a row as they started), so using DictationTranscriber on device
+2026-10-21 20:44:28.290 E  Selvo[19647:12cb9] [com.emilykenney.selvo:listen] Listening is not available: DictationTranscriber could not start: Selvo.DictationError 1
