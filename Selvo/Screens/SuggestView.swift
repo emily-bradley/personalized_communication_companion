@@ -227,15 +227,21 @@ struct SuggestView: View {
         }
     }
 
-    /// After Speak, Another and Incorrect make way for "Spoken" for about a second. This is the
-    /// only thing on the screen that goes away by itself.
+    /// After Speak, Another and Incorrect make way for "Spoken" while the message plays and for
+    /// about a second after it ends. This is the only thing on the screen that goes away by itself.
     private func showSpokenBriefly() async {
         guard model.isShowingSpoken() else {
             showsSpoken = false
             return
         }
         showsSpoken = true
-        try? await Task.sleep(nanoseconds: 1_200_000_000)
+        // Wait for the voice to finish (at most two minutes, in case it never reports back).
+        var waited = 0
+        while model.speech.isSpeaking && waited < 1200 && !Task.isCancelled {
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            waited += 1
+        }
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
         guard !Task.isCancelled else { return }
         showsSpoken = false
     }

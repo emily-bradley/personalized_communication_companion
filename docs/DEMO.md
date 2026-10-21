@@ -4,21 +4,18 @@ This runs Selvo on your Mac in the iOS Simulator, with the demo profile for Luca
 
 ## Before the demo (once, allow about 1 hour, mostly downloads)
 
-1. **A Mac that runs Xcode 16 or Xcode 26.** The Mac App Store now offers Xcode 26, which needs macOS Sequoia 15.6 or later. On an older Mac, Xcode 16 needs macOS Sonoma 14.5 or later and can be downloaded from [developer.apple.com/download/all](https://developer.apple.com/download/all/) with your Apple account. Check your macOS version in Apple menu, **About This Mac**. The demo script is tested with both Xcode 16 and Xcode 26 on every change.
-2. **Xcode** from the Mac App Store. Open it once, accept the license, and when it asks which platforms to install, include **iOS**. If you skipped that, open Xcode, **Settings**, **Components**, and download the iOS Simulator platform.
-3. **Command Line Tools.** Open Terminal and run:
-   ```
-   xcode-select --install
-   ```
-   If it says they are already installed, you are set. If Terminal later says Xcode is not selected, run `sudo xcode-select -s /Applications/Xcode.app`.
+1. **A Mac that runs Xcode 27, 26 or 16.** The Mac App Store now offers Xcode 27, which needs macOS Tahoe 26.6 or later. On an older Mac, download an earlier Xcode from [developer.apple.com/download/all](https://developer.apple.com/download/all/) with your Apple account: Xcode 26.3 runs on macOS Sequoia 15.6 or later, and Xcode 16 on macOS Sonoma 14.5 or later. Check your macOS version in Apple menu, **About This Mac**. The demo script is tested with Xcode 16, 26 and 27 on every change. Have about 40 GB free for Xcode and the Simulator.
+2. **Xcode** from the Mac App Store. Open it once, accept the license, and when it asks which platforms to install, include **iOS**. If you skipped that, open Xcode, **Settings**, **Components** (**Platforms** in Xcode 16), and download the iOS Simulator platform. If you downloaded Xcode from the developer site, move it into Applications first.
+3. **No separate Command Line Tools step is needed.** Xcode has them, and Homebrew adds anything else it needs in the next step. If the demo script ever says Xcode is not selected, run `sudo xcode-select -s /Applications/Xcode.app` (use the name shown in Applications, for example Xcode-beta.app). If it says Xcode needs its first launch setup, run `sudo xcodebuild -runFirstLaunch`.
 4. **Homebrew** from [brew.sh](https://brew.sh). Paste the one line from that page into Terminal and follow what it prints at the end (it asks you to run 2 lines that add `brew` to your path).
 5. **Get the code.** In Terminal:
    ```
+   cd ~
    git clone https://github.com/emily-bradley/personalized_communication_companion.git
    cd personalized_communication_companion
    ```
 
-Do a full practice run the day before. The first build and the first Simulator boot are the slow ones.
+Do a full practice run the day before, including Listen, so every permission prompt appears then and not in the demo. The first build and the first Simulator boot are the slow ones. Then run `./scripts/demo.sh --fresh` to start the demo clean.
 
 ## The one command
 
@@ -80,7 +77,7 @@ Tap **Photos**. Lucas's pictures appear in a fixed grid: Coffee, Dinner, Home, C
 - Point out that nothing times out or disappears on its own. **Clear** (top right) empties the message and goes back to Home; you do not need to tap it now.
 
 **5. Speak (20 seconds)**
-Tap **Speak**. The Mac speaks the message, and **Spoken** shows for about a second where Another and Incorrect were.
+Tap **Speak**. The Mac speaks the message, and **Spoken** shows where Another and Incorrect were while it plays and for about a second after. Tapping Speak again while the same message plays does nothing, so a double tap says it once.
 
 **6. Show (20 seconds)**
 Tap **Show** under the message. The message fills the screen in large type, for a noisy room or a listener who reads better than they hear. It is turned upside down on purpose: the phone lies on the table facing the person across from Lucas, so on the Mac it reads upside down. Tap **Done** to go back to your words.

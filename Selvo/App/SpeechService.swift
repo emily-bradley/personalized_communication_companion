@@ -28,9 +28,15 @@ final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         return low + (high - low) * clamped
     }
 
-    func speak(_ text: String, profile: Profile?) {
+    /// Speaks `text` and returns true. A second Speak while the same message is still playing
+    /// is ignored (returns false), so a quick double tap gives one haptic and one message.
+    @discardableResult
+    func speak(_ text: String, profile: Profile?) -> Bool {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
+        guard !trimmed.isEmpty else { return false }
+        if isSpeaking && current?.speechString == trimmed {
+            return false
+        }
         if synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
@@ -49,6 +55,7 @@ final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         current = utterance
         isSpeaking = true
         synthesizer.speak(utterance)
+        return true
     }
 
     func stop() {

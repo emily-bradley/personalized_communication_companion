@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One command to see Selvo in the iOS Simulator on a Mac with Xcode 16 or 26.
+# One command to see Selvo in the iOS Simulator on a Mac with Xcode 16, 26 or 27.
 #
 #   ./scripts/demo.sh            open Selvo, keeping what is saved (first run: Lucas)
 #   ./scripts/demo.sh --fresh    start over with a fresh Lucas (clears rehearsal changes)
@@ -31,11 +31,25 @@ fail() { printf '\nSelvo demo stopped: %b\n' "$1" >&2; exit 1; }
 
 say "Checking Xcode"
 command -v xcodebuild >/dev/null 2>&1 || fail "Xcode is not installed. Install Xcode from the App Store, open it once, then run this again."
+# When the Mac points at the Command Line Tools instead of Xcode (common after
+# xcode-select --install), use Xcode for this script only, so no sudo is needed.
+case "${DEVELOPER_DIR:-$(xcode-select -p 2>/dev/null || true)}" in
+  *CommandLineTools*|"")
+    for candidate in /Applications/Xcode.app /Applications/Xcode*.app; do
+      if [ -x "$candidate/Contents/Developer/usr/bin/xcodebuild" ]; then
+        export DEVELOPER_DIR="$candidate/Contents/Developer"
+        echo "Using $candidate"
+        break
+      fi
+    done
+    ;;
+esac
 # Capture first, then print: piping into head can break the pipe and abort xcodebuild.
 if ! XCODE_VERSION="$(xcodebuild -version 2>/dev/null)"; then
   fail "xcodebuild could not run. It said:\n$(xcodebuild -version 2>&1 | tail -n 3)\nIf it mentions the license, run: sudo xcodebuild -license accept\nIf Xcode is not selected, run: sudo xcode-select -s /Applications/Xcode.app\nThen run: xcodebuild -runFirstLaunch"
 fi
 echo "${XCODE_VERSION%%$'\n'*}"
+xcodebuild -checkFirstLaunchStatus >/dev/null 2>&1 || fail "Xcode needs to finish its first launch setup. Run: sudo xcodebuild -runFirstLaunch\nThen run this again."
 command -v python3 >/dev/null 2>&1 || fail "python3 is missing. Run: xcode-select --install"
 
 if ! command -v xcodegen >/dev/null 2>&1; then
@@ -56,10 +70,16 @@ say "Finding an iPhone 16 Simulator"
 UDID="$(python3 scripts/find_simulator.py "iPhone 16")"
 echo "Simulator $UDID"
 
-say "Booting the Simulator"
+say "Booting the Simulator (the very first boot can take about 5 minutes)"
 xcrun simctl boot "$UDID" 2>/dev/null || true
 if [ -z "${CI:-}" ]; then
-  open -a Simulator --args -CurrentDeviceUDID "$UDID" || true
+  # Open the Simulator that belongs to the Xcode in use, in case there are two.
+  SIM_APP="${DEVELOPER_DIR:-$(xcode-select -p)}/Applications/Simulator.app"
+  if [ -d "$SIM_APP" ]; then
+    open "$SIM_APP" --args -CurrentDeviceUDID "$UDID" || true
+  else
+    open -a Simulator --args -CurrentDeviceUDID "$UDID" || true
+  fi
 fi
 xcrun simctl bootstatus "$UDID" -b >/dev/null
 

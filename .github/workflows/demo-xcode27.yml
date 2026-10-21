@@ -1,0 +1,42 @@
+name: Demo with Xcode 27
+
+# The Mac App Store offers Xcode 27 now, so scripts/demo.sh is proven with it too. It is its own
+# workflow because Xcode 27 runs on the xcode-27 runner image, not macos-15.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  demo:
+    name: scripts/demo.sh (Xcode 27)
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 27
+        run: scripts/ci_select_xcode.sh 27
+      - name: Remove any preinstalled iPhone 16, as on a Mac with a fresh Xcode 27
+        run: scripts/ci_remove_iphone16.sh
+      - name: Run the demo script
+        run: /bin/bash scripts/demo.sh
+      - name: Run it again with --welcome, then --fresh (the reset paths in DEMO.md)
+        run: |
+          /bin/bash scripts/demo.sh --welcome
+          /bin/bash scripts/demo.sh --fresh
+      - name: Publish demo screenshot to the ci-screenshots branch
+        if: always() && github.event_name == 'push'
+        run: |
+          mkdir -p "$RUNNER_TEMP/demo"
+          cp build/demo-launch*.png "$RUNNER_TEMP/demo/" 2>/dev/null || true
+          scripts/ci_publish_images.sh "$RUNNER_TEMP/demo" demo-xcode27
+      - name: Upload demo screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-xcode27-launch
+          path: build/demo-launch*.png
+          if-no-files-found: warn

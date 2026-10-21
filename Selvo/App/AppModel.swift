@@ -100,11 +100,13 @@ final class AppModel {
     }
 
     /// Speaks the message strip and records when it was spoken, so screens can show
-    /// "Spoken" for about one second. Nothing is sent anywhere.
+    /// "Spoken". A repeat tap while the same message is still playing changes nothing.
+    /// Nothing is sent anywhere.
     func speak() {
         guard !message.isEmpty else { return }
-        speech.speak(message, profile: profile)
-        lastSpokenAt = Date()
+        if speech.speak(message, profile: profile) {
+            lastSpokenAt = Date()
+        }
     }
 
     /// True for about a second after Speak.

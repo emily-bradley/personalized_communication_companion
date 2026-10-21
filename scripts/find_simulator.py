@@ -54,7 +54,8 @@ def main():
     runtimes = json.loads(simctl("list", "runtimes", "available", "-j"))["runtimes"]
     ios = [r for r in runtimes if r.get("platform") == "iOS" or ".iOS-" in r.get("identifier", "")]
     if not ios:
-        sys.exit("No iOS Simulator runtime is installed. Open Xcode, then Settings, Platforms, and add iOS.")
+        sys.exit("No iOS Simulator runtime is installed. Open Xcode, then Settings, then Components "
+                 "(Platforms in Xcode 16), and add iOS.")
     ios.sort(key=lambda r: rank(runtime_version(r["identifier"])))
     newest = ios[-1]["identifier"]
     device_types = json.loads(simctl("list", "devicetypes", "-j"))["devicetypes"]
@@ -66,4 +67,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except subprocess.CalledProcessError as error:
+        sys.exit(f"The Simulator tools stopped with an error:\n{(error.stderr or '').strip()}\n"
+                 "Quit Simulator and Xcode, then run this again. If it happens again, restart the Mac.")
