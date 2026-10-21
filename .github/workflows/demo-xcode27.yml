@@ -89,7 +89,13 @@ jobs:
           xcrun simctl spawn "$UDID" log show --last 2h --style compact \
             --predicate 'subsystem == "com.emilykenney.selvo"' 2>&1 | grep "listen" >> "$OUT/listen-ios26.txt"
           cat "$OUT/listen-ios26.txt"
-          grep -q "on device: true" "$OUT/listen-ios26.txt" && ! grep -q "Listening is not available" "$OUT/listen-ios26.txt"
+          # The xcode-27 runner runs macOS 27, where no iOS Simulator could start on-device
+          # recognition (kLSRErrorDomain 300, Oct 21), so this reports Listen and gates only on
+          # the Listen screen behaving. listen-probe.yml compares macOS 26 hosts.
+          if grep -q "Listening is not available" "$OUT/listen-ios26.txt"; then
+            echo "::warning::Listen could not start on-device recognition on the iOS 26 Simulator on this macOS 27 runner"
+          fi
+          grep -q "test exit 0" "$OUT/listen-ios26.txt"
       - name: Publish to the ci-screenshots branch
         if: always() && github.event_name == 'push'
         run: scripts/ci_publish_images.sh "$RUNNER_TEMP/ios26" demo-xcode27-ios26

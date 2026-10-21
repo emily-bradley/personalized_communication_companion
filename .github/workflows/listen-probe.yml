@@ -15,17 +15,27 @@ permissions:
 
 jobs:
   probe:
-    name: Listen on each iOS Simulator (Xcode ${{ matrix.xcode }})
+    name: Listen on each iOS Simulator (Xcode ${{ matrix.xcode }}, ${{ matrix.runner }})
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 60
+    timeout-minutes: 100
     strategy:
       fail-fast: false
       matrix:
         include:
           - xcode: "27"
             runner: xcode-27
+            folder: listen-xcode27
           - xcode: "26"
             runner: macos-15
+            folder: listen-xcode26
+          # Xcode 27 needs macOS Tahoe 26.6, so Emily's Mac may run macOS 26 rather than the
+          # macOS 27 of the xcode-27 runner. These two tell whether the host macOS matters.
+          - xcode: "27"
+            runner: macos-26
+            folder: listen-macos26-xcode27
+          - xcode: "26"
+            runner: macos-26
+            folder: listen-macos26-xcode26
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode ${{ matrix.xcode }}
@@ -38,4 +48,4 @@ jobs:
         run: scripts/ci_listen_runtimes.sh "$RUNNER_TEMP/listen/listen-runtimes.txt"
       - name: Publish the report to the ci-screenshots branch
         if: always() && github.event_name == 'push'
-        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/listen" listen-xcode${{ matrix.xcode }}
+        run: scripts/ci_publish_images.sh "$RUNNER_TEMP/listen" ${{ matrix.folder }}
