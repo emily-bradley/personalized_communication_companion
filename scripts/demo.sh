@@ -75,6 +75,18 @@ fi
 say "Generating the Xcode project"
 xcodegen generate --quiet
 
+# Listen cannot hear in the iOS 27 Simulator (its on-device recognizer does not start there), but
+# it works in the iOS 18 Simulator. So with Xcode 27 or later, use iOS 18 when it is installed.
+SDK_MAJOR="$(xcrun --sdk iphonesimulator --show-sdk-version 2>/dev/null | cut -d. -f1 || true)"
+if [ -z "$IOS" ] && [ "${SDK_MAJOR:-0}" -ge 27 ] 2>/dev/null; then
+  if xcrun simctl list runtimes available 2>/dev/null | grep -q '^iOS 18'; then
+    IOS=18
+    echo "Using the iOS 18 Simulator, where Listen works. To use iOS $SDK_MAJOR instead: ./scripts/demo.sh --ios $SDK_MAJOR"
+  else
+    echo "Tip: Listen cannot hear in the iOS $SDK_MAJOR Simulator. To show Listen, add the iOS 18 Simulator (see docs/DEMO.md, Listen)."
+  fi
+fi
+
 say "Finding an iPhone 16 Simulator${IOS:+ with iOS $IOS}"
 UDID="$(python3 scripts/find_simulator.py "iPhone 16" "$IOS")"
 echo "Simulator $UDID"

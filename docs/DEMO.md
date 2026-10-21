@@ -8,7 +8,8 @@ This runs Selvo on your Mac in the iOS Simulator, with the demo profile for Luca
 2. **Xcode** from the Mac App Store. Open it once, accept the license, and when it asks which platforms to install, include **iOS**. If you skipped that, open Xcode, **Settings**, **Components** (**Platforms** in Xcode 16), and download the iOS Simulator platform. If you downloaded Xcode from the developer site, move it into Applications first.
 3. **No separate Command Line Tools step is needed.** Xcode has them, and Homebrew adds anything else it needs in the next step. If the demo script ever says Xcode is not selected, run `sudo xcode-select -s /Applications/Xcode.app` (use the name shown in Applications, for example Xcode-beta.app). If it says Xcode needs its first launch setup, run `sudo xcodebuild -runFirstLaunch`.
 4. **Homebrew** from [brew.sh](https://brew.sh). Paste the one line from that page into Terminal and follow what it prints at the end (it asks you to run 2 lines that add `brew` to your path).
-5. **Get the code.** In Terminal:
+5. **With Xcode 27 only: add the iOS 18 Simulator, so Listen can hear.** In the iOS 27 Simulator, Listen says "Listening is not available on this phone right now", because its speech recognizer does not start there (everything else works). In the iOS 18 Simulator it works and stays on the Mac. Open Xcode, **Settings**, **Components**, click the **plus** button at the bottom left, choose **iOS**, then **iOS 18** (the newest 18 offered), and download it (several GB). Or, in Terminal: `xcodebuild -downloadPlatform iOS -buildVersion 18.6`. Once it is installed, `./scripts/demo.sh` uses it by itself and says so. With Xcode 26 or 16, skip this step.
+6. **Get the code.** In Terminal:
    ```
    cd ~
    git clone https://github.com/emily-bradley/personalized_communication_companion.git
@@ -45,6 +46,8 @@ Two options start over:
 | `./scripts/demo.sh --welcome` | Welcome, with no profile | When you want to show Welcome or Set up together |
 
 Both delete Selvo's saved profile first. CI runs all three forms on every change.
+
+With Xcode 27, when the iOS 18 Simulator is installed, every form uses it (see step 5 above). `--ios 27` (or any version) picks a Simulator version by hand, and combines with `--fresh` or `--welcome`, for example `./scripts/demo.sh --fresh --ios 27`.
 
 ## How the demo profile loads
 
@@ -109,6 +112,7 @@ Settings are saved. Before the real demo, run `./scripts/demo.sh --fresh` to und
 - Check that the Mac allows the Simulator to use the microphone: Apple menu, **System Settings**, **Privacy & Security**, **Microphone**, and turn on **Simulator**.
 - In the Simulator menu bar, **I/O**, **Audio Input**, choose the Mac microphone.
 - Connect or disconnect Bluetooth headphones before the demo, not during Listen: changing the Mac's microphone while Selvo is listening can stop it.
+- With Xcode 27: check that the script said "Using the iOS 18 Simulator". If it printed a tip instead, add the iOS 18 Simulator (step 5 of Before the demo) and run `./scripts/demo.sh` again.
 - Speech recognition in the Simulator can be slow or unavailable on some Macs. If Listen does not work, skip it and say it is shown best on an iPhone.
 
 **Selvo crashed or looks stuck.** Run `./scripts/demo.sh` again. It closes and relaunches Selvo. If it still looks wrong, run `./scripts/demo.sh --fresh`, which also clears the saved profile.
