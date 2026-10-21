@@ -21,32 +21,21 @@ visionOS 26.2 (26.2 - 23N301) - com.apple.CoreSimulator.SimRuntime.xrOS-26-2
 == iOS 18.5
 test exit 0
 file probe exit 0
-SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE file from the Mac: frames 33195, sample rate 22050.0
 SPEECHPROBE older recognizer on device heard the test sentence: I would like a coffee please
 SPEECHPROBE older recognizer on device: true
 SPEECHPROBE speech authorization: 3 (3 is authorized)
-2026-10-21 19:07:26.819 Df Selvo[11116:90a5] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:07:34.529 Df Selvo[11116:90a5] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-21 20:01:50.827 Df Selvo[15949:bd2e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:01:56.027 Df Selvo[15949:bd2e] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
 
 == iOS 18.6
 test exit 0
 file probe exit 0
-SPEECHPROBE file frames: 33195, sample rate 22050.0
+SPEECHPROBE file from the Mac: frames 33195, sample rate 22050.0
 SPEECHPROBE older recognizer on device heard the test sentence: I would like a coffee please
 SPEECHPROBE older recognizer on device: true
 SPEECHPROBE speech authorization: 3 (3 is authorized)
-2026-10-21 19:13:17.443 Df Selvo[22011:11bd8] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 19:13:25.285 Df Selvo[22011:11bd8] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-21 20:10:44.850 Df Selvo[32942:17cc0] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 20:10:49.727 Df Selvo[32942:17cc0] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
 
 == iOS 26.0.1
-test exit 0
-file probe exit 0
-SPEECHPROBE dictation asset status after: installed
-SPEECHPROBE dictation asset status before: installed
-SPEECHPROBE dictation assets installed
-SPEECHPROBE dictation heard the test sentence: I would like a coffee, please
-SPEECHPROBE dictation reserve en_US: true
-SPEECHPROBE file frames: 33195, sample rate 22050.0
-SPEECHPROBE older recognizer on device heard the test sentence: I would like a coffee please
-SPEECHPROBE older recognizer on device: true
-SPEECHPROBE speech authorization: 3 (3 is authorized)
