@@ -80,7 +80,7 @@ The `.p8` text was probably cut off. Paste it again into `ASC_KEY_P8`, with the 
 A build with that number already exists, for example one you uploaded from Xcode. Run the workflow again: every run gets a higher number. If a build from Xcode used a number well above the run number, ask for the workflow to add a fixed offset to the run number.
 
 **Upload rejected because of the SDK or Xcode version**
-Apple sets a minimum Xcode version for uploads, and it rises each spring. Since April 28, 2026, uploads must be built with the iOS 26 SDK, so the TestFlight workflow selects Xcode 26 (`scripts/ci_select_xcode.sh 26`), while the Simulator demo and the main CI tests use Xcode 16 to match your Mac. CI also builds every push with Xcode 26 so the upload build stays working.
+Apple sets a minimum Xcode version for uploads, and it rises each spring. Since April 28, 2026, uploads must be built with the iOS 26 SDK, so the TestFlight workflow selects Xcode 26 (`scripts/ci_select_xcode.sh 26`), while the main CI tests use Xcode 16. CI also builds every push with Xcode 26 so the upload build stays working, and runs the demo script with Xcode 16, 26 and 27 and every test with Xcode 27.
 
 **The build uploaded but does not appear in TestFlight**
 It is still processing. Check your email for a message from App Store Connect. If processing failed, the email says why.

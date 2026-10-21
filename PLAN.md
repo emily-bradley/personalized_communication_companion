@@ -66,6 +66,8 @@ The scheduled agent works top to bottom. Check items off here (`- [x]`) when don
 - [x] Review polish from Oct 19 run 4: Back chevron scales with its label, screenshot fade on non-orb screens, hidden tile icon dims with its label (added Oct 20)
 - [x] `scripts/demo.sh --fresh` (fresh Lucas, undoes rehearsal changes) and `--welcome` (opens on Welcome); CI runs all three forms; `docs/DEMO.md` matches the app after a dry rehearsal review (added Oct 20 run 8)
 - [x] Review fixes from Oct 20 run 6: Incorrect fills the removed card's slot so the others never move; Settings names the theme chosen at setup; orb screens fade at the bottom when they scroll; primary button labels wrap clear of the pill ends; CI publishes a build and test summary beside the screenshots (added Oct 20)
+- [ ] `scripts/demo.sh` proven with Xcode 27 (the Mac App Store offers 27 now; it needs macOS Tahoe 26.6), on a Simulator the script creates itself as on a fresh Mac, with the Mac's own /bin/bash; it works without sudo when the Mac points at the Command Line Tools; every test also runs on Xcode 27 and the iOS 27 Simulator; `docs/DEMO.md` prerequisites updated (added Oct 21)
+- [ ] Speak: a double tap says the message once with one haptic; Spoken stays while the voice plays and about a second after (handoff: speak, then show the check) (added Oct 21)
 
 ## TestFlight readiness (build in as you go; finish first thing the week of Oct 26)
 - [x] Bundle ID `com.emilykenney.selvo` (placeholder until Emily confirms), version 0.1.0, build number from the CI run number
