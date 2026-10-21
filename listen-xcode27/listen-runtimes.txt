@@ -1,0 +1,16 @@
+Xcode 27.2
+== Runtimes ==
+iOS 27.0 (27.0 - 24A434) - com.apple.CoreSimulator.SimRuntime.iOS-27-0
+tvOS 27.0 (27.0 - 24J360) - com.apple.CoreSimulator.SimRuntime.tvOS-27-0
+watchOS 27.0 (27.0 - 24R362) - com.apple.CoreSimulator.SimRuntime.watchOS-27-0
+visionOS 27.0 (27.0 - 24M362) - com.apple.CoreSimulator.SimRuntime.xrOS-27-0
+
+== iOS 27.0
+test exit 0
+2026-10-21 15:21:18.917 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 15:21:19.357 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 15:21:19.951 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 15:21:19.996 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 15:21:20.323 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 15:21:20.339 Df Selvo[11810:99ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-21 15:21:20.339 E  Selvo[11810:99ea] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
