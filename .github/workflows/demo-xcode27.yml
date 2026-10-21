@@ -71,7 +71,7 @@ jobs:
             > build/xcodebuild.log 2>&1
           status=$?
           grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
-          grep -E "error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$TEST_RUNNER_SCREENSHOT_DIR/build-summary.txt" || true
+          grep -E "SPEECHPROBE|error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$TEST_RUNNER_SCREENSHOT_DIR/build-summary.txt" || true
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
           exit $status
       - name: Save why Listen could or could not run (Selvo's own log lines, never what was heard)
