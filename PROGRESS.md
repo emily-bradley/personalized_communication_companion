@@ -366,3 +366,47 @@ Main was green at the start (c061121). Every item through Thursday and the TestF
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - Optional: whether setup should speak to the person throughout ("you") or name them throughout.
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-21, build run 1 (07:57 to about 10:20 Central)
+
+Main was green at the start (12d5b34). Every item through Thursday and the TestFlight section was already done, so two fresh reviewers looked from angles no earlier run used: one read `scripts/demo.sh` and DEMO.md for failures a personal Mac hits that CI never does, one checked every behavior in the iPhone section of the handoff against the code. The biggest finding: **the Mac App Store now offers Xcode 27** (27.1, needs macOS Tahoe 26.6; Apple's system requirements page), not 26, so this run proved the demo and every test on Xcode 27.
+
+Note for the next run: this run overlapped with the 09:55 run (session 01Xg6), which pushed 8b623ef and ed95e59 between my commits. Both runs worked on the Listen probe; nothing conflicted.
+
+### Shipped
+- `scripts/demo.sh` works without sudo when the Mac points at the Command Line Tools (it uses Xcode for the script only), stops with a plain fix when Xcode's first launch setup is missing, opens the Simulator that belongs to the Xcode in use, and says the first boot can take about 5 minutes. `find_simulator.py` names Components (Platforms in Xcode 16) and turns a Simulator tool error into a plain message.
+- `scripts/demo.sh --ios 18` picks the iOS version of the Simulator; it combines with `--fresh` and `--welcome`. (Checked here with a mocked simctl; CI runs the plain forms.)
+- CI: the demo jobs now run with the Mac's own `/bin/bash` (bash 3.2). The Xcode 26 demo job first deletes the runner's iPhone 16 Simulators, so the script creates its own, as on a Mac with a fresh Xcode 26 or 27 (proven: "Deleting iPhone 16 Simulator" then a new device, then green). New workflow `demo-xcode27.yml` on the `xcode-27` runner: `scripts/demo.sh` plain, `--welcome` and `--fresh` with Xcode 27.2, and every unit, UI, demo walk and accessibility audit test on the iOS 27 Simulator. `ci_select_xcode.sh` prefers a release Xcode over a beta.
+- Speak: a quick double tap says the message once with one haptic (before, the second tap restarted the sentence). On Suggest, Spoken now stays while the voice plays and about a second after it ends, as the handoff says (before, a long message lost its Spoken check while still playing). New `SelvoTests/SpeakTests.swift`.
+- No Sendable warning from the speech synthesizer with Xcode 27 (with Xcode 27 the warning printed as an "error:" line in the demo script's output, which would have looked alarming on Emily's Mac).
+- Listen writes why it cannot run to the Mac's log (subsystem `com.emilykenney.selvo`, category `listen`; never what it hears). CI saves those lines as `selvo-log.txt` beside the screenshots.
+- `docs/DEMO.md`: Xcode 27, 26 or 16 with the macOS each needs, no separate Command Line Tools step, what to run if Xcode is not selected or needs its first launch setup, about 40 GB free, clone into the home folder, practice Listen the day before so permission prompts come then, `--fresh` before the demo, Spoken while the voice plays.
+
+### Verified, and how
+- CI green on every push, all jobs. Latest fully finished: 2ef38c9, CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39618970688 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39618970543. Later pushes (ac4bf22, the other run's 8b623ef and ed95e59, 73d2ac7) were still queued when this run ended.
+- `scripts/demo.sh` passed in CI with Xcode 16, 26 (fresh-Mac Simulator path) and 27 (27.2, iOS 27 Simulator).
+- Screenshots: `demo-xcode27/demo-launch*.png` beside `demo-xcode26` (same pixels apart from the status bar). All 81 shots from `screenshots-xcode27` compared by pixel difference with `screenshots` (iOS 18): only the keyboard in setup step 1, the status bar, and Listen differ.
+
+### Found: Listen in the iOS 27 Simulator
+- On the iOS 27 Simulator Listen shows "Listening is not available on this phone right now." The log says: on-device recognition is reported as supported, but each session fails at once with kLSRErrorDomain 300, three times, so Selvo stops. A probe test shows the newer on-device `SpeechTranscriber` is not available in the Simulator either. On the iOS 18 Simulator Listen starts normally (log: on device true, 48 kHz, then "no speech" because CI has no voice).
+- So on Emily's Mac with Xcode 27, Listen will most likely not hear anything unless the Simulator is iOS 18 (or iOS 26, if the probe shows it works). The rest of the demo, including Show replies on the Listen screen, still works.
+- `listen-probe.yml` runs the Listen test on every installed runtime with Xcode 26 and 27 and publishes `listen-xcode26/` and `listen-xcode27/` to `ci-screenshots`. Read those first.
+- Reading I took: I did not make the Simulator fall back to Apple's server recognition. That would send what the other person says to Apple, and the rules say never to add network calls that send what a person says. It is Emily's call (below).
+
+### Readings I took from the reviews (left as is)
+- Clear on Suggest still empties the message and goes Home, as DEMO.md walks it; it is not a destructive action on saved data. Removing a photo already takes two taps (menu, then confirm).
+- The model's first stack may still replace the saved phrases if it arrives within 1.5 s and nothing was tapped: the handoff says to fill the stack when results arrive.
+- The Listen caption "Replies are on their way. Saved phrases still work." is the artboard's copy.
+- No contrast setting: the handoff lists one, the Settings artboard has none (artboard wins). Incorrect feedback is kept for the screen only, not saved to the profile; worth doing for TestFlight, not before the demo, since it would change the cards between rehearsal and demo.
+
+### Next
+- Read the Listen probe reports. If iOS 18 (or 26) works, put `./scripts/demo.sh --ios 18` in DEMO.md with how to add that Simulator in Xcode (Settings, Components, plus button), and consider making demo.sh pick it automatically when installed. Add a CI form that runs `--ios 18`.
+- Friday: the final artboard pass on the final build and the final PROGRESS summary.
+
+### Needs Emily
+- **Which Xcode is on your Mac?** The App Store now gives Xcode 27 (needs macOS Tahoe 26.6). All three versions are proven, but with Xcode 27 the Simulator cannot run Listen on the phone itself. Decide one: (a) add the iOS 18 Simulator in Xcode and run `./scripts/demo.sh --ios 18` (keeps everything on the Mac; the next run will document it), or (b) allow the Simulator only to use Apple's server speech recognition for the demo (what is said near the Mac goes to Apple).
+- On her Mac: Xcode, then Homebrew (https://brew.sh). Then `./scripts/demo.sh` from the repo, and `./scripts/demo.sh --fresh` after each rehearsal. See `docs/DEMO.md`.
+- For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
+- Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
+- Optional: whether setup should speak to the person throughout ("you") or name them throughout.
+- The real logo artwork, if she wants it in place of the drawn wordmark.
