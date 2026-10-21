@@ -1,4 +1,4 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-10-21 21:27:57.719 Df Selvo[14337:b3a2] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-21 21:28:01.151 Df Selvo[14337:b3a2] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-21 21:49:40.852 Df Selvo[15583:c579] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-21 21:49:45.772 Df Selvo[15583:c579] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
