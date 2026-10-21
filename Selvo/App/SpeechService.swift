@@ -7,7 +7,9 @@ import SelvoCore
 /// Everything stays on the phone.
 @Observable
 final class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
-    private let synthesizer = AVSpeechSynthesizer()
+    /// Only used from the main thread. Marked so newer SDKs, where the delegate protocol is
+    /// Sendable, do not warn that the synthesizer itself is not.
+    nonisolated(unsafe) private let synthesizer = AVSpeechSynthesizer()
     /// True while a message is being spoken.
     private(set) var isSpeaking = false
     /// Increments each time a message finishes, so views can show the Spoken state.
