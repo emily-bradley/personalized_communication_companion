@@ -10,3 +10,4 @@ SelvoCore/.swiftpm/
 *.xcresult
 .DS_Store
 xcuserdata/
+__pycache__/
