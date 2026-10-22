@@ -80,15 +80,17 @@ jobs:
           # demo.sh leaves Selvo running; close it so the test runner starts on a quiet Simulator.
           xcrun simctl terminate "$UDID" com.emilykenney.selvo 2>/dev/null
           # Once more only if the test runner died before any test ran (Oct 21 twice, Oct 22 once:
-          # "while preparing to run tests" or "failed to initialize for UI testing"), after a fresh boot.
+          # "while preparing to run tests" or "failed to initialize for UI testing"), or when the
+          # Simulator's accessibility server went away mid test (Oct 22: kAXErrorServerNotFound),
+          # after a fresh boot.
           for attempt in 1 2; do
             xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
               -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
               -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
               > build/listen-ios26.log 2>&1
             status=$?
-            grep -qE "while preparing to run tests|failed to initialize for UI testing" build/listen-ios26.log || break
-            echo "attempt $attempt: the test runner failed before any test ran" >> "$OUT/listen-ios26.txt"
+            grep -qE "while preparing to run tests|failed to initialize for UI testing|kAXErrorServerNotFound" build/listen-ios26.log || break
+            echo "attempt $attempt: the test runner or the Simulator's accessibility server failed" >> "$OUT/listen-ios26.txt"
             [ "$attempt" = 1 ] || break
             xcrun simctl shutdown "$UDID" 2>/dev/null
             xcrun simctl boot "$UDID" 2>/dev/null
