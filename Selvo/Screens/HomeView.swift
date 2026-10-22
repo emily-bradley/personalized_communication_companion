@@ -11,8 +11,9 @@ struct HomeView: View {
             TopBar(title: "") {
                 Wordmark()
             } trailing: {
-                // Settings and Help keep their full width; the empty title gives way.
-                HStack(spacing: Spacing.space3) {
+                // Settings and Help keep their full width; the empty title gives way. As on
+                // App-Home, the gear's 44pt frame sits right against Help with no extra gap.
+                HStack(spacing: 0) {
                     IconButton(systemImage: "gearshape", label: "Settings") { model.open(.settings) }
                     HelpButton { model.open(.help) }
                 }

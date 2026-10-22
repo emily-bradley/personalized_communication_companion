@@ -54,11 +54,15 @@ struct WelcomeView: View {
                 .textStyle(TypeScale.body)
                 .foregroundStyle(theme.colors.inkMuted)
                 .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: compact ? .infinity : 300)
+                .frame(maxWidth: compact ? .infinity : Self.bodyMaxWidth)
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
     }
+
+    /// The artboard's 300pt plus a little room, because Lexend sets wider on the phone than
+    /// in the artboard; the body then breaks into two lines with no word left alone.
+    private static let bodyMaxWidth: Double = 330
 
     /// For the demo, the existing profile is Lucas.
     private func openExistingProfile() {

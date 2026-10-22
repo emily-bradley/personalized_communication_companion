@@ -72,7 +72,18 @@ private struct OrbGlow: ViewModifier {
     let enabled: Bool
     let token: ShadowToken
 
+    /// Drawn like the CSS halo in `glow-orb`: a disc grown by the spread, then blurred.
+    /// A plain shadow has no spread, so it drew a smaller halo than the artboard.
     func body(content: Content) -> some View {
-        if enabled { content.tokenShadow(token) } else { content }
+        if enabled {
+            content.background(
+                Circle()
+                    .fill(Color(token.color))
+                    .padding(-token.spread)
+                    .blur(radius: token.blur / 2)
+            )
+        } else {
+            content
+        }
     }
 }

@@ -21,6 +21,9 @@ struct PageDots: View {
         }
         .frame(maxWidth: .infinity, minHeight: Spacing.touchMin)
         .contentShape(Rectangle())
+        // In the layout the row takes only the dots' 8pt, as on App-Photos (16pt above
+        // Speak); the 44pt tap area stays and reaches into the gaps above and below.
+        .padding(.vertical, -(Spacing.touchMin - Self.dotSide) / 2)
         .onTapGesture {
             page = (page + 1) % max(count, 1)
         }
