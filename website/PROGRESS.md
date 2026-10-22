@@ -19,6 +19,8 @@ Live URL: https://selvo-website.pages.dev (Cloudflare check on b9805f9: "Deploy 
 - CI green on b9805f9: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39854548598
 - Cloudflare Pages check on b9805f9: deploy successful.
 
+**CI red on fb98072 (docs only):** the Lighthouse step failed while the identical site passed on b9805f9 and passes locally (all six pages). The log and artifact cannot be downloaded from this session (storage host blocked), so the failing page is unknown; the earlier red Lighthouse run was home performance at 0.86. Fix: Lighthouse now runs 3 times per page and asserts on the median (`lighthouserc.json`), so one slow runner sample cannot turn `website-staging` red. Same thresholds (accessibility 100, performance 90). Verified locally: 18 runs, all assertions pass.
+
 **Next (Friday):** open the live URL if a run is allowed to, final summary in PROGRESS.md. No new features.
 
 ## 2026-10-22, 3:58pm to about 4:15pm Central (Thursday run 5)

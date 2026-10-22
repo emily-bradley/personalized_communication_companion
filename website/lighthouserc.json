@@ -10,7 +10,7 @@
         "http://localhost/articles/index.html",
         "http://localhost/articles/three-replies/index.html"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": { "chromeFlags": "--no-sandbox --headless=new" }
     },
     "assert": {
