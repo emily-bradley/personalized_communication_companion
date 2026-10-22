@@ -1,13 +1,6 @@
-    iPhone 16 (1BCEFA77-7FEB-4EA8-A4C5-D8EDB105A1C0) (Booted) 
+    iPhone 16 (BB0ACA69-0E7E-4FC2-B613-1CFC3F1D14D6) (Booted) 
 test exit 65
-2026-10-21 23:53:59.445 xcodebuild[24621:70234] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-<unknown>:0: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : Failed to get screenshot: Timed out while requesting screenshot.
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (287.310 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-21 23:58:35.643.
-	 Executed 1 test, with 1 failure (0 unexpected) in 287.310 (287.313) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-21 23:58:35.648.
-	 Executed 1 test, with 1 failure (0 unexpected) in 287.310 (287.318) seconds
-Test Suite 'Selected tests' failed at 2026-10-21 23:58:35.649.
-	 Executed 1 test, with 1 failure (0 unexpected) in 287.310 (287.325) seconds
+*** If you believe this error represents a bug, please attach the result bundle at /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/DerivedData-ios26/Logs/Test/Test-Selvo-2026.10.22_00-24-31-+0000.xcresult
+Testing failed:
+	SelvoUITests-Runner (43843) encountered an error (The test runner failed to initialize for UI testing. (Underlying Error: Timed out while loading Accessibility.))
 ** TEST FAILED **
-2026-10-21 23:56:26.983 Df Selvo[38738:19493] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
