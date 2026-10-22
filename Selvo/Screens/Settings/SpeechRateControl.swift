@@ -66,6 +66,9 @@ struct SpeechRateControl: View {
             @unknown default: break
             }
         }
+        // The track takes the thumb's 28pt in the layout, as on App-Settings; the 44pt touch
+        // and accessibility frame reaches into the gaps above and below.
+        .padding(.vertical, -(Spacing.touchMin - Self.thumbSide) / 2)
     }
 
     private func select(_ index: Int) {

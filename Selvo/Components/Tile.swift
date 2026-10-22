@@ -91,8 +91,9 @@ struct Tile: View {
     @ViewBuilder private var artworkView: some View {
         switch artwork {
         case .symbol(let name):
+            // About the size of the artboard's 32pt line icons (24 unit box, 1.8 stroke).
             Image(systemName: name)
-                .font(.system(size: 32, weight: .regular))
+                .font(.system(size: 26, weight: .regular))
                 .foregroundStyle(theme.colors.teal)
                 .accessibilityHidden(true)
         case .drawing(let shape):
