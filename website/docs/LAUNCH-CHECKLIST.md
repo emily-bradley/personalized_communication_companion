@@ -15,7 +15,7 @@ Everything here needs Emily before a public launch. The demo can go out with the
 
 ## Settings
 - `PUBLIC_WAITLIST_URL`: the form backend that receives early-access emails (Buttondown, ConvertKit, or a Cloudflare Worker). Until it is set, sign-ups show "Saved" but are not stored.
-- Custom domain (`selvo.com` if available), then update `SITE_URL` in `src/lib/site.ts`.
+- Connect `meetselvo.com` as the custom domain, then set the Cloudflare build variable `SITE_URL` to `https://meetselvo.com` (steps in `docs/DEPLOY.md`).
 - Privacy and Accessibility pages: real statements.
 - Link preview: once live, paste the link into a message to yourself and check the title, description, and image (`public/og.png`).
 

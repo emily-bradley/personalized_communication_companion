@@ -18,3 +18,7 @@ The run could not reach `emily-bradley/selvo-website`, so the site is built in `
 - The early-access form validates on submit only. Error text is in the danger color and starts with the word "Error". With no `PUBLIC_WAITLIST_URL`, it shows the success state and sends nothing.
 - Inner pages that are not built yet show a short "on its way" page so no link in the header breaks before Wednesday.
 - No Content Security Policy header yet, because Astro inlines small scripts. Revisit on Friday.
+
+## Oct 22: production domain is meetselvo.com
+
+The Selvo build handoff (updated by Emily) says the production domain is `meetselvo.com`, bought Oct 20, and that `selvo.com` is not Selvo's and must never be linked. `SITE_URL` now reads the `SITE_URL` build variable and falls back to `https://selvo-website.pages.dev`, so Emily switches canonical links, sitemap, and link previews to the domain in the Cloudflare dashboard once the domain resolves, with no code change and no risk of broken previews before then. A unit test keeps `selvo.com` out of the site source.

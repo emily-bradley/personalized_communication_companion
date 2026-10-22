@@ -1,5 +1,15 @@
-// The one place the public address lives. Switch to the custom domain once Emily adds one.
-export const SITE_URL = "https://selvo-website.pages.dev";
+const DEFAULT_SITE_URL = "https://selvo-website.pages.dev";
+
+/**
+ * The public address. Set the SITE_URL build variable in Cloudflare to https://meetselvo.com
+ * once that domain is connected; until then links point at the pages.dev address.
+ */
+export function resolveSiteUrl(value: string | undefined): string {
+  const url = value?.trim().replace(/\/+$/, "");
+  return url && /^https:\/\/[^/\s]+$/.test(url) ? url : DEFAULT_SITE_URL;
+}
+
+export const SITE_URL = resolveSiteUrl(globalThis.process?.env.SITE_URL);
 
 export const SITE_NAME = "Selvo";
 

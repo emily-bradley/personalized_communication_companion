@@ -1,6 +1,8 @@
 # Selvo website demo
 
-Live link: not deployed yet. Connect Cloudflare Pages using `docs/DEPLOY.md`; the address will be `https://selvo-website.pages.dev`.
+Live link: not deployed yet. Connect Cloudflare Pages using `docs/DEPLOY.md`; the address will be `https://selvo-website.pages.dev`, and `https://meetselvo.com` once the domain is connected.
+
+Backup if the live link is not ready: the private claude.ai artifact "Selvo Website Demo" (https://claude.ai/artifact/5xPHjGeAD9yGeEDrarPUKj), shared from its Share menu. It is a snapshot of the pages, not the deployed site.
 
 ## 5-minute walk-through
 

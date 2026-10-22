@@ -17,6 +17,10 @@ describe("brand rules", () => {
     expect(readFileSync(file, "utf8")).not.toMatch(/[\u2013\u2014]/);
   });
 
+  it.each(sources)("%s never links selvo.com, which Selvo does not own", (file) => {
+    expect(readFileSync(file, "utf8")).not.toMatch(/(?<![\w.-])selvo\.com/i);
+  });
+
   it.each(views)("%s has no hex color literals", (file) => {
     expect(readFileSync(file, "utf8")).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
   });

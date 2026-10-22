@@ -3,9 +3,29 @@
 Live URL: not deployed yet (Cloudflare Pages not connected).
 
 ## Needs Emily
-1. **Connect the site to Cloudflare Pages** (10 minutes, steps in `docs/DEPLOY.md`). For now connect `emily-bradley/personalized_communication_companion` with production branch `website-staging` and root directory `website`. This is the only thing between you and a live link.
-2. **Create the empty private repo `emily-bradley/selvo-website`** and give the Claude GitHub app access. Until then the site lives in `website/` on the `website-staging` branch. (Optional: the site can stay where it is through Friday.)
-3. Later, before a public launch: custom domain (`selvo.com` if you can get it), `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+1. **Connect the site to Cloudflare Pages** (10 minutes, steps in `docs/DEPLOY.md`). Connect `emily-bradley/personalized_communication_companion` with production branch `website-staging` and root directory `website`. As of Thursday 8am there is still no Cloudflare build on any commit; the demo is Friday 6pm.
+2. **Then connect `meetselvo.com`** in the Pages project (Custom domains), and once it opens the site, add the build variable `SITE_URL` = `https://meetselvo.com` and redeploy (steps in `docs/DEPLOY.md`). Skip this if time is short: the pages.dev link works on its own.
+3. **Backup if Cloudflare is not ready by Friday:** your private claude.ai artifact "Selvo Website Demo" (https://claude.ai/artifact/5xPHjGeAD9yGeEDrarPUKj, published Thursday outside these runs) holds all pages; it can be shared from its Share menu. It is a snapshot, not the deployed site.
+4. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
+5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+
+## 2026-10-22, 7:58am to 8:30am Central (Thursday run 1)
+
+Live URL: not deployed yet (no Cloudflare check or status on 26d4ff3; the pages.dev address cannot be fetched from this session).
+
+**Readings taken:** `selvo-website` still not reachable (no add_repo tool), so work stayed on `website-staging`. Every Thursday build item was already done on Oct 19. The project handoff doc now says the production domain is `meetselvo.com` (bought Oct 20) and that `selvo.com` must never be linked, so this run made the site ready for that domain without risking link previews before it is connected.
+
+**Shipped:**
+- `SITE_URL` reads the `SITE_URL` build variable (an https origin) and falls back to `https://selvo-website.pages.dev`. Setting it in Cloudflare switches canonical links, sitemap, robots, and Open Graph URLs to `meetselvo.com` with no code change.
+- `docs/DEPLOY.md` custom domain steps rewritten for `meetselvo.com`; launch checklist updated; decision recorded in `docs/DECISIONS.md`. All `selvo.com` mentions removed, and a unit test keeps it out of the site source.
+
+**Verified and how:**
+- CI green on 26d4ff3 before changes: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39338647687
+- Local: lint, typecheck, 132 unit tests (new `resolveSiteUrl` tests), build, 67 e2e tests (axe, screenshots, links, keyboard) all pass.
+- Built twice: default build gives `https://selvo-website.pages.dev/` canonical and og:image; `SITE_URL=https://meetselvo.com` gives `https://meetselvo.com/` canonical and robots sitemap line.
+- Found the existing "Selvo Website Demo" artifact (10 pages) and listed it as a backup in Needs Emily rather than publishing a duplicate.
+
+**Next:** Friday items still wait on a live link: WebFetch every route, record the URL here and in `docs/DEMO.md`, link preview check, screenshot review on the live site, final summary.
 
 ## 2026-10-19, 5:57pm to 6:10pm Central (run 4)
 

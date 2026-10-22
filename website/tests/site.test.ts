@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isValidEmail } from "../src/lib/email";
-import { isCurrent } from "../src/lib/site";
+import { isCurrent, resolveSiteUrl } from "../src/lib/site";
 
 describe("isCurrent", () => {
   it("matches the page and its children", () => {
@@ -18,5 +18,19 @@ describe("isValidEmail", () => {
     expect(isValidEmail("you@example")).toBe(false);
     expect(isValidEmail("")).toBe(false);
     expect(isValidEmail("a b@c.d")).toBe(false);
+  });
+});
+
+describe("resolveSiteUrl", () => {
+  it("uses the build variable when it is an https origin", () => {
+    expect(resolveSiteUrl("https://meetselvo.com")).toBe("https://meetselvo.com");
+    expect(resolveSiteUrl(" https://meetselvo.com/ ")).toBe("https://meetselvo.com");
+  });
+
+  it("falls back to the pages.dev address otherwise", () => {
+    expect(resolveSiteUrl(undefined)).toBe("https://selvo-website.pages.dev");
+    expect(resolveSiteUrl("")).toBe("https://selvo-website.pages.dev");
+    expect(resolveSiteUrl("meetselvo.com")).toBe("https://selvo-website.pages.dev");
+    expect(resolveSiteUrl("https://meetselvo.com/about")).toBe("https://selvo-website.pages.dev");
   });
 });

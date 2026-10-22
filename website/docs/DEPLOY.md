@@ -25,15 +25,17 @@ The site is static (Astro). Cloudflare Pages builds it from GitHub on every push
 
 Every push to the production branch now deploys automatically, and every other branch gets its own preview link.
 
-## Custom domain
+## Custom domain: meetselvo.com
 
-You would like `selvo.com` if you can get it.
+You bought `meetselvo.com` on Oct 20. (Selvo does not own `selvo.com`; the site never links to it.)
 
 1. In the Pages project, open **Custom domains**, then **Set up a custom domain**.
-2. Type the domain and follow the prompts.
+2. Type `meetselvo.com` and follow the prompts. Repeat for `www.meetselvo.com` if you want both.
    - If the domain's DNS is already on Cloudflare, it connects in one step.
-   - If it is registered elsewhere, Cloudflare shows the one CNAME record to add at your registrar.
-3. Tell the build agent the new domain (a line in PROGRESS.md under Needs Emily is enough). It changes `SITE_URL` in `src/lib/site.ts`, which updates canonical links, the sitemap, robots, and link previews.
+   - If it is registered elsewhere, Cloudflare shows the one record to add at your registrar, or offers to move the DNS to Cloudflare.
+3. Once `https://meetselvo.com` opens the site, go to **Settings**, **Variables and Secrets**, add the variable `SITE_URL` with value `https://meetselvo.com` for Production, then **Deployments**, **Retry deployment** on the latest one. Canonical links, the sitemap, robots, and link previews then use the domain. No code change is needed.
+
+Until step 3 is done, links and previews use `https://selvo-website.pages.dev`, which always works. Do step 3 only after the domain opens the site, or link previews will show no picture.
 
 ## If you used a different project name
 
