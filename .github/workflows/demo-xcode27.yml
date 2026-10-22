@@ -160,6 +160,11 @@ jobs:
               >> build/xcodebuild.log 2>&1
             status=$?
           fi
+          # Only launch failures (the Simulator could not stop or start Selvo): rerun those once.
+          if [ "$status" -ne 0 ]; then
+            scripts/ci_retry_launch_failures.sh build/xcodebuild.log "$UDID"
+            [ $? -eq 0 ] && status=0
+          fi
           grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
           grep -E "SPEECHPROBE|error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$TEST_RUNNER_SCREENSHOT_DIR/build-summary.txt" || true
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi

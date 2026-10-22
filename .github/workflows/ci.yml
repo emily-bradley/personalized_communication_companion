@@ -58,6 +58,11 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             > build/xcodebuild.log 2>&1
           status=$?
+          # Only launch failures (the Simulator could not stop or start Selvo): rerun those once.
+          if [ "$status" -ne 0 ]; then
+            scripts/ci_retry_launch_failures.sh build/xcodebuild.log "$UDID"
+            [ $? -eq 0 ] && status=0
+          fi
           grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
           # Agents cannot download logs, so the summary travels with the screenshots.
           mkdir -p "$RUNNER_TEMP/screenshots"
