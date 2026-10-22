@@ -43,6 +43,14 @@ final class ComponentSizingTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(size(MessageStrip(message: nil)).height, 72)
     }
 
+    /// Suggest keeps two lines, so the cards do not move when the message wraps.
+    func testMessageStripKeepsReservedLines() {
+        let short = size(MessageStrip(message: "Coffee. Now. Please.", reservedLines: 2)).height
+        let wrapped = size(MessageStrip(message: "Coffee first. Then I'll be nice.", reservedLines: 2)).height
+        XCTAssertEqual(short, wrapped, accuracy: 0.5)
+        XCTAssertGreaterThan(short, size(MessageStrip(message: "Coffee. Now. Please.")).height)
+    }
+
     func testSuggestionCardMeetsTouchFloor() {
         XCTAssertGreaterThanOrEqual(size(SuggestionCard(text: "Yes", caption: nil) {}).height, 44)
     }
