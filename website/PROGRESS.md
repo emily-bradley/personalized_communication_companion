@@ -1,13 +1,33 @@
 # Selvo website progress
 
-Live URL: not deployed yet (Cloudflare Pages not connected).
+Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22 between 8:30 and 10am; production branch `website-staging`). Every push since 6e523cc shows a "Cloudflare Pages: Deployed successfully" check. This session cannot open pages.dev (WebFetch needs approval nobody is there to give), so the live site has not been opened from here yet.
 
 ## Needs Emily
-1. **Connect the site to Cloudflare Pages** (10 minutes, steps in `docs/DEPLOY.md`). Connect `emily-bradley/personalized_communication_companion` with production branch `website-staging` and root directory `website`. As of Thursday 8am there is still no Cloudflare build on any commit; the demo is Friday 6pm.
-2. **Then connect `meetselvo.com`** in the Pages project (Custom domains), and once it opens the site, add the build variable `SITE_URL` = `https://meetselvo.com` and redeploy (steps in `docs/DEPLOY.md`). Skip this if time is short: the pages.dev link works on its own.
-3. **Backup if Cloudflare is not ready by Friday:** your private claude.ai artifact "Selvo Website Demo" (https://claude.ai/artifact/5xPHjGeAD9yGeEDrarPUKj, published Thursday outside these runs) holds all pages; it can be shared from its Share menu. It is a snapshot, not the deployed site.
-4. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
-5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+1. **Open https://selvo-website.pages.dev once** on your phone and paste it into a message to yourself to check the preview card. Runs cannot open it from here.
+2. **Optional: connect `meetselvo.com`** in the Pages project (Custom domains), and once it opens the site, add the build variable `SITE_URL` = `https://meetselvo.com` and redeploy (steps in `docs/DEPLOY.md`). The pages.dev link works on its own for Friday.
+3. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
+4. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+
+## 2026-10-22, 9:58am to about 10:40am Central (Thursday run 2)
+
+Live URL: https://selvo-website.pages.dev (Cloudflare check on 6e523cc and 177d463: "Deployed successfully"; first deploy preview https://dbe4b4b6.selvo-website.pages.dev).
+
+**Readings taken:** The Cloudflare check names project `selvo-website` and shows no separate branch preview URL, so `website-staging` is the production branch and the production address is `selvo-website.pages.dev`. WebFetch of pages.dev was not approved in this unattended run, and the rules forbid fetching another way, so live checks are left to Emily or a later run. Since Cloudflare builds the same commit, the local build stands in for the live one for tags and screenshots.
+
+**Shipped (177d463):**
+- Article pages use `og:type` article; the 404 is `noindex` with no canonical link (it pointed at `/404/`). e2e test covers both.
+- Article byline at 375 now reads "By Emily Kenney, co-founder" then "[DATE] · 4 min read" instead of leaving a dangling dot; one line at 768 and up.
+- Removed an extra 112px spacer before the early-access card on the article page.
+- Articles featured card: "Read the guide" is muted, not teal, so it no longer looks like a link while the guide does not exist.
+- `docs/DEMO.md` now has the live link; PLAN and launch checklist updated.
+
+**Verified and how:**
+- Local: lint, typecheck, 132 unit tests, build, 67 e2e tests (axe, screenshots, links, keyboard, meta) all pass.
+- Link preview tags read from every built page: title, description, absolute `og:image` on pages.dev, 1200x630 image.
+- Fresh reviewer subagent (had not seen the code) compared every page at 1440 and 375 (768 spot-checked) to the rendered references: no must-fix. Fixed its byline, spacing, and fake-link notes; left as is: a few balanced headings wrap early at 375, phone figure line wraps at 1440, footer links take two rows at 375, Privacy and Accessibility are stubs (skip them in the demo).
+- CI green: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39802638014 ; Cloudflare deployed 177d463.
+
+**Next (Friday):** open the live URL (if allowed) and walk every route, keyboard walk-through on the live site, final summary in PROGRESS.md. No new features.
 
 ## 2026-10-22, 7:58am to 8:30am Central (Thursday run 1)
 
