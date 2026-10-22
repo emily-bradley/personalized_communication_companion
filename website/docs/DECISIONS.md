@@ -22,3 +22,7 @@ The run could not reach `emily-bradley/selvo-website`, so the site is built in `
 ## Oct 22: production domain is meetselvo.com
 
 The Selvo build handoff (updated by Emily) says the production domain is `meetselvo.com`, bought Oct 20, and that `selvo.com` is not Selvo's and must never be linked. `SITE_URL` now reads the `SITE_URL` build variable and falls back to `https://selvo-website.pages.dev`, so Emily switches canonical links, sitemap, and link previews to the domain in the Cloudflare dashboard once the domain resolves, with no code change and no risk of broken previews before then. A unit test keeps `selvo.com` out of the site source.
+
+## Oct 22: copy never assumes the person reads
+
+Emily's rule (Oct 22): the people Selvo is for cannot read, write, or speak on their own. Four lines described a feature as if they read words on the screen, so they were reworded, departing from the artboards on purpose: How it works step 3 ("A single tap. Selvo shows you when it is done." instead of "you see Spoken"), and in the three replies article "Choose in a second" (was "Scan in a second"), "a short list you can choose from quickly" (was "scan quickly"), and "Large, clear options, sized to your eyes" (was "Large type on every option"). Nothing new was claimed about the app. Lines about the listener reading (Show) and about caregivers setting text size were left, since they describe someone else reading or a setting. The artboards in `docs/design/website/` should be updated to match.

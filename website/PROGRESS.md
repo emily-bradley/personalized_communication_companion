@@ -6,7 +6,23 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 1. **Open https://selvo-website.pages.dev once** on your phone and paste it into a message to yourself to check the preview card. Runs cannot open it from here.
 2. **Optional: connect `meetselvo.com`** in the Pages project (Custom domains), and once it opens the site, add the build variable `SITE_URL` = `https://meetselvo.com` and redeploy (steps in `docs/DEPLOY.md`). The pages.dev link works on its own for Friday.
 3. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
-4. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
+5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+
+## 2026-10-22, 3:58pm to about 4:15pm Central (Thursday run 5)
+
+Live URL: https://selvo-website.pages.dev (Cloudflare check on 21afa86: "Deploy successful", preview https://a09f7ad6.selvo-website.pages.dev).
+
+**Readings taken:** A run at 3:11pm added Emily's rule that the people Selvo is for cannot read, write, or speak. This run audited the copy of every page against it and reworded the four lines that assumed the person reads words, taking the new rule over "copy matches the artboards" (recorded in `docs/DECISIONS.md`). No new claims about the app. WebFetch of the live site was again not approved, so the live site is still unopened from here.
+
+**Shipped:** How it works step 3 and three lines of the three replies article reworded (details in DECISIONS.md).
+
+**Verified and how:**
+- CI green on 21afa86 before changes: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39846700019
+- Local: lint, typecheck, unit tests, build (9 pages), 67 e2e tests (axe, screenshots, links, keyboard, meta) all pass.
+- Read the visible text of all six content pages from the build; looked at the article figure at 375 after the change (wraps cleanly).
+
+**Next (Friday):** open the live URL if a run is allowed to, final summary in PROGRESS.md. No new features.
 
 ## 2026-10-22, 1:58pm to about 2:15pm Central (Thursday run 4)
 
