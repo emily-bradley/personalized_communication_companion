@@ -1,13 +1,9 @@
-    iPhone 16 (5FE20110-8E6B-4C20-A13E-1DC613D67145) (Booted) 
-test exit 65
-2026-10-22 13:37:03.206 xcodebuild[77198:183669] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:196: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertTrue failed - Home shows Speak
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (341.600 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-22 13:42:37.635.
-	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.606) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-22 13:42:37.638.
-	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.609) seconds
-Test Suite 'Selected tests' failed at 2026-10-22 13:42:37.638.
-	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.616) seconds
-** TEST FAILED **
-2026-10-22 13:40:35.136 Df Selvo[94458:374a4] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+    iPhone 16 (807087F1-E5C1-43C9-999D-142F16E8EF7C) (Booted) 
+test exit 0
+2026-10-22 14:15:03.692 xcodebuild[76453:182758] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 282.526 (282.533) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 282.526 (283.731) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 282.526 (283.736) seconds
+** TEST SUCCEEDED **
+2026-10-22 14:19:15.255 Df Selvo[98520:3912a] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-22 14:19:20.654 Df Selvo[98520:3912a] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
