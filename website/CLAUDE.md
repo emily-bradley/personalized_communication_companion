@@ -17,6 +17,7 @@ Astro, TypeScript strict, pnpm, Tailwind v4 with tokens as CSS custom properties
 - Never delete files you did not create in the current run. No analytics or tracking scripts.
 
 ## Design and copy rules
+- The people Selvo is for cannot read, write, or speak on their own (Emily, Oct 22). Never describe a feature as if they read words on the screen (suggestions, button labels, Spoken). The site's readers are mostly family and caregivers; write so it is clear the person using Selvo works from pictures, sound, and their own choices, and that a caregiver may set things up.
 - Colors, radii, shadows, and fonts come only from `src/design/tokens.json` (generated into `src/styles/tokens.css` by `pnpm tokens`). No hex literals in components; a test enforces it.
 - Midnight (Nightlight) only in the home hero and the phone figure. Every other surface is the warm set. Footer is charcoal.
 - Copy matches the artboards exactly. Keep every `[BRACKETED]` placeholder visible and list it in `docs/LAUNCH-CHECKLIST.md`. Never invent facts, prices, quotes, or photos.
