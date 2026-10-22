@@ -95,11 +95,17 @@ fi
 xcrun simctl bootstatus "$UDID" -b >/dev/null
 
 say "Building Selvo (the first build takes a few minutes)"
+# Build for any Simulator, for this Mac's chip only, then install on ours with simctl. Asking
+# xcodebuild for the Simulator by id failed once right after a new iOS Simulator was added
+# ("Unable to find a device matching the provided destination", CI Oct 22).
+# The chip, even when this shell runs under Rosetta.
+if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then SIM_ARCH=arm64; else SIM_ARCH=x86_64; fi
 xcodebuild build \
   -project Selvo.xcodeproj \
   -scheme Selvo \
   -configuration Debug \
-  -destination "id=$UDID" \
+  -destination "generic/platform=iOS Simulator" \
+  ARCHS="$SIM_ARCH" ONLY_ACTIVE_ARCH=YES \
   -derivedDataPath "$DERIVED" \
   CODE_SIGNING_ALLOWED=NO \
   -quiet
