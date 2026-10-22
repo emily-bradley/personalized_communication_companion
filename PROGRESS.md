@@ -609,3 +609,37 @@ Main was green at the start (d3b424d; CI green, Xcode 27 still running and then 
 
 ### Needs Emily
 - No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
+
+## 2026-10-22, build run 4 (13:56 to about 15:05 Central)
+
+Main was green at the start (ba4e5e1, CI and Xcode 27). Every item through Thursday is checked, so I pulled Friday's artboard pass again, this time across every screen, not only the four that run 3 covered.
+
+### Shipped
+- ae4cc5a `fix:` two artboard differences:
+  - Photos (and every tile that shows an SF Symbol): the symbol is 26pt, was 32pt. The artboard's line icons sit in a 32pt box, so the visible picture is about 22 to 24pt; ours were about 40 to 50pt and heavy. Home's line drawings are unchanged.
+  - Settings: the speech rate track takes the thumb's 28pt in the layout, as on App-Settings. Its 44pt touch area and accessibility frame are kept and reach into the gaps. At default text size the footnote "Atkinson Hyperlegible was tested with low-vision readers." now shows both lines above the fade (before, it was cut after "low-").
+
+### Verified, and how
+- CI green on every job for ae4cc5a: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39836690559 (`scripts/demo.sh` with Xcode 16 and 26, the TestFlight SDK build, all tests with screenshots).
+- Xcode 27 for ae4cc5a: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39836690578 green on every job (demo.sh with Xcode 27, demo.sh plus Listen on iOS 26.2, all tests on iOS 27).
+- Screenshots reviewed on `ci-screenshots/screenshots/` for ae4cc5a: `ui-09-settings.png` (footnote whole), `ui-axl-09-settings.png` and `ui-axl-09b-settings-scrolled.png` (slider row clear of its neighbours at accessibility XL), `ui-02-photos.png` (smaller symbols, closer to App-Photos).
+- A reviewer agent that had not seen the code compared all shots for ba4e5e1 with renders of every artboard. **No P1.** All placement, glow, copy and touch target rules pass. Its findings and what I did:
+  - Settings footnote cut at default size: fixed (above).
+  - Photo symbols too big: fixed (above).
+  - Photo pictures differ from the artboard (Dinner cloche, Game monitor, Park map pin): left as is. The seeded profile uses SF Symbols by design, and a fork and knife or a tree reads more plainly than a cloche or a pin.
+  - Incorrect replaces the selected card in place where the artboard moves the selection: left as is. HANDOFF says "Incorrect removes one", and the Oct 20 fix fills that card's slot so the other two never move.
+  - Another shows the new set in style order (plain, witty, short), not the artboard's order: left as is, so each card's caption stays in the same place (covered by `testCoffeeAnotherGivesTheArtboardAlternates`).
+  - Text size chips draw the three A's at three sizes (artboard: all 17pt): left as is. Three identical A's would not show the choice.
+  - Slider empty track has a border-strong edge: left as is, decided earlier for Daylight contrast.
+  - Home greeting wraps "to start?": the text already has the full width; Lexend is wider than the artboard's font. Left as is.
+  - The Daylight disabled Speak shadow is faint, and setup people rows are 76pt against 80pt: P3, left for Friday if time.
+  - The theme caption names the setup theme even after a change: decided Oct 20 (it says what was chosen at setup).
+
+### Readings I took
+- The artboard is the spec for size, but the demo pictures stay SF Symbols as the build prompt asks, so I matched the icon size and not the exact pictures.
+
+### Next
+- Friday: final full artboard pass on the final build (optional P3s: Daylight disabled Speak shadow, setup people row height), then the final PROGRESS summary for Emily.
+
+### Needs Emily
+- No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
