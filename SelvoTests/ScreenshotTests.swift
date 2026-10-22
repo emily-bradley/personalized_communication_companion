@@ -47,7 +47,9 @@ final class ScreenshotTests: XCTestCase {
                 let renderer = ImageRenderer(content: content)
                 renderer.scale = 2
                 let image = try XCTUnwrap(renderer.uiImage, "\(name) did not render")
-                let data = try XCTUnwrap(image.pngData())
+                // ImageIO on the Xcode 27 runner once failed to encode with a zlib error and
+                // wrote nothing (Oct 22); encoding again is enough, so try once more.
+                let data = try XCTUnwrap(image.pngData() ?? image.pngData(), "\(name) did not encode")
                 let file = outputDirectory.appendingPathComponent("\(name)-\(themeID.rawValue)-\(sizeName).png")
                 try data.write(to: file)
                 XCTAssertEqual(image.size.width, 390)
