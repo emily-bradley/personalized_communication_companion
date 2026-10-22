@@ -138,6 +138,26 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             > build/xcodebuild.log 2>&1
           status=$?
+          # The UI test runner on this runner sometimes dies before any UI test runs (Oct 21 and
+          # Oct 22). Only then, and only when no test failed, run the UI tests once more after a
+          # fresh boot.
+          if [ "$status" -ne 0 ] \
+            && grep -qE "while preparing to run tests|failed to initialize for UI testing" build/xcodebuild.log \
+            && ! grep -qE "with [1-9][0-9]* failures" build/xcodebuild.log; then
+            echo "The UI test runner failed before any UI test ran; running the UI tests once more."
+            xcrun simctl shutdown "$UDID" 2>/dev/null
+            xcrun simctl boot "$UDID" 2>/dev/null
+            xcrun simctl bootstatus "$UDID" -b >/dev/null 2>&1
+            xcodebuild test-without-building \
+              -project Selvo.xcodeproj \
+              -scheme Selvo \
+              -destination "id=$UDID" \
+              -derivedDataPath build/DerivedData \
+              -only-testing:SelvoUITests \
+              CODE_SIGNING_ALLOWED=NO \
+              >> build/xcodebuild.log 2>&1
+            status=$?
+          fi
           grep -E "error|failed|Test Suite|Executed|AUDIT|\*\* " build/xcodebuild.log | tail -200
           grep -E "SPEECHPROBE|error|failed|Test Suite|Executed|XCTAssert|\*\* " build/xcodebuild.log | tail -300 > "$TEST_RUNNER_SCREENSHOT_DIR/build-summary.txt" || true
           if [ "$status" -ne 0 ]; then echo "---- last 120 lines ----"; tail -120 build/xcodebuild.log; fi
