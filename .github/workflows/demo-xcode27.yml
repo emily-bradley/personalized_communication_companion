@@ -77,15 +77,22 @@ jobs:
           UDID=$(python3 scripts/find_simulator.py 'iPhone 16' 26.2)
           xcrun simctl list devices | grep "$UDID" > "$OUT/listen-ios26.txt" || true
           set +e
-          # Once more only if the test runner died before any test ran (it did once, Oct 21).
+          # demo.sh leaves Selvo running; close it so the test runner starts on a quiet Simulator.
+          xcrun simctl terminate "$UDID" com.emilykenney.selvo 2>/dev/null
+          # Once more only if the test runner died before any test ran (Oct 21 twice, Oct 22 once:
+          # "while preparing to run tests" or "failed to initialize for UI testing"), after a fresh boot.
           for attempt in 1 2; do
             xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
               -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
               -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
               > build/listen-ios26.log 2>&1
             status=$?
-            grep -q "while preparing to run tests" build/listen-ios26.log || break
-            echo "attempt $attempt: the test runner crashed while preparing, before any test ran" >> "$OUT/listen-ios26.txt"
+            grep -qE "while preparing to run tests|failed to initialize for UI testing" build/listen-ios26.log || break
+            echo "attempt $attempt: the test runner failed before any test ran" >> "$OUT/listen-ios26.txt"
+            [ "$attempt" = 1 ] || break
+            xcrun simctl shutdown "$UDID" 2>/dev/null
+            xcrun simctl boot "$UDID" 2>/dev/null
+            xcrun simctl bootstatus "$UDID" -b >/dev/null 2>&1
           done
           echo "test exit $status" >> "$OUT/listen-ios26.txt"
           grep -E "error|failed|Executed|\*\* " build/listen-ios26.log | tail -40 >> "$OUT/listen-ios26.txt"
