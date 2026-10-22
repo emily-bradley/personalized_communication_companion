@@ -30,8 +30,8 @@ struct ComponentGallery: View {
                 QuietButton(title: "Incorrect", fillsWidth: true) {}
             }
             Spacer(minLength: 0)
-            PrimaryButton(title: "Speak", isEnabled: false) {}
-            PrimaryButton(title: "Speak") {}
+            PrimaryButton(title: "Speak", isEnabled: false, showsSoundBars: true) {}
+            PrimaryButton(title: "Speak", showsSoundBars: true) {}
         }
     }
 }

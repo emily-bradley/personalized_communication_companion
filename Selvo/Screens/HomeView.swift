@@ -53,7 +53,7 @@ struct HomeView: View {
             }
             .frame(maxHeight: .infinity)
 
-            PrimaryButton(title: "Speak", isEnabled: !model.message.isEmpty) {
+            PrimaryButton(title: "Speak", isEnabled: !model.message.isEmpty, showsSoundBars: true) {
                 model.speak()
             }
         }

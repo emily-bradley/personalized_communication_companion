@@ -77,7 +77,7 @@ struct SuggestView: View {
             .animation(.easeInOut(duration: 0.2), value: showsSpoken)
             .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
 
-            PrimaryButton(title: "Speak", isEnabled: !stripText.isEmpty) {
+            PrimaryButton(title: "Speak", isEnabled: !stripText.isEmpty, showsSoundBars: true) {
                 touched = true
                 startIfNeeded()
                 model.speak()

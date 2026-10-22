@@ -64,7 +64,8 @@ struct ListenView: View {
                 PrimaryButton(
                     title: "Speak",
                     isEnabled: selectedReply != nil,
-                    accessibilityHint: "Says the reply you chose out loud"
+                    accessibilityHint: "Says the reply you chose out loud",
+                    showsSoundBars: true
                 ) {
                     speak()
                 }

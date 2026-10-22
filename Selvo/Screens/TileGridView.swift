@@ -63,7 +63,7 @@ struct TileGridView: View {
                 PageDots(count: pageCount, page: Binding(get: { current }, set: { page = $0 }))
             }
 
-            PrimaryButton(title: "Speak", isEnabled: !model.message.isEmpty) {
+            PrimaryButton(title: "Speak", isEnabled: !model.message.isEmpty, showsSoundBars: true) {
                 model.speak()
             }
         }

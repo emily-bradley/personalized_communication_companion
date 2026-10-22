@@ -7,13 +7,25 @@ struct PrimaryButton: View {
     let title: String
     var isEnabled: Bool = true
     var accessibilityHint: String? = nil
+    /// The sound bars before the label: the brand book's Speak glyph, so Speak reads without words.
+    var showsSoundBars: Bool = false
     let action: () -> Void
+    // The glyph is as tall as a capital letter in the 20pt label, and grows with it.
+    @ScaledMetric(relativeTo: .title3) private var barsHeight: Double = 20
 
     var body: some View {
         Button(action: action) {
-            Text(title)
-                .textStyle(TypeScale.primaryAction)
-                .multilineTextAlignment(.center)
+            HStack(spacing: Spacing.space3) {
+                if showsSoundBars {
+                    SoundBars()
+                        .fill(.foreground)
+                        .frame(width: barsHeight * 54 / 104, height: barsHeight)
+                        .accessibilityHidden(true)
+                }
+                Text(title)
+                    .textStyle(TypeScale.primaryAction)
+                    .multilineTextAlignment(.center)
+            }
                 // Keeps long labels clear of the pill's ends at the largest text sizes.
                 .padding(.horizontal, Spacing.space4)
                 .frame(maxWidth: .infinity, minHeight: ComponentMetrics.primaryButtonHeight)
