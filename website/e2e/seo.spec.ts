@@ -5,9 +5,14 @@ for (const route of ROUTES) {
   test(`meta ${route.name}`, async ({ page }) => {
     await page.goto(route.path);
     await expect(page).toHaveTitle(/Selvo/);
+    if (route.name === "404") {
+      await expect(page.locator("meta[name=robots]")).toHaveAttribute("content", "noindex");
+      await expect(page.locator("link[rel=canonical]")).toHaveCount(0);
+    } else {
+      await expect(page.locator("link[rel=canonical]")).toHaveAttribute("href", /^https:\/\//);
+    }
     for (const selector of [
       "meta[name=description]",
-      "link[rel=canonical]",
       "meta[property='og:title']",
       "meta[property='og:description']",
       "meta[property='og:image']",
@@ -15,6 +20,8 @@ for (const route of ROUTES) {
       const value = await page.locator(selector).getAttribute(selector.startsWith("link") ? "href" : "content");
       expect(value, selector).toBeTruthy();
     }
+    const ogType = route.path.startsWith("/articles/") ? "article" : "website";
+    await expect(page.locator("meta[property='og:type']")).toHaveAttribute("content", ogType);
   });
 }
 

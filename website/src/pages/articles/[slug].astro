@@ -14,7 +14,7 @@ const { title, description, category, author, date, readTime, sources } = articl
 const { Content } = await render(article);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} ogType="article">
   <section slot="hero" class="container-site pb-[88px] pt-12">
     <div class="flex max-w-[872px] flex-col gap-5">
       <nav aria-label="Breadcrumb" class="t-caption font-semibold">
@@ -26,7 +26,7 @@ const { Content } = await render(article);
         {title}
       </h1>
       <p class="m-0 max-w-[640px] text-[clamp(19px,2vw,22px)] leading-[1.55] text-warm-muted">{description}</p>
-      <p class="t-caption text-warm-muted"><span class="whitespace-nowrap">By {author}</span> · <span class="whitespace-nowrap">{date}</span> · <span class="whitespace-nowrap">{readTime}</span></p>
+      <p class="t-caption text-warm-muted"><span class="whitespace-nowrap">By {author}</span><span class="block whitespace-nowrap sm:inline"><span class="hidden sm:inline"> · </span>{date} · {readTime}</span></p>
     </div>
   </section>
 
@@ -53,7 +53,6 @@ const { Content } = await render(article);
         >More articles</a
       >
     </article>
-    <div class="h-28"></div>
   </div>
 
   <EarlyAccess />

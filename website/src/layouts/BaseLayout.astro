@@ -10,8 +10,12 @@ interface Props {
   description: string;
   /** night: midnight hero with the indigo wash (home only). warm: the warm band (every other page). */
   tone?: "night" | "warm";
+  /** article: og:type article. */
+  ogType?: "website" | "article";
+  /** Pages search engines should skip (the 404). No canonical link. */
+  noindex?: boolean;
 }
-const { title, description, tone = "warm" } = Astro.props;
+const { title, description, tone = "warm", ogType = "website", noindex = false } = Astro.props;
 const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 const ogImage = new URL("/og.png", Astro.site);
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -25,8 +29,8 @@ const night = tone === "night";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta property="og:type" content="website" />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
