@@ -515,3 +515,41 @@ Main was green at the start (8dabfc6, CI run 39686290718). Every item through Th
 
 ### Needs Emily
 - Unchanged from run 3: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; Xcode and Homebrew on her Mac; for TestFlight her Team ID, the bundle ID, the App Store Connect app record, API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if wanted.
+
+## 2026-10-22, build run 1 (07:58 to about 10:45 Central)
+
+Main's CI was green at the start (ab55a9a), but the Xcode 27 workflow was red: the iOS 26.2 Listen job's test runner failed before any test ran ("Timed out while loading Accessibility"). That was the second time this week, so I treated it as a real problem. While I fixed it, slow macOS runners turned up three more failures that were not caused by code changes. Every item through Thursday was already checked off, so this run made CI and `scripts/demo.sh` sturdier and did a review pass on the Friday artboards.
+
+### Shipped
+- 823ca7d `ci:` The iOS 26.2 Listen job now closes Selvo before the test. If the test runner fails before any test runs, the job reboots the Simulator and tries once more. It retries on both "while preparing to run tests" and "failed to initialize for UI testing".
+- cac5a99 `ci:` The Xcode 27 "Build and test" job reruns the UI tests once, after a fresh boot, only when the UI test runner died before any UI test ran and no test failed. On 823ca7d it crashed while preparing, after all 29 unit tests had passed.
+- df53dc2 `test:` The accessibility audit runs once more if it ends with "Audit failed to complete in time" (code -56). On cac5a99 that happened on three screens in the macos-15 CI, and the commit had not touched the app. A second timeout still fails the test. Real audit findings still fail the first time.
+- b178736 `fix:` **demo.sh** now builds for `generic/platform=iOS Simulator`, using only the Mac's own chip (arm64 or x86_64, read from `sysctl` so it works under Rosetta too), and installs with `simctl`. It no longer asks xcodebuild for the Simulator by id. On 823ca7d, demo.sh failed (exit 70) right after the iOS 26.2 runtime was downloaded, with "Unable to find a device matching the provided destination". Emily would hit the same thing right after DEMO.md step 5.
+- 45926fa `fix:` **demo.sh** tries the launch up to 5 times, 3 seconds apart, while the Simulator still says Selvo "is installing". It failed once on the `--welcome` run in the Xcode 26 job. That is the path Emily uses between rehearsals.
+
+### Verified, and how
+- Every job is green on 45926fa (the head before this note):
+  - CI: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39795999312. This covers `scripts/demo.sh` with Xcode 16 and with Xcode 26 in all three forms (plain, `--welcome`, `--fresh`), the Xcode 26 TestFlight SDK build, and the full test suite with screenshots.
+  - Xcode 27: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39795999267. This covers demo.sh with Xcode 27; demo.sh choosing the freshly added iOS 26.2 Simulator on its own, with Listen running on device until "no speech"; and every test on iOS 27.
+- b178736 was also green on all three Xcode 27 jobs (run 39792042532), so the generic build and install work with a just-added runtime.
+- Screenshots reviewed: `demo/demo-launch-welcome.png` and `demo-xcode26/demo-launch.png` for 45926fa (Welcome and Lucas's Home, the same as before the build change), plus the full set on `ci-screenshots/screenshots/` for ab55a9a.
+- A reviewer agent that had not seen the code compared all of ab55a9a's shots with renders of the artboards. Rules pass: Speak, Back, Clear and Help are placed correctly, only the orb glows, copy matches, there are no dashes, exclamation marks or banned words, and tiles are 96pt or larger. It reported two P1s, both on ImageRenderer renders: Listen and Welcome at accessibility XL looked cut off. I checked the code. Both screens sit in `ScrollsWhenNeeded`, which scrolls in the app, and the fade at the bottom is the intended "more below" cue. Renders cannot scroll. So neither is a P1.
+- Its other findings were already decided in earlier runs, so I left them as is:
+  - The Settings footnote sits under the fade, because Settings scrolls to For supporters.
+  - The disabled Undo has no arrow (run 3).
+  - The selected tile has a check badge (non-color cue).
+  - Suggest at accessibility XL scrolls.
+  - The setup UI test types "Maya" on purpose, to prove a new name reaches Home.
+- Left as is, new: on Welcome at default size, the body wraps with "phone." alone on its third line. The text uses the artboard's 300pt max width; Lexend's measured width causes the wrap. This is cosmetic. Possible Friday fix: allow about 330pt.
+
+### Next
+- Friday: the final artboard pass on the final build, then the final PROGRESS summary for Emily. Optional: the Welcome wrap.
+- If the iOS 26.2 Listen test fails again with "Home shows Speak" after Stop listening (it did once on 823ca7d, when the runner took 341 seconds for one test), give that final `assertHome` a longer wait.
+
+### Needs Emily
+- No change from Oct 21:
+  - With Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear.
+  - Install Xcode and Homebrew on your Mac.
+  - For TestFlight: your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`).
+  - Pick the Daylight wordmark "vo" color.
+  - Send the real logo artwork, if you want it.
