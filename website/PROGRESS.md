@@ -8,6 +8,18 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 3. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
 4. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-10-22, 1:58pm to about 2:15pm Central (Thursday run 4)
+
+Live URL: https://selvo-website.pages.dev (last confirmed deploy: bd993cf, "Deploy successful", preview https://bd7226e1.selvo-website.pages.dev).
+
+**Readings taken:** Every Thursday item is done and the open Friday items need the live site opened, which this session still cannot do (WebFetch approval withdrawn again; no other fetching allowed). So this run only re-verified, with no code changes, to avoid churn the day before the demo. The Cloudflare check on c30beda (docs only) was still "Building" 1 hour 45 minutes after it started; the site content is identical to bd993cf, which deployed, so the live site is unaffected. This push starts a fresh Cloudflare build; the result is noted below.
+
+**Verified and how:**
+- CI green on c30beda: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39821468050
+- Local: lint, typecheck, 132 unit tests, build (9 pages), 67 e2e tests (axe, screenshots, links, keyboard, meta) all pass.
+
+**Next (Friday):** open the live URL if a run is allowed to, final summary in PROGRESS.md. No new features.
+
 ## 2026-10-22, 11:58am to about 12:25pm Central (Thursday run 3)
 
 Live URL: https://selvo-website.pages.dev (Cloudflare check on f0df422: "Deploy successful", preview https://04f0d985.selvo-website.pages.dev).
