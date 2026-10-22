@@ -1,6 +1,13 @@
-    iPhone 16 (BB0ACA69-0E7E-4FC2-B613-1CFC3F1D14D6) (Booted) 
+    iPhone 16 (5FE20110-8E6B-4C20-A13E-1DC613D67145) (Booted) 
 test exit 65
-*** If you believe this error represents a bug, please attach the result bundle at /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/DerivedData-ios26/Logs/Test/Test-Selvo-2026.10.22_00-24-31-+0000.xcresult
-Testing failed:
-	SelvoUITests-Runner (43843) encountered an error (The test runner failed to initialize for UI testing. (Underlying Error: Timed out while loading Accessibility.))
+2026-10-22 13:37:03.206 xcodebuild[77198:183669] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:196: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertTrue failed - Home shows Speak
+Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (341.600 seconds).
+Test Suite 'DemoWalkUITests' failed at 2026-10-22 13:42:37.635.
+	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.606) seconds
+Test Suite 'SelvoUITests.xctest' failed at 2026-10-22 13:42:37.638.
+	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.609) seconds
+Test Suite 'Selected tests' failed at 2026-10-22 13:42:37.638.
+	 Executed 1 test, with 1 failure (0 unexpected) in 341.600 (341.616) seconds
 ** TEST FAILED **
+2026-10-22 13:40:35.136 Df Selvo[94458:374a4] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
