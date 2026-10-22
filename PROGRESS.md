@@ -492,3 +492,26 @@ Main CI was green at the start (7f6d1b1), but the Xcode 27 workflow was red: the
 - For TestFlight next week: her Apple Team ID; confirm and register the bundle ID `com.emilykenney.selvo`; create the App Store Connect app record and an API key; add the secrets `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. See `docs/TESTFLIGHT.md`.
 - Choose the Daylight wordmark "vo" color (orb teal per the brand book, or deep teal per App-Home-Day).
 - The real logo artwork, if she wants it in place of the drawn wordmark.
+
+## 2026-10-21, build run 5 (17:56 to about 19:10 Central)
+
+Main was green at the start (8dabfc6, CI run 39686290718). Every item through Thursday is checked, so I pulled Friday's artboard pass and started on run 4's P2 and P3 list.
+
+### Shipped (21679a3)
+- Suggest cards now match App-Suggest in height: a one-line card is 81pt (artboard 82, was about 74). The cause was that `lineSpacing` adds leading only between lines, so a single 17/26 line and the 14/20 caption lost their outer leading. New `TypeStyle.halfLeading` in `Typography.swift`; only `SuggestionCard` uses it, so no other screen moved.
+- Home at accessibility XL: the greeting now stops growing at the same size as the tiles. The greeting takes 2 lines instead of 3 and the four tiles are about 108pt tall (were about 95; token `touch-tile` is 96).
+
+### Checked, left as is
+- Speech rate thumb: drawn at 28pt as on the artboard (its 3pt edge is the page color, so it looks about 22). The whole 44pt row takes taps and drags, so the hit area is fine.
+- Daylight Speak shadow lighter than App-Home-Day: App-Home-Day uses the Nightlight shadow, and `tokens.json` gives Daylight `0 8px 24px rgba(15, 21, 48, 0.12)`. The brand book wins.
+- Help pill about 6pt narrower: same 12pt padding as the artboard; the difference is the font's measured width. Not worth a change.
+
+### Verified, and how
+- CI for 21679a3 green on every job, including `scripts/demo.sh` with Xcode 16 and 26: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39690239045. Xcode 27: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39690239107 (green on every job). The iOS 26.2 job failed on the first try before any test ran ("The test runner failed to initialize for UI testing. Timed out waiting for AX loaded notification"; demo.sh in that job ended with exit 70 on the same slow Simulator) and passed on its one re-run, so I read it as the runner, not this change, which touches only layout. If it fails that way again on Friday, give that job a longer Simulator warm up before demo.sh.
+- Screenshots reviewed on `ci-screenshots` for 21679a3: `ui-axl-01-home.png`, `ui-03-suggest.png`, `ui-axl-03-suggest.png`. Measured the tile and card heights from the pixels. Nothing clips; Speak, Clear and Back unchanged.
+
+### Next
+- Friday: the final artboard pass on the final build (remaining from run 4: the rendered help phrase shots draw text fields as bars, use the Simulator shot), then the final PROGRESS summary for Emily.
+
+### Needs Emily
+- Unchanged from run 3: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; Xcode and Homebrew on her Mac; for TestFlight her Team ID, the bundle ID, the App Store Connect app record, API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if wanted.
