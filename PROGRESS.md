@@ -582,3 +582,30 @@ Main's CI was green at the start (45926fa). Run 1 was still active until about 1
 
 ### Needs Emily
 - No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
+
+## 2026-10-22, build run 3 (11:56 to about 13:15 Central)
+
+Main was green at the start (d3b424d; CI green, Xcode 27 still running and then green). Every item through Thursday is checked, so I worked run 2's P3 list from Friday's artboard pass.
+
+### Shipped
+- 695814d `fix:` Friday artboard polish:
+  - Welcome: the body text may be 330pt wide (artboard 300pt). Lexend sets wider than the artboard, so it broke into three lines with "phone." alone; now two lines, "...with the person / who will use it holding the phone."
+  - The orb halo is drawn like the CSS `glow-orb` token: a disc grown by the spread, then blurred. A SwiftUI shadow has no spread, so the halo was smaller than the artboard. Still the only glow on the screen, still on Welcome and Listen only.
+  - Photos: the page dots take only their 8pt in the layout, so they sit 16pt above Speak as on App-Photos (were about 38pt). The 44pt tap area is unchanged; it reaches into the gaps.
+  - Home: the Settings gear's 44pt frame now sits right beside Help, as on App-Home (was a 12pt gap).
+- c583eee `ci:` the iOS 26.2 Listen job also retries once, after a fresh boot, when the Simulator's accessibility server goes away mid test (`kAXErrorServerNotFound`, seen once in run 2).
+
+### Verified, and how
+- CI green on every job for 695814d (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39818638050) and c583eee (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39821535628), including `scripts/demo.sh` with Xcode 16 and 26 in all three forms.
+- Xcode 27 green on every job for c583eee: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39821535778 (demo.sh with Xcode 27, demo.sh plus Listen on iOS 26.2, all tests on iOS 27). The run for 695814d was replaced while waiting, as designed; c583eee contains it. d3b424d's Xcode 27 run (39817433964) was also green.
+- Screenshots reviewed on `ci-screenshots/screenshots/` for 695814d: `ui-demo-01-welcome.png` (two lines, bigger halo), `01-welcome-day-default.png` (Daylight halo soft, no wash over text), `ui-02-photos.png` and `ui-axl-02-photos.png` (dots just above Speak, nothing overlaps), `ui-01-home.png` (gear beside Help), `ui-demo-07-listen.png` and `07-listen-night-axl.png`.
+- A reviewer agent that had not seen the code compared Welcome, Home, Photos and Listen in both themes and both sizes with the artboards. No P1; all rules pass; the halo now reads close to the artboard. Its P2s are the accessibility XL renders of Welcome and Listen cutting off under the scroll fade, already decided in run 1 (renders cannot scroll; the app scrolls). Left as is: at accessibility XL the Listen halo faintly tints behind the header title (decorative, the title keeps its contrast); the Home greeting wraps "to start?" to a second line because Lexend at 14pt is wider than the artboard's 342pt row allows.
+
+### Readings I took
+- The artboard renders here fall back to a system sans (no web fonts offline), so line breaks are judged by intent (no word left alone), not by matching the render.
+
+### Next
+- Friday: one last full artboard pass on the final build, then the final PROGRESS summary for Emily.
+
+### Needs Emily
+- No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
