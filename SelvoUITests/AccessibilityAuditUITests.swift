@@ -29,12 +29,24 @@ final class AccessibilityAuditUITests: XCTestCase {
         var types = XCUIAccessibilityAuditType.all
         types.remove(.contrast)
         types.remove(.dynamicType)
-        try app.performAccessibilityAudit(for: types) { issue in
+        let report: (XCUIAccessibilityAuditIssue) -> Bool = { issue in
             let element = issue.element.map { "\($0.elementType.rawValue) '\($0.label)'" } ?? "no element"
             print("AUDIT \(screen): \(issue.auditType) \(issue.compactDescription) [\(element)] \(issue.detailedDescription)")
             return false
         }
+        do {
+            try app.performAccessibilityAudit(for: types, report)
+        } catch let error as NSError where error.domain == Self.auditErrorDomain && error.code == Self.auditTimedOut {
+            // A slow CI Simulator can run out of time before the audit finishes (Oct 22). That
+            // says nothing about the screen, so audit it once more; a second timeout fails.
+            print("AUDIT \(screen): timed out once, auditing again")
+            try app.performAccessibilityAudit(for: types, report)
+        }
     }
+
+    /// "Audit failed to complete in time".
+    private static let auditErrorDomain = "com.apple.xcode.xctest.accessibilityAudit"
+    private static let auditTimedOut = -56
 
     private func tap(_ label: String) {
         let button = app.buttons[label].firstMatch
