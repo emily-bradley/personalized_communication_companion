@@ -1,13 +1,9 @@
-    iPhone 16 (064EFCA4-C8F4-45D0-AC7C-C644113785C5) (Booted) 
-attempt 1: the test runner or the Simulator's accessibility server failed
-test exit 65
-2026-10-22 21:34:03.355 xcodebuild[77199:192067] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-<unknown>:0: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : Failed to launch <XCUIApplicationImpl: 0x600001737ec0 com.emilykenney.selvo at /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/DerivedData-ios26/Build/Products/Debug-iphonesimulator/Selvo.app> via Xcode: Timed out while launching application via Xcode.
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (151.762 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-22 21:35:30.744.
-	 Executed 1 test, with 1 failure (0 unexpected) in 151.762 (151.783) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-22 21:35:30.744.
-	 Executed 1 test, with 1 failure (0 unexpected) in 151.762 (151.783) seconds
-Test Suite 'Selected tests' failed at 2026-10-22 21:35:30.745.
-	 Executed 1 test, with 1 failure (0 unexpected) in 151.762 (151.785) seconds
-** TEST FAILED **
+    iPhone 16 (F5A6D032-6320-43BA-842D-A2B12D66895D) (Booted) 
+test exit 0
+2026-10-22 22:08:58.827 xcodebuild[59468:147440] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 212.842 (212.847) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 212.842 (215.002) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 212.842 (215.008) seconds
+** TEST SUCCEEDED **
+2026-10-22 22:11:35.995 Df Selvo[74220:2cb12] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-22 22:12:18.303 Df Selvo[74220:2cb12] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
