@@ -553,3 +553,32 @@ Main's CI was green at the start (ab55a9a), but the Xcode 27 workflow was red: t
   - For TestFlight: your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`).
   - Pick the Daylight wordmark "vo" color.
   - Send the real logo artwork, if you want it.
+
+## 2026-10-22, build run 2 (09:57 to about 11:50 Central)
+
+Main's CI was green at the start (45926fa). Run 1 was still active until about 10:45, so I stayed out of `scripts/` and the workflows until it wrote its progress. Every item through Thursday is checked, so I pulled Friday's artboard pass.
+
+### Shipped
+- a5698bd `fix:` The Suggest message strip now keeps two lines of height. Before this, tapping "Coffee first. Then I'll be nice." made the strip grow from one line to two and pushed all three cards down about 37pt, so a quick second tap could land on the wrong card. Other screens keep the one-line strip (`reservedLines` defaults to 1). New unit test `testMessageStripKeepsReservedLines`.
+- a42908d `fix:` **Red CI fixed.** The Xcode 27 runner now ships the iOS 27.1 Simulator, and creating an iPhone 16 there failed with "Incompatible device", so the Xcode 27 test job had no device and xcodebuild stopped (exit 64, run 39801698918). `scripts/find_simulator.py` now (1) prefers runtimes whose supported devices include an iPhone 16, (2) on a runtime that cannot run one, uses its plainest iPhone (for example "iPhone 17") and says so, and (3) tries the next runtime when the Simulator refuses to make a device. demo.sh uses the same script, so Emily's Mac gets the same fallback if a future Xcode drops the iPhone 16. I checked it here with a mocked `xcrun` in 5 cases: only 27.1 without iPhone 16; 27.1 without and 27.0 with; 27.1 refusing create; 26.2 installed beside 27.1; `--ios 27.1` asked by hand.
+
+### Verified, and how
+- CI for a5698bd green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39801698459 (includes `scripts/demo.sh` with Xcode 16 and 26).
+- CI for a42908d green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39806990153.
+- Xcode 27 for a42908d green on every job (demo.sh with Xcode 27; demo.sh with the iOS 26.2 Simulator added; all 30 unit and 15 UI tests on iOS 27): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39806990002. That runner had an image with iOS 27.0, where an iPhone 16 works, so the new fallback was not needed there; it is proven only by the mocked cases above. If a runner with iOS 27.1 comes back, its log will say which device it used.
+- The Xcode 27 run for a5698bd also had the iOS 26.2 Listen job fail once with "Failed to get matching snapshots: Error getting main window kAXErrorServerNotFound" after 279 seconds on one test (run 39801698918). That is the runner's accessibility server, not the strip change; the same job passed on a42908d. If it happens again, add that message to the job's retry patterns.
+- Screenshots reviewed for a5698bd (`ci-screenshots/screenshots/`): `ui-demo-04-incorrect.png` and `ui-demo-05-undo.png` now have the first card at the same place (one-line and two-line messages); `ui-03-suggest.png` unchanged in layout.
+- A reviewer agent that had not seen the code compared all 84 shots for 45926fa with renders of every artboard. Rules pass on every screen. Its findings and what I did:
+  - Cards moving when the message wraps: fixed (above).
+  - Settings footnote half under the fade at default size; Undo with nothing to undo has no arrow; Welcome and Listen cut at accessibility XL in the renders; Suggest at accessibility XL shows one card and scrolls; Lexend check close to the word at accessibility XL; selected tile check badge; Help headline weight: all decided in earlier runs (see run 1 today and Oct 20). Left as is.
+  - P3, left for Friday if time: Photos page dots sit about 18pt higher than the artboard (the dots row is a 44pt tap target); Welcome body ends on "phone." alone (Lexend width, artboard max 300pt); Welcome orb halo looks a little smaller than `glow-orb`; Home gear sits about 18pt from Help.
+
+### Readings I took
+- The "tile positions never move" rule is about tiles, but the same reason (people aiming at a moving target) applies to the three cards, so I treated the card shift as a bug even though the artboard does not show it.
+
+### Next
+- Friday: the final artboard pass on the final build (the P3 list above), then the final PROGRESS summary for Emily.
+- If an Xcode 27 job logs "cannot run an iPhone 16; using an iPhone 17", check its screenshots once on `ci-screenshots/screenshots-xcode27/`.
+
+### Needs Emily
+- No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
