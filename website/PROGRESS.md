@@ -23,6 +23,7 @@ Live URL: https://selvo-website.pages.dev (Cloudflare check on f0df422: "Deploy 
 - Local: lint, typecheck, 132 unit tests, build, 67 e2e tests (axe, screenshots, links, keyboard, meta) all pass.
 - Fresh reviewer subagent (had not seen the code) compared all seven pages at 768 with the rendered references: no must-fix. Checked its notes: footer and Sources links already have 44px targets (`min-h-11`), so no change; the email placeholder stays muted ink for AA contrast; "Read the guide" stays muted on purpose while the guide does not exist; the "Built for adults" values, early-wrapping balanced headings, and lone last-row cards match the reference or earlier decisions and were left.
 - Close-up of the changed line at 768 reviewed by eye.
+- CI green on bd993cf: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39820852623 ; Cloudflare deployed it.
 
 **Next (Friday):** open the live URL if a run is allowed to, final summary in PROGRESS.md. No new features.
 
