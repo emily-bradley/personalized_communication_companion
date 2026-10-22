@@ -115,7 +115,12 @@ xcodebuild build \
 say "Installing and launching Selvo"
 xcrun simctl terminate "$UDID" "$BUNDLE_ID" >/dev/null 2>&1 || true
 xcrun simctl install "$UDID" "$APP"
-xcrun simctl launch "$UDID" "$BUNDLE_ID" "${LAUNCH_ARGS[@]}"
+# Right after an install the Simulator can still say Selvo "is installing", so try a few times.
+for attempt in 1 2 3 4 5; do
+  xcrun simctl launch "$UDID" "$BUNDLE_ID" "${LAUNCH_ARGS[@]}" && break
+  [ "$attempt" = 5 ] && fail "Selvo was installed but the Simulator would not open it. Run this again."
+  sleep 3
+done
 
 # Give the app a moment, then make sure it is still running and keep a picture of the screen.
 sleep 5
