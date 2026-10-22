@@ -38,5 +38,5 @@ Deadline: Friday, October 23, 2026, 6pm Central. Demo-ready at a public link.
 - [x] Keyboard walk-through (automated in e2e; repeat by hand on the live URL Friday)
 - [ ] Link preview check (Open Graph title, description, image) (tags verified in the build Oct 22; on-device check of the live link left for Emily, since this session cannot open pages.dev)
 - [x] `docs/DEMO.md` with the live link and a 5-minute walk-through
-- [ ] `docs/LAUNCH-CHECKLIST.md` complete
+- [x] `docs/LAUNCH-CHECKLIST.md` complete (every bracketed placeholder in `src` cross-checked against it Oct 22)
 - [ ] Final summary in PROGRESS.md
