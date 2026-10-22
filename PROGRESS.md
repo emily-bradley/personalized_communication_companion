@@ -643,3 +643,31 @@ Main was green at the start (ba4e5e1, CI and Xcode 27). Every item through Thurs
 
 ### Needs Emily
 - No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
+
+## 2026-10-22, build run 5 (15:56 to about 17:40 Central)
+
+Main was green at the start (6b99873, CI and Xcode 27). Every item through Thursday is checked, so I looked at Friday's screens through the project rule that the person using Selvo cannot read.
+
+### Shipped
+- da70c3c `feat:` Speak carries the three sound bars before its label, everywhere Speak appears (Home, Photos grid, Choose your words, Listen replies). The brand book and HANDOFF name the sound bars as the Speak glyph; the artboards show the word only, and the brand book wins. The bars take the label's color (navy on teal, muted when Speak is off), grow with Dynamic Type, and are hidden from VoiceOver, so the button is still named "Speak" for VoiceOver and the UI tests.
+
+### Verified, and how
+- CI green on every job for da70c3c: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39853642621 (`scripts/demo.sh` with Xcode 16 and 26, the TestFlight SDK build, all tests with screenshots).
+- Xcode 27 for da70c3c: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39853642961 green on every job after one re-run. The first try of the iOS 26.2 Listen job failed before any test step ran: the test runner failed on a fresh Simulator, and the retry after a reboot timed out launching Selvo ("Timed out while launching application via Xcode", 151 s). `scripts/demo.sh` itself passed in that same job. The re-run of only that job was green, so I read it as a slow runner, not this change, which only draws a shape inside the Speak button.
+- Screenshots reviewed on `ci-screenshots/screenshots/` for da70c3c: `ui-03-suggest.png` (bars before Speak, navy on teal), `ui-axl-03b-suggest-scrolled.png` (bars grow with the text, Speak still one line), `03-home-day-default.png` (Daylight, muted bars on the off Speak).
+- A reviewer agent that had not seen the code went through the person-facing screens asking "could someone who cannot read use this?". No rule breaks (dashes, exclamation marks, banned words, Clear beside Speak, glow count). I measured Clear and Help at 44pt in the PNGs (it guessed 43). What I did with its list:
+  - Speak has no picture: fixed (above), as the brand book says.
+  - The gear on Home "is not on the artboard": wrong, App-Home has it.
+  - Another, Incorrect, Clear, Show replies and Stop listening are words only: left as is. The artboards show words only and the brand book names no glyph for them; adding pictures is a design call for Emily (see Needs Emily).
+  - **The three suggestions are text only, so a person who cannot read cannot tell them apart before Speak.** This is the real gap for the people Selvo is for. Not built the day before the demo, because the fix is a design decision (for example a quiet preview in the earpiece or headphones when a card is chosen, so the room does not hear it). See Needs Emily.
+  - Mom and People share a similar figure picture: by design, the demo uses SF Symbols, never real photos; a supporter adds a real photo with PhotosPicker.
+
+### Readings I took
+- Brand book over artboard for the Speak glyph, per PLAN.md's order of authority. Other glyphs stay as the artboards draw them until Emily decides.
+
+### Next
+- Friday: final full artboard pass on the final build, then the final PROGRESS summary for Emily.
+
+### Needs Emily
+- New: decide how a person who cannot read tells the three suggestions apart before Speak (a private preview in the earpiece or headphones, pictures on cards, or both), and whether Another, Incorrect, Clear and the Listen controls should carry pictures too.
+- No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
