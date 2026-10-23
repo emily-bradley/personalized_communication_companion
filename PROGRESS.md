@@ -803,3 +803,20 @@ Main was green at the start (1aedd92). Every item in PLAN.md is checked (50 of 5
 
 ### Needs Emily
 - No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
+
+## 2026-10-23, build run 6 (17:55 to about 18:35 Central): check only, one CI re-run
+
+Main was 4383600 at the start. CI was green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40023063791. The Xcode 27 workflow was red on one job: "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". Its demo step ran for 40 minutes and was cancelled, and the job then hit its 75 minute limit. The job logs could not be downloaded (404).
+
+### What I did
+- That commit changed only PROGRESS.md, and the same app code passed this job five times today. I took it to be a stuck runner or Simulator, not a fault in the app, and re-ran the failed job once.
+- The re-run was green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40023063840 (attempt 2). The demo step finished in about 11 minutes and picked iOS 26.2; Listen passed. No app code changed on demo day.
+
+### Readings I took
+- One re-run, not a code change: the failure did not come back, and nothing in the diff could cause it. If the iOS 26.2 demo step hangs again, a later run should add a time limit around `xcrun simctl bootstatus` in that CI job.
+
+### Next
+- After Friday no new features. Week of Oct 26: TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
