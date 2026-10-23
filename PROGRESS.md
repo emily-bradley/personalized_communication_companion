@@ -767,3 +767,21 @@ Main was green at the start (325e3ea). Every item in PLAN.md is checked (50 of 5
 
 ### Needs Emily
 - No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
+
+## 2026-10-23, build run 4 (13:56 to about 14:05 Central): check only
+
+Main was green at the start (b497335). Every item in PLAN.md is checked, so this run only confirmed the demo is still ready and changed no app code on demo day.
+
+### Verified, and how
+- CI green on every job for b497335: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39991016932 (`scripts/demo.sh` with Xcode 16 and 26, TestFlight SDK build, all tests with screenshots).
+- Xcode 27 green on every job for b497335: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39991016845.
+- Searched the repo outside `legacy/` and the design files for em and en dashes: none.
+
+### Readings I took
+- Same as runs 2 and 3: no code changes on demo day while everything is green and PLAN.md is done.
+
+### Next
+- Week of Oct 26: TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
