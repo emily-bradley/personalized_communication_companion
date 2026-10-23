@@ -76,7 +76,7 @@ final class DemoWalkUITests: XCTestCase {
         launch(demoProfile: false)
         tap("Set up together")
 
-        XCTAssertTrue(app.staticTexts["What should Selvo call you?"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["Who is Selvo for?"].waitForExistence(timeout: 15))
         XCTAssertTrue(app.staticTexts["Step 1 of 5"].exists)
         let name = app.textFields["Name"].firstMatch
         XCTAssertTrue(name.waitForExistence(timeout: 10))

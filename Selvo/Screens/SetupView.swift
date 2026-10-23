@@ -87,7 +87,7 @@ struct SetupView: View {
 
     private var stepTitle: String {
         switch step {
-        case 1: return "What should Selvo call you?"
+        case 1: return "Who is Selvo for?"
         case 2: return "Who does \(displayName) talk to most?"
         case 3: return "Where does \(displayName) go?"
         case 4: return "How should Selvo look?"
@@ -97,7 +97,7 @@ struct SetupView: View {
 
     private var stepHelper: String {
         switch step {
-        case 1: return "Type the name you go by. You can change it later."
+        case 1: return "Type the name they go by. They can change it later."
         case 2: return "Add a photo of each person. \(displayName) can change this later."
         case 3: return "Add the places \(displayName) goes most. \(displayName) can change this later."
         case 4: return "Choose a text size and a theme. \(displayName) can change these later."
