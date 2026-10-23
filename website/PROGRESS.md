@@ -3,11 +3,27 @@
 Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22 between 8:30 and 10am; production branch `website-staging`). Every push since 6e523cc shows a "Cloudflare Pages: Deployed successfully" check. This session cannot open pages.dev (WebFetch needs approval nobody is there to give), so the live site has not been opened from here yet.
 
 ## Needs Emily
+0. **After the demo, pause this scheduled task**; the site is done and later runs only fix breakage.
 1. **Open https://selvo-website.pages.dev once** on your phone and paste it into a message to yourself to check the preview card. Runs cannot open it from here.
 2. **Optional: connect `meetselvo.com`** in the Pages project (Custom domains), and once it opens the site, add the build variable `SITE_URL` = `https://meetselvo.com` and redeploy (steps in `docs/DEPLOY.md`). The pages.dev link works on its own for Friday.
 3. Create the empty private repo `emily-bradley/selvo-website` and give the Claude GitHub app access (optional; the site can stay where it is through Friday).
 4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
 5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
+
+## 2026-10-23, 7:58am to about 8:20am Central (Friday run 1, final summary)
+
+Live URL: https://selvo-website.pages.dev (Cloudflare check on 544ef15: "Deploy successful", preview https://cd2e7133.selvo-website.pages.dev).
+
+**Readings taken:** Friday is polish and demo only, no new features. WebFetch of the live URL was again withdrawn unanswered in this unattended run, so the two items that need the live site opened (live screenshot review, link preview card) stay open for Emily to check on her phone; both pass on the build of the deployed commit. The site is demo-ready as it stands.
+
+**Verified and how:**
+- CI green on 544ef15 (lint, typecheck, unit, build, e2e with axe, Lighthouse median of 3): https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39870758552
+- Local on 544ef15: lint clean, typecheck 0 errors, 132 unit tests, build (9 pages), 67 e2e tests (axe on every page, structure, screenshots at 1440, 768, 375, keyboard, meta and Open Graph tags, every internal link) all pass. Locally Playwright needed the preinstalled Chromium path (sandbox browser version differs); no repo change.
+- Looked at the fresh home screenshot at 375: hero orb square, no horizontal scroll, warm sections, charcoal footer.
+
+**Final summary for the demo:** All six pages, the privacy and accessibility stubs, the 404, SEO, Open Graph image, favicon, sitemap, robots, and canonical URLs are built and deployed at https://selvo-website.pages.dev. CI is green. `docs/DEMO.md` has the link and a 5-minute walk-through. Placeholders (photos of Lucas, FAQ answers, article date, waitlist URL) are visible on purpose and listed in `docs/LAUNCH-CHECKLIST.md`.
+
+**Next:** No new features after today. Later runs only fix red CI, live-site bugs, or demo blockers. Emily can pause this scheduled task after the demo.
 
 ## 2026-10-22, 5:57pm to about 6:05pm Central (Thursday run 6)
 
