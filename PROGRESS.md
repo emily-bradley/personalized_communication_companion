@@ -729,3 +729,23 @@ Main was green at the start (460fc25, CI and Xcode 27). Only Friday's final artb
 - Decide: when a phone has no on-device recognizer, should Listen use Apple's server recognition (today) or say "Listening is not available".
 - For TestFlight: your Team ID, confirm the bundle ID `com.emilykenney.selvo`, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`).
 - Optional: the Daylight wordmark "vo" color; the real logo artwork.
+
+## 2026-10-23, build run 2 (09:56 to about 10:10 Central): check only
+
+Main was green at the start (288499d, CI and Xcode 27). Every item in PLAN.md is checked, so this run only checked that the demo is still ready, and changed no app code on demo day.
+
+### Verified, and how
+- CI green on every job for 288499d: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39962317624 (`scripts/demo.sh` with Xcode 16 and 26, TestFlight SDK build, all tests with screenshots).
+- Xcode 27 green on every job for 288499d: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39962317668.
+- Looked at `demo-xcode26/demo-launch-fresh.png` on `ci-screenshots` for 288499d: `./scripts/demo.sh --fresh` opens Home for Lucas, with the message strip, 4 tiles, Listen, Speak bottom center with its sound bars, gear and Help top right.
+- Searched the repo outside `legacy/` and the design files for em and en dashes: none.
+- Read `docs/DEMO.md` against the current app: still accurate.
+
+### Readings I took
+- No new code on demo day when everything is green and PLAN.md is done; a change now only adds risk.
+
+### Next
+- Week of Oct 26: TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (with Xcode 27 or 26.4 or later, also `xcodebuild -downloadPlatform iOS -buildVersion 26.2` so Listen can hear); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
