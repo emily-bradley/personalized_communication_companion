@@ -671,3 +671,28 @@ Main was green at the start (6b99873, CI and Xcode 27). Every item through Thurs
 ### Needs Emily
 - New: decide how a person who cannot read tells the three suggestions apart before Speak (a private preview in the earpiece or headphones, pictures on cards, or both), and whether Another, Incorrect, Clear and the Listen controls should carry pictures too.
 - No change: with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
+
+## 2026-10-22, build run 6 (17:56 to about 19:35 Central)
+
+Main was red at the start: CI was green for 98b9b0e (a PROGRESS-only commit), but the Xcode 27 "Build and test" job failed in `AccessibilityAuditUITests.testHome` setup with "Failed to terminate com.emilykenney.selvo", before the test body ran. Its one re-run then failed in a different place: `ScreenshotTests.testComponentGallery` could not encode its PNG (ImageIO "zlib error, No IDATs written"). The app had not changed since da70c3c, which was green, so both were the runner, and I made CI sturdy against each instead of only re-running.
+
+### Shipped
+- 3832eb4 `ci:` `scripts/ci_retry_launch_failures.sh`. When every failure in the test log is the Simulator failing to stop or start Selvo before a UI test runs (Failed to terminate, Failed to launch, Timed out while launching), CI runs just those UI tests once more after a fresh boot. Any other failure keeps the job red. Used by `ci.yml` and `demo-xcode27.yml`. Checked here with stubbed `xcrun` and `xcodebuild` on three logs: launch failure only (reruns that one test), launch failure plus a real assertion (no rerun), no failures (no rerun).
+- a598fab `test:` a screenshot encodes once more when `pngData()` returns nothing.
+
+### Verified, and how
+- CI green for 3832eb4 (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39868624993) and a598fab (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39870874931), including `scripts/demo.sh` with Xcode 16 and 26 in all three forms.
+- Xcode 27 green on every job for a598fab: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39870875010 (demo.sh with Xcode 27, demo.sh plus Listen on iOS 26.2 with on-device recognition, all tests on iOS 27). The Xcode 27 "Build and test" job was also green for 3832eb4, all 15 UI tests on the first try.
+- The Xcode 27 run for 3832eb4 (39868625025) failed only its Listen check: the test passed and demo.sh passed, but on that runner the iOS 26.2 Simulator reported no on-device recognizer, so Selvo used Apple's server recognition (log "on device: false", then kAFAssistantErrorDomain 216), and the job rightly requires on device. The same job for a598fab ran on device. I read it as the runner's speech assets, not this change (CI scripts and a test only).
+- Screenshots: `screenshots/03-home-night-default.png` for a598fab looked at; unchanged from run 5, as expected (no app code changed).
+
+### Readings I took
+- No app code the evening before the demo; only CI sturdiness, since the failures were the runner.
+- The P3 "setup people rows are 76pt against 80pt" from run 4: the artboard row is 10 + 48 + 10 plus a 1pt border, about 70pt, so the 80 was a misreading; ours grows with the label line height. Left as is.
+
+### Next
+- Friday: final artboard pass on the final build, then the final PROGRESS summary for Emily. No new features after Friday.
+
+### Needs Emily
+- Worth knowing before the demo: when a phone or Simulator has no on-device recognizer, Listen falls back to Apple's server recognition (what the other person says goes to Apple; Selvo never keeps it). It happened once on a CI runner tonight. Decide whether Listen should instead say "Listening is not available" in that case (keeps everything on the phone).
+- No change: decide how a person who cannot read tells the three suggestions apart before Speak; with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
