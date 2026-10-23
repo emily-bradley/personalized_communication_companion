@@ -1,10 +1,13 @@
-    iPhone 16 (824890A7-FF6B-4BE4-8476-B2F3DA246688) (Booted) 
-attempt 1: the test runner or the Simulator's accessibility server failed
-test exit 0
-2026-10-23 14:08:49.714 xcodebuild[47431:125434] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 29.292 (29.293) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 29.292 (29.294) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 29.292 (29.295) seconds
-** TEST SUCCEEDED **
-2026-10-23 14:09:06.225 Df Selvo[49248:1fd10] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-23 14:09:14.418 Df Selvo[49248:1fd10] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+    iPhone 16 (9DEC8A45-F24F-49E3-9C94-48DA8B27EBC1) (Booted) 
+test exit 65
+2026-10-23 15:30:46.878 xcodebuild[34222:94308] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+<unknown>:0: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : Failed to get screenshot: Timed out while requesting screenshot.
+Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (366.594 seconds).
+Test Suite 'DemoWalkUITests' failed at 2026-10-23 15:36:35.630.
+	 Executed 1 test, with 1 failure (0 unexpected) in 366.594 (366.597) seconds
+Test Suite 'SelvoUITests.xctest' failed at 2026-10-23 15:36:37.175.
+	 Executed 1 test, with 1 failure (0 unexpected) in 366.594 (368.141) seconds
+Test Suite 'Selected tests' failed at 2026-10-23 15:36:37.175.
+	 Executed 1 test, with 1 failure (0 unexpected) in 366.594 (368.151) seconds
+** TEST FAILED **
+2026-10-23 15:33:54.999 Df Selvo[57192:24192] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
