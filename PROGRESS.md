@@ -696,3 +696,36 @@ Main was red at the start: CI was green for 98b9b0e (a PROGRESS-only commit), bu
 ### Needs Emily
 - Worth knowing before the demo: when a phone or Simulator has no on-device recognizer, Listen falls back to Apple's server recognition (what the other person says goes to Apple; Selvo never keeps it). It happened once on a CI runner tonight. Decide whether Listen should instead say "Listening is not available" in that case (keeps everything on the phone).
 - No change: decide how a person who cannot read tells the three suggestions apart before Speak; with Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear; install Xcode and Homebrew on your Mac; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`); the Daylight wordmark "vo" color; the real logo artwork if you want it.
+
+## 2026-10-23, build run 1 (07:56 to about 09:10 Central): final summary for Emily
+
+Main was green at the start (460fc25, CI and Xcode 27). Only Friday's final artboard pass and this summary were left.
+
+### Shipped
+- 8bdb364 `fix:` setup step 1 now speaks to the supporter, like steps 2 to 5: "Who is Selvo for?" and "Type the name they go by. They can change it later." Before, it asked the person to type their own name, which they may not be able to do.
+
+### Verified, and how
+- CI green on every job for 8bdb364: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39958054152 (`scripts/demo.sh` with Xcode 16 and 26, the TestFlight SDK build, SelvoCore tests, all app and UI tests with screenshots).
+- Xcode 27 green on every job for 8bdb364: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/39958054163 (`scripts/demo.sh` with Xcode 27, demo.sh plus Listen on iOS 26.2, all tests on iOS 27).
+- Screenshots reviewed on `ci-screenshots`: `ui-demo-setup-1.png` for 8bdb364 (new copy, nothing clipped), `01-welcome-night-axl.png` for 460fc25.
+- A reviewer agent that had not seen the code compared every screen for 460fc25 with the artboards and brand rules. **No P1**: Speak, Back, Clear and Help placement, one glow, copy rules, 44pt touch targets, orb sizes, Daylight colors and accessibility XL all pass. What I did with the rest:
+  - Setup step 1 spoke to the wrong person: fixed (above).
+  - Undo has no arrow until there is something to undo: left as is, decided Oct 19 so the off state does not rely on color alone.
+  - Settings says the system voice name, not "Daniel, warm": left as is, the artboard is sample data.
+  - Listen shows its empty state until someone talks: expected; the artboard shows a state after speech.
+  - P3s left as is: default text size chip is the smallest (the person's own setting), Setup uses Slow and Fast buttons where Settings has a slider, the Settings caption fades at the scroll edge, the Lexend check is close to its text at accessibility XL, only one suggestion shows fully at accessibility XL before scrolling, "Set up together" wraps to two lines at accessibility XL (render only, not clipped), help phrase fields draw blank in renders (known ImageRenderer limit), setup shots use "Maya" while the demo profile is Lucas.
+
+### Where Selvo stands for the demo
+- Every item in PLAN.md through Friday is checked, and the TestFlight readiness section is built (it waits only on Emily's Apple details).
+- `scripts/demo.sh` passes in CI with Xcode 16, 26 and 27, in its three forms (`./scripts/demo.sh`, `--fresh`, `--welcome`). `docs/DEMO.md` has the 5-minute walk: Welcome, Home, Choose your words, Speak and Spoken, Another, Incorrect and Undo, Show, Listen, Help, Settings.
+- After today: no new features. Runs fix red CI and demo-blocking bugs and keep `docs/DEMO.md` and `docs/TESTFLIGHT.md` accurate.
+
+### Next
+- Week of Oct 26: TestFlight upload once Emily has added her Team ID and the secrets (`docs/TESTFLIGHT.md`). Nothing else is open in PLAN.md.
+
+### Needs Emily
+- Before the demo, on your Mac: install Xcode (16, 26 or 27) and Homebrew, then run `./scripts/demo.sh` (see `docs/DEMO.md`). With Xcode 27, or Xcode 26.4 or later, run `xcodebuild -downloadPlatform iOS -buildVersion 26.2` once so Listen can hear.
+- Decide: how a person who cannot read tells the three suggestions apart before Speak (a private preview in the earpiece, pictures on cards, or both), and whether Another, Incorrect, Clear and the Listen controls should carry pictures.
+- Decide: when a phone has no on-device recognizer, should Listen use Apple's server recognition (today) or say "Listening is not available".
+- For TestFlight: your Team ID, confirm the bundle ID `com.emilykenney.selvo`, the App Store Connect app record, an API key and the four secrets (`docs/TESTFLIGHT.md`).
+- Optional: the Daylight wordmark "vo" color; the real logo artwork.
