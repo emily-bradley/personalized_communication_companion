@@ -47,14 +47,23 @@ final class ScreenshotTests: XCTestCase {
                 let renderer = ImageRenderer(content: content)
                 renderer.scale = 2
                 let image = try XCTUnwrap(renderer.uiImage, "\(name) did not render")
-                // ImageIO on the Xcode 27 runner once failed to encode with a zlib error and
-                // wrote nothing (Oct 22); encoding again is enough, so try once more.
-                let data = try XCTUnwrap(image.pngData() ?? image.pngData(), "\(name) did not encode")
+                let data = try XCTUnwrap(Self.encodePNG(image), "\(name) did not encode")
                 let file = outputDirectory.appendingPathComponent("\(name)-\(themeID.rawValue)-\(sizeName).png")
                 try data.write(to: file)
                 XCTAssertEqual(image.size.width, 390)
             }
         }
+    }
+
+    /// On the Xcode 27 runner the first render can wait about 11 seconds for the GPU pipeline,
+    /// and until then ImageIO times out and writes nothing (zlib error, Oct 22 and Oct 23).
+    /// So try up to five times, two seconds apart.
+    static func encodePNG(_ image: UIImage) -> Data? {
+        for attempt in 1...5 {
+            if let data = image.pngData() { return data }
+            if attempt < 5 { RunLoop.current.run(until: Date().addingTimeInterval(2)) }
+        }
+        return nil
     }
 
     func testComponentGallery() throws {
