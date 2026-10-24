@@ -53,7 +53,7 @@ jobs:
     # This proves that path with Xcode 27.
     name: scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)
     runs-on: xcode-27
-    timeout-minutes: 75
+    timeout-minutes: 95
     steps:
       - uses: actions/checkout@v4
       - name: Select Xcode 27
@@ -63,10 +63,33 @@ jobs:
           xcodebuild -downloadPlatform iOS -buildVersion 26.2
           xcrun simctl list runtimes
       - name: Run the demo script (it should pick iOS 26.2 by itself)
+        timeout-minutes: 50
         run: |
-          set -o pipefail
           mkdir -p build
-          /bin/bash scripts/demo.sh 2>&1 | tee build/demo-ios26.txt
+          # This step hung for 40 minutes or more twice on Oct 23 (it takes 6 to 11), and no log
+          # survived. Past 20 minutes, print where demo.sh stopped and what was running, reset
+          # the Simulator service, and run it once more.
+          status=1
+          for attempt in 1 2; do
+            /bin/bash scripts/demo.sh > build/demo-ios26.txt 2>&1 &
+            pid=$!
+            waited=0
+            while kill -0 "$pid" 2>/dev/null && [ "$waited" -lt 1200 ]; do sleep 10; waited=$((waited + 10)); done
+            if kill -0 "$pid" 2>/dev/null; then
+              echo "attempt $attempt: demo.sh still running after 20 minutes. Last lines, then processes:"
+              tail -n 20 build/demo-ios26.txt
+              ps -axo pid,etime,command | grep -E "simctl|xcodebuild|xcodegen|launchd_sim|CoreSimulator" | grep -v grep || true
+              pkill -P "$pid" || true
+              kill "$pid" 2>/dev/null || true
+              xcrun simctl shutdown all || true
+              killall -9 com.apple.CoreSimulator.CoreSimulatorService 2>/dev/null || true
+              continue
+            fi
+            wait "$pid" && status=0 || status=$?
+            cat build/demo-ios26.txt
+            break
+          done
+          [ "$status" = 0 ]
           grep -q "Using the iOS 26.2 Simulator" build/demo-ios26.txt
       - name: Listen on the iOS 26.2 Simulator (Selvo's own log lines, never what was heard)
         if: always()

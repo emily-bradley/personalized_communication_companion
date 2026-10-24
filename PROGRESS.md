@@ -812,8 +812,11 @@ Main was 4383600 at the start. CI was green on every job: https://github.com/emi
 - That commit changed only PROGRESS.md, and the same app code passed this job five times today. I took it to be a stuck runner or Simulator, not a fault in the app, and re-ran the failed job once.
 - The re-run was green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40023063840 (attempt 2). The demo step finished in about 11 minutes and picked iOS 26.2; Listen passed. No app code changed on demo day.
 
+- It hung again on the next push (8c8e6c7, run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40040040394): the iOS 26.2 demo step ran for 45 minutes. I cancelled it; again no log could be downloaded. The other Xcode 27 jobs and all of CI were green.
+- `ci:` the iOS 26.2 demo step in `demo-xcode27.yml` now has a 20 minute watchdog. If `demo.sh` is still running, it prints the last lines and the Simulator and xcodebuild processes, resets the Simulator service, and runs once more; a second hang or any failure stays red. The step has a 50 minute limit and the job 95. Checked locally: YAML parses, `bash -n`, and a fake demo.sh that hangs, then passes, and one that fails.
+
 ### Readings I took
-- One re-run, not a code change: the failure did not come back, and nothing in the diff could cause it. If the iOS 26.2 demo step hangs again, a later run should add a time limit around `xcrun simctl bootstatus` in that CI job.
+- Twice in three tries is not a flake to wave through, but with no logs the cause is unknown. I did not change `scripts/demo.sh` tonight, since Emily may be running it for the demo; the watchdog only changes CI and makes the next hang show where it stops. If it shows `simctl bootstatus` or xcodebuild stuck on the iOS 26.2 Simulator, a later run can add the same reset to demo.sh.
 
 ### Next
 - After Friday no new features. Week of Oct 26: TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
