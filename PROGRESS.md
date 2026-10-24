@@ -804,7 +804,7 @@ Main was green at the start (1aedd92). Every item in PLAN.md is checked (50 of 5
 ### Needs Emily
 - No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
 
-## 2026-10-23, build run 6 (17:55 to about 18:35 Central): check only, one CI re-run
+## 2026-10-23, build run 6 (17:55 to about 20:55 Central): red Xcode 27 run fixed in CI and tests only
 
 Main was 4383600 at the start. CI was green on every job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40023063791. The Xcode 27 workflow was red on one job: "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". Its demo step ran for 40 minutes and was cancelled, and the job then hit its 75 minute limit. The job logs could not be downloaded (404).
 
@@ -817,6 +817,8 @@ Main was 4383600 at the start. CI was green on every job: https://github.com/emi
 
 - With the watchdog (179a14a, https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40044878549) the iOS 26.2 demo step passed in 17 minutes, without needing the watchdog. CI was green. But "Build and test (Xcode 27, iOS 27 Simulator)" failed in `ScreenshotTests.testComponentGallery`: `00-components did not encode`. The log shows why: the first render in the test process waited about 11 seconds for the GPU pipeline ("building pipeline took 11.3 seconds"), and until then ImageIO timed out ("waiting for phase 6") and wrote nothing (zlib error). The Oct 22 fix tried to encode only twice, right away.
 - `test:` the screenshot test now tries to encode up to five times, two seconds apart, letting the run loop turn in between. Tests only; no app code changed.
+
+- Green on every job for f430e81: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40048224031 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40048224041 (`scripts/demo.sh` with Xcode 16, 26 and 27, demo.sh plus Listen on iOS 26.2, all tests with screenshots on iOS 27). The iOS 26.2 demo step took 17 to 18 minutes on the last two runs, against 6 to 11 earlier today; the watchdog did not need to step in. No screenshots changed, so I did not review them again.
 
 ### Readings I took
 - Twice in three tries is not a flake to wave through, but with no logs the cause is unknown. I did not change `scripts/demo.sh` tonight, since Emily may be running it for the demo; the watchdog only changes CI and makes the next hang show where it stops. If it shows `simctl bootstatus` or xcodebuild stuck on the iOS 26.2 Simulator, a later run can add the same reset to demo.sh.
