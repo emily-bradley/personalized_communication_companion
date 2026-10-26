@@ -828,3 +828,23 @@ Main was 4383600 at the start. CI was green on every job: https://github.com/emi
 
 ### Needs Emily
 - No change from build run 1 today: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback; for TestFlight your Team ID, the bundle ID, the App Store Connect app record, an API key and the four secrets.
+
+## 2026-10-26, build run 1 (08:02 to about 08:30 Central): check only, TestFlight week
+
+Main was green at the start (ea9f097): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40051791596 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40051791637, both green on every job (`scripts/demo.sh` with Xcode 16, 26 and 27, Listen on iOS 26.2, all tests with screenshots). Every item in PLAN.md is checked, including the TestFlight readiness section, so this run changed no code.
+
+### Verified, and how
+- No new commits on main since Friday night; no open issues.
+- `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`, and the TestFlight workflow has never been run, so the upload is waiting on Emily.
+- `docs/TESTFLIGHT.md` matches `testflight.yml`: four secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`).
+- Searched the repo outside `legacy/` and the design files for em and en dashes: none.
+
+### Readings I took
+- After Friday no new features; with CI green and the TestFlight section done, the right work is to keep watch and not churn the code.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- For TestFlight this week: your Team ID, confirm the bundle ID `com.emilykenney.selvo`, create the App Store Connect app record and an API key, add the four secrets, then run the TestFlight workflow by hand (`docs/TESTFLIGHT.md`).
+- Still open: install Xcode and Homebrew on your Mac and run `./scripts/demo.sh` (see `docs/DEMO.md`); decide how a person who cannot read tells the three suggestions apart before Speak; decide on Listen's server recognition fallback.
