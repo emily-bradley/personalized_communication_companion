@@ -909,3 +909,24 @@ Main was green at the start (2ff7498) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-10-26, build run 6 (17:56 to about 18:40 Central): fixed a red Xcode 27 run
+
+Main was red at the start (935187e): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40400140079 was green, but Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40400140302 failed in "Listen on the iOS 26.2 Simulator". The Listen UI test itself passed and `scripts/demo.sh` passed; the Simulator log query came back with no Selvo listen lines, so the "on device: true" check failed. 935187e changed only PROGRESS.md.
+
+### What changed
+- 5bb45b2 `ci:` in `demo-xcode27.yml`, the iOS 26.2 Listen step:
+  - It now really fails when the test fails. Under `set +e` the `grep -q "test exit 0"` line never stopped the step, so two Listen test failures passed silently (325e3ea on Oct 23 and 2ff7498 today, both "Failed to get screenshot: Timed out while requesting screenshot"). Found by reading the published `listen-ios26.txt` for the last 20 runs on `ci-screenshots`.
+  - "Timed out while requesting screenshot" joins the Simulator failures that get one rerun after a fresh boot. A second failure stays red.
+  - The log query runs up to three times, 15 seconds apart, when it finds no listen lines, and records log show's own messages (never Selvo's lines) so the next empty result can be explained.
+
+### Verified, and how
+- The edited step run locally with stubbed `xcrun` and `xcodebuild` in five cases: pass with log (green), pass with an empty log every time (red after 3 queries), log on the second query (green), a screenshot timeout then a pass (green after 2 test runs), a real assertion failure with "on device: true" in the log (red; it was green before this fix).
+- 5bb45b2 green on every job. CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40416589295 (`scripts/demo.sh` with Xcode 16 and 26, all tests with screenshots, the Xcode 26 TestFlight SDK build). Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40416589294 (`scripts/demo.sh` with Xcode 27; demo.sh with iOS 26.2, about 18 minutes; Listen "on device: true" on the first log query; all tests on iOS 27).
+- No app code changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; the TestFlight workflow has never been run; no open issues.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs. If the Listen screenshot timeout keeps coming back even after its one rerun, look at the test's screenshot attachments next.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
