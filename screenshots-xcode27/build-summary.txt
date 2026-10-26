@@ -1,77 +1,76 @@
-2026-10-26 19:08:55.017 xcodebuild[32971:86781]  iOSSimulator: 📱<DVTiPhoneSimulator (0x7b31d3e000), iPhone 16, unknown class, 27.0 (24A434), C5B513DC-B777-4F1B-85E0-964D92D85E36> unable to connect to "com.apple.instruments.deviceservice.lockdown" (Error Domain=DVTiPhoneSimulatorErrorDomain Code=-1 "DTServiceHubClient failed to bless service hub for simulator iPhone 16 (C5B513DC-B777-4F1B-85E0-964D92D85E36)" UserInfo={NSLocalizedDescription=DTServiceHubClient failed to bless service hub for simulator iPhone 16 (C5B513DC-B777-4F1B-85E0-964D92D85E36), NSUnderlyingError=0x7b324a2880 {Error Domain=DTServiceHubClient Code=2 "Connection to Simulator service hub (35880) interrupted. Simulator service hub IS still alive." UserInfo={NSLocalizedDescription=Connection to Simulator service hub (35880) interrupted. Simulator service hub IS still alive.}}})
-Test Suite 'All tests' started at 2026-10-26 19:11:01.773.
-Test Suite 'SelvoTests.xctest' started at 2026-10-26 19:11:01.775.
-Test Suite 'ComponentSizingTests' started at 2026-10-26 19:11:01.775.
-Test Suite 'ComponentSizingTests' passed at 2026-10-26 19:11:02.461.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.114 (0.686) seconds
-Test Suite 'LaunchTests' started at 2026-10-26 19:11:02.462.
-Test Suite 'LaunchTests' passed at 2026-10-26 19:11:02.480.
-	 Executed 3 tests, with 0 failures (0 unexpected) in 0.017 (0.019) seconds
-Test Suite 'NavigationTests' started at 2026-10-26 19:11:04.279.
-Test Suite 'NavigationTests' passed at 2026-10-26 19:11:04.288.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 0.007 (0.008) seconds
-Test Suite 'ScreenshotTests' started at 2026-10-26 19:11:04.288.
+2026-10-26 21:00:31.323 xcodebuild[3374:18650]  iOSSimulator: 📱<DVTiPhoneSimulator (0x7a0dd72000), iPhone 16, unknown class, 27.0 (24A434), 677B2F5E-4B3B-4FD4-8EF5-70E621D2C19E> unable to connect to "com.apple.instruments.deviceservice.lockdown" (Error Domain=DVTiPhoneSimulatorErrorDomain Code=-1 "DTServiceHubClient failed to bless service hub for simulator iPhone 16 (677B2F5E-4B3B-4FD4-8EF5-70E621D2C19E)" UserInfo={NSLocalizedDescription=DTServiceHubClient failed to bless service hub for simulator iPhone 16 (677B2F5E-4B3B-4FD4-8EF5-70E621D2C19E), NSUnderlyingError=0x7a0be726a0 {Error Domain=DTServiceHubClient Code=2 "Connection to Simulator service hub (4507) interrupted. Simulator service hub IS still alive." UserInfo={NSLocalizedDescription=Connection to Simulator service hub (4507) interrupted. Simulator service hub IS still alive.}}})
+Test Suite 'All tests' started at 2026-10-26 21:01:02.233.
+Test Suite 'SelvoTests.xctest' started at 2026-10-26 21:01:02.233.
+Test Suite 'ComponentSizingTests' started at 2026-10-26 21:01:02.233.
+Test Suite 'ComponentSizingTests' passed at 2026-10-26 21:01:02.639.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.106 (0.405) seconds
+Test Suite 'LaunchTests' started at 2026-10-26 21:01:02.639.
+Test Suite 'LaunchTests' passed at 2026-10-26 21:01:03.085.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.445 (0.446) seconds
+Test Suite 'NavigationTests' started at 2026-10-26 21:01:03.179.
+Test Suite 'NavigationTests' passed at 2026-10-26 21:01:03.189.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.009 (0.010) seconds
+Test Suite 'ScreenshotTests' started at 2026-10-26 21:01:03.190.
 IOSurfaceClientSetSurfaceNotify failed e00002c7
-2026-10-26 19:11:04.432645+0000 Selvo[35875:94848] fopen failed for data file: errno = 2 (No such file or directory)
-2026-10-26 19:11:05.321078+0000 Selvo[35875:94848] fopen failed for data file: errno = 2 (No such file or directory)
-2026-10-26 19:11:05.351354+0000 Selvo[35875:94848] [error] building pipeline path_exterior-jba10la4feba4 took 0.919141 seconds
-Test Suite 'ScreenshotTests' passed at 2026-10-26 19:11:46.249.
-	 Executed 13 tests, with 0 failures (0 unexpected) in 41.954 (41.961) seconds
-Test Suite 'SpeakTests' started at 2026-10-26 19:11:46.249.
-Test Suite 'SpeakTests' passed at 2026-10-26 19:11:49.091.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 2.841 (2.842) seconds
-Test Suite 'SpeechFileProbeTests' started at 2026-10-26 19:11:49.091.
+2026-10-26 21:01:03.294392+0000 Selvo[4497:21021] fopen failed for data file: errno = 2 (No such file or directory)
+2026-10-26 21:01:03.634113+0000 Selvo[4497:21021] fopen failed for data file: errno = 2 (No such file or directory)
+Test Suite 'ScreenshotTests' passed at 2026-10-26 21:02:06.134.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 62.939 (62.944) seconds
+Test Suite 'SpeakTests' started at 2026-10-26 21:02:06.134.
+Test Suite 'SpeakTests' passed at 2026-10-26 21:02:07.119.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.983 (0.984) seconds
+Test Suite 'SpeechFileProbeTests' started at 2026-10-26 21:02:07.121.
 SPEECHPROBE file from the Mac: frames 37035, sample rate 22050.0
 SPEECHPROBE speech authorization: 0 (3 is authorized)
-2026-10-26 19:11:51.528623+0000 Selvo[35875:94842] [AQ]        LoudnessManSPEECHPROBE dictation reserve en_US: trueager.mm:1222  IsHardwareSupported: no plist loaded, returning false
+SPEECHPROBE dictation reserve en_US: true
 SPEECHPROBE dictation asset status before: installed
 SPEECHPROBE dictation no install needed
 SPEECHPROBE dictation asset status after: installed
 SPEECHPROBE dictation failed: SFSpeechErrorDomain 3 Audio format is not supported
-Test Suite 'SpeechFileProbeTests' passed at 2026-10-26 19:11:51.911.
-	 Executed 1 test, with 0 failures (0 unexpected) in 2.819 (2.820) seconds
-Test Suite 'SpeechProbeTests' started at 2026-10-26 19:11:52.203.
+Test Suite 'SpeechFileProbeTests' passed at 2026-10-26 21:02:10.566.
+	 Executed 1 test, with 0 failures (0 unexpected) in 3.445 (3.445) seconds
+Test Suite 'SpeechProbeTests' started at 2026-10-26 21:02:10.566.
 SPEECHPROBE transcriber available: false
 SPEECHPROBE dictation transcriber locale: en_US
 SPEECHPROBE older recognizer on device: true
 SPEECHPROBE no supported locale for en-US
-Test Suite 'SpeechProbeTests' passed at 2026-10-26 19:11:52.227.
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.024 (0.024) seconds
-Test Suite 'SelvoTests.xctest' passed at 2026-10-26 19:11:52.227.
-	 Executed 30 tests, with 0 failures (0 unexpected) in 47.776 (50.452) seconds
-Test Suite 'All tests' passed at 2026-10-26 19:11:52.227.
-	 Executed 30 tests, with 0 failures (0 unexpected) in 47.776 (50.455) seconds
-Test Suite 'All tests' started at 2026-10-26 19:12:11.067.
-Test Suite 'SelvoUITests.xctest' started at 2026-10-26 19:12:11.067.
-Test Suite 'AccessibilityAuditUITests' started at 2026-10-26 19:12:11.067.
-2026-10-26 19:12:13.684 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:12:36.774 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:12:51.464 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:13:19.769 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:13:39.545 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:13:46.948 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-Test Suite 'AccessibilityAuditUITests' passed at 2026-10-26 19:14:11.845.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 120.767 (120.777) seconds
-Test Suite 'CoreFlowUITests' started at 2026-10-26 19:14:11.845.
-2026-10-26 19:14:12.959 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:14:20.130 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:14:53.570 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:15:08.667 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:15:37.277 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:15:48.080 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:16:12.129 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-Test Suite 'CoreFlowUITests' passed at 2026-10-26 19:16:20.866.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 129.018 (129.020) seconds
-Test Suite 'DemoWalkUITests' started at 2026-10-26 19:16:20.869.
-2026-10-26 19:16:21.902 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:16:41.466 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:17:00.940 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:17:38.967 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-2026-10-26 19:18:09.581 xcodebuild[32971:80606] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-Test Suite 'DemoWalkUITests' passed at 2026-10-26 19:18:20.213.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 119.341 (119.344) seconds
-Test Suite 'SelvoUITests.xctest' passed at 2026-10-26 19:18:20.214.
-	 Executed 15 tests, with 0 failures (0 unexpected) in 369.125 (369.147) seconds
-Test Suite 'All tests' passed at 2026-10-26 19:18:20.216.
-	 Executed 15 tests, with 0 failures (0 unexpected) in 369.125 (369.149) seconds
+Test Suite 'SpeechProbeTests' passed at 2026-10-26 21:02:10.575.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.008 (0.008) seconds
+Test Suite 'SelvoTests.xctest' passed at 2026-10-26 21:02:10.609.
+	 Executed 30 tests, with 0 failures (0 unexpected) in 67.935 (68.376) seconds
+Test Suite 'All tests' passed at 2026-10-26 21:02:10.609.
+	 Executed 30 tests, with 0 failures (0 unexpected) in 67.935 (68.377) seconds
+Test Suite 'All tests' started at 2026-10-26 21:03:15.223.
+Test Suite 'SelvoUITests.xctest' started at 2026-10-26 21:03:15.226.
+Test Suite 'AccessibilityAuditUITests' started at 2026-10-26 21:03:15.227.
+2026-10-26 21:03:49.523 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:04:23.785 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:04:37.234 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:05:05.866 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:05:25.427 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:05:33.538 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+Test Suite 'AccessibilityAuditUITests' passed at 2026-10-26 21:05:56.894.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 161.661 (161.667) seconds
+Test Suite 'CoreFlowUITests' started at 2026-10-26 21:05:56.897.
+2026-10-26 21:05:57.985 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:06:05.050 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:06:39.041 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:06:54.639 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:07:26.193 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:07:36.265 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:08:02.038 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+Test Suite 'CoreFlowUITests' passed at 2026-10-26 21:08:11.381.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 134.482 (134.485) seconds
+Test Suite 'DemoWalkUITests' started at 2026-10-26 21:08:11.386.
+2026-10-26 21:08:12.484 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:08:34.444 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:08:55.826 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:09:28.110 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-26 21:09:55.712 xcodebuild[3374:13747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+Test Suite 'DemoWalkUITests' passed at 2026-10-26 21:10:06.769.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 115.380 (115.383) seconds
+Test Suite 'SelvoUITests.xctest' passed at 2026-10-26 21:10:06.771.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 411.523 (411.544) seconds
+Test Suite 'All tests' passed at 2026-10-26 21:10:06.772.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 411.523 (411.549) seconds
 ** TEST SUCCEEDED **
