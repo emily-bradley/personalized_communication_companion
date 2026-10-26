@@ -864,3 +864,18 @@ Main was green at the start (77ea5fb) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged from run 1 today: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-10-26, build run 3 (11:56 to about 12:05 Central): check only
+
+Main was green at the start (8e7da8d) on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40344603484 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40344603835 (`scripts/demo.sh` with Xcode 16, 26 and 27, Listen on iOS 26.2, all tests with screenshots). Every item in PLAN.md is checked, so this run changed no code.
+
+### Verified, and how
+- The iOS 26.2 demo step took about 14 minutes, under the 20 minute watchdog (job step times via `gh api`).
+- `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no TestFlight workflow run exists; no open issues.
+- No screenshots changed, so none were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
