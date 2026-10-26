@@ -105,14 +105,16 @@ jobs:
           # Once more only if the test runner died before any test ran (Oct 21 twice, Oct 22 once:
           # "while preparing to run tests" or "failed to initialize for UI testing"), or when the
           # Simulator's accessibility server went away mid test (Oct 22: kAXErrorServerNotFound),
-          # after a fresh boot.
+          # after a fresh boot. Also when the Simulator could not hand XCTest a screenshot
+          # (Oct 23 and Oct 26: "Timed out while requesting screenshot").
           for attempt in 1 2; do
             xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
               -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
               -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
               > build/listen-ios26.log 2>&1
             status=$?
-            grep -qE "while preparing to run tests|failed to initialize for UI testing|kAXErrorServerNotFound" build/listen-ios26.log || break
+            [ "$status" = 0 ] && break
+            grep -qE "while preparing to run tests|failed to initialize for UI testing|kAXErrorServerNotFound|Timed out while requesting screenshot" build/listen-ios26.log || break
             echo "attempt $attempt: the test runner or the Simulator's accessibility server failed" >> "$OUT/listen-ios26.txt"
             [ "$attempt" = 1 ] || break
             xcrun simctl shutdown "$UDID" 2>/dev/null
@@ -123,10 +125,20 @@ jobs:
           grep -E "error|failed|Executed|\*\* " build/listen-ios26.log | tail -40 >> "$OUT/listen-ios26.txt"
           xcrun simctl boot "$UDID" 2>/dev/null
           xcrun simctl bootstatus "$UDID" >/dev/null 2>&1
-          xcrun simctl spawn "$UDID" log show --last 2h --style compact \
-            --predicate 'subsystem == "com.emilykenney.selvo"' 2>&1 | grep "listen" >> "$OUT/listen-ios26.txt"
+          # Oct 26: one query came back with no Selvo lines at all, so ask up to three times.
+          for try in 1 2 3; do
+            xcrun simctl spawn "$UDID" log show --last 2h --style compact \
+              --predicate 'subsystem == "com.emilykenney.selvo"' > build/selvo-log.txt 2>&1
+            grep -q "com.emilykenney.selvo:listen" build/selvo-log.txt && break
+            echo "log query $try found no listen lines" >> "$OUT/listen-ios26.txt"
+            # Only log show's own messages, never Selvo's lines.
+            grep -v "com.emilykenney.selvo" build/selvo-log.txt | head -5 >> "$OUT/listen-ios26.txt"
+            sleep 15
+          done
+          grep "com.emilykenney.selvo:listen" build/selvo-log.txt >> "$OUT/listen-ios26.txt"
           cat "$OUT/listen-ios26.txt"
-          grep -q "test exit 0" "$OUT/listen-ios26.txt"
+          # Both checks must hold; set +e above means each one has to fail the step by itself.
+          grep -q "test exit 0" "$OUT/listen-ios26.txt" || exit 1
           grep -q "on device: true" "$OUT/listen-ios26.txt" && ! grep -q "Listening is not available" "$OUT/listen-ios26.txt"
       - name: Publish to the ci-screenshots branch
         if: always() && github.event_name == 'push'
