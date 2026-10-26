@@ -10,6 +10,18 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
 5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-10-26, about 8:15am Central (post-demo check)
+
+Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 8ca51af: success).
+
+**Readings taken:** the Friday deadline has passed, so this run adds no features. Health check only, no code changes.
+
+**Verified and how:**
+- CI green on 8ca51af: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40036919215
+- Cloudflare Pages check on 8ca51af: success. The sandbox still cannot open pages.dev directly.
+
+**Next:** Nothing to build. Emily can pause this scheduled task. Later runs only fix red CI or live-site bugs.
+
 ## 2026-10-23, 5:58pm to about 6:02pm Central (Friday run 6, demo time)
 
 Live URL: https://selvo-website.pages.dev (Cloudflare check on d564327: "Deployed successfully").
