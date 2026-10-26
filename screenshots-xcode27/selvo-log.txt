@@ -1,9 +1,9 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-10-26 13:20:10.261 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-26 13:20:10.507 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-26 13:20:11.146 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-26 13:20:11.256 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-26 13:20:11.588 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-26 13:20:11.621 Df Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-10-26 13:20:11.622 E  Selvo[44605:1cd16] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
+2026-10-26 13:58:04.745 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-26 13:58:05.064 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-26 13:58:05.608 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-26 13:58:05.673 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-26 13:58:06.007 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-26 13:58:06.026 Df Selvo[25996:1241e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-10-26 13:58:06.026 E  Selvo[25996:1241e] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
