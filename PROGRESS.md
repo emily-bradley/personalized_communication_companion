@@ -839,6 +839,8 @@ Main was green at the start (ea9f097): CI https://github.com/emily-bradley/perso
 - `docs/TESTFLIGHT.md` matches `testflight.yml`: four secrets (`ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`).
 - Searched the repo outside `legacy/` and the design files for em and en dashes: none.
 
+- This run's push (a214fa6) was green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40327370839 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40327370730. But the iOS 26.2 demo step took 21.5 minutes (17 on Friday, 6 to 11 before), past the 20 minute watchdog, so it most likely needed its second try. The job log could not be downloaded (403), so this is not confirmed. If it keeps growing, a later run should find where it slows; demo.sh itself on Xcode 16, 26 and 27 stays at about 10 minutes.
+
 ### Readings I took
 - After Friday no new features; with CI green and the TestFlight section done, the right work is to keep watch and not churn the code.
 
