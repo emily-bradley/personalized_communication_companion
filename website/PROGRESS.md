@@ -10,7 +10,7 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
 5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
-## 2026-10-26, about 4:10pm Central (post-demo check)
+## 2026-10-26, about 6:00pm Central (post-demo check)
 
 Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 664aada: success).
 
