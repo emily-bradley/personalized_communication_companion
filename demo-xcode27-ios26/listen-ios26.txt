@@ -1,13 +1,7 @@
-    iPhone 16 (DA8644E5-46B6-41B6-ADA3-7AD5A0B4CE76) (Booted) 
-test exit 65
-2026-10-26 19:24:36.668 xcodebuild[32846:91198] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-<unknown>:0: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : Failed to get screenshot: Timed out while requesting screenshot.
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (239.952 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-26 19:28:19.880.
-	 Executed 1 test, with 1 failure (0 unexpected) in 239.952 (239.961) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-26 19:28:21.549.
-	 Executed 1 test, with 1 failure (0 unexpected) in 239.952 (241.629) seconds
-Test Suite 'Selected tests' failed at 2026-10-26 19:28:21.550.
-	 Executed 1 test, with 1 failure (0 unexpected) in 239.952 (241.636) seconds
-** TEST FAILED **
-2026-10-26 19:26:38.132 Df Selvo[48346:1f40e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+    iPhone 16 (106B09AA-0F99-401C-AB9E-DFD1D22D29CF) (Booted) 
+test exit 0
+2026-10-26 21:30:15.606 xcodebuild[33575:93747] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 167.472 (167.482) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 167.472 (167.486) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 167.472 (167.507) seconds
+** TEST SUCCEEDED **
