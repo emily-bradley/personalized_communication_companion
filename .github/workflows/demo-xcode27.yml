@@ -110,6 +110,7 @@ jobs:
           for attempt in 1 2; do
             xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
               -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
+              -resultBundlePath "build/listen-ios26-$attempt.xcresult" \
               -only-testing:SelvoUITests/DemoWalkUITests/testListenShowsListeningAndStops \
               > build/listen-ios26.log 2>&1
             status=$?
@@ -123,6 +124,17 @@ jobs:
           done
           echo "test exit $status" >> "$OUT/listen-ios26.txt"
           grep -E "error|failed|Executed|\*\* " build/listen-ios26.log | tail -40 >> "$OUT/listen-ios26.txt"
+          # Oct 27: Listen opened but no status showed, and nothing showed why. On a failure,
+          # publish the screenshots XCTest took so the next one can be seen.
+          if [ "$status" != 0 ]; then
+            mkdir -p build/listen-ios26-attachments
+            xcrun xcresulttool export attachments --path "build/listen-ios26-$attempt.xcresult" \
+              --output-path build/listen-ios26-attachments >> "$OUT/listen-ios26.txt" 2>&1
+            mkdir -p "$OUT/failure"
+            find build/listen-ios26-attachments -type f \( -name "*.png" -o -name "*.jpeg" -o -name "*.jpg" \) \
+              -exec cp {} "$OUT/failure/" \;
+            echo "failure screenshots: $(ls "$OUT/failure" | wc -l)" >> "$OUT/listen-ios26.txt"
+          fi
           xcrun simctl boot "$UDID" 2>/dev/null
           xcrun simctl bootstatus "$UDID" >/dev/null 2>&1
           # Oct 26: one query came back with no Selvo lines at all, so ask up to three times.
