@@ -1010,3 +1010,24 @@ Main was green at the start (41032fb) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-10-27, build run 6 (17:56 to about 18:40 Central): Listen check red on c8fe70d, fixed
+
+Main started red: the Xcode 27 run for c8fe70d failed (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40582533722) in the iOS 26.2 Listen check. CI was green. Listen started on device (log: on device true, 48 kHz) and the published failure screenshot shows Listening with Stop listening, so Listen itself worked. After the tap on Stop listening, Home did not show Speak within 20 seconds; the test took 261 seconds on a slow runner. This is the case run notes from Oct 21 (823ca7d) predicted.
+
+### Changed
+- `SelvoUITests/DemoWalkUITests.swift`: the final wait for Home after Stop listening is 60 seconds (all other waits unchanged).
+- `Selvo/App/SpeechListener.swift`: `stop()` logs "Stopped listening" (state only, never what was heard), so a future failure shows whether the tap reached Selvo or the screen was just slow to go back.
+- Reading taken: a slow CI Simulator, not a demo bug, since Listen and Stop work on every other run and on Xcode 16 and 26. No app behavior changed.
+
+### Verified, and how
+- 0a90beb is green on both workflows: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40598967221 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40598967282 (`scripts/demo.sh` with Xcode 16, 26 and 27, demo.sh and Listen on iOS 26.2, all tests with screenshots).
+- `listen-ios26.txt` on `ci-screenshots` for 0a90beb: test exit 0 in 71 seconds; log shows Starting recognition, then Stopped listening 4.6 seconds later.
+- Job logs: `gh api .../logs` is still Forbidden from the log store; the GitHub MCP `get_job_logs` tool worked.
+- No screenshots changed visually; the failure screenshot (Listen, Listening state) was reviewed and matches the artboard.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). If "Home shows Speak" after Stop fails again, check the log for "Stopped listening": present means the screen was slow to go back; absent means the tap never reached Selvo.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
