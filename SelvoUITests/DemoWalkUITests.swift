@@ -52,8 +52,8 @@ final class DemoWalkUITests: XCTestCase {
         return XCTWaiter().wait(for: [expectation], timeout: timeout) == .completed
     }
 
-    private func assertHome(file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertTrue(app.buttons["Speak"].firstMatch.waitForExistence(timeout: 20), "Home shows Speak", file: file, line: line)
+    private func assertHome(timeout: TimeInterval = 20, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertTrue(app.buttons["Speak"].firstMatch.waitForExistence(timeout: timeout), "Home shows Speak", file: file, line: line)
     }
 
     // MARK: Welcome
@@ -193,7 +193,9 @@ final class DemoWalkUITests: XCTestCase {
         } else {
             tap("Back")
         }
-        assertHome()
+        // A slow CI Simulator took more than 20 seconds to stop the microphone and go back
+        // (823ca7d on Oct 21, c8fe70d on Oct 27), so wait longer here.
+        assertHome(timeout: 60)
     }
 
     private func firstExisting(_ elements: [XCUIElement], timeout: TimeInterval) -> XCUIElement? {

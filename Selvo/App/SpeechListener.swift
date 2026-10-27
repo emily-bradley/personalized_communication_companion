@@ -74,6 +74,8 @@ final class SpeechListener {
         generation += 1
         stopAudio()
         restorePlayback()
+        // Only the state, never what was heard, so CI can tell whether Stop reached Selvo.
+        log.notice("Stopped listening")
         if state == .listening || state == .starting {
             state = .idle
         }
