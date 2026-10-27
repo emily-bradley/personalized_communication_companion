@@ -1,49 +1,12 @@
-    iPhone 16 (4F160D53-E19C-469C-8291-878456C964DC) (Booted) 
-test exit 65
-2026-10-27 21:22:43.351 xcodebuild[22684:68714] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:196: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertTrue failed - Home shows Speak
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (261.530 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-27 21:26:34.807.
-	 Executed 1 test, with 1 failure (0 unexpected) in 261.530 (261.532) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-27 21:26:36.704.
-	 Executed 1 test, with 1 failure (0 unexpected) in 261.530 (263.430) seconds
-Test Suite 'Selected tests' failed at 2026-10-27 21:26:36.705.
-	 Executed 1 test, with 1 failure (0 unexpected) in 261.530 (263.435) seconds
-** TEST FAILED **
-Exported 32 attachments for: DemoWalkUITests/testListenShowsListeningAndStops():
-File: 3B16C80F-6804-4D19-9D14-31AB4D00B5BE.txt, suggested name: "App UI hierarchy for com.emilykenney_0_13F82C18-6DC1-4BF5-AEAB-37192F73A471.selvo"
-File: 94DFE4B7-6840-4CA0-A3F8-A9357D2E579E, suggested name: "UI Snapshot 2026-10-27 at 09.26.30 PM"
-File: 549F105D-96CB-4189-9A50-476930014BBC.txt, suggested name: "Debug description for `"Speak" Button`_0_BFFB8B9B-49DC-407E-AFCF-4B9E65B0E048.txt"
-File: 7B2CFF34-F47D-4280-B886-E7B23C18D8DF.txt, suggested name: "Debug description for `"Speak" Button`_0_63D4C503-F416-4A5D-B2AB-C40AE9CF6D38.txt"
-File: F76E716A-B9EF-4663-8ADE-DE6CF70BA3B9.txt, suggested name: "Debug description for `"Speak" Button`_0_7E3C29CF-9F60-4DD7-94D1-3ED358D033DF.txt"
-File: 1C14D054-3AD1-4BD5-BD9D-3FBE61F2F7BF.txt, suggested name: "Debug description for `"Speak" Button`_0_2F694FA5-3219-4045-BECA-2BB8E4F65BBF.txt"
-File: DAFAA9FE-CCB8-428C-985C-8B4CB2CED3FB.txt, suggested name: "Debug description for `"Speak" Button`_0_7D9411FF-B436-4CBC-84E3-38559BEBE21E.txt"
-File: 296E445E-8580-456A-89B4-5C4D942E0CC1.txt, suggested name: "Debug description for `"Speak" Button`_0_F7808FA5-4AD9-457A-804A-FB716ABE6124.txt"
-File: CCBAA09B-2DA5-45AF-88B2-CA8D43942DA1.txt, suggested name: "Debug description for `"Speak" Button`_0_A25BA20B-9E51-4FD6-85DF-BD4A556F0F52.txt"
-File: 450687E0-DA2A-4D0A-AEAD-40F4626EBCC2.txt, suggested name: "Debug description for `"Speak" Button`_0_A858B2B6-E936-4094-9FF1-00C5EA1A04EB.txt"
-File: AC987BFA-C9A4-4CA9-881D-6214324F6645.txt, suggested name: "Debug description for `"Speak" Button`_0_5C9911FE-242C-45B1-B217-FB26DDC6079C.txt"
-File: F12A3715-65D1-48FF-8215-FC6D1E81E46D.txt, suggested name: "Debug description for `"Speak" Button`_0_3AAAE81F-3035-4930-A15A-83E317F24679.txt"
-File: 5AA32D5E-6796-4727-BFE1-7D840A8688A8.txt, suggested name: "Debug description for `"Speak" Button`_0_2604E8E9-CED9-4075-B267-56B79AA3BBA8.txt"
-File: 8291D949-F4BB-4344-8E6F-A4AFCC6A9085.txt, suggested name: "Debug description for `"Speak" Button`_0_1316AD3A-C112-4CD7-AD1C-D7658C195DE1.txt"
-File: FB56D173-2132-47E0-973E-0EEA0E3E98C8.txt, suggested name: "Debug description for `"Speak" Button`_0_602D92F3-A9FF-499F-985D-CBABED43DA9E.txt"
-File: 02F16A89-7B92-4D18-B7DB-6A6EF9153A02.txt, suggested name: "Debug description for `"Speak" Button`_0_6FCD7BB6-A64E-418D-9C7C-9DF2DC02F5A2.txt"
-File: 77944EBC-7CDC-4520-A756-658C65A5FBB4.txt, suggested name: "Debug description for `"Speak" Button`_0_A6ED4A65-E7D7-430F-A7FF-57701DE1114A.txt"
-File: 012C0D26-9FA6-4086-A1A8-04B0E1D091D0.txt, suggested name: "Debug description for `"Speak" Button`_0_5276DA95-429D-47E1-8A16-6ED96F942250.txt"
-File: ACE0C2CF-2673-468C-BB54-B6038B290358.txt, suggested name: "Debug description for `"Speak" Button`_0_26F41539-0C31-4201-A190-D6D17AA71FD4.txt"
-File: E698BE3C-FBAC-44AF-A30A-50858E72A016.txt, suggested name: "Debug description for `"Speak" Button`_0_28C519D6-0D76-460F-A8AC-07DCB8505F50.txt"
-File: 07F14303-5333-4158-80BC-494E1056DC5C.txt, suggested name: "Debug description for `"Speak" Button`_0_93B484A0-BF70-4247-A84D-592790683629.txt"
-File: 3CFA6AFA-825E-438C-A41B-5D8C71766109, suggested name: "UI Snapshot 2026-10-27 at 09.26.08 PM"
-File: 9B43F1A1-4806-46A9-90DC-177831D20B7C, suggested name: "Synthesized Event 2026-10-27 at 09.26.08 PM"
-File: 669992AA-6715-45FF-9EC6-372FE7A9057A.png, suggested name: "demo-07-listen_0_441E3329-01A0-40BE-8C8F-D2CC70AE9133.png"
-File: 02B9FDBF-7A6D-4262-B7E5-BC373FB75D06, suggested name: "UI Snapshot 2026-10-27 at 09.25.15 PM"
-File: C0401845-94B4-4F8F-89A0-D82EA370F5CD, suggested name: "Synthesized Event 2026-10-27 at 09.25.15 PM"
-File: E34DE01D-F37A-48F6-B413-5FA208947AC8, suggested name: "Synthesized Event 2026-10-27 at 09.25.14 PM"
-File: A99D3012-BE8A-45E0-8738-6F602F9D1F23, suggested name: "UI Snapshot 2026-10-27 at 09.25.06 PM"
-File: 8D9FF74F-ACCA-48A7-B7B3-0C455984AD57, suggested name: "Synthesized Event 2026-10-27 at 09.25.07 PM"
-File: B9829FC4-EB28-4234-9B80-D8AE44B9C923, suggested name: "Synthesized Event 2026-10-27 at 09.25.06 PM"
-File: 43939A3D-5D04-4C0E-9B5F-A42478549C5A, suggested name: "Synthesized Event 2026-10-27 at 09.25.01 PM"
-File: 6278CC58-10F3-4213-B45B-C78B698D6696.mp4, suggested name: "Screen Recording 2026-10-27 at 09.22.19 PM.mp4"
-
-Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
-failure screenshots:        1
-2026-10-27 21:25:54.054 Df Selvo[41957:1bf99] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+    iPhone 16 (5A3A3A8B-E35A-41A6-971D-E00C2BA5D85C) (Booted) 
+attempt 1: the test runner or the Simulator's accessibility server failed
+test exit 0
+2026-10-27 23:33:38.137 xcodebuild[89803:222117] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.425 (71.427) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.425 (71.429) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.425 (71.431) seconds
+** TEST SUCCEEDED **
+2026-10-27 23:33:58.085 Df Selvo[91257:37737] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-27 23:34:02.675 Df Selvo[91257:37737] [com.emilykenney.selvo:listen] Stopped listening
+2026-10-27 23:34:02.719 Df Selvo[91257:37737] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-27 23:34:03.192 Df Selvo[91257:37737] [com.emilykenney.selvo:listen] Stopped listening
