@@ -1,21 +1,9 @@
-    iPhone 16 (F1737B6A-39D0-4A7E-BB79-16697DDADE75) (Booted) 
-test exit 65
-2026-10-26 23:57:42.425 xcodebuild[34418:94137] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:182: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertNotNil failed - Listen shows whether it is listening
-Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (262.909 seconds).
-Test Suite 'DemoWalkUITests' failed at 2026-10-27 00:01:58.030.
-	 Executed 1 test, with 1 failure (0 unexpected) in 262.909 (262.911) seconds
-Test Suite 'SelvoUITests.xctest' failed at 2026-10-27 00:01:58.911.
-	 Executed 1 test, with 1 failure (0 unexpected) in 262.909 (263.792) seconds
-Test Suite 'Selected tests' failed at 2026-10-27 00:01:58.912.
-	 Executed 1 test, with 1 failure (0 unexpected) in 262.909 (263.801) seconds
-** TEST FAILED **
-log query 1 found no listen lines
-getpwuid_r did not find a match for uid 501
-Timestamp               Ty Process[PID:TID]
-log query 2 found no listen lines
-getpwuid_r did not find a match for uid 501
-Timestamp               Ty Process[PID:TID]
-log query 3 found no listen lines
-getpwuid_r did not find a match for uid 501
-Timestamp               Ty Process[PID:TID]
+    iPhone 16 (9ED451E9-0EC7-4635-B77D-AD28F12ADF5F) (Booted) 
+test exit 0
+2026-10-27 13:50:05.800 xcodebuild[29575:82469] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.294) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.297) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.352) seconds
+** TEST SUCCEEDED **
+2026-10-27 13:51:50.592 Df Selvo[42596:1bd48] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-27 13:51:59.909 Df Selvo[42596:1bd48] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
