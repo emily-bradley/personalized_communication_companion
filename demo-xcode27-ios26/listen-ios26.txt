@@ -1,9 +1,10 @@
-    iPhone 16 (9ED451E9-0EC7-4635-B77D-AD28F12ADF5F) (Booted) 
+    iPhone 16 (DEF06BAF-C022-405D-9A5C-EB392F5A5262) (Booted) 
+attempt 1: the test runner or the Simulator's accessibility server failed
 test exit 0
-2026-10-27 13:50:05.800 xcodebuild[29575:82469] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.294) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.297) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 159.281 (159.352) seconds
+2026-10-27 14:30:21.490 xcodebuild[56486:147937] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 36.579 (36.581) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 36.579 (36.582) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 36.579 (36.583) seconds
 ** TEST SUCCEEDED **
-2026-10-27 13:51:50.592 Df Selvo[42596:1bd48] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-27 13:51:59.909 Df Selvo[42596:1bd48] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-10-27 14:30:44.828 Df Selvo[58291:25931] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-10-27 14:30:51.362 Df Selvo[58291:25931] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
