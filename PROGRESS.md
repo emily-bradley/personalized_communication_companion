@@ -930,3 +930,23 @@ Main was red at the start (935187e): CI https://github.com/emily-bradley/persona
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-10-27, build run 1 (08:24 to about 09:35 Central): a Listen flake on Xcode 27, confirmed and made visible
+
+Main was red at the start (a88209d): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40420577849 was green, but Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40420577810 failed in "Listen on the iOS 26.2 Simulator". The stricter check from 5bb45b2 caught a real test failure this time: `DemoWalkUITests.swift:182` "Listen shows whether it is listening". The Listen screen opened, but no status line was found in 20 seconds, the test took 263 seconds instead of the usual 37, and Selvo never logged "Starting recognition". a88209d changed only PROGRESS.md; the same code passed this step on 5bb45b2 and passed the same test on iOS 27 in the same run. Every Listen state shows a status line, so the reading taken is a stalled Simulator, not an app bug.
+
+### What changed
+- Re-ran the failed job once (attempt 2 of run 40420577810): green, which confirms the flake on unchanged code.
+- f04eb0a `ci:` in `demo-xcode27.yml`, the iOS 26.2 Listen step keeps each attempt's result bundle and, only when the test fails, exports XCTest's screenshots into a `failure/` folder published with `demo-xcode27-ios26` on `ci-screenshots`. Nothing showed the screen last time. This cannot turn a pass red; the same two checks still decide the step. Not yet exercised on a failure, since the run after it passed.
+
+### Verified, and how
+- f04eb0a green on every job. CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40512294929 (`scripts/demo.sh` with Xcode 16 and 26, all tests with screenshots, the Xcode 26 TestFlight SDK build). Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40512294650 (`scripts/demo.sh` with Xcode 27, about 10 minutes; demo.sh and Listen on iOS 26.2, about 38 minutes, Listen "on device: true" after one accessibility rerun; all tests on iOS 27).
+- Read the published `listen-ios26.txt` for the last 20 runs on `ci-screenshots` to separate this failure from the earlier screenshot timeouts.
+- No app code changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; the TestFlight workflow has never been run; no open issues.
+- Job logs through `gh api .../jobs/ID/logs` came back Forbidden from the log store in this environment; the GitHub MCP `get_job_logs` tool worked.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs. If the "no status" failure comes back, look at the `failure/` screenshots before changing anything.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
