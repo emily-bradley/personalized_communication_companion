@@ -1,11 +1,90 @@
-    iPhone 16 (13C3A740-BB20-494D-9555-49DC789DF3D7) (Booted) 
-test exit 0
-2026-10-28 00:09:22.658 xcodebuild[49796:134753] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 41.915 (41.918) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 41.915 (41.919) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 41.915 (41.921) seconds
-** TEST SUCCEEDED **
-2026-10-28 00:09:53.935 Df Selvo[55147:24115] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-28 00:09:57.304 Df Selvo[55147:24115] [com.emilykenney.selvo:listen] Stopped listening
-2026-10-28 00:09:57.500 Df Selvo[55147:24115] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-10-28 00:09:57.895 Df Selvo[55147:24115] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (C5B56B60-C207-488E-BD1B-9C860BEE8AFF) (Booted) 
+test exit 65
+2026-10-28 13:35:11.815 xcodebuild[64745:160429] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:198: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertTrue failed - Home shows Speak
+Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (269.146 seconds).
+Test Suite 'DemoWalkUITests' failed at 2026-10-28 13:39:36.857.
+	 Executed 1 test, with 1 failure (0 unexpected) in 269.146 (269.155) seconds
+Test Suite 'SelvoUITests.xctest' failed at 2026-10-28 13:39:36.870.
+	 Executed 1 test, with 1 failure (0 unexpected) in 269.146 (269.169) seconds
+Test Suite 'Selected tests' failed at 2026-10-28 13:39:36.871.
+	 Executed 1 test, with 1 failure (0 unexpected) in 269.146 (269.174) seconds
+** TEST FAILED **
+Exported 73 attachments for: DemoWalkUITests/testListenShowsListeningAndStops():
+File: AD6BF9DF-C30E-4509-92F8-8608BBB9544E.txt, suggested name: "Debug description for `"Speak" Button`_0_69CF0871-F12F-46C0-891E-9A2218D2048E.txt"
+File: F46AA1DC-7DE4-4A28-9620-D1FEF9065552.txt, suggested name: "Debug description for `"Speak" Button`_0_E0F226DE-CDD1-4C63-8341-A348C934F2F9.txt"
+File: B73A56E6-AC21-4115-892A-9B45F4B4EF0C.txt, suggested name: "Debug description for `"Speak" Button`_0_357AF29F-0BFE-42D2-BA38-9D1C04F8B10A.txt"
+File: AC4847B0-CFD0-4F0A-8936-A3F97A59BCDD.txt, suggested name: "Debug description for `"Speak" Button`_0_6FC28575-5DDD-46DE-8CDF-7084D51B25A7.txt"
+File: E09B244C-92C0-48C8-8D5C-B40653925A1D.txt, suggested name: "Debug description for `"Speak" Button`_0_960861CF-A149-4201-ADD6-A687818A0282.txt"
+File: CF820575-C3A2-49D0-A261-8BBA787F7875.txt, suggested name: "Debug description for `"Speak" Button`_0_42D866F7-F802-4D82-BE55-5E0897851EB6.txt"
+File: DEC6899A-88FA-44BD-A66A-E98E65B7B0D0.txt, suggested name: "Debug description for `"Speak" Button`_0_9C507065-0908-4FC9-9D8E-135E48F2F419.txt"
+File: 085E6A03-DBEC-44F3-831F-4AB9CA5E78CA.txt, suggested name: "Debug description for `"Speak" Button`_0_D1942BFC-F1E4-4600-80A0-FE419AB5ABB8.txt"
+File: 5AF76413-EB2B-4095-A7FF-ADD3BDF4918B.txt, suggested name: "Debug description for `"Speak" Button`_0_E023355D-8D47-43B8-900D-27F832B3EB55.txt"
+File: 53829E0C-99DF-4CB3-BC86-987687ABF2E2.txt, suggested name: "Debug description for `"Speak" Button`_0_C5374C54-58A5-47B3-8FBD-95DEA90247B8.txt"
+File: 0F829ED8-DA63-43BC-8C63-01FFB5C7E1FB.txt, suggested name: "Debug description for `"Speak" Button`_0_469D5925-6C7D-4C89-9F01-8509772569F4.txt"
+File: 2CA76D51-26FB-4B68-B166-B6F263C3EDA6.txt, suggested name: "Debug description for `"Speak" Button`_0_ECAFB3A2-3E6F-40C0-ADD6-B0B88BD5986F.txt"
+File: 9281314B-5403-40D8-A270-29FB92700BE6.txt, suggested name: "Debug description for `"Speak" Button`_0_34899A9E-50F3-46DE-9C28-D8C3B2434A05.txt"
+File: 1A6E5140-EEFB-4B6A-A1B2-A442E6921CC8.txt, suggested name: "Debug description for `"Speak" Button`_0_8ED218E4-8635-4FFA-BFCF-F5E110ABD8C5.txt"
+File: 2F0F3804-7975-479E-8752-0ACA5A6F4981.txt, suggested name: "Debug description for `"Speak" Button`_0_125DEDBD-C473-4201-9089-9EE9117E349D.txt"
+File: F4EDEAAF-C7DA-43F7-A6AD-3F3A8445CFC8.txt, suggested name: "Debug description for `"Speak" Button`_0_13E2F7B3-BD48-4CED-A2E2-9DCBD7C548EA.txt"
+File: 30C17B71-AD3E-410E-BB31-C99C651D0C82.txt, suggested name: "Debug description for `"Speak" Button`_0_6D54162A-AE6C-4D4D-82AD-0E103D075D9C.txt"
+File: 00CC90DE-4A10-4342-9464-DC8324A1A4E0.txt, suggested name: "Debug description for `"Speak" Button`_0_E3F55BE6-7F30-415B-BE9C-0F7CE6D32AFF.txt"
+File: ECE4638B-F2D1-455D-8379-B4A0F622C26A.txt, suggested name: "Debug description for `"Speak" Button`_0_342E92B9-2399-4609-9F4C-519B00BC3CE5.txt"
+File: EDD95154-601B-4771-BCA4-E61B1074A326.txt, suggested name: "Debug description for `"Speak" Button`_0_A3B67F08-4B44-4808-8767-A7F45623D63E.txt"
+File: B5D710FE-F599-4486-A474-953D6FC8C4C1.txt, suggested name: "Debug description for `"Speak" Button`_0_DA62E1DC-F298-42BF-A88E-E7FA1D7295AD.txt"
+File: 85DBD87B-564E-4361-B312-754134B13261.txt, suggested name: "Debug description for `"Speak" Button`_0_7D7795C7-8AF3-499F-A29E-6B819683C5DD.txt"
+File: EA86B036-B297-4785-A51B-420D60A85F61.txt, suggested name: "Debug description for `"Speak" Button`_0_040FC267-9078-4833-9333-5D54D7124521.txt"
+File: 7C61AD27-15C9-4B8A-AB11-407AEC615412.txt, suggested name: "Debug description for `"Speak" Button`_0_559FCD46-BC81-4D2E-A7DF-492B4B44F9E7.txt"
+File: DBE61A91-A515-48B0-8B5C-D70D1EA3C1F6.txt, suggested name: "Debug description for `"Speak" Button`_0_31C765DD-5307-4D53-803D-41A42F81335F.txt"
+File: 90BCCA7D-B5B4-4ED1-A612-DE614826EA48.txt, suggested name: "Debug description for `"Speak" Button`_0_ED78B962-463A-46CB-B612-F9EF92D0C551.txt"
+File: 94F96084-201B-49DE-8300-069417222941.txt, suggested name: "Debug description for `"Speak" Button`_0_B420B8E1-0647-40C4-9B70-7AC278627FB3.txt"
+File: B37DA131-FDCB-447B-9166-7C0083F7F333.txt, suggested name: "Debug description for `"Speak" Button`_0_BA46D3A3-6763-4B47-9E13-B041CCEF4120.txt"
+File: 45301F25-21EB-4667-A7C2-F75AC05722B3.txt, suggested name: "Debug description for `"Speak" Button`_0_071B8C65-CDCA-4B30-BE8F-7118165D19F2.txt"
+File: F50CDBCC-DF3F-4D3F-B645-0DA907F70DD0.txt, suggested name: "Debug description for `"Speak" Button`_0_434C11E6-0F61-4191-A3BE-01014347E69B.txt"
+File: D80B4920-3365-49F3-BB2E-33B0722CF098.txt, suggested name: "Debug description for `"Speak" Button`_0_B02AC917-D0D0-42EB-A6F0-EC8F0271ECCD.txt"
+File: CE11F895-3B5F-4051-BB0F-8BEC710097D7.txt, suggested name: "Debug description for `"Speak" Button`_0_EB9BB84B-74E5-41F8-A60B-48E5DF31BA17.txt"
+File: 5A487240-E66E-4699-ADCD-EF916712D717.txt, suggested name: "Debug description for `"Speak" Button`_0_310B8712-30AA-423A-A878-99FB8838EDB8.txt"
+File: 505F9661-A56E-4A92-AF40-ABB9088EF65D.txt, suggested name: "Debug description for `"Speak" Button`_0_65E6CE3D-F7CD-4176-90B8-67A3E6C3FD62.txt"
+File: 5537E804-B7BE-4C04-A990-B74DE7B22D40.txt, suggested name: "Debug description for `"Speak" Button`_0_B66CF232-9F71-440A-B687-F9F6A09C9982.txt"
+File: 1AD4D322-15E5-4679-82D3-D7A8A77F3EE1.txt, suggested name: "Debug description for `"Speak" Button`_0_EA75D292-5394-423E-8D6A-F330D006C0B9.txt"
+File: 7CBD4493-4F13-4D2F-8F36-DA53FADA5603.txt, suggested name: "Debug description for `"Speak" Button`_0_EBCF6547-7465-4282-8705-CA5DD8EDB5DA.txt"
+File: 2CD21E60-BB24-4AC1-8F4D-E2DDB4A46731.txt, suggested name: "Debug description for `"Speak" Button`_0_E0F6B7F7-5154-406D-80B0-B49E7425E57E.txt"
+File: F418E819-7A18-4D55-92F9-D3C09CC4FE6E.txt, suggested name: "Debug description for `"Speak" Button`_0_8D2EA460-61CD-4492-B6A1-3DC8A45449B0.txt"
+File: AED13788-D3BA-4A71-BCF3-6DFA12F7AC88.txt, suggested name: "Debug description for `"Speak" Button`_0_8CF86783-060E-435C-B62A-8FC6F5400A90.txt"
+File: C5307A70-8DD3-4025-BEDD-9B17299F7AA4.txt, suggested name: "Debug description for `"Speak" Button`_0_CDF43D4A-C5D1-42B3-A302-0D30378F69B4.txt"
+File: 06AFD774-8173-4F70-8D6A-95A571B9E9AF.txt, suggested name: "Debug description for `"Speak" Button`_0_46B52DB6-530C-4541-BB8F-EDC1835DB2C5.txt"
+File: 66354A00-6B17-40EA-88C8-30FBC60C9EFB.txt, suggested name: "Debug description for `"Speak" Button`_0_8B42A110-139F-4CEA-907B-53B694E8F3B2.txt"
+File: 7CB6A2EB-9D61-4C51-A666-38CE61E862A6.txt, suggested name: "Debug description for `"Speak" Button`_0_D75CF181-0A82-465C-B170-18AF9EE0DA8F.txt"
+File: 8126CC74-5DC9-42C9-88F5-C0F0A4E43EFE.txt, suggested name: "Debug description for `"Speak" Button`_0_60C232A6-3F37-4A53-8606-9EE001590589.txt"
+File: 7D0215B5-5AD5-49B2-B20F-011761CDF5E5.txt, suggested name: "Debug description for `"Speak" Button`_0_43C9FF17-021C-4457-B00C-B29060D8ABDB.txt"
+File: B502481B-9A34-43AE-909A-6E9DDF2C94EF.txt, suggested name: "Debug description for `"Speak" Button`_0_8C26C988-7803-489C-AB03-CD07A727033C.txt"
+File: C38379D2-6EB6-4952-A5D6-EF39BA9D67AE.txt, suggested name: "Debug description for `"Speak" Button`_0_9697B5F5-99DB-42BB-AE09-C816A00AC428.txt"
+File: A94B769E-DE84-43F3-B274-3F996583B38E.txt, suggested name: "Debug description for `"Speak" Button`_0_5FD907F7-EF1A-4F64-8CA1-DC81C8C5DE85.txt"
+File: 5FAC8AD8-A9AB-4E0F-B0BD-E3C654A30A9F.txt, suggested name: "Debug description for `"Speak" Button`_0_2217B9FC-5D90-4212-A7B4-8AFC517843B5.txt"
+File: E838F36F-E327-4C79-BC03-DD34B84755A3.txt, suggested name: "Debug description for `"Speak" Button`_0_B3FE3B43-7969-458F-9107-C58601138944.txt"
+File: F4196423-A947-40E2-9B20-467424E9DB2B.txt, suggested name: "Debug description for `"Speak" Button`_0_9AB85A00-9838-4E8D-85C5-A13BE0C486A4.txt"
+File: 97A7F1AC-EEBE-48DF-B9A4-DF254EF14DB4.txt, suggested name: "Debug description for `"Speak" Button`_0_322A0A7D-84A9-4F5E-9D52-5234525DF19E.txt"
+File: 7394C044-DE88-4DE0-81AA-9B4F579FC831.txt, suggested name: "Debug description for `"Speak" Button`_0_C8151C7D-E1A8-460B-83F3-36A555794133.txt"
+File: E2691E39-4C12-4B7A-9B6D-9B3EA807107C.txt, suggested name: "Debug description for `"Speak" Button`_0_B7686127-F37D-4A26-A5DA-07CC98ED175C.txt"
+File: 2D223DC2-3132-4424-B4E3-E4B546A7D88B.txt, suggested name: "Debug description for `"Speak" Button`_0_50595E23-7C56-498E-95F8-0962F1EA9E9E.txt"
+File: EBA6650C-721F-44CF-B6BB-01F70A65DD51.txt, suggested name: "Debug description for `"Speak" Button`_0_50AF28DA-5845-4BA9-B088-B26C7C04913D.txt"
+File: 2420E7D5-48EC-4076-9EB6-48DD2EDFCA5C.txt, suggested name: "Debug description for `"Speak" Button`_0_6A6DFD9E-B39A-4CB1-AA64-2BF2197119F9.txt"
+File: CF884027-E786-4D11-9A02-6C249C64239B.txt, suggested name: "Debug description for `"Speak" Button`_0_18F4B236-515B-4062-A4EB-7E82AC3F88E7.txt"
+File: A2509C0A-336B-471C-87BC-121CB3C349FA.txt, suggested name: "Debug description for `"Speak" Button`_0_C113A66C-3FC8-4E2C-912B-28F5ED9E7F0A.txt"
+File: E9305183-4562-4DC5-A8A0-FB33C064E225, suggested name: "UI Snapshot 2026-10-28 at 01.38.02 PM"
+File: 44D884DE-D8C4-487D-A0E9-677B7585E9B6, suggested name: "Synthesized Event 2026-10-28 at 01.38.03 PM"
+File: 0D2303BA-CDC0-4C84-B9A3-8230872A28B4.png, suggested name: "demo-07-listen_0_2A1D1C03-B07C-4B53-BCCD-011BA9DC66E9.png"
+File: 2F6E0F49-47E4-4374-B187-A63756C8DF4C, suggested name: "UI Snapshot 2026-10-28 at 01.38.00 PM"
+File: DF5BFCCC-2F09-4A70-9817-4B02A1B84438, suggested name: "Synthesized Event 2026-10-28 at 01.38.01 PM"
+File: 4EC7F4BB-1C80-4F0B-83DD-24FA3D2470D1, suggested name: "UI Snapshot 2026-10-28 at 01.37.55 PM"
+File: 3EFAD4C8-2062-4B0A-903D-AAC0664E6BC9, suggested name: "Synthesized Event 2026-10-28 at 01.37.58 PM"
+File: C4D53CC2-4585-462E-AE46-19BD4B4F3D10, suggested name: "Synthesized Event 2026-10-28 at 01.37.50 PM"
+File: 15405E35-2ED4-4AD2-92B3-BC6188C976B0, suggested name: "Synthesized Event 2026-10-28 at 01.37.49 PM"
+File: 8630C5D6-B0A4-4013-9AEF-BF67F47ECD46, suggested name: "Synthesized Event 2026-10-28 at 01.37.43 PM"
+File: FC6495B4-2CD0-4B39-842F-6E8AD119284C.txt, suggested name: "Debug description for `"Listen" Button`_0_41EA35E3-769F-4B92-8CD5-88444CEEE0BE.txt"
+File: A9CB4CF5-DAFC-4846-B222-F6BD62166E87.txt, suggested name: "Debug description for `"Speak" Button`_0_E34F86A9-0D17-48C8-85A9-4DD7FD7426C2.txt"
+File: 062DC69B-D0C5-4872-811E-7C1D4CDC41DC.mp4, suggested name: "Screen Recording 2026-10-28 at 01.35.09 PM.mp4"
+
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        1
+2026-10-28 13:37:53.141 Df Selvo[80930:30997] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
