@@ -1046,3 +1046,22 @@ Main was green at the start (5d3ea8c) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-10-28, build run 2 (09:56 to about 10:32 Central): Listen check red on f1c559f, fixed
+
+Main started red: the Xcode 27 run for f1c559f failed (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40693600751) in the iOS 26.2 Listen check, "Home shows Speak" after 60 seconds. CI was green. The log has "Starting recognition" but no "Stopped listening", and the failure screenshot still shows Listening with Stop listening, so (as the Oct 27 note predicted) the tap never reached Selvo. The test took 269 seconds, a slow runner.
+
+### Changed
+- `SelvoUITests/DemoWalkUITests.swift`: after the tap on Stop listening (or Done), wait 20 seconds for Home; if it is not there and the button is still on screen, tap again, up to three taps in all, then require Home. No app code changed.
+- Reading taken: a dropped synthesized tap on a slow CI Simulator, not a demo bug, since the app's Stop path is a direct call and works on every other run.
+
+### Verified, and how
+- e58882f is green on both workflows: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40711471111 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40711471133 (`scripts/demo.sh` with Xcode 16, 26 and 27, demo.sh and Listen on iOS 26.2, all tests with screenshots, the Xcode 26 TestFlight SDK build).
+- `listen-ios26.txt` on `ci-screenshots` for e58882f: test exit 0; log shows Starting recognition, then Stopped listening 4 seconds later.
+- Failure screenshot for f1c559f reviewed: Listen in the Listening state, matches the artboard. No other screenshots changed.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
