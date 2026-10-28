@@ -186,16 +186,22 @@ final class DemoWalkUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Back"].exists)
         save("demo-07-listen")
 
-        if stop.exists {
-            stop.tap()
-        } else if done.exists {
-            done.tap()
-        } else {
-            tap("Back")
+        // On a slow CI Simulator a tap on Stop listening was sometimes dropped before it reached
+        // Selvo (f1c559f on Oct 28: no "Stopped listening" in the log, screen still Listening).
+        // So tap again, up to three times in all, while the same button is still on screen.
+        let speak = app.buttons["Speak"].firstMatch
+        for attempt in 1...3 {
+            if stop.exists {
+                stop.tap()
+            } else if done.exists {
+                done.tap()
+            } else if attempt == 1 {
+                tap("Back")
+            }
+            if speak.waitForExistence(timeout: 20) { break }
+            print("Home not shown after tap \(attempt) on the Listen control")
         }
-        // A slow CI Simulator took more than 20 seconds to stop the microphone and go back
-        // (823ca7d on Oct 21, c8fe70d on Oct 27), so wait longer here.
-        assertHome(timeout: 60)
+        assertHome(timeout: 20)
     }
 
     private func firstExisting(_ elements: [XCUIElement], timeout: TimeInterval) -> XCUIElement? {
