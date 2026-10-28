@@ -20,6 +20,8 @@ Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 6c85847: su
 - CI green on 6c85847: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40695756217
 - Cloudflare Pages check on 6c85847: success.
 
+**CI break found and fixed:** the health check commit 8a0cd45 went red (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40712399212). GitHub moved `ubuntu-latest` to Ubuntu 26.04, and Playwright 1.56 cannot install chromium there. Pinned the website workflow to `ubuntu-24.04` in c21426a; CI green again: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/40713006758. The site itself was never affected (Cloudflare Pages deployed 8a0cd45 fine). A later Playwright upgrade can move the runner forward.
+
 **Next:** Nothing to build. Emily can pause this scheduled task.
 
 ## 2026-10-28, about 8:20am Central (post-demo check)
