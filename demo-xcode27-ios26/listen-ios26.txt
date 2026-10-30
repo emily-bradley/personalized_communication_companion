@@ -1,12 +1,23 @@
-    iPhone 16 (733811E0-0093-4043-B4E6-184CD78A7440) (Booted) 
-attempt 1: the test runner or the Simulator's accessibility server failed
-test exit 0
-2026-10-30 21:35:05.816 xcodebuild[60887:158394] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 55.514 (55.517) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 55.514 (55.521) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 55.514 (55.522) seconds
-** TEST SUCCEEDED **
-2026-10-30 21:35:28.643 Df Selvo[62927:280d1] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-10-30 21:35:35.816 Df Selvo[62927:280d1] [com.emilykenney.selvo:listen] Stopped listening
-2026-10-30 21:35:36.041 Df Selvo[62927:280d1] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-10-30 21:35:36.413 Df Selvo[62927:280d1] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (3E95B3FB-A61B-4F37-B700-BD4F68F5A141) (Booted) 
+test exit 65
+2026-10-30 23:18:18.378 xcodebuild[89881:212386] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+<unknown>:0: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : Failed to get list of active applications: Accessibility error kAXErrorIPCTimeout from AXUIElementCopyMultipleAttributeValues for 1102
+Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (326.262 seconds).
+Test Suite 'DemoWalkUITests' failed at 2026-10-30 23:23:39.432.
+	 Executed 1 test, with 1 failure (0 unexpected) in 326.262 (326.264) seconds
+Test Suite 'SelvoUITests.xctest' failed at 2026-10-30 23:23:41.267.
+	 Executed 1 test, with 1 failure (0 unexpected) in 326.262 (328.099) seconds
+Test Suite 'Selected tests' failed at 2026-10-30 23:23:41.268.
+	 Executed 1 test, with 1 failure (0 unexpected) in 326.262 (328.105) seconds
+** TEST FAILED **
+Exported 6 attachments for: DemoWalkUITests/testListenShowsListeningAndStops():
+File: 8BE21EDB-90C6-44CA-B6E1-8135637D3439, suggested name: "UI Snapshot 2026-10-30 at 11.22.19 PM"
+File: E33C076C-17B6-4904-8E64-F78869F0BAD1, suggested name: "Synthesized Event 2026-10-30 at 11.22.19 PM"
+File: 03DD3822-6BDF-4BDE-9FA3-0A1261FB3597, suggested name: "Synthesized Event 2026-10-30 at 11.21.53 PM"
+File: FFB475C1-4AC3-4195-8B28-CB2B597DFF1E, suggested name: "Synthesized Event 2026-10-30 at 11.21.52 PM"
+File: 4347CF16-4235-47FD-9ECE-6B3BC6A9D9A2, suggested name: "Synthesized Event 2026-10-30 at 11.21.47 PM"
+File: C612D680-C9AA-490D-9DCC-939B02776B8B.mp4, suggested name: "Screen Recording 2026-10-30 at 11.18.15 PM.mp4"
+
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        0
+2026-10-30 23:22:13.978 Df Selvo[1582:3ab9c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
