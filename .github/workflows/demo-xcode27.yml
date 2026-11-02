@@ -107,7 +107,8 @@ jobs:
           # Simulator's accessibility server went away mid test (Oct 22: kAXErrorServerNotFound),
           # after a fresh boot. Also when the Simulator could not hand XCTest a screenshot
           # (Oct 23 and Oct 26: "Timed out while requesting screenshot"). Also when the
-          # accessibility server stopped answering (Oct 30: kAXErrorIPCTimeout).
+          # accessibility server stopped answering (Oct 30: kAXErrorIPCTimeout), or when the
+          # Simulator never finished launching Selvo (Nov 2: "Timed out while launching application").
           for attempt in 1 2; do
             xcodebuild test -project Selvo.xcodeproj -scheme Selvo -destination "id=$UDID" \
               -derivedDataPath build/DerivedData-ios26 CODE_SIGNING_ALLOWED=NO \
@@ -116,7 +117,7 @@ jobs:
               > build/listen-ios26.log 2>&1
             status=$?
             [ "$status" = 0 ] && break
-            grep -qE "while preparing to run tests|failed to initialize for UI testing|kAXErrorServerNotFound|kAXErrorIPCTimeout|Timed out while requesting screenshot" build/listen-ios26.log || break
+            grep -qE "while preparing to run tests|failed to initialize for UI testing|kAXErrorServerNotFound|kAXErrorIPCTimeout|Timed out while requesting screenshot|Timed out while launching application" build/listen-ios26.log || break
             echo "attempt $attempt: the test runner or the Simulator's accessibility server failed" >> "$OUT/listen-ios26.txt"
             [ "$attempt" = 1 ] || break
             xcrun simctl shutdown "$UDID" 2>/dev/null
