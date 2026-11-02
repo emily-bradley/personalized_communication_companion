@@ -1290,3 +1290,22 @@ Main was green at the start (df36259) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-02, build run 1 (08:02 to about 10:10 Central): red CI fixed
+
+Main was red at the start (2dc4730): the Xcode 27 job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" failed in https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41141351952 with `kAXErrorIPCTimeout` (the Simulator accessibility server stopped answering). The other jobs, including every `scripts/demo.sh` job, were green.
+
+### Changed
+- 5d6ed63 `ci:` the iOS 26.2 Listen retry now also recognizes `kAXErrorIPCTimeout`. Its run (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41458291133) hit yet another Simulator flake, "Timed out while launching application via Xcode", which the retry also did not recognize.
+- 4992204 `ci:` the retry also recognizes "Timed out while launching application". Same reading as earlier runs: these are Simulator infrastructure timeouts, not Selvo bugs, so one retry after a fresh boot is the right fix. No app code changed.
+
+### Verified, and how
+- 4992204 green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41463901006 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41463901265. The Listen test passed on its first attempt (`test exit 0`, 1 test, 0 failures). `scripts/demo.sh` passed in CI.
+- Run and job conclusions and logs read via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+- Housekeeping: this run created one stray one-minute reminder by mistake ("noop", delivered into this run's own session); it fired once and did nothing.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
