@@ -1309,3 +1309,20 @@ Main was red at the start (2dc4730): the Xcode 27 job "scripts/demo.sh and Liste
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-02, build run 2 (10:34 to about 11:20 Central): red CI fixed
+
+Main was red at the start (d3358b3, docs only): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41468568809 was green, but Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41468568904 failed in "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" at `DemoWalkUITests.swift:182` "Listen shows whether it is listening". The test took 338 seconds, Selvo never logged "Starting recognition", and the same code passed this step on 4992204. This is the Oct 27 stalled Simulator case again. `scripts/demo.sh` passed in that job and in every other job.
+
+### Changed
+- 97443aa `ci:` the iOS 26.2 Listen retry also recognizes "Listen shows whether it is listening", so a stalled Simulator gets one more try after a fresh boot. A real regression still fails both tries. No app code changed.
+
+### Verified, and how
+- 97443aa green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41482915397 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41482914609. The Listen test passed on its first attempt (`test exit 0`, 239 seconds, a slow runner), and Selvo logged "Starting recognition, on device: true". `scripts/demo.sh` passed in CI with Xcode 16, 26 and 27.
+- Run and job conclusions and logs read via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs. If the iOS 26.2 Listen job keeps flaking, consider running it only on a schedule instead of on every push.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
