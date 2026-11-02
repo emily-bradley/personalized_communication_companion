@@ -1,10 +1,32 @@
-    iPhone 16 (2A2556BC-226C-401B-997E-74DD1ECA6044) (Booted) 
-test exit 0
-2026-11-02 15:02:39.404 xcodebuild[41346:109551] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 135.285 (135.290) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 135.285 (137.866) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 135.285 (137.872) seconds
-** TEST SUCCEEDED **
-2026-11-02 15:04:35.408 Df Selvo[56468:23fb9] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-02 15:04:37.957 Df Selvo[56468:23fb9] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-02 15:04:38.817 Df Selvo[56468:23fb9] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (DCF97A57-153B-4EA5-8D59-2D6407485AF0) (Booted) 
+test exit 65
+2026-11-02 15:37:50.278 xcodebuild[31953:89175] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+/Users/runner/work/personalized_communication_companion/personalized_communication_companion/SelvoUITests/DemoWalkUITests.swift:182: error: -[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops] : XCTAssertNotNil failed - Listen shows whether it is listening
+Test Case '-[SelvoUITests.DemoWalkUITests testListenShowsListeningAndStops]' failed (337.826 seconds).
+Test Suite 'DemoWalkUITests' failed at 2026-11-02 15:43:21.111.
+	 Executed 1 test, with 1 failure (0 unexpected) in 337.826 (337.828) seconds
+Test Suite 'SelvoUITests.xctest' failed at 2026-11-02 15:43:21.117.
+	 Executed 1 test, with 1 failure (0 unexpected) in 337.826 (337.834) seconds
+Test Suite 'Selected tests' failed at 2026-11-02 15:43:21.117.
+	 Executed 1 test, with 1 failure (0 unexpected) in 337.826 (337.839) seconds
+** TEST FAILED **
+Exported 7 attachments for: DemoWalkUITests/testListenShowsListeningAndStops():
+File: D24C9797-4846-41E5-8071-F47D736426D9, suggested name: "UI Snapshot 2026-11-02 at 03.42.46 PM"
+File: 68316A89-7DAD-4B25-8A67-526D6B14FC78, suggested name: "Synthesized Event 2026-11-02 at 03.42.47 PM"
+File: 4F0AE93E-3A5B-4135-9F88-A9B99B78B3B6, suggested name: "UI Snapshot 2026-11-02 at 03.42.44 PM"
+File: 7963AD1D-EED1-4850-9606-005BA2BC3B14, suggested name: "Synthesized Event 2026-11-02 at 03.42.45 PM"
+File: 58F55A32-42E3-4E13-A174-4E25FE222F83, suggested name: "Synthesized Event 2026-11-02 at 03.42.43 PM"
+File: C79CD68F-3D04-4D20-81CC-BB034230A29D.txt, suggested name: "Debug description for `"Speak" Button`_0_58260BBC-0715-4D37-BE68-C7A5C7466D8F.txt"
+File: 5486BBE0-EBC9-4BE7-912F-94D909C89356.mp4, suggested name: "Screen Recording 2026-11-02 at 03.37.45 PM.mp4"
+
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        0
+log query 1 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 2 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 3 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
