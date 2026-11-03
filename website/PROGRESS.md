@@ -10,6 +10,19 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
 5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-11-03, about 10:00am Central (post-demo check)
+
+Live URL: https://selvo-website.pages.dev (still serving the last good deploy, 6dafed1).
+
+**Readings taken:** past the Friday freeze, so health check only, no code changes. The Cloudflare Pages build for 8284e53 (a PROGRESS.md-only commit) reported "Build failed". GitHub CI on the same commit was green, and a clean `pnpm install --frozen-lockfile && pnpm build` of that commit here (Node 22, pnpm 10.28.0) built all 9 pages, so I read it as a one-off failure on the Cloudflare side. This entry's commit starts a fresh Cloudflare build; no empty commit was pushed.
+
+**Verified and how:**
+- CI green on 8284e53: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41650247009
+- Local clean build of 8284e53: success.
+- Cloudflare Pages commit check on 8284e53: failure (logs are only in the Cloudflare dashboard, which runs cannot open).
+
+**Next:** confirm the Cloudflare check on this commit. If it also fails, Emily should open the failed build log in Cloudflare (Workers and Pages, selvo-website, Deployments). Otherwise nothing planned; Emily can pause this scheduled task.
+
 ## 2026-11-03, about 8:05am Central (post-demo check)
 
 Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 6dafed1: success).
