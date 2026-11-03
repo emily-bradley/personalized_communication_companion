@@ -1,12 +1,36 @@
-    iPhone 16 (CB62F541-CFC9-4E0B-B932-634A6C1CBC6B) (Booted) 
-attempt 1: the test runner or the Simulator's accessibility server failed
-test exit 0
-2026-11-03 18:34:30.503 xcodebuild[49148:132108] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.214 (31.215) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.214 (31.216) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.214 (31.217) seconds
-** TEST SUCCEEDED **
-2026-11-03 18:34:48.935 Df Selvo[51543:21fc7] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-03 18:34:56.579 Df Selvo[51543:21fc7] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-03 18:34:56.782 Df Selvo[51543:21fc7] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-03 18:34:57.164 Df Selvo[51543:21fc7] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (FF4FF203-DC1E-4A9C-9A6D-6F4D26D37E01) (Booted) 
+test exit 65
+} (error = Error Domain=FBSOpenApplicationServiceErrorDomain Code=1 "Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner." UserInfo={NSLocalizedDescription=Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner., NSUnderlyingError=0x7bea372e20 {Error Domain=FBSOpenApplicationServiceErrorDomain Code=1 "The request to open "com.emilykenney.selvo.uitests.xctrunner" failed." UserInfo={BSErrorCodeDescription=RequestDenied, NSLocalizedDescription=The request to open "com.emilykenney.selvo.uitests.xctrunner" failed., NSUnderlyingError=0x7bea3732d0 {Error Domain=FBSOpenApplicationErrorDomain Code=4 "Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner." UserInfo={BSErrorCodeDescription=NotFound, NSLocalizedFailureReason=Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner.}}, FBSOpenApplicationRequestID=0xd7b1, NSLocalizedFailureReason=The request was denied by service delegate (SBMainWorkspace) for reason: NotFound ("Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner").}}, NSLocalizedFailureReason=The request was denied by service delegate (SBMainWorkspace) for reason: NotFound ("Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner")., FBSOpenApplicationRequestID=0xd7b1, SimCallingSelector=launchApplicationWithID:options:pid:error:, BSErrorCodeDescription=RequestDenied})
+2026-11-03 18:54:20.564 xcodebuild[48445:122645] [MT] IDELaunchReport: d222bddf88f20300:d222bddf88f20800:Launching SelvoUITests Finished with error: Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner.
+    SimCallingSelector = "launchApplicationWithID:options:pid:error:";
+The request to open "com.emilykenney.selvo.uitests.xctrunner" failed.
+    "operation_errorCode" = 1;
+    "operation_errorDomain" = FBSOpenApplicationServiceErrorDomain;
+    "operation_errorWorker" = IDELaunchiPhoneSimulatorLauncher;
+    "operation_error_reportable" = 1;
+2026-11-03 18:54:20.570 xcodebuild[48445:122645] [MT] IDELaunchReport: d222bddf88f20300:d222bddf88f20300: Finished with error: Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner.
+    SimCallingSelector = "launchApplicationWithID:options:pid:error:";
+The request to open "com.emilykenney.selvo.uitests.xctrunner" failed.
+    "operation_errorCode" = 1;
+    "operation_errorDomain" = FBSOpenApplicationServiceErrorDomain;
+    "operation_errorWorker" = IDELaunchiPhoneSimulatorLauncher;
+    "operation_error_reportable" = 1;
+*** If you believe this error represents a bug, please attach the result bundle at /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-1.xcresult
+Testing failed:
+	Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner.
+	SelvoUITests-Runner encountered an error (Failed to install or launch the test runner. (Underlying Error: Simulator device failed to launch com.emilykenney.selvo.uitests.xctrunner. The request was denied by service delegate (SBMainWorkspace) for reason: NotFound ("Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner"). (Underlying Error: The request to open "com.emilykenney.selvo.uitests.xctrunner" failed. The request was denied by service delegate (SBMainWorkspace) for reason: NotFound ("Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner"). (Underlying Error: The operation couldn’t be completed. Unknown application display identifier com.emilykenney.selvo.uitests.xctrunner.))))
+** TEST FAILED **
+Exported 1 attachment for: SelvoUITests-Runner encountered an error:
+File: 94FE8909-F252-460E-BE94-78F205D3AF21.txt, suggested name: "Complete Issue Description.txt"
+
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        0
+log query 1 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 2 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 3 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
