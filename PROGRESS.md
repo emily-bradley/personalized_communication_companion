@@ -1406,3 +1406,16 @@ Main was green at the start (504898a) on every job: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-03, build run 3 (11:56 to about 12:40 Central): rerun after a runner outage
+
+Main (fda5306) started red on one job: Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41669083922, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". GitHub's annotation said "The hosted runner lost communication with the server" while the demo step was running; the commit changed only PROGRESS.md and the same code was green in the two runs before, so I read it as a runner outage, not a Selvo bug. CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41669083981 was green. I reran the failed job through the REST API (no empty commit); attempt 2 passed every step: demo.sh on iOS 26.2 in about 23 minutes, then Listen, then publishing. No code changed.
+
+### Verified, and how
+- Job and step conclusions and the failure annotation via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs. If the runner loses communication again on this job, consider it a pattern and look at the demo step's run time.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
