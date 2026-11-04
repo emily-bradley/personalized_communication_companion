@@ -99,6 +99,9 @@ jobs:
           grep -q "Using the iOS 26.2 Simulator" build/demo-ios26.txt
       - name: Listen on the iOS 26.2 Simulator (Selvo's own log lines, never what was heard)
         if: always()
+        # Nov 4: after the demo step timed out, this step ran on until the job limit and the
+        # whole log was lost. A step limit lets the job end on its own so the log survives.
+        timeout-minutes: 30
         run: |
           OUT="$RUNNER_TEMP/ios26"
           mkdir -p "$OUT"
