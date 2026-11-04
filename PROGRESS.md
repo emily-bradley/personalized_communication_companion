@@ -1475,3 +1475,19 @@ Main (396cee0) was green on every job: CI https://github.com/emily-bradley/perso
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-04, build run 2 (09:56 to about 11:20 Central): runner lost twice, rerun green
+
+Main (55bbfd9) started red on one job: Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41842772848, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". Attempt 1 (14:00 to 15:22 UTC) and attempt 2 (a rerun someone started at about 15:37 UTC, finished 16:27 UTC) both ended with GitHub's "The hosted runner lost communication with the server" while the demo step was running; no log survived (BlobNotFound). The commit changed only PROGRESS.md, CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41842772846 was green (including `scripts/demo.sh` on macos-15), and the other two Xcode 27 jobs were green, so I read it as a runner problem, not a Selvo bug. I reran the failed job through the REST API (no empty commit); attempt 3 passed every step: demo.sh on iOS 26.2 in about 24 minutes, Listen on iOS 26.2, then publishing. No code changed.
+
+### Verified, and how
+- Run, job and step conclusions and timings via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+
+### Pattern to watch
+- This is the third runner loss in two days, all in the same step (Nov 3 run 3, and twice today). Over the last ten green runs that step took 10 to 30 minutes (it took 6 to 11 in October). If it happens again, the next run should look at why the iOS 26.2 demo step on the xcode-27 runner has slowed down (for example, stream demo.sh's phase lines with times into the live log) before rerunning. The Xcode 27 demo on iOS 27 and the macos-15 demo stay fast and green.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
