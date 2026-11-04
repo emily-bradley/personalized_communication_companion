@@ -1509,3 +1509,16 @@ On 3dc5806 every job is green: CI https://github.com/emily-bradley/personalized_
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-04, build run 4 (13:56 to about 14:45 Central): check only, overlapped run 3
+
+Run 3 was still working when this run started (it pushed 3dc5806 at 13:53), so this run changed no code and only watched, to avoid two runs editing the same workflow. 3dc5806 went green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41901355979 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41901356002 (demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2). Run 3 then wrote its progress (47496da, docs only); its CI and Xcode 27 runs were still going when this run ended. Every item in PLAN.md is checked.
+
+### Verified, and how
+- Job and step conclusions and the streamed iOS 26.2 log via `gh api`: the demo step passed on its first attempt in about 28 minutes (boot about 12, build under 2, install and launch about 12.5), matching run 3's reading. No screenshots changed, so none were reviewed again.
+
+### Next
+- Check 47496da's runs first. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
