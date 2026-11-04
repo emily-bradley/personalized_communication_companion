@@ -69,15 +69,20 @@ jobs:
           # This step hung for 40 minutes or more twice on Oct 23 (it takes 6 to 11), and no log
           # survived. Past 20 minutes, print where demo.sh stopped and what was running, reset
           # the Simulator service, and run it once more.
+          # The runner was lost three times in this step (Nov 3, Nov 4 twice) and no log survived,
+          # so demo.sh's lines go to the live log as they come, each with GitHub's timestamp.
           status=1
           for attempt in 1 2; do
+            : > build/demo-ios26.txt
+            tail -n +1 -f build/demo-ios26.txt &
+            tail_pid=$!
             /bin/bash scripts/demo.sh > build/demo-ios26.txt 2>&1 &
             pid=$!
             waited=0
             while kill -0 "$pid" 2>/dev/null && [ "$waited" -lt 1200 ]; do sleep 10; waited=$((waited + 10)); done
             if kill -0 "$pid" 2>/dev/null; then
-              echo "attempt $attempt: demo.sh still running after 20 minutes. Last lines, then processes:"
-              tail -n 20 build/demo-ios26.txt
+              kill "$tail_pid" 2>/dev/null || true
+              echo "attempt $attempt: demo.sh still running after 20 minutes. Processes:"
               ps -axo pid,etime,command | grep -E "simctl|xcodebuild|xcodegen|launchd_sim|CoreSimulator" | grep -v grep || true
               pkill -P "$pid" || true
               kill "$pid" 2>/dev/null || true
@@ -86,7 +91,8 @@ jobs:
               continue
             fi
             wait "$pid" && status=0 || status=$?
-            cat build/demo-ios26.txt
+            sleep 2
+            kill "$tail_pid" 2>/dev/null || true
             break
           done
           [ "$status" = 0 ]
