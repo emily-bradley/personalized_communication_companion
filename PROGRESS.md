@@ -1491,3 +1491,21 @@ Main (55bbfd9) started red on one job: Xcode 27 run https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-04, build run 3 (11:56 to about 14:40 Central): iOS 26.2 job slow, made it leave a log
+
+Main (984252f) went green, but its iOS 26.2 demo step took 47 of its 50 minutes: Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41875887860. Attempt 1 hung in "Building Selvo" and was reset at 20 minutes; attempt 2 passed. As the last run asked, I made the step stream demo.sh's lines into the live log (335cd43). That commit's Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41884842647 then failed on the same job: the demo step hit its 50 minute limit, the Listen step (which runs even after a failure) ran on to the 95 minute job limit, and GitHub kept no log at all. So I gave the Listen step its own 30 minute limit (3dc5806), so the job ends on its own and keeps its log. No app code changed.
+
+On 3dc5806 every job is green: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41901355979 (including `scripts/demo.sh` on macos-15 with Xcode 16 and with Xcode 26) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41901356002 (demo.sh on iOS 27 and on iOS 26.2, Listen on iOS 26.2 "on device: true").
+
+### What the streamed log showed (run 41901356002, iOS 26.2 on the xcode-27 runner)
+- Booting the Simulator: about 12 minutes. Building Selvo: about 2.5 minutes. Installing and launching Selvo: about 12.5 minutes. So the slowness is the iOS 26.2 Simulator on that runner (boot and install), not Selvo's build. The macos-15 demos and the iOS 27 demo stay fast.
+
+### Verified, and how
+- Run, job and step conclusions, timings and logs via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+
+### Next
+- If the iOS 26.2 job goes red again, its log now survives: read the phase times before rerunning. If the Simulator keeps getting slower there, consider a longer demo step limit for that one job (the job limit is 95 minutes; the steps now add up to about 85). TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
