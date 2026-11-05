@@ -1,11 +1,13 @@
-    iPhone 16 (BCD53A2E-80C7-4E04-8AC5-1FCE14D53CA2) (Booted) 
+    iPhone 16 (5484F486-DE24-4AB0-9634-73A39771CB27) (Booted) 
+attempt 1: the test runner or the Simulator's accessibility server failed
 test exit 0
-2026-11-05 01:13:41.551 xcodebuild[34520:95806] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 239.217 (239.229) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 239.217 (240.218) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 239.217 (240.229) seconds
+2026-11-05 14:31:25.044 xcodebuild[62231:161516] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 27.636 (27.637) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 27.636 (27.638) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 27.636 (27.640) seconds
 ** TEST SUCCEEDED **
-2026-11-05 01:16:59.198 Df Selvo[49303:1fdc1] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-05 01:17:05.222 Df Selvo[49303:1fdc1] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-05 01:17:05.639 Df Selvo[49303:1fdc1] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-05 01:17:06.111 Df Selvo[49303:1fdc1] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-05 14:26:22.473 Df Selvo[51721:211ae] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-05 14:31:41.946 Df Selvo[63931:28d75] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-05 14:31:47.161 Df Selvo[63931:28d75] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-05 14:31:47.190 Df Selvo[63931:28d75] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-11-05 14:31:47.660 Df Selvo[63931:28d75] [com.emilykenney.selvo:listen] Stopped listening
