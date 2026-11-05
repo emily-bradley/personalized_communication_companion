@@ -1589,3 +1589,18 @@ Main (f020f7f, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-05, build run 4 (13:55 to about 14:50 Central): main red on an iOS 27 UI test, fixed, now green
+
+Main (afc8b46, docs only) had CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42079332611. On the iOS 27 job, `DemoWalkUITests.testListenShowsListeningAndStops` failed at line 158: "Failed to tap "Allow" Button: Multiple matching elements found". The permission alert on iOS 27 sometimes holds two buttons labelled Allow, and the interruption monitor tapped the query rather than one element. Every other test passed. Fix (0727161, test only): the monitor now checks and taps `alert.buttons[label].firstMatch`. No app code changed.
+
+On 0727161 every job is green on the first attempt: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42098566610 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, and the Xcode 26 TestFlight SDK build) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42098566602 (build and test on iOS 27 including the Listen test, demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2).
+
+### Verified, and how
+- Failing job log and job and step conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; every PLAN.md item is checked. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
