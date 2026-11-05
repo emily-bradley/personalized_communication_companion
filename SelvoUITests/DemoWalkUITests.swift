@@ -154,8 +154,9 @@ final class DemoWalkUITests: XCTestCase {
     func testListenShowsListeningAndStops() throws {
         launch(demoProfile: true)
         addUIInterruptionMonitor(withDescription: "Microphone and speech recognition") { alert in
-            for label in ["Allow", "OK"] where alert.buttons[label].exists {
-                alert.buttons[label].tap()
+            // iOS 27 sometimes shows two matching "Allow" buttons (Nov 5), so tap the first.
+            for label in ["Allow", "OK"] where alert.buttons[label].firstMatch.exists {
+                alert.buttons[label].firstMatch.tap()
                 return true
             }
             return false
