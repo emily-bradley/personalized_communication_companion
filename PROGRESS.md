@@ -1535,3 +1535,18 @@ Main (afc3e97) and the commit before it (47496da) are green on every job: CI htt
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-04, build run 6 (17:56 to about 18:40 Central): main red on two Simulator flakes, fixed one, now green
+
+Main (0e78717, docs only) was red. CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41920722225 failed one test on macos-15: `AccessibilityAuditUITests.testHelp` at `app.launch()` with "Failed to get background assertion for target app" (every other unit and UI test passed). That is the Simulator failing to start Selvo, like the launch failures `scripts/ci_retry_launch_failures.sh` already reruns once, so I added that message to its list (d92f647). Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41920722030 was cancelled: on the iOS 26.2 job the demo step passed (16 minutes), then Listen hit its 30 minute limit, publishing took 12 minutes and failed, checkout cleanup took 18 minutes, and the job ran out at 100 minutes with no log kept. I read that as the same slow xcode-27 runner seen all week, not a Selvo bug; the next push reran it.
+
+On d92f647 every job is green on the first attempt: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41937651620 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/41937651792 (demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2 in about 8 minutes). No app code changed.
+
+### Verified, and how
+- Job and step conclusions, timings and the failing job log via `gh api`; checked the new pattern against the failing log (the retry would have run). `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+
+### Next
+- If the iOS 26.2 job is lost again with Listen hitting its limit, consider giving that job a fresh Simulator boot before Listen. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
