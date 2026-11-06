@@ -1,12 +1,11 @@
-    iPhone 16 (C14C8C0B-25E1-4D43-9D30-36E52D585E0E) (Booted) 
-attempt 1: the test runner or the Simulator's accessibility server failed
+    iPhone 16 (78C703E9-528E-4E80-9761-13598E9573A3) (Shutdown) 
 test exit 0
-2026-11-06 19:11:52.939 xcodebuild[69687:177489] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 70.638 (70.640) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 70.638 (70.641) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 70.638 (70.642) seconds
+2026-11-06 22:11:30.399 xcodebuild[36562:96100] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.882 (50.884) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.882 (50.885) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 50.882 (50.887) seconds
 ** TEST SUCCEEDED **
-2026-11-06 19:12:08.767 Df Selvo[72174:2d31f] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-06 19:12:15.154 Df Selvo[72174:2d31f] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-06 19:12:15.190 Df Selvo[72174:2d31f] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-06 19:12:15.668 Df Selvo[72174:2d31f] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-06 22:11:58.253 Df Selvo[39989:1a647] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-06 22:12:04.731 Df Selvo[39989:1a647] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-06 22:12:04.902 Df Selvo[39989:1a647] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-11-06 22:12:05.322 Df Selvo[39989:1a647] [com.emilykenney.selvo:listen] Stopped listening
