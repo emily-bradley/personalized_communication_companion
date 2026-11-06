@@ -1656,3 +1656,18 @@ Main (b38db1f, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-06, build run 3 (11:55 to about 12:35 Central): Xcode 27 red on Simulator launch failures, retry list widened, now green
+
+Main (848a535, docs only) had CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42247621311. On the iOS 27 job all five `AccessibilityAuditUITests` failed at `app.launch()` (line 21): `testHelp` with "Application 'com.emilykenney.selvo' does not have a process ID", three with "Failed to get background assertion for target app", and `testSetupTextSizeStep` with "Failed to terminate". Every unit test and every other UI test passed. These are the Simulator failing to start Selvo, but `scripts/ci_retry_launch_failures.sh` did not know the "does not have a process ID" message, so it skipped its one rerun. Fix (ece4842, CI script only): that message joins the launch failure list. I checked the new pattern against the failed log: every failure line now matches, so the rerun would have run. No app code changed.
+
+On ece4842 every job is green on the first attempt (no rerun was needed): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42266155240 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, and the Xcode 26 TestFlight SDK build) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42266155206 (build and test on iOS 27, demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2).
+
+### Verified, and how
+- Failing job log, job conclusions, and the new grep pattern against that log via `gh api` and `bash -n`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; every PLAN.md item is checked. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
