@@ -3,7 +3,8 @@
 # start Selvo before a UI test body runs ("Failed to terminate com.emilykenney.selvo", seen
 # Oct 22 on the Xcode 27 runner on a docs only commit), run just those UI tests once more
 # after a fresh boot. Also "Failed to get background assertion for target app" from launch()
-# (Nov 4, macos-15, docs only commit). Any other failure is left as it is and the step stays red.
+# (Nov 4, macos-15, docs only commit). Also "Application ... does not have a process ID" from
+# launch() (Nov 6, Xcode 27 runner, docs only commit). Any other failure is left as it is and the step stays red.
 # Usage: ci_retry_launch_failures.sh LOG UDID
 # Exits 0 when the rerun passes, 1 when it fails, 2 when there was nothing to rerun.
 set -uo pipefail
@@ -13,7 +14,7 @@ udid="$2"
 errors="$(grep -E "error: -\[SelvoUITests\." "$log" || true)"
 [ -n "$errors" ] || exit 2
 # Every failure must be a launch failure, and no unit test may have failed.
-if grep -E "error: -\[" "$log" | grep -vqE "Failed to terminate com\.emilykenney\.selvo|Failed to launch com\.emilykenney\.selvo|Timed out while launching application|Failed to get background assertion for target app"; then
+if grep -E "error: -\[" "$log" | grep -vqE "Failed to terminate com\.emilykenney\.selvo|Failed to launch com\.emilykenney\.selvo|Timed out while launching application|Failed to get background assertion for target app|Application .com\.emilykenney\.selvo. does not have a process ID"; then
   exit 2
 fi
 
