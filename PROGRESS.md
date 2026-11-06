@@ -1684,3 +1684,20 @@ Main (dacda0a, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-06, build run 5 (15:55 to about 17:00 Central): Xcode 27 red twice on the iOS 26.2 demo job, demo.sh now boots the Simulator again before install, green
+
+Main (e847434, docs only) had CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42283981787, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". Attempt 1 ended with GitHub's "The hosted runner lost communication with the server" during the demo step (no log, BlobNotFound), the same runner outage recorded before. I reran the failed job through the REST API. Attempt 2 failed for a real reason: the Simulator booted, then shut itself down during the eight minute build, and `simctl install` stopped with "Unable to lookup in current state: Shutdown" (CoreSimulator code 405). That could happen on Emily's Mac too, so I read it as a demo-blocking bug in `scripts/demo.sh`, not only a CI flake.
+
+Fix (f79fd04, demo script only): right before install, `demo.sh` runs `xcrun simctl bootstatus "$UDID" -b`, which boots the Simulator again if it is down and returns at once if it is up. No app code changed.
+
+On f79fd04 every job is green on the first attempt: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42303282125 (including `scripts/demo.sh` on macos-15) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42303282165 (build and test on iOS 27, demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2).
+
+### Verified, and how
+- Failing job log and job conclusions via `gh api`; `bash -n scripts/demo.sh`; no dashes in the change. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; every PLAN.md item is checked. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
