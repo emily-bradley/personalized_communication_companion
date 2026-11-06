@@ -113,6 +113,9 @@ xcodebuild build \
 [ -d "$APP" ] || fail "The build finished but Selvo.app was not found at $APP"
 
 say "Installing and launching Selvo"
+# The Simulator shut itself down during the build once ("Unable to lookup in current state:
+# Shutdown", CI Nov 6), so boot it again if needed. This returns at once when it is still up.
+xcrun simctl bootstatus "$UDID" -b >/dev/null
 xcrun simctl terminate "$UDID" "$BUNDLE_ID" >/dev/null 2>&1 || true
 xcrun simctl install "$UDID" "$APP"
 # Right after an install the Simulator can still say Selvo "is installing", so try a few times.
