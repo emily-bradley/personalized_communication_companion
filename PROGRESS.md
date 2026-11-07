@@ -1701,3 +1701,16 @@ On f79fd04 every job is green on the first attempt: CI https://github.com/emily-
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-06, build run 6 (17:55 to about 18:45 Central): Xcode 27 red once when the runner lost its iOS 26.2 runtime, rerun green
+
+Main (999a1c4, docs only) had CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42308214509, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". demo.sh booted the iOS 26.2 Simulator and built Selvo, then the boot check before install stopped with "Unable to boot device because we cannot determine the runtime bundle". The next step, Listen, found "The iOS 26.2 Simulator is not installed". So the iOS 26.2 runtime that the job downloads vanished from the runner partway through. That is the runner, not Selvo or demo.sh, and it cannot happen this way with a runtime installed through Xcode on Emily's Mac. Run 5's "Shutdown" failure may have been the same runner problem. I reran the failed job through the REST API and attempt 2 is green on every job (demo.sh on iOS 26.2 and iOS 27, Listen on iOS 26.2, build and test on iOS 27). CI on the same commit was already green, including `scripts/demo.sh` on macos-15: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42308214650. No code changed.
+
+### Verified, and how
+- Failing job log and job conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; every PLAN.md item is checked. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- If the iOS 26.2 runtime vanishes again, consider having the workflow check `xcrun simctl list runtimes` before Listen and add the runtime again. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
