@@ -1715,12 +1715,16 @@ Main (999a1c4, docs only) had CI green but Xcode 27 red: https://github.com/emil
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
 
-## 2026-11-09, build run 1 (07:55 to about 08:00 Central): check only, main green
+## 2026-11-09, build run 1 (07:55 to about 09:05 Central): Xcode 27 red on the iOS 26.2 demo job, demo.sh now boots and installs once more, green
 
-Main (6a6cdc5, docs only) is green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42318507063 (including `scripts/demo.sh` on macos-15) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42318507092. No new commits or runs since Friday. Every item in PLAN.md is checked, so this run changed no code.
+Main was green at the start (6a6cdc5). My docs commit 4d434d8 then had CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42629871169, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". demo.sh booted the iOS 26.2 Simulator and built Selvo, then at "Installing and launching Selvo" the Simulator service died: "Mach error -308 - (ipc/mig) server died". Listen on the same job passed afterwards. This is the same flaky iOS 26.2 runner seen on Nov 6, but a restarted Simulator service can also happen on a Mac, so I read it as worth one retry in `scripts/demo.sh` rather than a plain rerun.
+
+Fix (b840fd8, demo script only): the boot check, terminate, and install are one step; if it fails, demo.sh says "The Simulator stopped answering. Trying once more.", waits 10 seconds, and does the step again, then stops with a plain message if it still fails. No app code changed.
+
+On b840fd8 every job is green on the first attempt (the retry was not needed): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42633557139 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, and the Xcode 26 TestFlight SDK build) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42633557588 (build and test on iOS 27, demo.sh on iOS 27 and iOS 26.2, Listen on iOS 26.2).
 
 ### Verified, and how
-- Run conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screenshots changed, so none were reviewed again.
+- Failing job log and job conclusions via `gh api`; `bash -n scripts/demo.sh`; no dashes in the change. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; every PLAN.md item is checked. No screens changed, so no screenshots were reviewed again.
 
 ### Next
 - TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
