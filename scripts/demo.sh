@@ -115,9 +115,18 @@ xcodebuild build \
 say "Installing and launching Selvo"
 # The Simulator shut itself down during the build once ("Unable to lookup in current state:
 # Shutdown", CI Nov 6), so boot it again if needed. This returns at once when it is still up.
-xcrun simctl bootstatus "$UDID" -b >/dev/null
-xcrun simctl terminate "$UDID" "$BUNDLE_ID" >/dev/null 2>&1 || true
-xcrun simctl install "$UDID" "$APP"
+# On Nov 9 the Simulator service restarted partway through ("Mach error -308, server died"),
+# so if booting or installing fails, wait, then boot and install one more time.
+install_app() {
+  xcrun simctl bootstatus "$UDID" -b >/dev/null &&
+    { xcrun simctl terminate "$UDID" "$BUNDLE_ID" >/dev/null 2>&1 || true; } &&
+    xcrun simctl install "$UDID" "$APP"
+}
+if ! install_app; then
+  echo "The Simulator stopped answering. Trying once more."
+  sleep 10
+  install_app || fail "The Simulator would not install Selvo. Quit Simulator and run this again."
+fi
 # Right after an install the Simulator can still say Selvo "is installing", so try a few times.
 for attempt in 1 2 3 4 5; do
   xcrun simctl launch "$UDID" "$BUNDLE_ID" "${LAUNCH_ARGS[@]}" && break
