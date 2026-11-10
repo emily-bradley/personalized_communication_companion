@@ -1,11 +1,11 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-10 16:12:58.511 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-10 16:12:58.698 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-10 16:12:59.750 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-10 16:12:59.781 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-10 16:13:00.109 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-10 16:13:00.127 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-10 16:13:00.128 E  Selvo[36850:190f8] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
-2026-11-10 16:13:03.684 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-10 16:13:04.197 Df Selvo[36850:190f8] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-10 18:14:11.464 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-10 18:14:11.691 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-10 18:14:12.167 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-10 18:14:12.208 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-10 18:14:12.557 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-10 18:14:12.578 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-10 18:14:12.578 E  Selvo[40208:1adda] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
+2026-11-10 18:14:14.360 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-10 18:14:14.855 Df Selvo[40208:1adda] [com.emilykenney.selvo:listen] Stopped listening
