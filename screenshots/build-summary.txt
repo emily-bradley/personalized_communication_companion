@@ -1,55 +1,55 @@
-2026-11-09 22:06:13.194632+0000 Selvo[20461:59675] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
-2026-11-09 22:06:13.200080+0000 Selvo[20461:59675] [asset] #FactoryInstall Unable to query results, error: 5
-2026-11-09 22:06:13.239351+0000 Selvo[20461:59675] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
-2026-11-09 22:06:13.246238+0000 Selvo[20461:59675] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
-Test Suite 'All tests' started at 2026-11-09 22:06:16.624.
-Test Suite 'SelvoTests.xctest' started at 2026-11-09 22:06:16.625.
-Test Suite 'ComponentSizingTests' started at 2026-11-09 22:06:16.625.
-Test Suite 'ComponentSizingTests' passed at 2026-11-09 22:06:16.794.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.116 (0.169) seconds
-Test Suite 'LaunchTests' started at 2026-11-09 22:06:16.795.
-Test Suite 'LaunchTests' passed at 2026-11-09 22:06:16.864.
-	 Executed 3 tests, with 0 failures (0 unexpected) in 0.068 (0.069) seconds
-Test Suite 'NavigationTests' started at 2026-11-09 22:06:16.864.
-Test Suite 'NavigationTests' passed at 2026-11-09 22:06:16.883.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 0.014 (0.020) seconds
-Test Suite 'ScreenshotTests' started at 2026-11-09 22:06:16.884.
-2026-11-09 22:06:17.001200+0000 Selvo[20461:59690] fopen failed for data file: errno = 2 (No such file or directory)
-2026-11-09 22:06:17.389359+0000 Selvo[20461:59690] fopen failed for data file: errno = 2 (No such file or directory)
-2026-11-09 22:06:21.007217+0000 Selvo[20461:59688] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
-2026-11-09 22:06:21.014992+0000 Selvo[20461:59688] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
-2026-11-09 22:06:21.019466+0000 Selvo[20461:59688] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
-Test Suite 'ScreenshotTests' passed at 2026-11-09 22:06:22.427.
-	 Executed 13 tests, with 0 failures (0 unexpected) in 5.540 (5.543) seconds
-Test Suite 'SpeakTests' started at 2026-11-09 22:06:22.427.
-Test Suite 'SpeakTests' passed at 2026-11-09 22:06:23.622.
-	 Executed 2 tests, with 0 failures (0 unexpected) in 1.194 (1.195) seconds
-Test Suite 'SpeechFileProbeTests' started at 2026-11-09 22:06:23.622.
-2026-11-09 22:06:26.169941+0000 Selvo[20461:60265] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
-2026-11-09 22:06:26.361446+0000 Selvo[20461:60265] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
-2026-11-09 22:06:28.619722+0000 Selvo[20461:60265] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
-Test Suite 'SpeechFileProbeTests' passed at 2026-11-09 22:06:30.556.
-	 Executed 1 test, with 0 failures (0 unexpected) in 6.933 (6.934) seconds
-Test Suite 'SpeechProbeTests' started at 2026-11-09 22:06:32.622.
-Test Suite 'SpeechProbeTests' passed at 2026-11-09 22:06:32.630.
-	 Executed 1 test, with 0 failures (0 unexpected) in 0.007 (0.008) seconds
-Test Suite 'SelvoTests.xctest' passed at 2026-11-09 22:06:32.631.
-	 Executed 30 tests, with 0 failures (0 unexpected) in 13.871 (16.006) seconds
-Test Suite 'All tests' passed at 2026-11-09 22:06:32.632.
-	 Executed 30 tests, with 0 failures (0 unexpected) in 13.871 (16.009) seconds
-Test Suite 'All tests' started at 2026-11-09 22:07:00.602.
-Test Suite 'SelvoUITests.xctest' started at 2026-11-09 22:07:00.604.
-Test Suite 'AccessibilityAuditUITests' started at 2026-11-09 22:07:00.604.
-Test Suite 'AccessibilityAuditUITests' passed at 2026-11-09 22:08:54.113.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 113.503 (113.509) seconds
-Test Suite 'CoreFlowUITests' started at 2026-11-09 22:08:54.114.
-Test Suite 'CoreFlowUITests' passed at 2026-11-09 22:11:26.682.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 152.565 (152.568) seconds
-Test Suite 'DemoWalkUITests' started at 2026-11-09 22:11:26.682.
-Test Suite 'DemoWalkUITests' passed at 2026-11-09 22:13:12.923.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 106.238 (106.241) seconds
-Test Suite 'SelvoUITests.xctest' passed at 2026-11-09 22:13:12.924.
-	 Executed 15 tests, with 0 failures (0 unexpected) in 372.306 (372.320) seconds
-Test Suite 'All tests' passed at 2026-11-09 22:13:12.925.
-	 Executed 15 tests, with 0 failures (0 unexpected) in 372.306 (372.323) seconds
+2026-11-10 00:21:19.277231+0000 Selvo[4883:20832] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
+2026-11-10 00:21:19.278337+0000 Selvo[4883:20832] [asset] #FactoryInstall Unable to query results, error: 5
+2026-11-10 00:21:19.288803+0000 Selvo[4883:20832] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
+2026-11-10 00:21:19.290495+0000 Selvo[4883:20832] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
+Test Suite 'All tests' started at 2026-11-10 00:21:23.406.
+Test Suite 'SelvoTests.xctest' started at 2026-11-10 00:21:23.407.
+Test Suite 'ComponentSizingTests' started at 2026-11-10 00:21:23.407.
+Test Suite 'ComponentSizingTests' passed at 2026-11-10 00:21:23.522.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.103 (0.115) seconds
+Test Suite 'LaunchTests' started at 2026-11-10 00:21:23.523.
+Test Suite 'LaunchTests' passed at 2026-11-10 00:21:23.554.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.029 (0.031) seconds
+Test Suite 'NavigationTests' started at 2026-11-10 00:21:23.631.
+Test Suite 'NavigationTests' passed at 2026-11-10 00:21:23.648.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.016 (0.017) seconds
+Test Suite 'ScreenshotTests' started at 2026-11-10 00:21:23.648.
+2026-11-10 00:21:23.769626+0000 Selvo[4883:20842] fopen failed for data file: errno = 2 (No such file or directory)
+2026-11-10 00:21:24.168671+0000 Selvo[4883:20842] fopen failed for data file: errno = 2 (No such file or directory)
+2026-11-10 00:21:28.851273+0000 Selvo[4883:21075] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
+2026-11-10 00:21:28.856976+0000 Selvo[4883:21075] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
+2026-11-10 00:21:28.860384+0000 Selvo[4883:21075] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
+Test Suite 'ScreenshotTests' passed at 2026-11-10 00:21:30.563.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 6.911 (6.915) seconds
+Test Suite 'SpeakTests' started at 2026-11-10 00:21:30.563.
+Test Suite 'SpeakTests' passed at 2026-11-10 00:21:31.409.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.844 (0.845) seconds
+Test Suite 'SpeechFileProbeTests' started at 2026-11-10 00:21:31.409.
+2026-11-10 00:21:32.023016+0000 Selvo[4883:20842] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
+2026-11-10 00:21:32.102663+0000 Selvo[4883:20842] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
+2026-11-10 00:21:32.110240+0000 Selvo[4883:20842] [catalog] Query for com.apple.MobileAsset.VoiceServices.CustomVoice failed: 2
+Test Suite 'SpeechFileProbeTests' passed at 2026-11-10 00:21:34.547.
+	 Executed 1 test, with 0 failures (0 unexpected) in 3.138 (3.138) seconds
+Test Suite 'SpeechProbeTests' started at 2026-11-10 00:21:34.548.
+Test Suite 'SpeechProbeTests' passed at 2026-11-10 00:21:34.551.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'SelvoTests.xctest' passed at 2026-11-10 00:21:34.552.
+	 Executed 30 tests, with 0 failures (0 unexpected) in 11.043 (11.145) seconds
+Test Suite 'All tests' passed at 2026-11-10 00:21:34.612.
+	 Executed 30 tests, with 0 failures (0 unexpected) in 11.043 (11.207) seconds
+Test Suite 'All tests' started at 2026-11-10 00:21:56.918.
+Test Suite 'SelvoUITests.xctest' started at 2026-11-10 00:21:56.920.
+Test Suite 'AccessibilityAuditUITests' started at 2026-11-10 00:21:56.921.
+Test Suite 'AccessibilityAuditUITests' passed at 2026-11-10 00:24:15.927.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 139.002 (139.006) seconds
+Test Suite 'CoreFlowUITests' started at 2026-11-10 00:24:15.929.
+Test Suite 'CoreFlowUITests' passed at 2026-11-10 00:26:17.096.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 121.164 (121.167) seconds
+Test Suite 'DemoWalkUITests' started at 2026-11-10 00:26:17.098.
+Test Suite 'DemoWalkUITests' passed at 2026-11-10 00:28:05.241.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 108.141 (108.143) seconds
+Test Suite 'SelvoUITests.xctest' passed at 2026-11-10 00:28:05.241.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 368.307 (368.321) seconds
+Test Suite 'All tests' passed at 2026-11-10 00:28:05.242.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 368.307 (368.324) seconds
 ** TEST SUCCEEDED **
