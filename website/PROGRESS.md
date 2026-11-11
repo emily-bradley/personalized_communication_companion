@@ -20,7 +20,7 @@ Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 1b5be1c: su
 
 **Changed:** `.github/workflows/website.yml` now falls back to `playwright install chromium` (no apt) when the apt step fails, since the runner image already has Chrome's libraries. No site code changed.
 
-**Verified and how:** CI result for this commit is recorded in the next entry (or check the Actions tab for `website-staging`).
+**Verified and how:** CI green on 01ad5a5: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43055976213. The job log shows apt still failing to resolve the mirror, so the fallback is what got it green; lint, typecheck, unit tests, build, e2e with axe, and Lighthouse all passed after it. Cloudflare Pages check on 01ad5a5: success.
 
 **Next:** nothing planned. Emily can pause this scheduled task.
 
