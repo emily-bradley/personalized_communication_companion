@@ -1861,3 +1861,19 @@ Main (f7306af, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-10, build run 6 (17:55 to about 19:15 Central): Xcode 27 red when the runner lost its iOS 26.2 runtime again; job now downloads it again by itself
+
+Main (af3b109, docs only) had CI green (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42909704431) but Xcode 27 red on one job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42909704382, "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". demo.sh stopped at boot with "Unable to boot device because we cannot determine the runtime bundle", and Listen found "The iOS 26.2 Simulator is not installed". That is the third time (Nov 6, Nov 9, Nov 10) the downloaded iOS 26.2 runtime vanished from the runner mid job; not Selvo or demo.sh. A REST rerun of that job passed demo.sh, then the Listen UI test hit the known "Timed out while launching application" Simulator stall on both attempts.
+
+### Changed
+- `.github/workflows/demo-xcode27.yml` (e6825ae): when demo.sh fails on its first attempt with "cannot determine the runtime bundle", the job shuts the Simulators down, downloads iOS 26.2 again, and runs demo.sh once more. Only that message triggers it; nothing else changed.
+
+### Verified, and how
+- e6825ae is green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42928683587 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, and the Xcode 26 TestFlight SDK build) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/42928683523 (demo.sh on iOS 27, demo.sh plus Listen on iOS 26.2, build and test). The runtime did not vanish this time, so the new retry path ran no code yet. Workflow YAML parsed locally; no dashes. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs. If the runtime vanishes again, check that the retry line "the iOS 26.2 runtime went missing" appears in that job's log and that the second attempt passed.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
