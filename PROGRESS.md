@@ -1932,3 +1932,19 @@ Main (12ff9c3, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-11, build run 5 (15:55 to about 16:40 Central): Xcode 27 red on a GitHub artifact upload outage, rerun green
+
+Main (eaeab86, docs only) had CI green (https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43091691814) but Xcode 27 red on one job: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43091692250, "Build and test (Xcode 27, iOS 27 Simulator)". All 15 tests passed; the "Upload screenshots" step failed five times with "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON", which is the artifact service returning an HTML error page. Not Selvo or demo.sh.
+
+### Changed
+- No code. The failed job was rerun through the REST API (`rerun-failed-jobs`).
+
+### Verified, and how
+- The rerun (attempt 2) of run 43091692250 is green on every job, including demo.sh on iOS 27 and demo.sh plus Listen on iOS 26.2. CI on this commit already had `scripts/demo.sh` green on macos-15 with Xcode 16 and Xcode 26. Run conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
