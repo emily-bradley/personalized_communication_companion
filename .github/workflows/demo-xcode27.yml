@@ -93,6 +93,15 @@ jobs:
             wait "$pid" && status=0 || status=$?
             sleep 2
             kill "$tail_pid" 2>/dev/null || true
+            # Nov 6, Nov 9 and Nov 10: the downloaded iOS 26.2 runtime vanished from the runner
+            # mid job ("cannot determine the runtime bundle"). Download it again and run once more.
+            if [ "$status" != 0 ] && [ "$attempt" = 1 ] && grep -q "cannot determine the runtime bundle" build/demo-ios26.txt; then
+              echo "attempt 1: the iOS 26.2 runtime went missing; downloading it again"
+              xcrun simctl shutdown all || true
+              xcodebuild -downloadPlatform iOS -buildVersion 26.2 | tail -2
+              xcrun simctl list runtimes
+              continue
+            fi
             break
           done
           [ "$status" = 0 ]
