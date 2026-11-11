@@ -10,6 +10,20 @@ Live URL: **https://selvo-website.pages.dev** (Cloudflare Pages connected Oct 22
 4. Update the website artboards to the four reworded lines (people who cannot read), listed in `docs/DECISIONS.md`.
 5. Before a public launch: `PUBLIC_WAITLIST_URL` for the early-access form, photos of Lucas, the three family FAQ answers, the article date. Full list in `docs/LAUNCH-CHECKLIST.md`.
 
+## 2026-11-11, about 10:00am Central (post-demo check, CI fix)
+
+Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 1b5be1c: success, so the live site was unaffected).
+
+**Readings taken:** past the Friday freeze, so only red CI was in scope. `emily-bradley/selvo-website` is still not reachable (no add_repo here), so work stays on `website-staging`.
+
+**What happened:** CI on 1b5be1c (a docs-only commit) went red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43034838898. The cause was the GitHub runner failing to resolve `azure.archive.ubuntu.com` during `playwright install --with-deps chromium`, not site code. A rerun two hours later failed the same way.
+
+**Changed:** `.github/workflows/website.yml` now falls back to `playwright install chromium` (no apt) when the apt step fails, since the runner image already has Chrome's libraries. No site code changed.
+
+**Verified and how:** CI result for this commit is recorded in the next entry (or check the Actions tab for `website-staging`).
+
+**Next:** nothing planned. Emily can pause this scheduled task.
+
 ## 2026-11-11, about 8:00am Central (post-demo check)
 
 Live URL: https://selvo-website.pages.dev (Cloudflare Pages check on 64d272e: success).
