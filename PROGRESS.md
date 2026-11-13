@@ -2095,3 +2095,16 @@ Main (23f7162, docs only) started with CI green but Xcode 27 red: https://github
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-13, build run 5 (15:55 to about 16:20 Central): Xcode 27 iOS 26.2 job cancelled once, rerun green
+
+Main (814ab59, docs only) started with CI green https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43502613584 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26) but Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43502613686 marked cancelled. Only the job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" stopped: "The operation was canceled" 12 minutes into the demo step, while the Simulator was booting. That is well inside the step's 50 minute and the job's 95 minute limits, and no newer push existed, so my reading is a runner side cancel during a slow first boot, not a Selvo bug. No code changed.
+
+### Verified, and how
+- Reran only the cancelled job through the REST API (`rerun-failed-jobs`). It passed: the first boot stalled again for about 11 minutes, the existing 20 minute watchdog in the step booted again, demo.sh finished, and the Listen check logged "Asking for speech and microphone permission" then "Starting recognition, on device: true" 8 seconds later, `test exit 0`. The whole Xcode 27 run is now success. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- If the iOS 26.2 first boot keeps stalling, lower the watchdog from 20 to 12 minutes so the retry starts sooner. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
