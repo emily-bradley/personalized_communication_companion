@@ -1,12 +1,2 @@
-    iPhone 16 (A8DE21E2-C323-44D2-B717-7E3B12FA2DBF) (Booted) 
-test exit 0
-2026-11-13 20:27:33.172 xcodebuild[35352:98292] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 132.096 (132.106) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 132.096 (135.117) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 132.096 (135.148) seconds
-** TEST SUCCEEDED **
-2026-11-13 20:28:32.506 Df Selvo[43981:1d186] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-13 20:29:11.273 Df Selvo[43981:1d186] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-13 20:29:20.340 Df Selvo[43981:1d186] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-13 20:29:21.001 Df Selvo[43981:1d186] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-13 20:29:21.492 Df Selvo[43981:1d186] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (4DB9F348-FD67-4D47-BC5F-537CAF1D125E) (Booted) 
+attempt 1: the test runner or the Simulator's accessibility server failed
