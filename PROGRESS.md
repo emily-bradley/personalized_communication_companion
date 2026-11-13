@@ -2078,3 +2078,20 @@ Main (ff767d7, docs only) is green on every job: CI https://github.com/emily-bra
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-13, build run 4 (13:55 to about 14:40 Central): Xcode 27 Listen check red once, logging added, now green
+
+Main (23f7162, docs only) started with CI green but Xcode 27 red: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43477627065, job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)". demo.sh on iOS 26.2 passed and the Listen UI test passed (`test exit 0`), but the Simulator log held only two "Stopped listening" lines and no "Starting recognition" line, so the "on device: true" check failed. Selvo logged nothing between Listen opening and Stop, so the log could not say whether permission was slow, denied, or answered after Stop. My reading: a slow permission answer on the runner, not a Selvo bug, but worth making visible.
+
+### Changed
+- 1c5b2cb `fix:` `SpeechListener` now logs "Asking for speech and microphone permission", "Permission not given: speech" or "microphone", and "Permission answer came after Stop". Only states, never what was heard.
+
+### Verified, and how
+- 1c5b2cb green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43496908724 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43496908678 (demo.sh on iOS 27 and on iOS 26.2, all tests on iOS 27).
+- The new log lines appeared in the iOS 26.2 Listen job: permission asked at 20:28:32, recognition started on device at 20:29:11. The permission answer took 39 seconds on this runner, which fits the earlier failure: if the answer comes after the test taps Stop, no start line is logged. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- If the check fails again with "Permission answer came after Stop", let the Listen UI test wait for Listening (or a permission message) before it taps Stop, rather than changing Selvo. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
