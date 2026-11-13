@@ -58,9 +58,17 @@ final class SpeechListener {
         let current = generation
         quickFailures = 0
         state = .starting
+        // Only states, never what was heard, so CI can tell where a Listen session stopped.
+        log.notice("Asking for speech and microphone permission")
         requestPermissions { [weak self] denial in
-            guard let self, self.generation == current else { return }
+            guard let self else { return }
+            guard self.generation == current else {
+                self.log.notice("Permission answer came after Stop")
+                return
+            }
             if let denial {
+                let which = denial == SpeechListener.speechDeniedMessage ? "speech" : "microphone"
+                self.log.notice("Permission not given: \(which, privacy: .public)")
                 self.state = .denied(denial)
             } else {
                 self.beginRecognition()
