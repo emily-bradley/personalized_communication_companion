@@ -1,13 +1,13 @@
-    iPhone 16 (AAABA140-168A-46E0-8BD6-EC010C841D78) (Booted) 
+    iPhone 16 (2834FA9D-4280-40C1-AA21-5CD4BCEE1ADE) (Booted) 
 attempt 1: the test runner or the Simulator's accessibility server failed
 test exit 0
-2026-11-13 23:03:42.468 xcodebuild[53125:142178] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 45.431 (45.433) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 45.431 (45.433) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 45.431 (45.435) seconds
+2026-11-14 00:23:53.710 xcodebuild[49723:131180] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.283 (29.285) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.283 (29.286) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.283 (29.287) seconds
 ** TEST SUCCEEDED **
-2026-11-13 23:04:04.095 Df Selvo[54246:23a83] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-13 23:04:09.717 Df Selvo[54246:23a83] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-13 23:04:16.631 Df Selvo[54246:23a83] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-13 23:04:16.729 Df Selvo[54246:23a83] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-13 23:04:17.169 Df Selvo[54246:23a83] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-14 00:24:08.441 Df Selvo[51717:21711] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-14 00:24:13.083 Df Selvo[51717:21711] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-14 00:24:17.531 Df Selvo[51717:21711] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-14 00:24:17.595 Df Selvo[51717:21711] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-11-14 00:24:18.065 Df Selvo[51717:21711] [com.emilykenney.selvo:listen] Stopped listening
