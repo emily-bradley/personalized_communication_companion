@@ -1,7 +1,2 @@
-    iPhone 16 (2D048A98-9FE7-40FE-A824-F86277D3BDA5) (Shutdown) 
-test exit 0
-2026-11-16 17:00:01.305 xcodebuild[9770:33102] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 72.622 (72.634) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 72.622 (72.636) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 72.622 (72.640) seconds
-** TEST SUCCEEDED **
+    iPhone 16 (BCC4ED30-9E03-4D98-B9BD-B242F67D361D) (Shutdown) 
+attempt 1: the test runner or the Simulator's accessibility server failed
