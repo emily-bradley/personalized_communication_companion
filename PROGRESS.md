@@ -2203,3 +2203,4 @@ This run overlapped run 4's last half hour (run 4 pushed eac3ea9 and 2ef4bdf whi
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+- Addendum: 2ef4bdf `ci:` fixed the schedule comment (10:17 UTC is 04:17 Central in winter). CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446650 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446626 are green (iOS 26.2 job skipped on push as intended). This PROGRESS commit is docs only; the next run checks its CI.
