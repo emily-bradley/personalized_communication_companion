@@ -1,12 +1,12 @@
-    iPhone 16 (497F3226-2F40-47DA-BC13-254762BD2465) (Shutdown) 
+    iPhone 16 (5B2E7D89-0C76-4A11-A7A1-7ACFAC1FCAEE) (Booted) 
 test exit 0
-2026-11-16 14:21:29.395 xcodebuild[18863:55740] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.886 (31.889) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.886 (31.889) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 31.886 (31.890) seconds
+2026-11-16 14:45:48.710 xcodebuild[18646:59843] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.993 (29.995) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.993 (29.996) seconds
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.993 (29.999) seconds
 ** TEST SUCCEEDED **
-2026-11-16 14:21:42.337 Df Selvo[27075:13519] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-16 14:21:47.384 Df Selvo[27075:13519] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-16 14:21:53.849 Df Selvo[27075:13519] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-16 14:21:53.889 Df Selvo[27075:13519] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-16 14:21:54.364 Df Selvo[27075:13519] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-16 14:46:01.634 Df Selvo[23170:1139d] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-16 14:46:06.745 Df Selvo[23170:1139d] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-16 14:46:12.838 Df Selvo[23170:1139d] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-16 14:46:12.960 Df Selvo[23170:1139d] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-11-16 14:46:13.428 Df Selvo[23170:1139d] [com.emilykenney.selvo:listen] Stopped listening
