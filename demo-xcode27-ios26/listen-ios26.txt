@@ -1,12 +1,15 @@
-    iPhone 16 (924A5142-F404-4D40-9E3E-EAF4BBFC231B) (Booted) 
-test exit 0
-2026-11-16 19:48:05.592 xcodebuild[20974:61685] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 725.580 (725.597) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 725.580 (731.217) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 725.580 (731.228) seconds
-** TEST SUCCEEDED **
-2026-11-16 19:56:51.779 Df Selvo[61169:25e1c] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-16 19:57:21.571 Df Selvo[61169:25e1c] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-16 19:59:45.667 Df Selvo[61169:25e1c] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-16 19:59:46.673 Df Selvo[61169:25e1c] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-16 19:59:47.155 Df Selvo[61169:25e1c] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (D59BB8B2-EFA7-4B81-90FB-8AD4622E33B6) (Booted) 
+test exit 70
+xcodebuild: error: Unable to find a device matching the provided destination specifier:
+		{ platform:macOS, arch:arm64e, id:99507d5ca7005b4b98a593cfef4b62a41811aecb, name:My Mac, error:My Mac’s macOS platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support My Mac. }
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        0
+log query 1 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 2 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+log query 3 found no listen lines
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
