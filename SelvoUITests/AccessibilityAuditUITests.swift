@@ -96,8 +96,7 @@ final class AccessibilityAuditUITests: XCTestCase {
         tap("Set up together")
         let name = app.textFields["Name"].firstMatch
         XCTAssertTrue(name.waitForExistence(timeout: 10))
-        name.tap()
-        name.typeText("Lucas")
+        name.tapAndType("Lucas")
         for _ in 1...3 { tap("Continue") }
         XCTAssertTrue(app.staticTexts["Text size"].waitForExistence(timeout: 5))
         try audit("Setup text size")

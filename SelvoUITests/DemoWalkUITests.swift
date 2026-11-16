@@ -80,8 +80,7 @@ final class DemoWalkUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Step 1 of 5"].exists)
         let name = app.textFields["Name"].firstMatch
         XCTAssertTrue(name.waitForExistence(timeout: 10))
-        name.tap()
-        name.typeText("Maya")
+        name.tapAndType("Maya")
         save("demo-setup-1")
         tap("Continue")
 
