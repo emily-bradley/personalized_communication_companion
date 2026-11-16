@@ -2155,3 +2155,18 @@ My check-only docs commit 8b3593c turned up a red Xcode 27 run https://github.co
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-16, build run 3 (11:55 to about 13:25 Central): Xcode 27 iOS 26.2 job cancelled by the runner twice, rerun green
+
+Main started at ec3f68d, a `test:` commit from a run around 10:30 that left no PROGRESS entry. Reading the CI history: Xcode 27 for 8b3593c https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43901835756 went red because `testSetupTextSizeStep` hit "Neither element nor any descendant has keyboard focus" on Xcode 27.2 (the release, so not only the 27.3 pre-release), and ec3f68d fixed it by tapping the Name field and waiting for keyboard focus before typing (`SelvoUITests/XCUIElement+Typing.swift`). No code changed in this run.
+
+For ec3f68d, CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43909034164 was green and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43909034082 had both demo.sh (Xcode 27) and Build and test (iOS 27, the fixed test included) green. The job "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" was cancelled from outside the job ("The operation was canceled"), 16 minutes in, right after the iOS 26.2 Simulator finished an 11 minute first boot. The same happened to 8b3593c's job (14 minutes in, mid boot) and on Nov 13. No newer push and no concurrency cancel explain it, and our 20 minute watchdog never fired, so my reading is a runner side cancel during slow iOS 26.2 boots on the xcode-27 image, not a Selvo bug. A boot watchdog shorter than 11 minutes would not help, because good first boots today took 7 to 11 minutes.
+
+### Verified, and how
+- Reran only that job via the REST API (after its stuck "Complete job" step was cancelled). It passed: boot about 8 minutes, demo.sh finished on iOS 26.2, the Listen check retried once after a test runner hiccup and logged "Starting recognition, on device: true", `test exit 0`. The Xcode 27 run is now success, so every job on main is green, including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26 and on Xcode 27. No screens changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items.
+
+### Next
+- If the iOS 26.2 job is cancelled from outside again, rerun it; if it happens on most pushes, consider moving that job to run only on workflow_dispatch and a daily schedule so main is not marked red by the runner. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
