@@ -2188,3 +2188,18 @@ Main started at 00843dc with CI green. Xcode 27 for 4cedf17 https://github.com/e
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-16, build run 5 (15:55 to about 17:20 Central): iOS 26.2 job rerun green; main green on every job
+
+This run overlapped run 4's last half hour (run 4 pushed eac3ea9 and 2ef4bdf while I was waiting on CI); I made no code or workflow changes, so there was nothing to merge.
+
+### Verified, and how
+- Run 4's dispatch run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43949604512 (4e833aa) had the iOS 26.2 job red after `simctl bootstatus` hung. I reran only the failed job through `rerun-failed-jobs`. Attempt 2 passed in 21 minutes: the log shows "Using the iOS 26.2 Simulator", "Starting recognition, on device: true" and `test exit 0`. The run is now success. So the hang was the runner, not Selvo, and the iOS 26.2 demo path is proven again today.
+- 2ef4bdf (head of main): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446650 green on every job, including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446626 green (demo.sh on Xcode 27, Build and test on iOS 27; the iOS 26.2 job skipped on push as run 4 intended).
+- No screens changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items.
+
+### Next
+- Check tomorrow's weekday scheduled run of "Xcode 27 demo and tests" (iOS 26.2 job). If it fails, rerun the failed job once before changing anything. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
