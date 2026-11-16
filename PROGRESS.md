@@ -2122,15 +2122,18 @@ Main (88f5b6d, docs only) is green on every job: CI https://github.com/emily-bra
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
 
-## 2026-11-16, build run 1 (07:55 Central): check only, main green
+## 2026-11-16, build run 1 (07:55 to about 08:50 Central): Xcode 27 red after a runner image update, fixed, main green
 
-Main (fb068a1, docs only) is green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43530744077 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43530744049. Every item in PLAN.md is checked, so this run changed no code. CI had not run since Friday, so this commit's own runs also check that the weekend runner image updates did not break anything (result in the next entry if not green).
+Main started green (fb068a1). CI had not run since Friday, so my docs commit cc04b09 doubled as a check, and it found a problem: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43880616301 was green, but Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43880616336 went red. The xcode-27 runner image moved from 20261104 to 20261112, and its `Xcode_27.3.app` is build 27C5020n, a pre-release (Apple's pre-release build numbers end in a lowercase letter) not named beta, so `ci_select_xcode.sh 27` chose it over 27.2. On it both demo.sh jobs were cancelled mid step (one while installing and launching, one while building) and the UI test `testSetupTextSizeStep` failed: "Failed to synthesize event: Neither element nor any descendant has keyboard focus" on the Name field. My reading: Xcode 27.3 pre-release trouble, not a Selvo bug. Emily's Mac gets a release from the Mac App Store, so CI should test a release.
+
+### Changed
+- d0f7881 `ci:` `scripts/ci_select_xcode.sh` skips any Xcode whose build number ends in a lowercase letter, as well as those named beta. It falls back to the newest of that major version if no release is found. Selvo itself and `scripts/demo.sh` are unchanged.
 
 ### Verified, and how
-- Run and job conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items. No screens changed, so no screenshots were reviewed again.
+- d0f7881 green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43885833264 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43885832501 (demo.sh on iOS 27 and on iOS 26.2 with Listen, all tests on iOS 27). The job logs show Xcode 27.2, build 27B52, selected again. No screens changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items.
 
 ### Next
-- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+- When Xcode 27.3 ships as a release (a build number with no trailing letter), CI will pick it up by itself; if `testSetupTextSizeStep` then fails to type into Name again, make that test tap the field and wait for keyboard focus before typing. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
 
 ### Needs Emily
-- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback). If your Mac offers a Software Update to Xcode 27.3 beta, stay on the release; demo.sh is proven on 16, 26 and 27.2.
