@@ -2138,14 +2138,19 @@ Main started green (fb068a1). CI had not run since Friday, so my docs commit cc0
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback). If your Mac offers a Software Update to Xcode 27.3 beta, stay on the release; demo.sh is proven on 16, 26 and 27.2.
 
-## 2026-11-16, build run 2 (09:55 to about 10:00 Central): check only, main green
+## 2026-11-16, build run 2 (09:55 to about 12:45 Central): flaky Name field typing fixed; iOS 26.2 demo job keeps being cancelled by the runner
 
-Main (3dd9e6f, docs only) is green on every job: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43891161137 (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43891161090. Every item in PLAN.md is checked, so this run changed no code.
+My check-only docs commit 8b3593c turned up a red Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43901835756: "Build and test (Xcode 27, iOS 27 Simulator)" failed `testSetupTextSizeStep` with "Neither element nor any descendant has keyboard focus" on the Name field, this time on Xcode 27.2 build 27B52, a release. So run 1's reading (only the 27.3 pre-release does this) was wrong: it is a timing flake in the test. One more test there timed out launching Selvo (`testSupporterMovesTileLater`), which I read as a slow runner. CI on macos-15 was green.
+
+### Changed
+- ec3f68d `test:` new `SelvoUITests/XCUIElement+Typing.swift` with `tapAndType`: taps the field, waits up to 5 seconds for keyboard focus, taps again up to three times, then types. `testSetupTextSizeStep` and `testSetupTogetherFinishesAtHome` use it. Selvo itself and `scripts/demo.sh` are unchanged.
 
 ### Verified, and how
-- Run conclusions via `gh api`. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items. No screens changed, so no screenshots were reviewed again.
+- ec3f68d: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43909034164 green on every job (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26, the Xcode 26 TestFlight SDK build, and Build, test, screenshots). Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43909034082: "Build and test (Xcode 27, iOS 27 Simulator)" passed three times (15 UI tests, 0 failures each time) and "scripts/demo.sh (Xcode 27)" passed three times.
+- Not green: "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" was cancelled in all three attempts (first run plus two reruns through `rerun-failed-jobs`). Each time the demo step stopped with "The operation was canceled" 6 to 12 minutes in (while booting the iOS 26.2 Simulator, or just after "Building Selvo"), far inside the step's 50 minute and job's 95 minute limits, with no newer push and no concurrency cancel (that group has `cancel-in-progress: false`). The `if: always()` Listen step then ran, as it does after a job cancel. Same symptom as Nov 13 run 5 and cc04b09 this morning, on runner image xcode-27-arm64 20261112.0361. My reading: the runner is cancelling the job, not a Selvo bug. This morning on the same image (d0f7881, 3dd9e6f) the job passed. No screens changed, so no screenshots were reviewed again.
 
 ### Next
+- First job next run: rerun the iOS 26.2 job once. If it is cancelled again, read the full job log for what happens just before the cancel (disk space, the 26.2 runtime vanishing again, memory), and consider a `df -h` and `xcrun simctl list runtimes` line before and after the boot. If it cannot be made reliable, move that job to `workflow_dispatch` only and note it here; `scripts/demo.sh` stays proven on Xcode 16, 26 and 27.
 - TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
 
 ### Needs Emily
