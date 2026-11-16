@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Weekdays at 05:17 Central (10:17 UTC in winter), before the first build run of the day.
+  # Weekdays at 10:17 UTC (04:17 Central in winter), before the first build run of the day.
   # This is the only automatic run of the iOS 26.2 job below.
   schedule:
     - cron: '17 10 * * 1-5'
