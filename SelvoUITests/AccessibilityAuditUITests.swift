@@ -17,9 +17,13 @@ final class AccessibilityAuditUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = true
         app = XCUIApplication()
-        app.launchArguments = ["-SelvoResetProfile", "-SelvoDemoProfile", "YES"]
+        // The setup test starts on Welcome. It launches once with no demo profile instead of
+        // terminating and relaunching, which failed to terminate on a slow Simulator (Nov 16).
+        let setup = name.contains("testSetupTextSizeStep")
+        app.launchArguments = ["-SelvoResetProfile", "-SelvoDemoProfile", setup ? "NO" : "YES"]
         app.launch()
-        XCTAssertTrue(app.buttons["Speak"].firstMatch.waitForExistence(timeout: 20))
+        let first = setup ? "Set up together" : "Speak"
+        XCTAssertTrue(app.buttons[first].firstMatch.waitForExistence(timeout: 20))
     }
 
     private func audit(_ screen: String) throws {
@@ -90,9 +94,6 @@ final class AccessibilityAuditUITests: XCTestCase {
     /// Setup step 4 shows the same text size pills and theme swatches as Settings, so it tells
     /// whether the Settings note comes from those parts.
     func testSetupTextSizeStep() throws {
-        app.terminate()
-        app.launchArguments = ["-SelvoResetProfile", "-SelvoDemoProfile", "NO"]
-        app.launch()
         tap("Set up together")
         let name = app.textFields["Name"].firstMatch
         XCTAssertTrue(name.waitForExistence(timeout: 10))
