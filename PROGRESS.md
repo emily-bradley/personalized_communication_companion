@@ -2170,3 +2170,21 @@ For ec3f68d, CI https://github.com/emily-bradley/personalized_communication_comp
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-16, build run 4 (13:55 to about 16:30 Central): iOS 26.2 job taken off push after more runner cancels and a hung Simulator
+
+Main started at 00843dc with CI green. Xcode 27 for 4cedf17 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43930463437 and for 00843dc https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43938484709 both ended cancelled: "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" was again cancelled from outside 10 to 13 minutes into the demo step, just after the iOS 26.2 first boot, while demo.sh on Xcode 27 and Build and test on iOS 27 passed. No agent session cancelled the 00843dc one (this run was the only one going and did not), so run 3's reading stands: the runner, not Selvo. Since Nov 13 the job was cancelled on the first try for cc04b09, 8b3593c, ec3f68d (twice), 4cedf17 and 00843dc.
+
+### Changed
+- 4e833aa `ci:` in `demo-xcode27.yml` the iOS 26.2 job now runs only on a weekday schedule (10:17 UTC, 04:17 Central in winter) and by hand (workflow_dispatch), not on push; its screenshot publish step now runs for any run on main. My reading of run 3's note "if it happens on most pushes": it did, so I took that step. `scripts/demo.sh` on Xcode 16, 26 and 27 and every Xcode 27 test still run on every push. Selvo itself is unchanged.
+
+### Verified, and how
+- 4e833aa: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43949534132 green on every job (including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26). Xcode 27 push run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43949534010: my workflow_dispatch replaced it while it was waiting (same concurrency group), so I reran it; the rerun is green, with demo.sh (Xcode 27) and Build and test (iOS 27) passed and the iOS 26.2 job skipped as intended.
+- The dispatch run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43949604512 (same commit) ran the iOS 26.2 job: not cancelled this time, but the iOS 26.2 Simulator hung. Boot took 9.5 minutes, Selvo built in 75 seconds, then `simctl bootstatus` before install never returned; the 20 minute watchdog fired, the second try hung too, the step hit its 50 minute limit and Listen its 30 minute limit. The other two jobs passed. So the iOS 26.2 runtime on the xcode-27 runner image 20261112 is unhealthy right now; nothing points at Selvo. No screens changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no unchecked PLAN.md items.
+
+### Next
+- Check the weekday morning scheduled run of "Xcode 27 demo and tests". If the iOS 26.2 job keeps hanging or being cancelled after the next runner image update, consider stopping the schedule too and noting in DEMO.md that the iOS 26.2 path was last proven Nov 16 (ec3f68d rerun). Avoid dispatching that workflow while a push run waits: the newer run replaces the waiting one.
+- TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
