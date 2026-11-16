@@ -7,6 +7,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Weekdays at 05:17 Central (10:17 UTC in winter), before the first build run of the day.
+  # This is the only automatic run of the iOS 26.2 job below.
+  schedule:
+    - cron: '17 10 * * 1-5'
 
 permissions:
   contents: write
@@ -52,6 +56,11 @@ jobs:
     # so DEMO.md tells Emily to add the iOS 26.2 Simulator, and demo.sh then picks it by itself.
     # This proves that path with Xcode 27.
     name: scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)
+    # Not on push. From Nov 13 to Nov 16 the runner cancelled this job from outside on most
+    # pushes ("The operation was canceled", 10 to 16 minutes in, during or just after the
+    # iOS 26.2 first boot), with no newer push, no timeout and no Selvo error, and a rerun
+    # passed. It runs every weekday morning and by hand (workflow_dispatch) instead.
+    if: github.event_name != 'push'
     runs-on: xcode-27
     timeout-minutes: 95
     steps:
@@ -177,7 +186,7 @@ jobs:
           grep -q "test exit 0" "$OUT/listen-ios26.txt" || exit 1
           grep -q "on device: true" "$OUT/listen-ios26.txt" && ! grep -q "Listening is not available" "$OUT/listen-ios26.txt"
       - name: Publish to the ci-screenshots branch
-        if: always() && github.event_name == 'push'
+        if: always() && github.ref == 'refs/heads/main'
         run: scripts/ci_publish_images.sh "$RUNNER_TEMP/ios26" demo-xcode27-ios26
 
   tests:
