@@ -2220,3 +2220,19 @@ Main started at c11e52d. CI was green, but Xcode 27 for 6ea79bd https://github.c
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-17, build run 1 (07:55 to about 09:30 Central): iOS 26.2 job checked by hand; cancelled once, rerun green; main green
+
+Main started at 682e5f1 with CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43989336705 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43989336629 green on every job. No code or workflow changes in this run.
+
+### Verified, and how
+- The weekday schedule (10:17 UTC) for "Xcode 27 demo and tests" had not fired by 13:55 UTC: the runs API lists no `schedule` runs for this repo at all. My reading: GitHub has not started the new schedule yet (it can skip or delay scheduled runs); nothing to fix in the workflow. To check the iOS 26.2 path anyway, I started it by hand (workflow_dispatch) on 682e5f1: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44097650989.
+- First attempt: demo.sh (Xcode 27) and Build and test (iOS 27) passed. The iOS 26.2 job was again cancelled from outside ("The operation was canceled") 11 minutes into the iOS 26.2 first boot, the same symptom as Nov 13 to 16; its `always()` Listen step still passed on iOS 26.2 ("Starting recognition, on device: true", `test exit 0`).
+- Reran only that job (`rerun-failed-jobs`), as the last run's note said. Attempt 2 passed: demo.sh picked "Using the iOS 26.2 Simulator", Listen logged "Starting recognition, on device: true" and `test exit 0`. The run is now success, so `scripts/demo.sh` is proven today on Xcode 27 with both iOS 26.2 and iOS 27.
+- No screens changed, so no screenshots were reviewed again. `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no open issues; no unchecked PLAN.md items.
+
+### Next
+- Check whether the weekday schedule ever fires (runs API `event=schedule`). If it still has not by Friday, leave it; the job stays runnable by hand. If the iOS 26.2 job fails, rerun the failed job once before changing anything. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
