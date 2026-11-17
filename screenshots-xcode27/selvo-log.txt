@@ -1,14 +1,11 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-17 15:50:31.897 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-17 15:50:39.383 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-17 15:50:39.674 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-17 15:50:41.202 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-17 15:50:41.258 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-17 15:50:41.615 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-17 15:50:41.652 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-17 15:50:41.997 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-17 15:50:42.025 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-17 15:50:42.025 E  Selvo[28250:14a18] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
-2026-11-17 15:50:44.055 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-17 15:50:44.568 Df Selvo[28250:14a18] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-17 16:18:32.202 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-17 16:18:42.269 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-17 16:18:42.576 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-17 16:18:43.155 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-17 16:18:43.428 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-17 16:18:43.780 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-17 16:18:44.004 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-17 16:18:44.054 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-17 16:18:44.538 Df Selvo[19870:ff27] [com.emilykenney.selvo:listen] Stopped listening
