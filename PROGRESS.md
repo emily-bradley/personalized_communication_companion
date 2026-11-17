@@ -2204,3 +2204,19 @@ This run overlapped run 4's last half hour (run 4 pushed eac3ea9 and 2ef4bdf whi
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
 - Addendum: 2ef4bdf `ci:` fixed the schedule comment (10:17 UTC is 04:17 Central in winter). CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446650 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43970446626 are green (iOS 26.2 job skipped on push as intended). This PROGRESS commit is docs only; the next run checks its CI.
+
+## 2026-11-16, build run 6 (17:55 to about 18:40 Central): flaky setup audit test steadied; main green on every job
+
+Main started at c11e52d. CI was green, but Xcode 27 for 6ea79bd https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43977198758 was red: "Build and test (Xcode 27, iOS 27 Simulator)" failed `testSetupTextSizeStep` twice in one job, first with "Failed to terminate com.emilykenney.selvo" (the test terminated and relaunched Selvo after setUp had launched it), then on the UI test retry with "Text field never took keyboard focus" from `tapAndType`. My reading: a slow Simulator flake in the test, not a Selvo bug (the same job logged slow image and pipeline loads). The c11e52d Xcode 27 run passed the same test.
+
+### Changed
+- 2ca370a `test:` `testSetupTextSizeStep` launches once with no demo profile from setUp (keyed on the test name) instead of terminate and relaunch; `tapAndType` waits for the field to be hittable before each tap and up to 10 seconds for keyboard focus, four tries. Selvo itself and `scripts/demo.sh` are unchanged.
+
+### Verified, and how
+- 2ca370a: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43983647653 green on every job, including `scripts/demo.sh` on macos-15 with Xcode 16 and Xcode 26. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43983647563 green: demo.sh (Xcode 27) passed, Build and test ran 15 UI tests with 0 failures (iOS 26.2 job skipped on push as intended). c11e52d's Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/43977226740 also green. No screens changed, so no screenshots were reviewed again (artifact blob downloads returned 403 from this sandbox anyway). `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`; no unchecked PLAN.md items.
+
+### Next
+- Check the weekday scheduled run of "Xcode 27 demo and tests" (iOS 26.2 job); if it fails, rerun the failed job once before changing anything. TestFlight upload once Emily adds her Team ID and the secrets (`docs/TESTFLIGHT.md`). Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
