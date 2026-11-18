@@ -2364,3 +2364,18 @@ Main started at e4e6274. No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-18, build run 5 (15:55 to about 16:30 Central): Xcode 27 push run red on a flake, rerun green; no changes
+
+Main started at 84d9f06 (docs only). No code or workflow changes in this run.
+
+### Verified, and how
+- 84d9f06: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44392748130 green on every job, including `scripts/demo.sh` on macos-15.
+- Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44392748121 attempt 1 was red: "Build and test (Xcode 27, iOS 27 Simulator)" failed `testSetupTextSizeStep`. The log shows "AUDIT Setup text size: timed out once, auditing again", then the second audit reported five "Text clipped" issues and one "Potentially inaccessible text", all with no element attached. demo.sh (Xcode 27) passed. My reading: a slow runner flake, not a Selvo bug, because the same app code passed this test on every run earlier today and 84d9f06 changed only PROGRESS.md. Reran the failed job once; attempt 2 passed every job, and the run is now success.
+- No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- If an audit timeout followed by "Text clipped" with no element repeats, make the retry wait a few seconds and check that the setup screen is idle before the second audit. Keep rerunning the iOS 26.2 job once when the runner cancels it mid boot. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
