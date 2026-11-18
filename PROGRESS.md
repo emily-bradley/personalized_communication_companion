@@ -2379,3 +2379,17 @@ Main started at 84d9f06 (docs only). No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-18, build run 6 (17:55 to about 18:05 Central): main green on every job; no changes
+
+Main started at fbd375b (docs only). No code or workflow changes in this run.
+
+### Verified, and how
+- fbd375b: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44411043706 green on every job, including `scripts/demo.sh` on macos-15. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44411043760 green on the first attempt, so the run 5 audit flake did not repeat.
+- Today's scheduled iOS 26.2 run is green (rerun in run 4). No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- Unchanged from run 5: harden the text size audit retry only if the flake repeats; rerun the iOS 26.2 job once when the runner cancels it mid boot. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
