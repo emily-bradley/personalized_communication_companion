@@ -2349,3 +2349,18 @@ Main started at 7fdec6a. No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-18, build run 4 (13:55 to about 14:40 Central): scheduled iOS 26.2 job cancelled, rerun green; no changes
+
+Main started at e4e6274. No code or workflow changes in this run.
+
+### Verified, and how
+- Today's scheduled "Xcode 27 demo and tests" https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44374194258 fired at 18:51 UTC. Attempt 1: demo.sh (Xcode 27) and Build and test (iOS 27) passed; "scripts/demo.sh and Listen (Xcode 27, iOS 26.2 Simulator added)" was cancelled from outside ("The operation was canceled") about 7 minutes into the iOS 26.2 first boot, the same runner side symptom recorded since Nov 13. The Simulator download step passed this time, so yesterday's download failure did not repeat. Reran the failed job once; attempt 2 passed: demo.sh logged "Using the iOS 26.2 Simulator", Listen ended with `test exit 0` and on device recognition. The run is now success.
+- e4e6274: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44364117643 green on every job, including `scripts/demo.sh` on macos-15. Xcode 27 push run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44364117636 green.
+- No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- The download retry loop is not needed yet (the download failed on one day only). Keep rerunning the iOS 26.2 job once when the runner cancels it mid boot. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
