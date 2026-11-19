@@ -2422,16 +2422,17 @@ Main started at 4031594 (docs only). No code or workflow changes in this run.
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
 
-## 2026-11-19, build run 3 (11:55 to about 12:05 Central): main green on every job; no changes
+## 2026-11-19, build run 3 (11:55 to about 13:25 Central): Xcode 27 push run timed out on a slow runner, rerun green; no code changes
 
 Main started at 3052665 (docs only). No code or workflow changes in this run.
 
 ### Verified, and how
-- 3052665: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44560475854 green on every job, including `scripts/demo.sh` on macos-15. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44560475311 green on the first attempt.
-- Today's scheduled iOS 26.2 run has not fired yet (around 18:51 UTC). No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+- 3052665: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44560475854 and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44560475311 green on every job.
+- 3433633 (this run's first PROGRESS.md commit): CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44582373970 green on every job, including `scripts/demo.sh` on macos-15. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44582373799 attempt 1 was cancelled: "Build and test (Xcode 27, iOS 27 Simulator)" hit its 50 minute job timeout inside the "Build and test" step (it usually finishes in about 28 minutes); GitHub kept no log for the cancelled job. demo.sh (Xcode 27) passed. My reading: a slow or stalled runner, not a Selvo bug, because the commit changed only PROGRESS.md and the same code passed earlier today. Reran the failed job once; attempt 2 passed in about 30 minutes, and the run is now success.
+- Today's scheduled iOS 26.2 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44593425357 started at 18:58 UTC and was still running when this run ended. No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
 
 ### Next
-- Unchanged: check today's scheduled iOS 26.2 job in the next run and rerun once if the runner cancels it mid boot; harden the text size audit retry only if that flake repeats. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+- Check scheduled run 44593425357 and rerun once if the runner cancelled it. If the Xcode 27 "Build and test" job times out again, look at which test was running (rerun with step debug logging) before raising the timeout. Harden the text size audit retry only if that flake repeats. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
