@@ -55,15 +55,16 @@ final class ScreenshotTests: XCTestCase {
         }
     }
 
-    /// On the Xcode 27 runner the first render can wait about 11 seconds for the GPU pipeline,
-    /// and until then ImageIO times out and writes nothing (zlib error, Oct 22 and Oct 23).
-    /// So try up to five times, two seconds apart.
+    /// On the Xcode 27 runner the first render can wait for the GPU pipeline (11 seconds on
+    /// Oct 23, 63 seconds on Nov 19), and until then ImageIO times out and writes nothing
+    /// (zlib error). So keep trying, two seconds apart, for up to 150 seconds.
     static func encodePNG(_ image: UIImage) -> Data? {
-        for attempt in 1...5 {
+        let deadline = Date().addingTimeInterval(150)
+        while true {
             if let data = image.pngData() { return data }
-            if attempt < 5 { RunLoop.current.run(until: Date().addingTimeInterval(2)) }
+            if Date() > deadline { return nil }
+            RunLoop.current.run(until: Date().addingTimeInterval(2))
         }
-        return nil
     }
 
     func testComponentGallery() throws {
