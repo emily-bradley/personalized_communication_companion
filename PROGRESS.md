@@ -2436,3 +2436,24 @@ Main started at 3052665 (docs only). No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-19, build run 4 (13:55 to about 14:55 Central): scheduled Xcode 27 run red on the screenshot encode flake; retry made time based
+
+Main started at eb2e87b (docs only).
+
+### What changed
+- fd8b452 `test:` `ScreenshotTests.encodePNG` now retries for up to 150 seconds, two seconds apart, instead of five fixed attempts. Tests only; no app code changed.
+
+### Why
+- Today's scheduled Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44593425357 failed "Build and test (Xcode 27, iOS 27 Simulator)" in `testComponentGallery`: `00-components did not encode`. The log shows "building pipeline path_exterior took 63.257365 seconds" and ImageIO "timed out while waiting for phase 6" until then, so the five attempts (about 60 seconds in all) ran out just before the GPU pipeline was ready. Same cause as Oct 23, only slower. Both demo.sh jobs in that run, including the iOS 26.2 demo plus Listen, passed.
+- The eb2e87b push run for Xcode 27 was cancelled by the concurrency group when fd8b452 landed; that is expected.
+
+### Verified, and how
+- fd8b452: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44603509476 green on every job, including `scripts/demo.sh` with Xcode 16 and 26 on macos-15. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/44603509424 green (build and test with screenshots, demo.sh). The pipeline built in about 1 second this time, so the longer wait was not exercised; it can only add waiting, never change a passing render.
+- No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- If `did not encode` comes back even with 150 seconds, render one small warm-up image in the test class setUp before the first snapshot. Keep rerunning the iOS 26.2 job once when the runner cancels it mid boot. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
