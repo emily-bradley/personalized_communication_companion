@@ -1,9 +1,11 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-19 21:09:10.031 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-19 21:09:20.155 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-19 21:09:20.362 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-19 21:09:20.781 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-19 21:09:20.899 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-19 21:09:21.285 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-19 21:09:21.810 Df Selvo[30945:15cb1] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-19 22:18:36.918 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-19 22:19:02.203 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-19 22:19:02.700 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-19 22:19:04.010 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-19 22:19:04.157 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-19 22:19:04.771 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-19 22:19:05.024 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-19 22:19:05.373 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-19 22:19:05.859 Df Selvo[8553:a6ea] [com.emilykenney.selvo:listen] Stopped listening
