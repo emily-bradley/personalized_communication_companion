@@ -1,11 +1,9 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-20 14:16:27.469 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-20 14:16:38.474 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 14:16:39.106 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 14:16:39.669 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 14:16:39.805 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 14:16:40.547 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 14:16:40.905 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-20 14:16:41.083 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 14:16:41.617 Df Selvo[25963:1358f] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-20 16:18:53.630 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-20 16:19:08.774 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-20 16:19:09.267 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-20 16:19:11.116 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-20 16:19:11.308 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-20 16:19:11.813 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-20 16:19:12.665 Df Selvo[22708:11604] [com.emilykenney.selvo:listen] Stopped listening
