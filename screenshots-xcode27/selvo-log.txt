@@ -1,12 +1,9 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-20 18:14:24.799 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-20 18:14:35.318 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 18:14:35.511 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 18:14:36.058 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 18:14:36.096 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 18:14:36.436 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-20 18:14:36.452 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
-2026-11-20 18:14:36.453 E  Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Listening is not available: recognition sessions failed three times in a row as they started
-2026-11-20 18:14:38.658 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-20 18:14:39.177 Df Selvo[23847:11e8e] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-20 20:16:49.059 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-20 20:16:59.027 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-20 20:16:59.178 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-20 20:16:59.840 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-20 20:16:59.888 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Recognition session ended: kLSRErrorDomain 300
+2026-11-20 20:17:00.170 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-20 20:17:00.691 Df Selvo[26811:141ed] [com.emilykenney.selvo:listen] Stopped listening
