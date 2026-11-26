@@ -1,12 +1,20 @@
-    iPhone 16 (5F5F61D1-CAF6-4676-BC53-B672003E5BF8) (Booted) 
-test exit 0
-2026-11-25 20:19:39.508 xcodebuild[16131:55517] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
-	 Executed 1 test, with 0 failures (0 unexpected) in 47.515 (47.522) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 47.515 (47.525) seconds
-	 Executed 1 test, with 0 failures (0 unexpected) in 47.515 (47.528) seconds
-** TEST SUCCEEDED **
-2026-11-25 20:20:04.963 Df Selvo[22074:1120a] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-25 20:20:10.650 Df Selvo[22074:1120a] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-25 20:20:17.763 Df Selvo[22074:1120a] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-25 20:20:17.889 Df Selvo[22074:1120a] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-25 20:20:18.490 Df Selvo[22074:1120a] [com.emilykenney.selvo:listen] Stopped listening
+    iPhone 16 (901B535A-4B0B-486F-955F-C3CA521FE585) (Booted) 
+test exit 70
+xcodebuild: error: Unable to find a device matching the provided destination specifier:
+		{ platform:macOS, arch:arm64e, id:9e692ff9fe8bed0c327da885e89ff29bfcff7992, name:My Mac, error:My Mac’s macOS platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support My Mac. }
+		{ platform:tvOS Simulator, arch:arm64, id:E51B09B3-67CE-4E69-B0C1-6080634F27F2, OS:27.2, name:Apple TV 4K (4th generation), error:Apple TV 4K (4th generation)’s tvOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple TV 4K (4th generation). }
+		{ platform:tvOS Simulator, arch:arm64, id:451CC3DC-07B7-40E3-A8AF-23B9DAEFCCDE, OS:27.2, name:Apple TV 4K (4th generation) (at 1080p), error:Apple TV 4K (4th generation) (at 1080p)’s tvOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple TV 4K (4th generation) (at 1080p). }
+		{ platform:visionOS Simulator, arch:arm64, id:7E38977B-5756-4E09-BADF-53B5769160E2, OS:27.0, name:Apple Vision Pro, error:Apple Vision Pro’s visionOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Vision Pro. }
+		{ platform:visionOS Simulator, arch:arm64, id:2CF88E1B-648D-4B78-A46A-2B6779FCA02A, OS:27.2, name:Apple Vision Pro, error:Apple Vision Pro’s visionOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Vision Pro. }
+		{ platform:watchOS Simulator, arch:arm64, id:29AF471F-64DF-4513-81E4-00ACC8570EF2, OS:27.0, name:Apple Watch SE 3 (40mm), error:Apple Watch SE 3 (40mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch SE 3 (40mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:D84EEFA2-8DE0-4FA3-95DF-D00333A96DB8, OS:27.2, name:Apple Watch SE 3 (40mm), error:Apple Watch SE 3 (40mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch SE 3 (40mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:A0B9FB34-5993-450B-B226-8AD37DD5D584, OS:27.0, name:Apple Watch SE 3 (44mm), error:Apple Watch SE 3 (44mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch SE 3 (44mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:D2BADDB3-AEA2-409E-B693-7D6F3F818021, OS:27.2, name:Apple Watch SE 3 (44mm), error:Apple Watch SE 3 (44mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch SE 3 (44mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:9D4D8D16-33D1-45E3-865D-C38C4FA63B8D, OS:27.0, name:Apple Watch Series 12 (42mm), error:Apple Watch Series 12 (42mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Series 12 (42mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:DEF93F4F-1A2F-4B49-8285-169086A203BE, OS:27.2, name:Apple Watch Series 12 (42mm), error:Apple Watch Series 12 (42mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Series 12 (42mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:EC430E7F-98D4-4E9E-83E9-967EBD463A35, OS:27.0, name:Apple Watch Series 12 (46mm), error:Apple Watch Series 12 (46mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Series 12 (46mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:5C18F044-56EF-4B57-8276-049F420E7D9D, OS:27.2, name:Apple Watch Series 12 (46mm), error:Apple Watch Series 12 (46mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Series 12 (46mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:E67E53BC-9A06-4643-BD70-6A1ECAE16789, OS:27.0, name:Apple Watch Ultra 4 (49mm), error:Apple Watch Ultra 4 (49mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Ultra 4 (49mm). }
+		{ platform:watchOS Simulator, arch:arm64, id:2A09F8DF-ADB0-45DD-B07B-6BE3CB55DE6E, OS:27.2, name:Apple Watch Ultra 4 (49mm), error:Apple Watch Ultra 4 (49mm)’s watchOS Simulator platform doesn’t match Selvo.app’s supported platforms. You can change Selvo.app’s Base SDK or Supported Platforms to support Apple Watch Ultra 4 (49mm). }
+Generated manifest file with attachment details: /Users/runner/work/personalized_communication_companion/personalized_communication_companion/build/listen-ios26-attachments/manifest.json
+failure screenshots:        0
