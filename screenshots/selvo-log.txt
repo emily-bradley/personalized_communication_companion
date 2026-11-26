@@ -1,7 +1,7 @@
 getpwuid_r did not find a match for uid 501
 Timestamp               Ty Process[PID:TID]
-2026-11-26 14:07:34.157 Df Selvo[23491:10af0] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
-2026-11-26 14:07:39.082 Df Selvo[23491:10af0] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
-2026-11-26 14:07:44.203 Df Selvo[23491:10af0] [com.emilykenney.selvo:listen] Stopped listening
-2026-11-26 14:07:44.316 Df Selvo[23491:10af0] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
-2026-11-26 14:07:44.809 Df Selvo[23491:10af0] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-26 16:07:19.126 Df Selvo[17012:d122] [com.emilykenney.selvo:listen] Asking for speech and microphone permission
+2026-11-26 16:07:24.245 Df Selvo[17012:d122] [com.emilykenney.selvo:listen] Starting recognition, on device: true, sample rate 48000.000000
+2026-11-26 16:07:30.438 Df Selvo[17012:d122] [com.emilykenney.selvo:listen] Stopped listening
+2026-11-26 16:07:30.526 Df Selvo[17012:d122] [com.emilykenney.selvo:listen] Recognition session ended: kAFAssistantErrorDomain 1110
+2026-11-26 16:07:31.068 Df Selvo[17012:d122] [com.emilykenney.selvo:listen] Stopped listening
