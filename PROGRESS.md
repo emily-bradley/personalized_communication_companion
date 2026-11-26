@@ -2879,3 +2879,17 @@ Main started at 0d8e917 (docs only). No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-26, build run 5 (15:55 to about 16:00 Central): main green on every job; no changes
+
+Main started at 7f3dd04 (docs only). No code or workflow changes in this run.
+
+### Verified, and how
+- 7f3dd04: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/45895038462 green, including `scripts/demo.sh` on macos-15. Xcode 27 push run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/45895038831 green, so the Xcode 27 demo and both Simulator test jobs pass on the current main. The scheduled run cancelled earlier today (runner cancellation during iOS 26.2 boot) is recorded in run 4.
+- No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- Watch tomorrow's scheduled Xcode 27 run; if the iOS 26.2 job is cancelled during boot again, run it by hand at a quieter hour before changing anything. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
