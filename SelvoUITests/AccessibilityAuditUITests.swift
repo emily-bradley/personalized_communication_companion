@@ -38,15 +38,23 @@ final class AccessibilityAuditUITests: XCTestCase {
             print("AUDIT \(screen): \(issue.auditType) \(issue.compactDescription) [\(element)] \(issue.detailedDescription)")
             return false
         }
-        do {
-            try app.performAccessibilityAudit(for: types, report)
-        } catch let error as NSError where error.domain == Self.auditErrorDomain && error.code == Self.auditTimedOut {
-            // A slow CI Simulator can run out of time before the audit finishes (Oct 22). That
-            // says nothing about the screen, so audit it once more; a second timeout fails.
-            print("AUDIT \(screen): timed out once, auditing again")
-            try app.performAccessibilityAudit(for: types, report)
+        // A slow CI Simulator can run out of time before the audit finishes (Oct 22, Nov 11,
+        // Nov 26). That says nothing about the screen, so audit up to three times; a third
+        // timeout fails. Real audit findings still fail the first time.
+        for attempt in 1...Self.auditAttempts {
+            do {
+                try app.performAccessibilityAudit(for: types, report)
+                return
+            } catch let error as NSError
+                where error.domain == Self.auditErrorDomain && error.code == Self.auditTimedOut
+                && attempt < Self.auditAttempts {
+                print("AUDIT \(screen): timed out on attempt \(attempt), auditing again")
+                Thread.sleep(forTimeInterval: 2)
+            }
         }
     }
+
+    private static let auditAttempts = 3
 
     /// "Audit failed to complete in time".
     private static let auditErrorDomain = "com.apple.xcode.xctest.accessibilityAudit"
