@@ -2907,3 +2907,21 @@ Main started at e7e7404 (docs only). No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-27, build run 1 (07:55 to about 08:50 Central): main was red on an audit timeout; fixed, green on every job
+
+Main started at 92a8ef0 (docs only) with both workflows red: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/45913834862 ("Build, test, screenshots": `AccessibilityAuditUITests` testHelp and testHome) and Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/45913834897 (testSetupTextSizeStep). Every failure was "Audit failed to complete in time" (code -56) twice in a row, so the single retry did not save it. The commit touched no code; every other test and all three `scripts/demo.sh` jobs passed. This is the second double timeout after Nov 11, which the Nov 11 entry said should get another retry.
+
+### Changed
+- 9f3f1aa `test:` `AccessibilityAuditUITests.audit` now tries the audit up to three times when it times out, with a two second pause between tries. A third timeout still fails, and a real audit finding still fails on the first try. Test code only; no app or workflow change.
+
+### Verified, and how
+- 9f3f1aa: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46011555385 green on all five jobs, including `scripts/demo.sh` (Xcode 16 and Xcode 26) on macos-15. Xcode 27 https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46011555371 green, including `scripts/demo.sh (Xcode 27)` (the iOS 26.2 job runs only on schedule, so it was skipped). No audit needed a retry this time. Job conclusions via `gh api`.
+- No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+- Today's scheduled Xcode 27 run had not fired by the end of this run.
+
+### Next
+- Check today's scheduled Xcode 27 run; if the iOS 26.2 job is cancelled during boot again, run it by hand at a quieter hour before changing anything. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
