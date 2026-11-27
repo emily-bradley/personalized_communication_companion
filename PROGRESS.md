@@ -2955,3 +2955,19 @@ Main started at deffce2 (docs only). No code or workflow changes in this run.
 
 ### Needs Emily
 - Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
+
+## 2026-11-27, build run 4 (13:55 to about 15:15 Central): main green; scheduled iOS 26.2 job cancelled again, passed when run by hand
+
+Main started at 6a71036 (docs only). No code or workflow changes in this run.
+
+### Verified, and how
+- 6a71036: CI https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46045679426 green, including `scripts/demo.sh` on macos-15. Xcode 27 push run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46045679454 green.
+- Today's scheduled Xcode 27 run https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46056862953 (started 19:27 UTC, about nine hours after its 10:17 UTC cron): `scripts/demo.sh (Xcode 27)` and `Build and test (Xcode 27, iOS 27 Simulator)` green. The iOS 26.2 job was cancelled from outside ("The operation was canceled") about 11 minutes in, just after the iOS 26.2 first boot finished and as the build began, with no timeout and no Selvo error. Same runner cancellation as Nov 26 and Nov 13 to Nov 16.
+- As run 3 said, I ran the workflow by hand (workflow_dispatch) before changing anything: https://github.com/emily-bradley/personalized_communication_companion/actions/runs/46060123703. Its first attempt lost the runner during the demo step ("The hosted runner lost communication with the server", no log kept), the runner loss already seen Nov 3 and Nov 4. I reran the failed job once and attempt 2 was green on every step: `scripts/demo.sh` picked the iOS 26.2 Simulator and Listen passed on it. All three Xcode 27 jobs are green on 6a71036. Job and step conclusions via `gh api`.
+- Reading: both failures are runner infrastructure, not Selvo or the demo script, so no workflow change. No open issues, no unchecked PLAN.md items, `Config/Signing.xcconfig` still reads `DEVELOPMENT_TEAM = [EMILY_TEAM_ID]`. No screens changed, so no screenshots were reviewed again.
+
+### Next
+- Watch Monday's scheduled Xcode 27 run (the cron is weekdays only). If the iOS 26.2 job is cancelled or loses its runner again, run it by hand once and rerun failed jobs once before changing anything. TestFlight upload once Emily adds her Team ID and the secrets. Later runs fix only red CI or demo-blocking bugs.
+
+### Needs Emily
+- Unchanged: Team ID, confirm bundle ID `com.emilykenney.selvo`, App Store Connect app record, API key, the four secrets, then run the TestFlight workflow by hand; run `./scripts/demo.sh` on your Mac; the two open design decisions (telling the three suggestions apart without reading; Listen's server fallback).
